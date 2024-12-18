@@ -1,8 +1,9 @@
 ---
 layout: page
 permalink: /repositories/
-title: repositories
-description: Edit the `_data/repositories.yml` and change the `github_users` and `github_repos` lists to include your own GitHub profile and repositories.
+title: Repositories
+description: Insights into the GitHub Repositories of AURA Lab Members
+Discover the latest statistics and trends from the GitHub repositories maintained by the talented members of the AURA Lab. These repositories reflect our commitment to innovation and excellence in advancing sustainability, automation, and interpretability in software engineering
 nav: true
 nav_order: 4
 ---
