@@ -1,14 +1,13 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - antonio-mastropaolo
+  - LeyliG
+  - jbcallv
 
 repo_description_lines_max: 2
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  - antonio-mastropaolo/robustness-copilot
+  - antonio-mastropaolo/T5-learning-ICSE_2021
+  - antonio-mastropaolo/automating-logging-acitivities
+  - LeyliG/TimeSeriesForecasting_Python-
+  - /jbcallv/dotfiles
