@@ -19,10 +19,3 @@ social: false # includes social icons at the bottom of the page
 ---
 
 The AURA Lab (AI for Understanding and Responsible Automation in Software Engineering), founded in 2024, is dedicated to advancing research at the intersection of sustainability, automation, and interpretability in software engineering. Our mission is to create innovative, responsible, and efficient solutions that propel the field forward while addressing the critical challenges of AI transparency and AI sustainability. By leveraging collaboration, state-of-the-art methodologies, and a commitment to impactful research, the AURA Lab aims to make meaningful contributions to the evolution of automated software engineering, benefiting academia, industry, and society at large.
-
-<!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder. -->
-
-
-<!-- Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically. -->
-
-<!-- Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
