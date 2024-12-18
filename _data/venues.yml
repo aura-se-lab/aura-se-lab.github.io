@@ -1,9 +1,10 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
+"TOSEM":
+  url: https://dl.acm.org/journal/tosem
   color: "#00369f"
 
-"PhysRev":
-  url: https://journals.aps.org/
+"TSE":
+  url: https://dl.acm.org/journal/isof
+  color: "#009f36"
 
-"Vision":
+"ICSE":
   color: "#009f36"
