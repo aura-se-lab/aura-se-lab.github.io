@@ -4,6 +4,8 @@
     <li><a href="https://antoniomastropaolo.com"><i class="fa-light fa-globe-pointer"></i></a></li>
     <li><a href="https://www.linkedin.com/in/antonio-mastropaolo-b3a1a2169/"><i class="fa-brands fa-linkedin"></i></a></li>
     <li><a href="https://x.com/AntonioMastro2"><i class="fa-brands fa-x-twitter"></i></a></li>
+    <li><i class="fa-solid fa-envelope">mailto:amastropaolo@wm.edu</i></a></li>
+
 
 </ul>
 

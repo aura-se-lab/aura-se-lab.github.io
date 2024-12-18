@@ -1,5 +1,9 @@
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hi there! I’m Aya, a CS Ph.D. student at the College of William & Mary. I’m working with Dr. Antonio Mastropaolo and Dr. Denys Poshyvanyk at the intersection of Artificial Intelligence and Software Engineering. My primary research goal is to make the AI models for software engineering tasks more interpretable and trustworthy.  Prior to my Ph.D., I worked as a Data Scientist, gaining valuable industry experience, and earned a B.S. in Mathematics from Wingate University and M.S. in Computer Science from William & Mary. I am passionate about STEM outreach and welcome questions from undergraduate and master’s students about pursuing research. I’m also open to collaborations in my area of interest.
+Outside of research, I enjoy staying curious and engaged with the world through watching travel and educational documentaries, reading historical fiction, and just listening to people’s stories. For physical activities, I practice yoga and Pilates, hike, and travel. Staying curious and grateful keeps me motivated every day."
 
-Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+<ul>
+    <li><a href="https://antoniomastropaolo.com"><i class="fa-light fa-globe-pointer"></i></a></li>
+    <li><a href="https://www.linkedin.com/in/leyligarryyeva/"><i class="fa-brands fa-linkedin"></i></a></li>
+    <li><a href="https://x.com/AntonioMastro2"><i class="fa-brands fa-x-twitter"></i></a></li>
+    <li><i class="fa-solid fa-envelope">mailto:lgarryyeva@wm.edu</i></a></li>
+</ul>
