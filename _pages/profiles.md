@@ -12,33 +12,21 @@ profiles:
   - align: right
     image: antonio.jpg
     content: about_antonio.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p>555 your office number</p>
-      <p>123 your address street</p>
-      <p>Your City, State 12345</p>
+    image_circular: true # crops the image to make it circular
+    more_info:
   - align: left
     image: saima.jpg
     content: about_saima.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p>555 your office number</p>
-      <p>123 your address street</p>
-      <p>Your City, State 12345</p>
+    image_circular: true # crops the image to make it circular
+    more_info: 
   - align: right
     image: aya.jpg
     content: about_aya.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p>555 your office number</p>
-      <p>123 your address street</p>
-      <p>Your City, State 12345</p>
+    image_circular: true # crops the image to make it circular
+    more_info:
   - align: left
     image: joseph.jpg
     content: about_joseph.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p>555 your office number</p>
-      <p>123 your address street</p>
-      <p>Your City, State 12345</p>
+    image_circular: true # crops the image to make it circular
+    more_info:
 ---
