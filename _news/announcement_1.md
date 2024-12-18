@@ -9,3 +9,4 @@ related_posts: false
 We are delighted to welcome <a href="https://github.com/saimaafrin">Saima</a> to the AURA Lab! Starting in September 2024, Saima will begin her research journey under the mentorship of Prof. Mastropaolo.
 
 We are eager to see her contributions to our mission of advancing sustainability, automation, and interpretability in software engineering. Welcome aboard, Saima! 🚀✨
+
