@@ -1,6 +1,6 @@
 ---
 layout: page
-title: research
+title: Ongoing Research
 permalink: /projects/
 description: Research avenues we actively explore at the AURA Lab.
 nav: true
