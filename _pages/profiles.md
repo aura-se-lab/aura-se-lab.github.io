@@ -24,7 +24,7 @@ profiles:
     content: about_saima.md
     image_circular: true # crops the image to make it circular
     more_info: 
-  - align: right
+  - align: left
     image: aya.jpg
     content: about_aya.md
     image_circular: true # crops the image to make it circular
