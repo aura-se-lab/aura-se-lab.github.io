@@ -19,6 +19,6 @@ The AURA Lab, founded in Fall 2024, is dedicated to advancing research at the in
 
 ------
 
-<p>McGlothlin-Street Hall, 251 Jamestown Rd -- Office #014</p>
-<p>Williamsburg VA, United States of America 🇺🇸 </p>
+<p>McGlothlin-Street Hall, 251 Jamestown Rd -- Office #014
+Williamsburg VA, United States of America 🇺🇸 </p>
 
