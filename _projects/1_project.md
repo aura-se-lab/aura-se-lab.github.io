@@ -5,7 +5,7 @@ description: Advancing Sustainable Software Engineering Automation via, Quantiza
 img: assets/img/sustainability/main.png
 importance: 1
 category: work
-related_publications: true
+related_publications: false
 ---
 
 As the demand for automated solutions in software engineering grows, the environmental impact of training and deploying large language models (LLMs) becomes increasingly significant. Sustainable software engineering automation seeks to address these challenges by leveraging techniques that enhance efficiency while maintaining high performance.
@@ -15,17 +15,6 @@ Parameter-Efficient Fine-Tuning (PEFT) enables the adaptation of large models to
 Our ongoing research explores the application and integration of these techniques, aiming to develop greener, cost-effective, and scalable approaches for automating software engineering tasks, thereby promoting sustainable and responsible AI-driven solutions.
 
 ---
-
-
-
-<!-- To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    --- -->
 
 <div class="row">
     <div class="col-sm mt-9 mt-md-0">
