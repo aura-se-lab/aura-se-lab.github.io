@@ -9,10 +9,8 @@ profile:
   image: prof_pic.png
   image_circular: true # crops the image to make it circular
   more_info: >
-    <p>Office #014</p>
-    <p>McGlothlin-Street Hall, 251 Jamestown Rd</p>
-    <p>Williamsburg VA, 
-    United States of America 🇺🇸</p>
+    <p>McGlothlin-Street Hall, 251 Jamestown Rd -- Office #014</p>
+    <p>Williamsburg VA, United States of America 🇺🇸 </p>
 
 news: true # includes a list of news items
 selected_papers: false # includes a list of papers marked as "selected={true}"
