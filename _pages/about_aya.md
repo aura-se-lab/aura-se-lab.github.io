@@ -4,7 +4,7 @@
 </div>
 ------------------
 
-Hi there! I’m Aya, a CS Ph.D. student at the College of William & Mary. I’m working with Dr. Antonio Mastropaolo and Dr. Denys Poshyvanyk at the intersection of Artificial Intelligence and Software Engineering. My primary research goal is to make the AI models for software engineering tasks more interpretable and trustworthy. 
+Hi there! I’m Aya, a CS Ph.D. student at the College of William & Mary. I’m working with Dr. Antonio Mastropaolo and <a href="https://www.cs.wm.edu/~denys/">Dr. Denys Poshyvanyk</a> at the intersection of Artificial Intelligence and Software Engineering. My primary research goal is to make the AI models for software engineering tasks more interpretable and trustworthy. 
 
 Prior to my Ph.D., I worked as a Data Scientist, gaining valuable industry experience, and earned a B.S. in Mathematics from Wingate University and M.S. in Computer Science from William & Mary. I am passionate about STEM outreach and welcome questions from undergraduate and master’s students about pursuing research. I’m also open to collaborations in my area of interest.
 
