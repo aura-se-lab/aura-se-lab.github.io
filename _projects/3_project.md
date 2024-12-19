@@ -1,9 +1,8 @@
 ---
 layout: page
-title: project 3 with very long name
-description: a project that redirects to another website
-img: assets/img/7.jpg
-redirect: https://unsplash.com
+title: Extra Functional Requirements of Large Code Models
+description: Unveiling the Hidden Challenges of LCMs
+img: assets/img/extra-functional/models.jpg
 importance: 3
 category: work
 ---
