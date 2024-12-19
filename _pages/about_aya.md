@@ -1,6 +1,7 @@
 
-
-<h4>Aya Garryyeva</h4>
+<div style="margin-left: auto; margin-right: 0; width: 75%;">
+    <h4>Aya Garryyeva</h4>
+</div>
 ------------------
 
 Hi there! I’m Aya, a CS Ph.D. student at the College of William & Mary. I’m working with Dr. Antonio Mastropaolo and Dr. Denys Poshyvanyk at the intersection of Artificial Intelligence and Software Engineering. My primary research goal is to make the AI models for software engineering tasks more interpretable and trustworthy. 
