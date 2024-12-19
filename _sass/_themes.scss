@@ -33,7 +33,7 @@
   --global-bg-color: #f9f9fb; /* Light neutral background for modern look */
   --global-code-bg-color: #f4f5f7; /* Subtle grey for code areas */
   --global-text-color: #2e2e38; /* Dark grey for better readability */
-  --global-text-color-light: #6b6b75; /* Soft grey for less emphasized text */
+  --global-text-color-light: #000000; /* Soft grey for less emphasized text */
   --global-theme-color: #6c63ff; /* Vibrant purple for accents */
   --global-hover-color: #5a54e5; /* Slightly darker shade for hover effects */
   --global-hover-text-color: #ffffff; /* Ensure contrast on hover */
@@ -109,7 +109,7 @@ html[data-theme="dark"] {
   --global-footer-link-color: #{$black-color};
   --global-distill-app-color: #{$grey-color-light};
   --global-divider-color: #b8b8b8;
-  --global-card-bg-color: #b8b8b83e;//#{$grey-900};
+  --global-card-bg-color: #eae9e9df;//#{$grey-900};
   --global-back-to-top-bg-color: rgba(
     #{color.channel($white-color, "red", $space: rgb)},
     #{color.channel($white-color, "green", $space: rgb)},
