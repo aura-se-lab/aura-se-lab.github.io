@@ -511,7 +511,7 @@ footer.sticky-bottom {
 
   .card {
     background-color: var(--global-card-bg-color);
-    border: 1px solid var(--global-divider-color);
+    border: 2px solid var(--global-divider-color);
 
     .list-group-item {
       background-color: inherit;
@@ -1114,7 +1114,8 @@ nav[data-toggle="toc"] {
       color: var(--global-theme-color);
 
       .card-title {
-        color: var(--global-theme-color);
+        //color: var(--global-theme-color);
+        color:rgb(0, 0, 0);
       }
     }
   }
