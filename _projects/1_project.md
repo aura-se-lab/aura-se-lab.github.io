@@ -32,14 +32,8 @@ Our ongoing research explores the application and integration of these technique
     --- -->
 
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/sustainability/copilot.png" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/sustainability/cl.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/sustainability/cw.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    <div class="col-sm mt-9 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/sustainability/cost-llm.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
