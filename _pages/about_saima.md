@@ -1,7 +1,12 @@
 
 
-<h1 style="align:right;">PhD Students</h1>
+<h1>PhD Students</h1>
 
+------------------
+<br>
+
+------------------
+<h4>Saima Afrin</h4>
 ------------------
 
 <a href="">Saima Afrin</a> is a PhD candidate in Computer Science at William & Mary, specializing in applying Artificial Intelligence to automate Software Engineering, with a strong emphasis on Green AI. Since joining the AURA lab in the Fall of 2024, she has focused on exploring innovative Green AI techniques to optimize Large Language Models of Code (LLMc). 
