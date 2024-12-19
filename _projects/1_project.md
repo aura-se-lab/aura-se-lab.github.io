@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Toward Sustainable Software Engineering Automation
-description: with background image
+description: Toward Sustainable Software Engineering Automation
 img: assets/img/sustainability/main.png
 importance: 1
 category: work
@@ -39,7 +39,7 @@ Our ongoing research explores the application and integration of these technique
         {% include figure.liquid loading="eager" path="assets/img/sustainability/cl.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/sustainability/dsc.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/sustainability/cw.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
