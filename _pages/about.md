@@ -5,7 +5,7 @@ permalink: /
 subtitle: <em>AI for Understanding and Responsible Automation in Software Engineering</em>
 
 profile:
-  align: left
+  align: right
   image: prof_pic.png
   image_circular: true # crops the image to make it circular
   more_info:
@@ -21,4 +21,5 @@ McGlothlin-Street Hall, 251 Jamestown Rd <br>
 Office #014 <br>
 Williamsburg, VA <br>
 United States of America 🇺🇸
+
 ------
