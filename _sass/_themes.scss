@@ -42,7 +42,7 @@
   --global-footer-link-color: #ffffff; /* Standout links in the footer */
   --global-distill-app-color: #e0e0e5; /* Neutral light grey for applications */
   --global-divider-color: rgba(0, 0, 0, 0.1); /* Subtle divider color */
-  --global-card-bg-color: #ffffff; /* Clean white for cards */
+  --global-card-bg-color: #c7bdbd; /* Clean white for cards */
   --global-highlight-color: #ff6b6b; /* Bright coral red for highlights */
   --global-back-to-top-bg-color: rgba(46, 46, 56, 0.4); /* Semi-transparent dark background */
   --global-back-to-top-text-color: #ffffff; /* Contrast against background */
@@ -109,7 +109,7 @@ html[data-theme="dark"] {
   --global-footer-link-color: #{$black-color};
   --global-distill-app-color: #{$grey-color-light};
   --global-divider-color: #b8b8b8;
-  --global-card-bg-color: #{$grey-900};
+  --global-card-bg-color: #b8b8b83e;//#{$grey-900};
   --global-back-to-top-bg-color: rgba(
     #{color.channel($white-color, "red", $space: rgb)},
     #{color.channel($white-color, "green", $space: rgb)},
