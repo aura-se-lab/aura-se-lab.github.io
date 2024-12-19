@@ -1,16 +1,12 @@
 ---
 layout: page
 title: Toward Sustainable Software Engineering Automation
-description: Toward Sustainable Software Engineering Automation
+description: Advancing Sustainable Software Engineering Automation via, Quantization, Knowledge Distillation and PEFT
 img: assets/img/sustainability/main.png
 importance: 1
 category: work
 related_publications: true
 ---
-
----
-
-**Toward Sustainable Software Engineering Automation**
 
 As the demand for automated solutions in software engineering grows, the environmental impact of training and deploying large language models (LLMs) becomes increasingly significant. Sustainable software engineering automation seeks to address these challenges by leveraging techniques that enhance efficiency while maintaining high performance.
 
