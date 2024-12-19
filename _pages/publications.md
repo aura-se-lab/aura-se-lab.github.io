@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: Publications
-description: Are you looking for a specific one? Use the search bar down below.
+description: #Are you looking for a specific one? Use the search bar down below.
 nav: true
 nav_order: 2
 ---
