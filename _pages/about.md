@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: <em>AI for Understanding and Responsible Automation in Software Engineering</em>
 
