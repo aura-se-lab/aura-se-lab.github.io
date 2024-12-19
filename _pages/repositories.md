@@ -1,9 +1,8 @@
 ---
 layout: page
 permalink: /repositories/
-title: repositories
-description: Insights into the GitHub Repositories of AURA Lab Members
-Discover the latest statistics and trends from the GitHub repositories maintained by the talented members of the AURA Lab. These repositories reflect our commitment to innovation and excellence in advancing sustainability, automation, and interpretability in software engineering
+title: Repositories
+description: Insights into the GitHub Repositories of AURA Lab Members. Discover the latest statistics and trends from the GitHub repositories maintained by the talented members of the AURA Lab. These repositories reflect our commitment to innovation and excellence in advancing sustainability, automation, and interpretability in software engineering
 nav: true
 nav_order: 4
 ---
