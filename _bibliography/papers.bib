@@ -4,7 +4,17 @@
   year         = 2024,
   journal      = {J. Syst. Softw.},
   volume       = 210,
-  pages        = 111947
+  pages        = 111947,
+  abstract =  "Logging assists in monitoring events that transpire during the execution of software. Previous research has
+    highlighted the challenges confronted by developers when it comes to logging, including dilemmas such as where to log, 
+    what data to record, and which log level to employ (e.g., info, fatal). In this context, we introduced LANCE, an approach 
+    rooted in deep learning (DL) that has demonstrated the ability to correctly inject a log statement into Java methods in ~15% of cases. 
+    Nevertheless, LANCE grapples with two primary constraints: (i) it presumes that a method necessitates the inclusion of logging statements
+    and; (ii) it allows the injection of only a single (new) log statement, even in situations where the injection of multiple log statements 
+    might be essential. To address these limitations, we present LEONID, a DL-based technique that can distinguish between methods that do 
+    and do not require the inclusion of log statements. Furthermore, LEONID supports the injection of multiple log statements within a given 
+    method when necessary, and it also enhances LANCE's 
+    proficiency in generating meaningful log messages through the combination of DL and Information Retrieval (IR)."
 }
 @article{DBLP:journals/tse/TufanoDMCB24,
   title        = {Code Review Automation: Strengths and Weaknesses of the State of the Art},
