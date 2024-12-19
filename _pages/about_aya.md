@@ -1,5 +1,5 @@
 
-<div style="margin-left: auto; margin-right: 0; width: 75%;">
+<div style="margin-left: auto; margin-right: 0; width: 35%;">
     <h4>Aya Garryyeva</h4>
 </div>
 ------------------
