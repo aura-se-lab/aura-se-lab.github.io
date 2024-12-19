@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Extra Functional Requirements of Large Code Models
-description: Unveiling the Hidden Challenges of LCMs
+description: Unveiling the Hidden Challenges of LCMs: Robustness, Trustworthiness and Security
 img: assets/img/extra-functional/dashboard.png
 importance: 3
 category: work
