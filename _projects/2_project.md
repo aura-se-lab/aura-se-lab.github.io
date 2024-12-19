@@ -18,6 +18,7 @@ In response, we propose to shit the focus to the development of a new framework 
 
 Additionally, interpretability enables the extraction of meaningful patterns, logic, and relationships from neural models, which can be encoded as a symbolic component in the neurosymbolic system. This integration addresses the limitations of purely probabilistic approaches by introducing symbolic reasoning, which is inherently fast, deterministic, and robust. The symbolic layer complements the adaptability of neural networks with its precision and reliability, creating a balanced, high-performing hybrid system. Together, these advancements bridge the gap between machine learning and human understanding, offering scalable, efficient, and explainable AI-driven solutions tailored to the evolving needs of software engineering.
 
+---
 
 <div class="row">
     <div class="col-sm mt-9 mt-md-0">
