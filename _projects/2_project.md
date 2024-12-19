@@ -2,7 +2,7 @@
 layout: page
 title: Interpretability for Neurosymbolic Software Engineering
 description: Interpretability for Neurosymbolic Software Engineering
-img: assets/img/interpretability/interpret.jpg
+img: assets/img/interpretability/brain.png
 importance: 2
 category: work
 giscus_comments: true
