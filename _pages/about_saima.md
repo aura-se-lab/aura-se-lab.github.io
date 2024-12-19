@@ -1,6 +1,6 @@
-------------------
 
-<h1>PhD Students</h1>
+
+<h1 style="align:right;">PhD Students</h1>
 
 ------------------
 
