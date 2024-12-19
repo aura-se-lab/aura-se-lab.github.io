@@ -41,7 +41,7 @@
   --global-footer-text-color: #a9a9b3; /* Light grey for footer text */
   --global-footer-link-color: #ffffff; /* Standout links in the footer */
   --global-distill-app-color: #e0e0e5; /* Neutral light grey for applications */
-  --global-divider-color: rgba(0, 0, 0, 0.1); /* Subtle divider color */
+  --global-divider-color: rgba(0, 0, 0); /* Subtle divider color */
   --global-card-bg-color: #e1e0e0; /* Clean white for cards */
   --global-text-color-card-title: rgb(0, 0, 0); /* Subtle divider color */
   --global-highlight-color: #ff6b6b; /* Bright coral red for highlights */
@@ -49,7 +49,7 @@
   --global-back-to-top-text-color: #ffffff; /* Contrast against background */
   --global-newsletter-bg-color: #f9f9fb; /* Match main background */
   --global-newsletter-text-color: #2e2e38; /* Ensure readability */
-
+  --global-bib-year: rgb(0,0,0);
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
@@ -110,6 +110,7 @@ html[data-theme="dark"] {
   --global-footer-link-color: #{$black-color};
   --global-distill-app-color: #{$grey-color-light};
   --global-divider-color: #b8b8b8;
+  --global-bib-year:var(--global-back-to-top-text-color)
   --global-text-color-card-title: rgb(0, 0, 0); /* Subtle divider color */
   --global-card-bg-color: #ffffff;//#{$grey-900};
   --global-back-to-top-bg-color: rgba(
