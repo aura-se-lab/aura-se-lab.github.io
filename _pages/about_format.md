@@ -1,4 +1,4 @@
 
-<div style="margin-left: auto; margin-right: 0; width: 75%;">
-    <h1><b>PhD Students</b></h1>
+<div style="margin-left: auto; margin-right: 0; width: 25%;">
+    <h1><b><em>PhD Students</em></b></h1>
 </div>

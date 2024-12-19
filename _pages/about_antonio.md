@@ -1,5 +1,5 @@
 
-<h1><b>Lab Director</b></h1>
+<h1><b><em>Lab Director</em></b></h1>
 
 ------------------
 
