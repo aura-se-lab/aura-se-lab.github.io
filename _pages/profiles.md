@@ -14,6 +14,11 @@ profiles:
     content: about_antonio.md
     image_circular: true # crops the image to make it circular
     more_info:
+  - align: right
+    image: 
+    content: about_format.md
+    image_circular: false # crops the image to make it circular
+    more_info:
   - align: left
     image: saima.jpg
     content: about_saima.md
