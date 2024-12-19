@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Interpretability for Neurosymbolic Software Engineering
+title: Interpretable Neurosymbolic Software Engineering
 description: Decoding the Synergy of Neural and Symbolic Systems in Software Engineering
 img: assets/img/interpretability/brain.png
 importance: 2
