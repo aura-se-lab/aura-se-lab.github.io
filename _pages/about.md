@@ -4,10 +4,10 @@ title: About
 permalink: /
 # subtitle: <em>AI for Understanding and Responsible Automation in Software Engineering</em>
 subtitle:
-  '''<span style="color: green;">(A)</span>I for 
-  <span style="color: green;">(U)</span>nderstanding and 
-  <span style="color: green;">(R)</span>esponsible 
-  <span style="color: green;">(A)</span>utomation in Software Engineering'''
+  ''<span style="color: green;">(A)</span><em>I for</em> 
+  <span style="color: green;">(U)</span><em>nderstanding and</em> 
+  <span style="color: green;">(R)</span><em>esponsible</em> 
+  <span style="color: green;">(A)</span><em>utomation in Software Engineering</em>''
 
 profile:
   align: right
