@@ -6,4 +6,5 @@ related_posts: false
 ---
 
 
-<p>🌟🌟🌟 Great news! Our paper, <em>"Toward Neuro Symbolic Program Comprehension"</em>, has been officially accepted for publication to <a href="https://conf.researchr.org/home/icpc-2025">ICPC ERA 2025</a> 33rd IEEE/ACM International Conference on Program Comprehension 🎉 <br> Thanks to: <a href="https://svelascodimate.github.io">Alejandro Velasco</a>, <a href="">Aya Garryyeva</a>, <a href="https://danaderp.github.io/danaderp/">David Nader Palacio</a> and <a href="https://www.cs.wm.edu/~denys/">Denys Poshyvanyk</a></p>
+<p>🌟 Exciting news! Our paper, <em>"Toward Neuro Symbolic Program Comprehension"</em>, has been accepted for publication in the <a href="https://conf.researchr.org/home/icpc-2025" target="_blank">ICPC ERA 2025</a>, part of the 33rd IEEE/ACM International Conference on Program Comprehension 🎉</p>
+<p>👏 A big thank you to my incredible collaborators: <a href="https://svelascodimate.github.io" target="_blank">Alejandro Velasco</a>, <a href="#" target="_blank">Aya Garryyeva</a>, <a href="https://danaderp.github.io/danaderp/" target="_blank">David Nader Palacio</a>, and <a href="https://www.cs.wm.edu/~denys/" target="_blank">Denys Poshyvanyk</a>. 🚀</p>

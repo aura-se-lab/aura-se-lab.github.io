@@ -6,5 +6,5 @@ related_posts: false
 ---
 
 
-Exciting news for Saima! 🎉🎉 She kicks off her PhD journey and the new year with a fantastic achievement: a publication in the
-<a href="https://conf.researchr.org/home/forge-2025">FORGE 2025 Research Track!</a> Stay tuned for the upcoming pre-print release.  🚀👏 <em>"Resource-Efficient & Effective Code Summarization"</em>
+<p>🎉 Exciting news for Saima! She begins her PhD journey with a publication in the <a href="https://conf.researchr.org/home/forge-2025" target="_blank">FORGE 2025 Research Track</a>! 🚀</p>
+<p>👏 Stay tuned for the pre-print, <em>"Resource-Efficient & Effective Code Summarization"</em>. 🌟</p>
