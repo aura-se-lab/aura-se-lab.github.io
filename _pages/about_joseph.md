@@ -13,4 +13,3 @@ About me: I'm originally from La Paz, Honduras and have always loved the unique 
     <a href="https://scholar.google.com/"><i class="fa-brands fa-google-scholar fa-2x"></i></a>
 </div>
 
-------------------
