@@ -1,18 +1,18 @@
 ---
 layout: page
-title: Toward Sustainable Software Engineering Automation
-description: Advancing Sustainable Software Engineering Automation via, Quantization, Knowledge Distillation and PEFT
+title: Toward Efficient Software Engineering Automation
+description: Advancing Efficient and Sustainable Software Engineering Automation via, Quantization, Knowledge Distillation and PEFT
 img: assets/img/sustainability/main.png
 importance: 1
 category: work
 related_publications: false
 ---
 
-As the demand for automated solutions in software engineering grows, the environmental impact of training and deploying large language models (LLMs) becomes increasingly significant. Sustainable software engineering automation seeks to address these challenges by leveraging techniques that enhance efficiency while maintaining high performance.
+As the demand for automated solutions in software engineering continues to rise, the efficiency of training and deploying large language models (LLMs) becomes a critical concern. Efficient software engineering automation aims to tackle this challenge by adopting techniques that optimize resource utilization while preserving high performance.
 
-Parameter-Efficient Fine-Tuning (PEFT) enables the adaptation of large models to new tasks by training only a small subset of parameters, drastically reducing computational requirements and resource usage. Quantization compresses models by lowering the precision of numerical representations, reducing memory consumption and improving inference speeds without substantial loss in accuracy. Knowledge distillation facilitates the transfer of knowledge from a large model to a smaller, more efficient version, using the larger model as a guide to retain performance at a fraction of the computational cost.
+Parameter-Efficient Fine-Tuning (PEFT) allows large models to be adapted to new tasks by updating only a small portion of their parameters, significantly lowering computational overhead. Quantization reduces model size and accelerates inference by decreasing numerical precision, all while maintaining acceptable levels of accuracy. Knowledge distillation transfers the capabilities of a large model into a smaller, faster one, preserving much of the original performance at a fraction of the computational cost.
 
-Our ongoing research explores the application and integration of these techniques, aiming to develop greener, cost-effective, and scalable approaches for automating software engineering tasks, thereby promoting sustainable and responsible AI-driven solutions.
+Our ongoing research investigates the use and combination of these methods to develop efficient, cost-effective, and scalable approaches for automating software engineering tasks—advancing practical, high-performance AI-driven development workflows.
 
 ---
 
