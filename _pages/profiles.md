@@ -35,7 +35,7 @@ profiles:
     image_circular: true # crops the image to make it circular
     more_info:
   - align: left
-    image: alvi.jpg
+    image: alvi.jpeg
     content: about_alvi.md
     image_circular: true # crops the image to make it circular
     more_info:
