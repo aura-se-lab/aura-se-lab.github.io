@@ -15,19 +15,19 @@ description: > # the ">" symbol means to ignore newlines until "footer_text:"
 
   Led by Dr. Antonio Mastropaolo at William & Mary, the lab develops approaches in:
 
-  Explainability & Interpretability — methods that reveal how code models reason (rationales, traces, tests)
+  Explainability & Interpretability -- methods that reveal how code models reason (rationales, traces, tests)
   so developers can inspect, trust, and debug automation.
 
-  Efficiency & Resource‑Aware Automation — quantization, distillation, and PEFT to deliver low‑latency,
+  Efficiency & Resource‑Aware Automation -- quantization, distillation, and PEFT to deliver low‑latency,
   memory‑light, cost‑aware automation measured on real workloads with reproducible metrics.
 
-  Multi‑Agent LLMs for SE — role‑aligned agents that plan, code, test, and review, coordinated to produce
+  Multi‑Agent LLMs for SE -- role‑aligned agents that plan, code, test, and review, coordinated to produce
   coherent end‑to‑end developer assistance.
 
-  Neurosymbolic AI for SE — hybrid pipelines pairing LLMs with program analysis and constraints to produce
+  Neurosymbolic AI for SE -- hybrid pipelines pairing LLMs with program analysis and constraints to produce
   interpretable, checkable fixes, tests, and designs.
 
-  Task‑Aware Code Automation — from issues, diffs, and traces to concise summaries, TODOs, and plans; models
+  Task‑Aware Code Automation -- from issues, diffs, and traces to concise summaries, TODOs, and plans; models
   that reduce developer toil with actionable, repo‑aware guidance.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
