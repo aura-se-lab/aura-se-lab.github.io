@@ -39,5 +39,10 @@ profiles:
     content: about_alvi.md
     image_circular: true # crops the image to make it circular
     more_info:
+  - align: Ben
+    image: ben.jpeg
+    content: about_ben.md
+    image_circular: true # crops the image to make it circular
+    more_info:
     
 ---
