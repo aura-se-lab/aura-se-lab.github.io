@@ -50,4 +50,4 @@ jobs:
           fail: true
           # removed md files that include liquid tags
           # exclude Google Scholar to avoid 403 Forbidden from scholar.google.com
-          args: --user-agent 'curl/7.54' --exclude-path README.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --exclude-url 'https://scholar.google.com/*' --verbose --no-progress './**/*.md' './**/*.html'
+          args: --user-agent 'curl/7.54' --exclude-path README.md --exclude _pages/404.md --exclude _pages/blog.md --exclude _posts/2018-12-22-distill.md --exclude _posts/2023-04-24-videos.md --exclude 'https://scholar.google.com/*' --verbose --no-progress './**/*.md' './**/*.html'

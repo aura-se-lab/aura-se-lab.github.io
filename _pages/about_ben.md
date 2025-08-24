@@ -10,6 +10,7 @@
   and neural‑network compression—to reduce the compute and carbon footprint of large language models
   and support more efficient as well as sustainable AI for SE.
 </p>
+
 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 5px;">
     <a href="https://www.google.com"><i class="fa-solid fa-globe fa-2x"></i></a>
     <a href="https://www.linkedin.com/in/benjamin-tremblay-29a510247/"><i class="fa-brands fa-linkedin fa-2x"></i></a>
