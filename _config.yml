@@ -15,20 +15,15 @@ description: > # the ">" symbol means to ignore newlines until "footer_text:"
 
   Led by Dr. Antonio Mastropaolo at William & Mary, the lab develops approaches in:
 
-  Explainability & Interpretability -- methods that reveal how code models reason (rationales, traces, tests)
-  so developers can inspect, trust, and debug automation.
+  Explainability & Interpretability — methods that reveal how code models reason (rationales, traces, tests) so developers can inspect, trust, and debug automation.
 
-  Efficiency & Resource‑Aware Automation -- quantization, distillation, and PEFT to deliver low‑latency,
-  memory‑light, cost‑aware automation measured on real workloads with reproducible metrics.
+  Efficiency & Resource‑Aware Automation — quantization, distillation, and PEFT to deliver low‑latency, memory‑light, cost‑aware automation measured on real workloads with reproducible metrics.
 
-  Multi‑Agent LLMs for SE -- role‑aligned agents that plan, code, test, and review, coordinated to produce
-  coherent end‑to‑end developer assistance.
+  Multi‑Agent LLMs for SE — role‑aligned agents that plan, code, test, and review, coordinated to produce coherent, end‑to‑end developer assistance.
 
-  Neurosymbolic AI for SE -- hybrid pipelines pairing LLMs with program analysis and constraints to produce
-  interpretable, checkable fixes, tests, and designs.
+  Neurosymbolic AI for SE — hybrid pipelines pairing LLMs with program analysis and constraints to produce interpretable, checkable fixes, tests, and designs.
 
-  Task‑Aware Code Automation -- from issues, diffs, and traces to concise summaries, TODOs, and plans; models
-  that reduce developer toil with actionable, repo‑aware guidance.
+  Task‑Aware Code Automation — from issues, diffs, and traces to concise summaries, TODOs, and plans; models that reduce developer toil with actionable, repo‑aware guidance.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
@@ -38,7 +33,7 @@ keywords: Research Group, AURA Lab, AI and Software Engineering, Sustainability,
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: research.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
-url: https://aura.se.lab.github.io # the base hostname & protocol for your site
+url: https://aura-se-lab.github.io # the base hostname & protocol for your site
 baseurl:
 last_updated: false # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
@@ -290,8 +285,8 @@ display_categories: ["external-services"] # these categories will be displayed o
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Antonio]
-  first_name: [Mastropaolo]
+  last_name: [Mastropaolo]
+  first_name: [Antonio]
 
   style: apa
   locale: en
