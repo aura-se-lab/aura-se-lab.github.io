@@ -16,7 +16,7 @@ profiles:
     more_info:
   - align: right
     image: 
-    content: about_format.md
+    content: separator-text-phd.md
     image_circular: false # crops the image to make it circular
     more_info:
   - align: left
@@ -39,9 +39,9 @@ profiles:
     content: about_alvi.md
     image_circular: true # crops the image to make it circular
     more_info:
-  - align: right
+  - align: left
     image: 
-    content: about_format_ug.md
+    content: separator-text-ug.md
     image_circular: false # crops the image to make it circular
   - align: right
     image: ben.jpg
