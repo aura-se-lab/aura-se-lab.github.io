@@ -14,20 +14,19 @@ profiles:
     image: assets/img/sustainability/main.png
     content: efficiency.md
     image_circular: true # crops the image to make it circular
-    more_info:
-    - align: right
+
+  - align: right
     image: assets/img/interpretability/brain.png
     content: int-exp.md
     image_circular: true # crops the image to make it circular
-    more_info:
-    - align: right
+
+  - align: right
     image: assets/img/lma/organization.png
     content: multi-agent-software-documentation.md
     image_circular: true # crops the image to make it circular
-    more_info:
-    - align: right
+
+  - align: right
     image: assets/img/lma/organization.png
     content: task-aware-code-automation.md
     image_circular: true # crops the image to make it circular
-    more_info:
 

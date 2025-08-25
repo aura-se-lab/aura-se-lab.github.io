@@ -3,7 +3,7 @@
 
 
 Hi, I'm Ben—an undergraduate CS student at <strong>William &amp; Mary</strong> specializing in AI/ML. 
-Under the mentorship of <a href="https://antoniomastropaolo.github.io">Dr. Antonio Mastropaolo</a>, I research the intersection of software engineering and AI optimization, with particular focus on <em>large code models</em>. 
+Under the mentorship of <a href="https://antoniomastropaolo.com">Dr. Antonio Mastropaolo</a>, I research the intersection of software engineering and AI optimization, with particular focus on <em>large code models</em>. 
 My work explores <em>parameter-efficient fine-tuning (PEFT)</em> and <em>neural compression techniques</em>—including quantization, pruning, and adapter methods like LoRA/QLoRA—applied to code generation models. 
 The central question driving my research is: <strong>when optimization methods alter a model's underlying topology, what happens to code quality beyond mere correctness?</strong> 
 While functional correctness might be preserved, I investigate whether other critical software attributes—maintainability, security, readability, and adherence to best practices—degrade under these structural transformations. 
