@@ -8,6 +8,7 @@ The key benefit is **relevance**. An assistant aware it is reviewing code can pr
 
 ### Representative Publications
 - Afrin, Saima, et al. *"Resource-Efficient & Effective Code Summarization."* 2025 IEEE/ACM Second International Conference on AI Foundation Models and Software Engineering (FORGE). IEEE, 2025.  
+
 - Mastropaolo, Antonio, et al. *"Toward Automatically Completing GitHub Workflows."* Proceedings of the 2024 IEEE/ACM International Conference on Software Engineering (ICSE). ACM, 2024.  
 
 ### Key Contributions
