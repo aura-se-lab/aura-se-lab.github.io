@@ -44,7 +44,7 @@ profiles:
     content: about_format_ug.md
     image_circular: false # crops the image to make it circular
   - align: right
-    image: ben.jpeg
+    image: ben.jpg
     content: about_ben.md
     image_circular: true # crops the image to make it circular
     more_info:
