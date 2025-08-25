@@ -12,21 +12,21 @@ profiles:
   # and create one content file for each profile inside _pages/
   - align: right
     image: assets/img/sustainability/main.png
-    content: efficiency.md
+  content: _projects/efficiency.md
     image_circular: true # crops the image to make it circular
 
   - align: right
     image: assets/img/interpretability/brain.png
-    content: int-exp.md
+  content: _projects/int-exp.md
     image_circular: true # crops the image to make it circular
 
   - align: right
     image: assets/img/lma/organization.png
-    content: multi-agent-software-documentation.md
+  content: _projects/multi-agent-software-documentation.md
     image_circular: true # crops the image to make it circular
 
   - align: right
     image: assets/img/lma/organization.png
-    content: task-aware-code-automation.md
+  content: _projects/task-aware-code-automation.md
     image_circular: true # crops the image to make it circular
 
