@@ -1,67 +1,16 @@
+## Task-Aware Code Automation
 
-<h1><b><em>Efficiency &amp; Resource‑Aware Automation</em></b></h1>
+AI copilots are increasingly valuable, but a one-size-fits-all model cannot cover the full spectrum of software engineering activities—coding, reviewing, debugging, documenting—each with unique goals and constraints. **Task-aware automation** addresses this gap by tailoring AI to the specific context of the developer’s work. Instead of treating all inputs equally, these systems leverage repository history, issue discussions, diffs, and runtime traces to make outputs more precise and actionable.
 
-------------------
+Domain-specialized LLMs illustrate this trend. For instance, CodeLlama and Incoder outperform generic LLMs on code benchmarks by emphasizing syntax and semantics relevant to programming. Building on this idea, task-aware assistants can adjust behavior depending on the task: adopting a conservative, test-oriented style for bug fixing; offering higher-level summaries for documentation; or suggesting creative alternatives for feature development. Our work extends this vision by fine-tuning lightweight models for targeted tasks (e.g., summarization, test generation) and coordinating them under a unified, context-sensitive framework.
 
-As demand for AI‑assisted software engineering grows, the decisive constraint is no longer
-“can a large model do it?” but “can we afford to train, adapt, and serve it responsibly?” We align
-quantization, parameter‑efficient fine‑tuning (e.g., QLoRA), and knowledge distillation into a
-pragmatic pipeline that cuts training and inference cost while retaining task performance.
-This avenue merges efficiency‑themed material across the prior drafts into a single, coherent
-program with shared assumptions (datasets, metrics, deployment targets). <em class="smallnote">Justification:
-materials that treated cost/performance trade‑offs and model adaptation overlapped heavily,
-so they are merged here; distinct neurosymbolic or task‑aware themes are covered in separate avenues.</em>
-</p>
+The key benefit is **relevance**. An assistant aware it is reviewing code can prioritize stylistic and correctness checks, while one tasked with documentation can optimize for clarity and brevity. Our early results show that task-tuned summarization yields higher-quality results with lower compute costs. Similarly, program translation enhanced with symbolic checks maintains functional equivalence between source and target code, demonstrating how task-aware design improves reliability.
 
-<p>
-    Practically, we standardize evaluation for low‑precision and PEFT variants on code intelligence tasks
-    (summarization, defect detection, review support), and we report energy/time savings alongside quality
-    metrics. The goal is to make “GreenAI‑by‑design” the default for SE automation, not an afterthought.
-    <em>Alternate image placement:</em> a small energy‑meters strip under the opening paragraph.
-</p>
+### Representative Publications
+- Afrin, Saima, et al. *"Resource-Efficient & Effective Code Summarization."* 2025 IEEE/ACM Second International Conference on AI Foundation Models and Software Engineering (FORGE). IEEE, 2025.  
+- Mastropaolo, Antonio, et al. *"Toward Automatically Completing GitHub Workflows."* Proceedings of the 2024 IEEE/ACM International Conference on Software Engineering (ICSE). ACM, 2024.  
 
-<p>
-    <strong>Representative publications:</strong>
-    <ul class="card-text font-weight-light list-group list-group-flush">
-    <li class="list-group-item">
-        <strong>Is Quantization a Deal-breaker? (ICSME ’25)</strong> — AWQ on CodeLlama/DeepSeekCoder; functional correctness and key quality attributes largely preserved. <a href="https://antoniomastropaolo.com">[1]</a>
-    </li>
-    <li class="list-group-item">
-        <strong>Resource-Efficient &amp; Effective Code Summarization (FORGE ’25)</strong> — QLoRA for Java/Python code→NL; evidence toward greener fine-tuning in SE. <a href="https://antoniomastropaolo.com">[1]</a>
-    </li>
-    <li class="list-group-item">
-        <strong>Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough? (ICPC ’25)</strong> — study on dataset design and coherence signals for code→NL quality. <a href="https://antoniomastropaolo.com">[1]</a>
-    </li>
-    </ul>
-</p>
-
-
-
-
-
-
-
-
-
-
-
-title: Advancing Efficient and Sustainable Software Engineering Automation via, Quantization, Knowledge Distillation and PEFT
-img: assets/img/sustainability/main.png
-importance: 1
-category: work
-related_publications: false
----
-
-As the demand for automated solutions in software engineering continues to rise, the efficiency of training and deploying large language models (LLMs) becomes a critical concern. Efficient software engineering automation aims to tackle this challenge by adopting techniques that optimize resource utilization while preserving high performance.
-
-Parameter-Efficient Fine-Tuning (PEFT) allows large models to be adapted to new tasks by updating only a small portion of their parameters, significantly lowering computational overhead. Quantization reduces model size and accelerates inference by decreasing numerical precision, all while maintaining acceptable levels of accuracy. Knowledge distillation transfers the capabilities of a large model into a smaller, faster one, preserving much of the original performance at a fraction of the computational cost.
-
-Our ongoing research investigates the use and combination of these methods to develop efficient, cost-effective, and scalable approaches for automating software engineering tasks—advancing practical, high-performance AI-driven development workflows.
-
----
-
-<div class="row">
-    <div class="col-sm mt-9 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/sustainability/cost-llm.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
+### Key Contributions
+- Demonstrated that **task-tailored LLMs** outperform general models on targeted SE activities such as code generation.  
+- Developed a **resource-efficient summarization** approach (FORGE ’25) that reduces overhead without sacrificing quality.  
+- Proposed a **blueprint for context-aware assistants**, where specialized models collaborate across coding, testing, and documentation tasks.
