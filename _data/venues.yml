@@ -3,8 +3,45 @@
   color: "#00369f"
 
 "TSE":
-  url: https://dl.acm.org/journal/isof
+  url: https://www.computer.org/csdl/journal/ts
   color: "#009f36"
 
+"ESE":
+  url: https://www.springer.com/journal/10664
+  color: "#e67300"
+
+"JSS":
+  url: https://www.sciencedirect.com/journal/journal-of-systems-and-software
+  color: "#8a2be2"
+
 "ICSE":
+  url: https://conf.researchr.org/home/icse
   color: "#009f36"
+
+"FSE":
+  url: https://conf.researchr.org/home/fse
+  color: "#ff4500"
+
+"ICSME":
+  url: https://conf.researchr.org/home/icsme
+  color: "#1e90ff"
+
+"ICPC":
+  url: https://conf.researchr.org/home/icpc
+  color: "#32cd32"
+
+"EASE":
+  url: https://conf.researchr.org/home/ease
+  color: "#ff1493"
+
+"ICSSP":
+  url: https://conf.researchr.org/home/icssp
+  color: "#4682b4"
+
+"Computer":
+  url: https://www.computer.org/csdl/magazine/co
+  color: "#555555"
+
+"arXiv":
+  url: https://arxiv.org
+  color: "#b31b1b"
