@@ -1,32 +1,33 @@
 ---
-layout: projects
+layout: profile
 permalink: /projects/
 title: Research
 description: Research avenues we actively explore at the AURA Lab.
 nav: true
-nav_order: 3
+nav_order: 4
 
 
 profiles:
   # if you want to include more than one profile, just replicate the following block
   # and create one content file for each profile inside _pages/
   - align: right
-    image: assets/img/sustainability/main.png
-    content: _projects/efficiency.md
+    image: main.png
+    content: efficiency.md
     image_circular: true # crops the image to make it circular
-
+    more_info:
   - align: right
-    image: assets/img/interpretability/brain.png
-    content: _projects/int-exp.md
+    image: brain.png
+    content: int-exp.md
     image_circular: true # crops the image to make it circular
-
+    more_info:
   - align: right
-    image: assets/img/lma/organization.png
-    content: _projects/multi-agent-software-documentation.md
+    image: organization.png
+    content: multi-agent-software-documentation.md
     image_circular: true # crops the image to make it circular
-
+    more_info:
   - align: right
-    image: assets/img/lma/organization.png
-    content: _projects/task-aware-code-automation.md
+    image: organization.png
+    content: task-aware-code-automation.md
     image_circular: true # crops the image to make it circular
+    more_info:
 
