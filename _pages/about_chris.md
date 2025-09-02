@@ -12,6 +12,6 @@ Outside of academics, I enjoy video games, running, and swimming. Staying active
     <a href=""><i class="fa-solid fa-globe fa-2x"></i></a>
     <a href=""><i class="fa-brands fa-linkedin fa-2x"></i></a>
     <a href="https://x.com/chriszai0816"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
-    <a href="https://scholar.google.com/"><i class="fa-brands fa-google-scholar fa-2x"></i></a>
+    <a href=""><i class="fa-brands fa-google-scholar fa-2x"></i></a>
 </div>
 

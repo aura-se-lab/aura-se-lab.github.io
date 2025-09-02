@@ -10,7 +10,7 @@ This work contributes to building AI systems that are less black-box, more inter
 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 5px;">
     <a href="https://nkn002.github.io"><i class="fa-solid fa-globe fa-2x"></i></a>
     <a href="https://www.linkedin.com/in/nkn002/"><i class="fa-brands fa-linkedin fa-2x"></i></a>
-    <a href="https://x.com/chriszai0816"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
+    <a href="https://x.com"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
     <a href="https://scholar.google.com/citations?user=IMryD1YAAAAJ&hl=en&oi=sra"><i class="fa-brands fa-google-scholar fa-2x"></i></a>
 </div>
 
