@@ -1,5 +1,5 @@
 ---
-layout: profile
+layout: about
 permalink: /projects/
 title: Research
 description: Research avenues we actively explore at the AURA Lab.
