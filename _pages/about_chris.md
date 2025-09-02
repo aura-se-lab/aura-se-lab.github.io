@@ -2,11 +2,11 @@
 <h4>Zaiyu (Chris) Cheng</h4>
 ------------------
 
-Hi, I’m Zaiyu Cheng, a Ph.D. student in Computer Science at William & Mary. My research lies at the intersection of Artificial Intelligence and Software Engineering, with a particular focus on Large Language Models for code tasks. My work centers on exploring how data integration, pre-training, and fine-tuning strategies can enhance model capabilities while reducing training costs. 
+Hi, I’m Zaiyu Cheng, a Ph.D. student in Computer Science at William & Mary. My research sits at the intersection of AI and Software Engineering, with a focus on using large language models for code tasks. I study how data integration, pre-training, and fine-tuning can boost model performance while reducing costs.
 
-Before starting my Ph.D., I earned a B.Sc. in Computer Science from the University of Birmingham in 2022 and an M.Sc. in Advanced Computer Science from the University of Manchester in 2024. I spent four memorable years in the UK, an experience that greatly shaped both my academic path and personal outlook. Today, with the same sense of curiosity and ambition, I am taking on a new and exciting journey.
+I hold a B.Sc. from the University of Birmingham (2022) and an M.Sc. from the University of Manchester (2024), where four years in the UK shaped both my academic path and personal outlook.
 
-Outside of academics, I enjoy video games, running, and swimming. Staying active helps me stay energized and healthy, while also giving me a good balance between work and life.
+Outside research, I enjoy video games, running, and swimming, which help me stay active and maintain balance in life.
 
 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 5px;">
     <a href=""><i class="fa-solid fa-globe fa-2x"></i></a>
