@@ -35,8 +35,18 @@ profiles:
     image_circular: true # crops the image to make it circular
     more_info:
   - align: left
+    image: khai.jpeg
+    content: about_khai.md
+    image_circular: true # crops the image to make it circular
+    more_info:
+  - align: left
     image: alvi.jpeg
     content: about_alvi.md
+    image_circular: true # crops the image to make it circular
+    more_info:
+  - align: left
+    image: chris.jpeg
+    content: about_chris.md
     image_circular: true # crops the image to make it circular
     more_info:
   - align: left

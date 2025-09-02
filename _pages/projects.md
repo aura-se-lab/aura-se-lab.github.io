@@ -1,5 +1,5 @@
 ---
-layout: profiles
+layout: projects
 permalink: /projects/
 title: Research
 description: Research avenues we actively explore at the AURA Lab.
@@ -12,21 +12,21 @@ profiles:
   # and create one content file for each profile inside _pages/
   - align: right
     image: assets/img/sustainability/main.png
-  content: _projects/efficiency.md
+    content: _projects/efficiency.md
     image_circular: true # crops the image to make it circular
 
   - align: right
     image: assets/img/interpretability/brain.png
-  content: _projects/int-exp.md
+    content: _projects/int-exp.md
     image_circular: true # crops the image to make it circular
 
   - align: right
     image: assets/img/lma/organization.png
-  content: _projects/multi-agent-software-documentation.md
+    content: _projects/multi-agent-software-documentation.md
     image_circular: true # crops the image to make it circular
 
   - align: right
     image: assets/img/lma/organization.png
-  content: _projects/task-aware-code-automation.md
+    content: _projects/task-aware-code-automation.md
     image_circular: true # crops the image to make it circular
 
