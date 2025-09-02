@@ -9,7 +9,7 @@ Before starting my Ph.D., I earned a B.Sc. in Computer Science from the Universi
 Outside of academics, I enjoy video games, running, and swimming. Staying active helps me stay energized and healthy, while also giving me a good balance between work and life.
 
 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 5px;">
-    <a href="..."><i class="fa-solid fa-globe fa-2x"></i></a>
+    <a href=""><i class="fa-solid fa-globe fa-2x"></i></a>
     <a href=""><i class="fa-brands fa-linkedin fa-2x"></i></a>
     <a href="https://x.com/chriszai0816"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
     <a href="https://scholar.google.com/"><i class="fa-brands fa-google-scholar fa-2x"></i></a>
