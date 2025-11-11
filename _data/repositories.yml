@@ -6,17 +6,9 @@ github_users:
   - alvi75
   - ChrisCheng816
   - nkn002
+  - afia2023
 
 repo_description_lines_max: 2
 
 github_repos:
   - aura-se-lab/aura-se-lab.github.io
-  - antonio-mastropaolo/AI4SE
-  - antonio-mastropaolo/robustness-copilot
-  - antonio-mastropaolo/code-summarization-metric
-  - LeyliG/Causal4SE
-  - LeyliG/LeyliG.github.io
-  - saimaafrin/multimodal-SE
-  - saimaafrin/quantized-model-code-quality
-  - saimaafrin/QLoRA-Code-Summarization
-  - jbcallv/codestellation
