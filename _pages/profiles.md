@@ -58,5 +58,9 @@ profiles:
     content: about_ben.md
     image_circular: true # crops the image to make it circular
     more_info:
-    
+  - align: left
+    image: afia.jpg
+    content: about_afia.md
+    image_circular: true # crops the image to make it circular
+    more_info:
 ---
