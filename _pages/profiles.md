@@ -50,17 +50,20 @@ profiles:
     image_circular: true # crops the image to make it circular
     more_info:
   - align: left
+    image: afia.jpg
+    content: about_afia.md
+    image_circular: true # crops the image to make it circular
+    more_info:
+  
+  - align: left
     image: 
     content: separator-text-ug.md
     image_circular: false # crops the image to make it circular
+  
   - align: right
     image: ben.jpg
     content: about_ben.md
     image_circular: true # crops the image to make it circular
     more_info:
-  - align: left
-    image: afia.jpg
-    content: about_afia.md
-    image_circular: true # crops the image to make it circular
-    more_info:
+ 
 ---
