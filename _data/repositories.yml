@@ -8,7 +8,7 @@ github_users:
   - nkn002
   - afia2023
 
-repo_description_lines_max: 2
+repo_description_lines_max: 3
 
 github_repos:
   - aura-se-lab/aura-se-lab.github.io
