@@ -7,7 +7,7 @@ Hi there! -- I'm Joseph Call PhD Student in Computer Science. I'm a researcher a
 About me: I'm originally from La Paz, Honduras and have always loved the unique culture and atmosphere there. In my free time, you can find me playing my guitar or trying out new recipes in the kitchen.
 
 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 5px;">
-    <a href="https://jbcallv.netlify.app"><i class="fa-solid fa-globe fa-2x"></i></a>
+    <a href="#"><i class="fa-solid fa-globe fa-2x"></i></a>
     <a href="https://www.linkedin.com/in/jbcallv/"><i class="fa-brands fa-linkedin fa-2x"></i></a>
     <a href="https://x.com/"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
     <a href="https://scholar.google.com/"><i class="fa-brands fa-google-scholar fa-2x"></i></a>
