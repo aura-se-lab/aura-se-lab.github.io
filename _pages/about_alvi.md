@@ -10,7 +10,7 @@ Outside research, I enjoy staying active and make time for the gym every day. Iâ
 
 
 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 5px;">
-    <a href="https://www.google.com"><i class="fa-solid fa-globe fa-2x"></i></a>
+    <a href="https://alvi75.github.io"><i class="fa-solid fa-globe fa-2x"></i></a>
     <a href="https://www.linkedin.com/in/md-zahidul-haque-6298781a7/"><i class="fa-brands fa-linkedin fa-2x"></i></a>
     <a href="https://x.com/"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
     <a href="https://scholar.google.com/citations?user=zyxccAQAAAAJ&hl=en"><i class="fa-brands fa-google-scholar fa-2x"></i></a>
