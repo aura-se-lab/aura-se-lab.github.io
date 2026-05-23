@@ -13,7 +13,7 @@ or news items. Do not paraphrase the research agenda into different topics.
 - **Director:** Dr. Antonio Mastropaolo (Assistant Professor)
 - **Contact:** amastropaolo at wm dot edu
 - **Website:** https://aura-se-lab.github.io
-- **Director site:** https://antoniomastropaolo.com
+- **Director site:** https://antoniomastropaolo.io
 
 ## Lab statement (use verbatim or lightly trimmed; do not rewrite)
 
