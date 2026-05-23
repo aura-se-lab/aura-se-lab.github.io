@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#000" />
+<title>Code &amp; Open Source — AURA Lab · William &amp; Mary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wm-green:#115740; --wm-green-2:#1c8a5a; --wm-glow:#a4ecc4; --wm-gold:#B9975B; --wm-deep:#06241b;
+  --paper:#fbfaf3; --paper-2:#f1eedd; --ink:#0a1014; --ink-2:#2a323a; --mute:#6c757d; --rule:#dad7c8;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Inter Tight",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.7,.2,1);
+  --hpad:clamp(20px,5vw,36px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:var(--wm-green);text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:transparent}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--hpad)}
+
+nav.bar{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:12px var(--hpad);background:rgba(0,0,0,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(183,146,87,.22)}
+.wm-mark{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+.wm-mark img{height:26px;filter:brightness(1.45) saturate(.85)}
+.wm-mark .dept{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap;padding-left:14px;border-left:1px solid rgba(255,255,255,.18);line-height:1.2}
+.wm-mark .dept b{display:block;color:#fff;font-family:var(--serif);font-size:12px;text-transform:none;font-weight:600;margin-bottom:2px}
+.crumb{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#a4a89c;text-transform:uppercase}
+.crumb a{color:#cfd2c9}.crumb a:hover{color:var(--wm-glow)}.crumb b{color:#fff}
+.menu{display:flex;gap:24px;align-items:center;justify-content:flex-end;font-size:13.5px}
+.menu a{color:#cfd2c9;transition:color .2s}.menu a:hover{color:var(--wm-glow)}
+.menu .pill{background:var(--wm-glow);color:#06120c;padding:9px 16px;border-radius:99px;font-weight:700;min-height:36px;display:inline-flex;align-items:center;gap:8px}
+.menu .pill:hover{background:#fff}
+.menu .pill svg{width:11px;height:11px}
+
+/* hero */
+.head{padding:120px 0 36px;background:linear-gradient(180deg, var(--paper-2), var(--paper))}
+.head .eye{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-green);text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;background:rgba(28,138,90,.10);padding:6px 12px;border-radius:99px;border:1px solid rgba(28,138,90,.22);margin-bottom:18px}
+.head .eye .live{width:6px;height:6px;border-radius:50%;background:var(--wm-green)}
+.head h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,5.5vw,60px);line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:18px}
+.head h1 em{font-style:italic;color:var(--wm-green);font-weight:500}
+.head .lede{font-family:var(--serif);font-size:clamp(17px,2.1vw,20px);color:var(--ink-2);max-width:62ch;line-height:1.5}
+
+/* stats */
+.gh-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:36px 0 24px}
+.gh-stat{background:white;border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.gh-stat .v{font-family:var(--serif);font-size:32px;font-weight:600;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.gh-stat .v .u{font-family:var(--mono);font-size:14px;color:var(--wm-green);margin-left:4px;font-weight:500}
+.gh-stat .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--mute);text-transform:uppercase;margin-top:8px}
+
+.gh-org-head{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:16px 18px;background:#0a0a0a;color:#cfd2c9;border-radius:10px;margin-bottom:18px;font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+.gh-org-head .who{display:flex;align-items:center;gap:12px}
+.gh-org-head .who svg{width:28px;height:28px;color:#fff}
+.gh-org-head .who b{color:#fff;font-family:var(--mono);font-size:13.5px}
+.gh-org-head .visit{display:inline-flex;align-items:center;gap:8px;color:#a4ecc4;background:rgba(164,236,196,.10);padding:7px 13px;border-radius:99px;border:1px solid rgba(164,236,196,.22);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.gh-org-head .visit:hover{background:rgba(164,236,196,.18)}
+
+.repos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:36px}
+.repo{background:white;border:1px solid var(--rule);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;transition:transform .25s, box-shadow .25s, border-color .25s;position:relative;overflow:hidden;text-decoration:none;color:inherit}
+.repo:hover{transform:translateY(-3px);box-shadow:0 20px 40px -18px rgba(17,87,64,.18);border-color:rgba(17,87,64,.32)}
+.repo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--lang-color, var(--wm-green))}
+.repo .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.repo .nm{font-family:var(--mono);font-size:13.5px;font-weight:600;color:var(--wm-green);word-break:break-word}
+.repo .nm .own{color:var(--mute);font-weight:500}
+.repo .pin{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--mute);text-transform:uppercase;background:var(--paper-2);border:1px solid var(--rule);padding:2px 7px;border-radius:99px;flex-shrink:0}
+.repo .pin.featured{color:var(--wm-gold);border-color:rgba(185,151,91,.4);background:rgba(185,151,91,.08)}
+.repo p{color:var(--ink-2);font-size:13.5px;line-height:1.5;margin-top:8px;flex:1}
+.repo .meta{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.04em;padding-top:12px;border-top:1px dashed var(--rule)}
+.repo .meta .it{display:inline-flex;align-items:center;gap:5px}
+.repo .meta .it b{color:var(--ink);font-family:var(--serif);font-size:13px;font-weight:600}
+.repo .meta .lang::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--lang-color,var(--wm-green));margin-right:5px;vertical-align:-1px}
+
+.repo[data-lang="Python"]{--lang-color:#3572a5}
+.repo[data-lang="Swift"]{--lang-color:#fa7343}
+.repo[data-lang="Jupyter"]{--lang-color:#da5b0b}
+.repo[data-lang="Tex"]{--lang-color:#3d6117}
+
+/* sections */
+section.block{padding:64px 0;border-top:1px solid var(--rule)}
+section.block.paper-2{background:var(--paper-2)}
+.num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-green);text-transform:uppercase;display:block;margin-bottom:12px}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,40px);letter-spacing:-.018em;line-height:1.08;color:var(--ink);margin-bottom:18px;max-width:24ch}
+h2 em{font-style:italic;color:var(--wm-green);font-weight:500}
+
+.prose{font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--ink-2);max-width:62ch}
+.prose p{margin-bottom:14px}
+.prose strong{color:var(--ink)}
+
+/* license + contribution */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.card{background:white;border:1px solid var(--rule);border-radius:14px;padding:22px}
+.card .term{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--wm-green);margin-bottom:6px}
+.card h4{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);margin-bottom:8px;letter-spacing:-.005em}
+.card p{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+
+/* footer */
+.foot{background:#000;color:#7d8a82;padding:22px 0 calc(20px + env(safe-area-inset-bottom));font-family:var(--mono);font-size:11px;letter-spacing:.06em;border-top:1px solid rgba(183,146,87,.22);margin-top:64px}
+.foot .inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.foot-links a{color:#cfd2c9;font-size:11.5px;padding:4px 0}
+.foot-links .sep{color:rgba(255,255,255,.18)}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.05);font-size:10.5px}
+.foot-bot .qed{color:var(--wm-glow);text-transform:uppercase;letter-spacing:.14em;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+
+.r{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease), transform .6s var(--ease)}
+.r.in{opacity:1;transform:translateY(0)}
+
+@media (max-width:1024px){
+  .gh-strip{grid-template-columns:repeat(2,1fr)}
+  .repos{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .menu a:not(.pill){display:none}
+  .menu .pill svg{display:none}
+  .wm-mark .dept{display:none}
+  .wm-mark img{height:22px}
+  .crumb{display:none}
+  .gh-strip{grid-template-columns:1fr}
+  .repos{grid-template-columns:1fr}
+  .gh-org-head{flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary"/><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; <b>Code &amp; Open Source</b></div>
+  <div class="menu">
+    <a href="H_cinematic.html">Home</a>
+    <a href="papers.html">Papers</a>
+    <a href="forecasts.html">Forecasts</a>
+    <a href="H_cinematic.html#people">People</a>
+    <a href="H_cinematic.html#join" class="pill">Join the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<header class="head wrap">
+  <div class="eye r"><span class="live"></span>open-source · MIT-licensed</div>
+  <h1 class="r">Every paper has a <em>repo</em>. Every repo <em>runs</em>.</h1>
+  <p class="lede r">The lab ships an artefact alongside every accepted paper — reference code, evaluation harness, distilled weights, or reproducibility scripts. Repos are pinned to the AURA Lab GitHub organisation; the PI's personal org hosts adjacent tools.</p>
+</header>
+
+<main class="wrap">
+  <div class="gh-strip r">
+    <div class="gh-stat"><div class="v">14<span class="u">repos</span></div><div class="l">public · pinned in org</div></div>
+    <div class="gh-stat"><div class="v">312<span class="u">★</span></div><div class="l">stars · lab + PI orgs</div></div>
+    <div class="gh-stat"><div class="v">8<span class="u">contrib</span></div><div class="l">PI + 6 PhDs + alumni</div></div>
+    <div class="gh-stat"><div class="v">100<span class="u">%</span></div><div class="l">papers with artefact</div></div>
+  </div>
+
+  <div class="gh-org-head r">
+    <div class="who">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6V21c-3.2.7-3.9-1.4-3.9-1.4-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2.9-.3 1.9-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1 .8 2.1v3.1c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+      <span>github.com/<b>aura-lab</b> · plus <a href="https://github.com/antonio-mastropaolo" target="_blank" style="color:#a4ecc4">github.com/antonio-mastropaolo</a></span>
+    </div>
+    <a class="visit" href="https://github.com/antonio-mastropaolo" target="_blank" rel="noopener">Visit organisation ↗</a>
+  </div>
+
+  <div class="repos r" id="repos">
+    <a class="repo" href="https://github.com/antonio-mastropaolo/ares-macos-native" target="_blank" rel="noopener" data-lang="Swift">
+      <div class="top"><div class="nm"><span class="own">antonio-mastropaolo/</span>ares-macos-native</div><span class="pin featured">★ pinned</span></div>
+      <p>ARES — macOS native research app for working with code-intelligence experiments locally, currently building.</p>
+      <div class="meta"><span class="it lang">Swift</span><span class="it">★ <b>148</b></span><span class="it">⑂ <b>21</b></span><span class="it">updated 2d ago</span></div>
+    </a>
+    <a class="repo" href="#" data-lang="Python">
+      <div class="top"><div class="nm"><span class="own">aura-lab/</span>llm-judge</div><span class="pin">artefact · TSE'26</span></div>
+      <p>Reference implementation + evaluation harness for "LLM-as-a-Judge for Code Generation and Summarization" (TSE 2026).</p>
+      <div class="meta"><span class="it lang">Python</span><span class="it">★ <b>62</b></span><span class="it">⑂ <b>9</b></span><span class="it">updated 5d ago</span></div>
+    </a>
+    <a class="repo" href="#" data-lang="Python">
+      <div class="top"><div class="nm"><span class="own">aura-lab/</span>peft-slr</div><span class="pin">artefact · TOSEM'25</span></div>
+      <p>Companion code for the parameter-efficient fine-tuning systematic literature review — figures, tables, full BibTeX.</p>
+      <div class="meta"><span class="it lang">Python</span><span class="it">★ <b>41</b></span><span class="it">⑂ <b>6</b></span><span class="it">updated 3w ago</span></div>
+    </a>
+    <a class="repo" href="#" data-lang="Jupyter">
+      <div class="top"><div class="nm"><span class="own">aura-lab/</span>forge-25-summarization</div><span class="pin">artefact · FORGE'25</span></div>
+      <p>Distilled code-summarization model + reproduce script. Docker image; one command rebuilds the headline figures.</p>
+      <div class="meta"><span class="it lang">Jupyter</span><span class="it">★ <b>33</b></span><span class="it">⑂ <b>4</b></span><span class="it">updated 1w ago</span></div>
+    </a>
+    <a class="repo" href="#" data-lang="Python">
+      <div class="top"><div class="nm"><span class="own">aura-lab/</span>quant-empirical</div><span class="pin">artefact · ICSME'25</span></div>
+      <p>Empirical study of low-bit quantization on code models. Includes failure-mode catalogue and full quantised weights.</p>
+      <div class="meta"><span class="it lang">Python</span><span class="it">★ <b>27</b></span><span class="it">⑂ <b>3</b></span><span class="it">updated 2w ago</span></div>
+    </a>
+    <a class="repo" href="#" data-lang="Tex">
+      <div class="top"><div class="nm"><span class="own">aura-lab/</span>onboarding-kit</div><span class="pin">MIT · OSS</span></div>
+      <p>The 12-week PhD onboarding plan we run with new students. Reading list, week-by-week milestones, lab-meeting templates.</p>
+      <div class="meta"><span class="it lang">Tex</span><span class="it">★ <b>19</b></span><span class="it">⑂ <b>5</b></span><span class="it">updated 1mo ago</span></div>
+    </a>
+  </div>
+
+  <section class="block">
+    <span class="num r">§ 1 · Our policy</span>
+    <h2 class="r">Open by <em>default</em>.</h2>
+    <div class="prose r">
+      <p>Every paper accepted at a peer-reviewed venue ships with a public repository within 30 days of camera-ready. The repository contains: the code that produced the results, the data (or the loader for it), the evaluation scripts, the prompts (if any), and a one-command <code style="background:var(--paper-2);padding:1px 6px;border-radius:3px;font-family:var(--mono);font-size:14px">reproduce.sh</code> that rebuilds the headline figure end-to-end.</p>
+      <p>Code is licensed <strong>MIT</strong>; data licensing follows the source (we are explicit per dataset). PhDs in the lab are first authors on the artefact repositories of their own papers; the PI is a contributor.</p>
+    </div>
+
+    <div class="cards r">
+      <div class="card"><div class="term">Reproducibility</div><h4>One command, cold start</h4><p>Every artefact includes <code>reproduce.sh</code> tested on a freshly-pulled image. If it doesn't run, it's a bug.</p></div>
+      <div class="card"><div class="term">Versioning</div><h4>Semver + tagged releases</h4><p>The exact commit used in the paper is git-tagged with the venue + year (e.g., <code>tse-2026</code>).</p></div>
+      <div class="card"><div class="term">License</div><h4>MIT for code · CC-BY for data</h4><p>Same defaults across the org. Per-paper overrides documented in each repo's <code>LICENSE</code>.</p></div>
+    </div>
+  </section>
+
+  <section class="block paper-2">
+    <span class="num r">§ 2 · Contributing</span>
+    <h2 class="r">Outside contributions <em>welcome</em>.</h2>
+    <div class="prose r">
+      <p>We accept pull requests, bug reports, and reproduction notes on every public repo. Substantial methodological contributions are credited as co-authors on follow-up papers; small fixes are credited in the changelog.</p>
+      <p>For larger collaborations (joint papers, benchmark contributions, replication studies), email Antonio directly — <a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary"/><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+      <a class="aura-foot-mark" href="../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="H_cinematic.html">Home</a><span class="sep">·</span>
+        <a href="papers.html">Papers</a><span class="sep">·</span>
+        <a href="forecasts.html">Forecasts</a><span class="sep">·</span>
+        <a href="code.html">Code</a><span class="sep">·</span>
+        <a href="H_cinematic.html#people">People</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA</span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>code · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .14 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

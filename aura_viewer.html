@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>AURA Lab — 10 feature variants</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:#06241b;display:flex;flex-direction:column;overflow:hidden;font-family:-apple-system,system-ui,sans-serif;color:#dff0e6}
+  header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 18px;background:#04100a;border-bottom:1px solid rgba(164,236,196,.10);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;color:#88a89a;text-transform:uppercase;flex-wrap:wrap}
+  header .l{display:flex;align-items:center;gap:10px}
+  header .l b{color:#fff}
+  header .device{display:flex;gap:4px;background:#0e1e17;padding:4px;border-radius:99px;border:1px solid rgba(164,236,196,.08)}
+  header .device button{font:inherit;font-size:9.5px;letter-spacing:.08em;background:transparent;border:none;color:#88a89a;padding:5px 11px;border-radius:99px;cursor:pointer;text-transform:uppercase}
+  header .device button.on{background:#178a5a;color:#fff}
+  header .open{color:#a4ecc4;text-decoration:none;border:1px solid rgba(164,236,196,.22);padding:5px 11px;border-radius:99px}
+  header .open:hover{background:rgba(164,236,196,.1)}
+  main{flex:1;display:grid;place-items:center;padding:14px;overflow:hidden;background:radial-gradient(900px 500px at 50% 30%, rgba(164,236,196,.05), transparent 70%),#06241b}
+  .frame{background:#fbfaf3;border-radius:12px;box-shadow:0 30px 80px -20px rgba(0,0,0,.55),0 14px 36px -12px rgba(0,0,0,.4);border:1px solid rgba(164,236,196,.10);overflow:hidden;transition:width .4s cubic-bezier(.32,.72,.12,1),height .4s cubic-bezier(.32,.72,.12,1)}
+  iframe{width:100%;height:100%;border:none;background:#fbfaf3}
+  .frame.desktop{width:100%;height:100%;max-width:1480px}
+  .frame.tablet{width:820px;height:1100px;max-width:calc(100% - 40px);max-height:calc(100% - 40px)}
+  .frame.mobile{width:390px;height:780px;max-width:calc(100% - 40px);max-height:calc(100% - 40px)}
+
+  /* feature switcher (bottom) */
+  nav.switcher{
+    background:linear-gradient(to top, #04100a, rgba(4,16,10,.6) 70%, transparent);
+    padding:14px 18px 18px;
+  }
+  .track{
+    max-width:1480px;margin:0 auto;
+    display:flex;align-items:center;gap:4px;padding:5px;
+    background:#0a1a13;border:1px solid rgba(164,236,196,.10);border-radius:99px;
+    overflow-x:auto;
+  }
+  .opt{
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    background:transparent;color:#88a89a;border:none;padding:9px 14px;border-radius:99px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+    transition:color .25s, background .25s;
+  }
+  .opt:hover{color:#cfdcd3}
+  .opt.active{background:#178a5a;color:#fff}
+  .opt .n{font-weight:700;color:rgba(255,255,255,.4);font-variant-numeric:tabular-nums}
+  .opt.active .n{color:#a4ecc4}
+  .caption{
+    text-align:center;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#88a89a;
+    letter-spacing:.06em;margin-top:10px;line-height:1.5;
+  }
+  .caption b{color:#fff;font-family:"Source Serif 4",Georgia,serif;font-size:14px;font-weight:600;letter-spacing:-.005em;margin-right:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="l"><b>AURA Lab</b> · 10 rotating features · home stays fixed</div>
+  <div class="device" id="device">
+    <button class="on" data-d="desktop">Desktop</button>
+    <button data-d="tablet">Tablet</button>
+    <button data-d="mobile">Mobile</button>
+  </div>
+  <a class="open" id="openInNew" href="aura_variants/features/v01_forecast.html" target="_blank">open ↗</a>
+</header>
+
+<main>
+  <div class="frame desktop" id="frame">
+    <iframe id="vframe" src="aura_variants/features/v01_forecast.html"></iframe>
+  </div>
+</main>
+
+<nav class="switcher">
+  <div class="track" id="track">
+    <button class="opt active" data-v="01" data-src="aura_variants/features/v01_forecast.html"><span class="n">01</span>Forecasts</button>
+    <button class="opt"        data-v="02" data-src="aura_variants/features/v02_livenow.html"><span class="n">02</span>Live now</button>
+    <button class="opt"        data-v="03" data-src="aura_variants/features/v03_onboarding.html"><span class="n">03</span>Onboarding</button>
+    <button class="opt"        data-v="04" data-src="aura_variants/features/v04_honest.html"><span class="n">04</span>Honest #s</button>
+    <button class="opt"        data-v="05" data-src="aura_variants/features/v05_runmodel.html"><span class="n">05</span>Run model</button>
+    <button class="opt"        data-v="06" data-src="aura_variants/features/v06_atlas.html"><span class="n">06</span>Atlas</button>
+    <button class="opt"        data-v="07" data-src="aura_variants/features/v07_receipts.html"><span class="n">07</span>Receipts</button>
+    <button class="opt"        data-v="08" data-src="aura_variants/features/v08_reading.html"><span class="n">08</span>Reading</button>
+    <button class="opt"        data-v="09" data-src="aura_variants/features/v09_energy.html"><span class="n">09</span>Energy</button>
+    <button class="opt"        data-v="10" data-src="aura_variants/features/v10_graph.html"><span class="n">10</span>Graph</button>
+  </div>
+  <div class="caption"><b id="capName">Calibrated Forecasts</b><span id="capTag">Brier-scored prediction board · the lab's public accountability instrument.</span></div>
+</nav>
+
+<script>
+  const META = {
+    "01":["Calibrated Forecasts","Brier-scored prediction board · the lab's public accountability instrument."],
+    "02":["Live Now","A continuously-updated feed of what the lab is doing right now."],
+    "03":["Onboarding Kit","The public 12-week onboarding plan we run with new PhDs."],
+    "04":["Honest Numbers","What we don't hide: rejections, retired experiments, errata, unknowns."],
+    "05":["Run our Model","A live attention visualiser running on the visitor's machine."],
+    "06":["Efficiency Atlas","A scatter plot of papers in (parameters × accuracy) space."],
+    "07":["Citation Receipts","Every claim hyperlinked to its source paper + figure."],
+    "08":["Reading Group","Weekly paper of the week with the lab's commentary."],
+    "09":["Energy Dashboard","Live kWh per active project against the lab's budget."],
+    "10":["Knowledge Graph","An interactive graph of papers, threads, people, and methods."]
+  };
+  const frame = document.getElementById('frame');
+  const vframe = document.getElementById('vframe');
+  const device = document.getElementById('device');
+  const track = document.getElementById('track');
+  const openInNew = document.getElementById('openInNew');
+  const capN = document.getElementById('capName');
+  const capT = document.getElementById('capTag');
+
+  device.addEventListener('click', e => {
+    if (e.target.tagName !== 'BUTTON') return;
+    device.querySelectorAll('button').forEach(b => b.classList.remove('on'));
+    e.target.classList.add('on');
+    frame.className = 'frame ' + e.target.dataset.d;
+  });
+
+  track.addEventListener('click', e => {
+    const btn = e.target.closest('.opt');
+    if (!btn) return;
+    track.querySelectorAll('.opt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const src = btn.dataset.src;
+    const v = btn.dataset.v;
+    vframe.src = src + '?t=' + Date.now();
+    openInNew.href = src;
+    if (META[v]){ capN.textContent = META[v][0]; capT.textContent = META[v][1]; }
+  });
+
+  // Keyboard 1..0
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    let n = null;
+    if (e.key >= '1' && e.key <= '9') n = '0' + e.key;
+    else if (e.key === '0') n = '10';
+    if (n){
+      const btn = track.querySelector(`.opt[data-v="${n}"]`);
+      if (btn) btn.click();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#000" />
+<title>Projects — AURA Lab · William &amp; Mary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wm-green:#115740; --wm-green-2:#1c8a5a; --wm-glow:#a4ecc4; --wm-gold:#B9975B; --wm-deep:#06241b;
+  --paper:#fbfaf3; --paper-2:#f1eedd; --ink:#0a1014; --ink-2:#2a323a; --mute:#6c757d; --rule:#dad7c8;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Inter Tight",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.7,.2,1);
+  --hpad:clamp(20px,5vw,36px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:var(--wm-green);text-decoration:none}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--hpad)}
+
+nav.bar{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:12px var(--hpad);background:rgba(0,0,0,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(183,146,87,.22)}
+.wm-mark{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+.wm-mark img{height:26px;filter:brightness(1.45) saturate(.85)}
+.wm-mark .dept{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap;padding-left:14px;border-left:1px solid rgba(255,255,255,.18);line-height:1.2}
+.wm-mark .dept b{display:block;color:#fff;font-family:var(--serif);font-size:12px;text-transform:none;font-weight:600;margin-bottom:2px}
+.crumb{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#a4a89c;text-transform:uppercase}
+.crumb a{color:#cfd2c9}.crumb a:hover{color:var(--wm-glow)}.crumb b{color:#fff}
+.menu{display:flex;gap:24px;align-items:center;justify-content:flex-end;font-size:13.5px}
+.menu a{color:#cfd2c9;transition:color .2s}.menu a:hover{color:var(--wm-glow)}
+.menu .pill{background:var(--wm-glow);color:#06120c;padding:9px 16px;border-radius:99px;font-weight:700;min-height:36px;display:inline-flex;align-items:center;gap:8px}
+.menu .pill:hover{background:#fff}.menu .pill svg{width:11px;height:11px}
+
+.head{padding:120px 0 28px;background:linear-gradient(180deg, var(--paper-2), var(--paper))}
+.head .eye{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-green);text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;background:rgba(28,138,90,.10);padding:6px 12px;border-radius:99px;border:1px solid rgba(28,138,90,.22);margin-bottom:18px}
+.head .eye .live{width:6px;height:6px;border-radius:50%;background:var(--wm-green)}
+.head h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,5.5vw,60px);line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:18px}
+.head h1 em{font-style:italic;color:var(--wm-green);font-weight:500}
+.head .lede{font-family:var(--serif);font-size:clamp(17px,2.1vw,20px);color:var(--ink-2);max-width:62ch;line-height:1.5}
+.head .meta{display:flex;gap:18px;margin-top:24px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.06em;text-transform:uppercase}
+.head .meta .m b{color:var(--ink);font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:-.005em;margin-right:4px}
+
+/* Project card */
+.projects{display:flex;flex-direction:column;gap:22px;margin-top:36px}
+.project{
+  background:white;border:1px solid var(--rule);border-radius:18px;overflow:hidden;
+  display:grid;grid-template-columns:280px 1fr;
+}
+.project .side{
+  background:linear-gradient(180deg, var(--paper-2), var(--paper));
+  padding:24px;border-right:1px solid var(--rule);
+  display:flex;flex-direction:column;gap:14px;
+}
+.project .side .id{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--wm-green);font-weight:600}
+.project .side h3{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:-.01em;color:var(--ink);line-height:1.2}
+.project .side .status{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:99px;width:fit-content;
+}
+.project .side .status.active{color:var(--wm-green);background:rgba(28,138,90,.12);border:1px solid rgba(17,87,64,.3)}
+.project .side .status.planning{color:var(--wm-gold);background:rgba(185,151,91,.14);border:1px solid rgba(185,151,91,.32)}
+.project .side .status .d{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 currentColor}70%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.project .side .funder{margin-top:auto;padding-top:14px;border-top:1px dashed var(--rule)}
+.project .side .funder .fl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.project .side .funder .fn{font-family:var(--serif);font-size:16px;color:var(--ink);font-weight:600;letter-spacing:-.005em;line-height:1.3}
+.project .side .funder .fa{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.04em;margin-top:3px}
+
+.project .body{padding:26px 28px;display:flex;flex-direction:column;gap:14px}
+.project .body .tag-row{display:flex;gap:6px;flex-wrap:wrap}
+.project .body .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);border:1px solid var(--rule);color:var(--ink-2);padding:3px 8px;border-radius:99px}
+.project .body p{font-family:var(--serif);font-size:15.5px;color:var(--ink-2);line-height:1.6}
+.project .body p strong{color:var(--ink)}
+.project .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.project .stats .s{background:var(--paper-2);border:1px solid var(--rule);border-radius:8px;padding:10px 12px}
+.project .stats .s .v{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink);letter-spacing:-.01em;line-height:1}
+.project .stats .s .v .u{font-family:var(--mono);font-size:11px;color:var(--wm-green);margin-left:3px}
+.project .stats .s .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--mute);text-transform:uppercase;margin-top:4px}
+
+.project .members{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.project .members .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.project .members .av{
+  width:32px;height:32px;border-radius:50%;background-size:cover;background-position:center;
+  border:2px solid white;box-shadow:0 0 0 1px var(--rule);
+  margin-left:-8px;
+}
+.project .members .av:first-of-type{margin-left:0}
+
+.project .out{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:12px;border-top:1px dashed var(--rule);margin-top:auto}
+.project .out .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.project .out a{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--wm-green);border:1px solid rgba(17,87,64,.3);padding:4px 10px;border-radius:4px}
+.project .out a:hover{background:rgba(17,87,64,.06)}
+
+/* timeline */
+.timeline{margin-top:24px}
+.tl-bar{height:8px;background:var(--paper-2);border:1px solid var(--rule);border-radius:99px;overflow:hidden;position:relative}
+.tl-bar .fill{height:100%;background:linear-gradient(to right, var(--wm-green), var(--wm-green-2));border-radius:99px}
+.tl-bar .mark{position:absolute;width:2px;height:14px;background:var(--wm-deep);top:-3px}
+.tl-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--mute);letter-spacing:.06em;margin-top:6px;text-transform:uppercase}
+.tl-labels b{color:var(--ink);font-family:var(--serif);font-size:11px;font-weight:600;letter-spacing:-.005em}
+
+/* sections */
+section.block{padding:48px 0;border-top:1px solid var(--rule)}
+section.block.paper-2{background:var(--paper-2)}
+.num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-green);text-transform:uppercase;display:block;margin-bottom:12px}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,40px);letter-spacing:-.018em;color:var(--ink);max-width:30ch;margin-bottom:18px}
+h2 em{font-style:italic;color:var(--wm-green);font-weight:500}
+
+.prose{font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--ink-2);max-width:62ch}
+.prose p{margin-bottom:14px}
+
+/* footer */
+.foot{background:#000;color:#7d8a82;padding:22px 0 calc(20px + env(safe-area-inset-bottom));font-family:var(--mono);font-size:11px;letter-spacing:.06em;border-top:1px solid rgba(183,146,87,.22);margin-top:64px}
+.foot .inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.foot-links a{color:#cfd2c9;font-size:11.5px;padding:4px 0}
+.foot-links .sep{color:rgba(255,255,255,.18)}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.05);font-size:10.5px}
+.foot-bot .qed{color:var(--wm-glow);text-transform:uppercase;letter-spacing:.14em;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+
+.r{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease), transform .6s var(--ease)}
+.r.in{opacity:1;transform:translateY(0)}
+
+@media (max-width:880px){
+  .project{grid-template-columns:1fr}
+  .project .side{border-right:none;border-bottom:1px solid var(--rule);padding:18px 20px}
+  .project .body{padding:20px}
+  .project .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:680px){
+  .menu a:not(.pill){display:none}.menu .pill svg{display:none}.wm-mark .dept{display:none}.wm-mark img{height:22px}.crumb{display:none}
+  .foot .inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary"/><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; <b>Projects</b></div>
+  <div class="menu">
+    <a href="H_cinematic.html">Home</a>
+    <a href="papers.html">Papers</a>
+    <a href="people.html">People</a>
+    <a href="forecasts.html">Forecasts</a>
+    <a href="code.html">Code</a>
+    <a href="H_cinematic.html#join" class="pill">Join the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<header class="head wrap">
+  <div class="eye r"><span class="live"></span>current funded work · updated 2026-05</div>
+  <h1 class="r">What we are <em>building</em>.</h1>
+  <p class="lede r">A full picture of the lab's funded research projects — what each one is about, who's leading it, what's been delivered, and what comes next. Projects bundle work across the A·U·R·A threads into measurable outputs.</p>
+  <div class="meta r">
+    <span class="m"><b>5</b>active projects</span>
+    <span class="m"><b>$175 K</b>NSF CRII funding</span>
+    <span class="m"><b>1</b>in planning</span>
+    <span class="m"><b>2025–2027</b>current horizon</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="projects">
+
+    <!-- 01 · NSF CRII -->
+    <article class="project r">
+      <div class="side">
+        <div class="id">PROJECT 01 · headline</div>
+        <h3>Trustworthy &amp; Resource-Efficient Foundation Models for SE</h3>
+        <div class="status active"><span class="d"></span>active · year 1 of 2</div>
+        <div class="funder">
+          <div class="fl">funded by</div>
+          <div class="fn">NSF CRII Award #2451058</div>
+          <div class="fa">$175,000 · 06/2025 → 05/2027 · sole PI</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="tag-row"><span class="tag">efficiency</span><span class="tag">reliability</span><span class="tag">PEFT</span><span class="tag">distillation</span></div>
+        <p>The lab's headline initiative. We are developing <strong>resource-efficient code intelligence</strong> that can be trusted under realistic deployment constraints. The project integrates PEFT, quantization, distillation, and rigorous evaluation methodology across three deliverables: a distilled summarisation model (FORGE 2025 ✓), an empirical quantisation atlas (ICSME 2025 ✓), and a joint accuracy-energy benchmark (BRACE, JAWs 2026 ✓).</p>
+
+        <div class="stats">
+          <div class="s"><div class="v">3<span class="u">papers</span></div><div class="l">delivered y1</div></div>
+          <div class="s"><div class="v">−68<span class="u">%</span></div><div class="l">avg. footprint</div></div>
+          <div class="s"><div class="v">3.4<span class="u">kWh</span></div><div class="l">median energy</div></div>
+          <div class="s"><div class="v">2<span class="u">papers</span></div><div class="l">y2 planned</div></div>
+        </div>
+
+        <div class="members"><span class="who">team</span>
+          <div class="av" style="background-image:url(../assets/img/antonio.jpg)" title="A. Mastropaolo"></div>
+          <div class="av" style="background-image:url(../assets/img/saima.jpg)" title="S. Afrin"></div>
+          <div class="av" style="background-image:url(../assets/img/joseph.jpg)" title="J. Call"></div>
+          <div class="av" style="background-image:url(../assets/img/alvi.jpeg)" title="Alvi"></div>
+          <div class="av" style="background-image:url(../assets/img/ben.jpg)" title="Ben"></div>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-bar"><div class="fill" style="width:42%"></div><div class="mark" style="left:42%"></div></div>
+          <div class="tl-labels"><span>06/2025 · start</span><span><b>now</b> · y1 mid</span><span>05/2027 · end</span></div>
+        </div>
+
+        <div class="out">
+          <span class="lab">outputs</span>
+          <a href="papers.html">FORGE'25</a>
+          <a href="papers.html">ICSME'25</a>
+          <a href="papers.html">JAWs'26 · BRACE</a>
+          <a href="code.html">artefacts</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 02 · LLM-as-a-Judge -->
+    <article class="project r">
+      <div class="side">
+        <div class="id">PROJECT 02 · reliability</div>
+        <h3>Honest LLM-as-a-Judge for Code</h3>
+        <div class="status active"><span class="d"></span>active · paper accepted</div>
+        <div class="funder">
+          <div class="fl">supported by</div>
+          <div class="fn">NSF CRII · IEEE TSE</div>
+          <div class="fa">cross-institution: W&amp;M · USI Lugano</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="tag-row"><span class="tag">reliability</span><span class="tag">LLM-as-Judge</span><span class="tag">evaluation</span></div>
+        <p>A controlled evaluation of the LLM-as-a-Judge paradigm across code generation and summarisation. We measure agreement against curated human gold, expose the calibration gap most papers omit, and publish a reusable harness.</p>
+
+        <div class="stats">
+          <div class="s"><div class="v">62<span class="u">%</span></div><div class="l">human ↔ judge</div></div>
+          <div class="s"><div class="v">86<span class="u">%</span></div><div class="l">judge ↔ judge</div></div>
+          <div class="s"><div class="v">148<span class="u">MB</span></div><div class="l">artefact</div></div>
+          <div class="s"><div class="v">TSE'26<span class="u"></span></div><div class="l">venue</div></div>
+        </div>
+
+        <div class="members"><span class="who">team</span>
+          <div class="av" style="background-image:url(../assets/img/antonio.jpg)" title="A. Mastropaolo"></div>
+          <div class="av" style="background:rgba(17,87,64,.2);display:grid;place-items:center;color:var(--wm-green);font-family:var(--serif);font-weight:600;font-size:11px" title="Crupi">GC</div>
+          <div class="av" style="background:rgba(17,87,64,.2);display:grid;place-items:center;color:var(--wm-green);font-family:var(--serif);font-weight:600;font-size:11px" title="Tufano">RT</div>
+          <div class="av" style="background:rgba(17,87,64,.2);display:grid;place-items:center;color:var(--wm-green);font-family:var(--serif);font-weight:600;font-size:11px" title="Velasco">AV</div>
+          <div class="av" style="background:rgba(17,87,64,.2);display:grid;place-items:center;color:var(--wm-green);font-family:var(--serif);font-weight:600;font-size:11px" title="Poshyvanyk">DP</div>
+          <div class="av" style="background:rgba(17,87,64,.2);display:grid;place-items:center;color:var(--wm-green);font-family:var(--serif);font-weight:600;font-size:11px" title="Bavota">GB</div>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-bar"><div class="fill" style="width:90%"></div><div class="mark" style="left:90%"></div></div>
+          <div class="tl-labels"><span>02/2025 · start</span><span><b>now</b> · camera-ready</span><span>06/2026 · publish</span></div>
+        </div>
+
+        <div class="out">
+          <span class="lab">outputs</span>
+          <a href="papers.html">TSE'26</a>
+          <a href="code.html">aura-lab/llm-judge</a>
+          <a href="forecasts.html">forecast tie-in</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 03 · Neurosymbolic -->
+    <article class="project r">
+      <div class="side">
+        <div class="id">PROJECT 03 · understanding</div>
+        <h3>Neurosymbolic Program Comprehension</h3>
+        <div class="status active"><span class="d"></span>active · ER → full paper</div>
+        <div class="funder">
+          <div class="fl">supported by</div>
+          <div class="fn">W&amp;M CS · cross-lab</div>
+          <div class="fa">joint with SEMERU (Poshyvanyk)</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="tag-row"><span class="tag">interpretability</span><span class="tag">neurosymbolic</span><span class="tag">honourable mention</span></div>
+        <p>A position + early-results paper arguing for hybrid LLM + program-analysis pipelines as a path to <em>interpretable</em> program comprehension. Honourable mention at ICPC ERA 2025; full-length follow-up in preparation.</p>
+
+        <div class="stats">
+          <div class="s"><div class="v">★<span class="u"></span></div><div class="l">honourable mention</div></div>
+          <div class="s"><div class="v">3<span class="u">primitives</span></div><div class="l">explanation atoms</div></div>
+          <div class="s"><div class="v">2<span class="u">papers</span></div><div class="l">in pipeline</div></div>
+          <div class="s"><div class="v">ICPC'25<span class="u"></span></div><div class="l">first venue</div></div>
+        </div>
+
+        <div class="members"><span class="who">team</span>
+          <div class="av" style="background-image:url(../assets/img/antonio.jpg)" title="A. Mastropaolo"></div>
+          <div class="av" style="background-image:url(../assets/img/aya.jpg)" title="A. Garryyeva"></div>
+          <div class="av" style="background:rgba(17,87,64,.2);display:grid;place-items:center;color:var(--wm-green);font-family:var(--serif);font-weight:600;font-size:11px" title="Velasco">AV</div>
+          <div class="av" style="background:rgba(17,87,64,.2);display:grid;place-items:center;color:var(--wm-green);font-family:var(--serif);font-weight:600;font-size:11px" title="Palacio">DN</div>
+          <div class="av" style="background:rgba(17,87,64,.2);display:grid;place-items:center;color:var(--wm-green);font-family:var(--serif);font-weight:600;font-size:11px" title="Poshyvanyk">DP</div>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-bar"><div class="fill" style="width:55%"></div><div class="mark" style="left:55%"></div></div>
+          <div class="tl-labels"><span>09/2024 · start</span><span><b>now</b> · full-paper draft</span><span>2027 · target</span></div>
+        </div>
+
+        <div class="out">
+          <span class="lab">outputs</span>
+          <a href="papers.html">ICPC ERA'25</a>
+          <a href="aura_variants/threads/U_understanding.html">thread page</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 04 · PhD onboarding kit -->
+    <article class="project r">
+      <div class="side">
+        <div class="id">PROJECT 04 · community</div>
+        <h3>Public PhD Onboarding Kit</h3>
+        <div class="status active"><span class="d"></span>active · v 1.0 shipped</div>
+        <div class="funder">
+          <div class="fl">supported by</div>
+          <div class="fn">W&amp;M CS · MIT-licensed OSS</div>
+          <div class="fa">no external funding · open contribution</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="tag-row"><span class="tag">mentorship</span><span class="tag">community</span><span class="tag">open-source</span></div>
+        <p>The actual 12-week onboarding plan we run with new PhDs: dev-env setup, week-by-week reading list, first-paper roadmap, lab-meeting templates. Public, MIT-licensed; PhDs anywhere can fork and adapt.</p>
+
+        <div class="stats">
+          <div class="s"><div class="v">12<span class="u">weeks</span></div><div class="l">milestones</div></div>
+          <div class="s"><div class="v">19<span class="u">★</span></div><div class="l">stars on GitHub</div></div>
+          <div class="s"><div class="v">v 1.0<span class="u"></span></div><div class="l">released Jan 2026</div></div>
+          <div class="s"><div class="v">MIT<span class="u"></span></div><div class="l">license</div></div>
+        </div>
+
+        <div class="members"><span class="who">team</span>
+          <div class="av" style="background-image:url(../assets/img/antonio.jpg)" title="A. Mastropaolo"></div>
+          <div class="av" style="background-image:url(../assets/img/saima.jpg)" title="S. Afrin"></div>
+          <div class="av" style="background-image:url(../assets/img/aya.jpg)" title="A. Garryyeva"></div>
+          <div class="av" style="background-image:url(../assets/img/joseph.jpg)" title="J. Call"></div>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-bar"><div class="fill" style="width:100%"></div></div>
+          <div class="tl-labels"><span>09/2024 · v 0.1 skeleton</span><span><b>01/2026</b> · v 1.0</span><span>continuous</span></div>
+        </div>
+
+        <div class="out">
+          <span class="lab">outputs</span>
+          <a href="code.html">aura-lab/onboarding-kit</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 05 · Multi-agent SE (planning) -->
+    <article class="project r">
+      <div class="side">
+        <div class="id">PROJECT 05 · automation</div>
+        <h3>Auditable Multi-Agent SE</h3>
+        <div class="status planning"><span class="d"></span>in planning · y2 kickoff</div>
+        <div class="funder">
+          <div class="fl">funding</div>
+          <div class="fn">in preparation · NSF Medium</div>
+          <div class="fa">target submission: Fall 2026</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="tag-row"><span class="tag">automation</span><span class="tag">agents</span><span class="tag">trace evaluation</span></div>
+        <p>Building agents that <strong>plan, act, and report</strong> across the software lifecycle — with auditable handoffs and a trace-aware evaluation that penalises shortcut behaviour (e.g., test deletion). Lead by Benjamin Tremblay; planned year-2 thrust.</p>
+
+        <div class="stats">
+          <div class="s"><div class="v">6<span class="u">stations</span></div><div class="l">canonical loop</div></div>
+          <div class="s"><div class="v">0<span class="u">papers</span></div><div class="l">yet — planning</div></div>
+          <div class="s"><div class="v">SWE-bench<span class="u"></span></div><div class="l">baseline target</div></div>
+          <div class="s"><div class="v">2027<span class="u"></span></div><div class="l">first paper target</div></div>
+        </div>
+
+        <div class="members"><span class="who">team</span>
+          <div class="av" style="background-image:url(../assets/img/antonio.jpg)" title="A. Mastropaolo"></div>
+          <div class="av" style="background-image:url(../assets/img/ben.jpg)" title="Ben (lead)"></div>
+          <div class="av" style="background-image:url(../assets/img/joseph.jpg)" title="J. Call"></div>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-bar"><div class="fill" style="width:10%"></div><div class="mark" style="left:10%"></div></div>
+          <div class="tl-labels"><span>06/2026 · planning</span><span><b>now</b> · scoping</span><span>06/2028 · target</span></div>
+        </div>
+
+        <div class="out">
+          <span class="lab">outputs</span>
+          <a href="aura_variants/threads/A_automation.html">thread page</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- Funding history -->
+  <section class="block paper-2" id="funding" style="margin-top:48px">
+    <span class="num r">§ Funding · transparency</span>
+    <h2 class="r">All <em>support</em>, on the record.</h2>
+    <div class="prose r">
+      <p>The lab's research is supported by the funders listed below. We publish this list so reviewers, students, and the public can see who paid for what. Acknowledgement strings on every paper match this ledger.</p>
+    </div>
+
+    <div style="background:white;border:1px solid var(--rule);border-radius:14px;margin-top:18px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:1fr 220px 140px 140px;gap:0;padding:12px 18px;background:var(--paper-2);font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--rule)">
+        <span>Source</span><span>Type</span><span>Amount</span><span>Period</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 220px 140px 140px;gap:0;padding:14px 18px;border-bottom:1px solid var(--rule);font-family:var(--serif);font-size:15px;color:var(--ink)">
+        <span><strong>NSF CRII #2451058</strong> · Trustworthy &amp; Resource-Efficient FMs for SE</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em">sole-PI federal grant</span>
+        <span style="font-family:var(--serif);font-weight:600">$175,000</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em">06/2025 → 05/2027</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 220px 140px 140px;gap:0;padding:14px 18px;border-bottom:1px solid var(--rule);font-family:var(--serif);font-size:15px;color:var(--ink)">
+        <span><strong>William &amp; Mary</strong> · CS departmental start-up</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em">institutional</span>
+        <span style="font-family:var(--serif);font-weight:600">confidential</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em">08/2024 → 08/2029</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 220px 140px 140px;gap:0;padding:14px 18px;border-bottom:1px solid var(--rule);font-family:var(--serif);font-size:15px;color:var(--ink)">
+        <span><strong>Charles Center · Summer Research Grant</strong> · undergrad (Leon Huang)</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em">undergraduate fellowship</span>
+        <span style="font-family:var(--serif);font-weight:600">$4,000</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em">summer 2026</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 220px 140px 140px;gap:0;padding:14px 18px;font-family:var(--serif);font-size:15px;color:var(--ink)">
+        <span><strong>Monroe Scholars · Conference Travel Grant</strong> · undergrad (Leon Huang)</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em">travel award</span>
+        <span style="font-family:var(--serif);font-weight:600">≈ $1,000</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em">2026</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary"/><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+      <a class="aura-foot-mark" href="../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="H_cinematic.html">Home</a><span class="sep">·</span>
+        <a href="papers.html">Papers</a><span class="sep">·</span>
+        <a href="projects.html">Projects</a><span class="sep">·</span>
+        <a href="forecasts.html">Forecasts</a><span class="sep">·</span>
+        <a href="code.html">Code</a><span class="sep">·</span>
+        <a href="people.html">People</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA</span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>projects · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .12 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

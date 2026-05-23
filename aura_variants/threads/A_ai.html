@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#06241b" />
+<title>A · Resource-Efficient Foundation Models for Code — AURA Lab · W&amp;M</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_thread.css">
+<style>
+  :root { --thread:#115740; --thread-2:#1c8a5a; --thread-glow:#a4ecc4; }
+
+  /* Hero viz: shrinking model rings + accuracy bar */
+  .efficiency-viz{position:relative;height:340px;display:grid;place-items:center}
+  .efficiency-viz svg{width:100%;height:100%}
+  .ring-stack circle{fill:none;stroke:var(--thread-glow);stroke-width:1;opacity:.18;transition:r .5s var(--ease)}
+  .ring-stack .core{stroke:var(--thread-glow);stroke-width:2;opacity:1;fill:rgba(164,236,196,.04)}
+  .acc-bar{position:absolute;bottom:18px;left:24px;right:24px;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:10px;color:#88a89a;letter-spacing:.08em;text-transform:uppercase}
+  .acc-bar .meter{flex:1;height:6px;background:rgba(164,236,196,.10);border-radius:99px;overflow:hidden;position:relative}
+  .acc-bar .fill{height:100%;background:linear-gradient(to right, var(--thread-glow), var(--wm-gold-2));border-radius:99px;width:91%}
+  .acc-bar b{color:#fff;font-family:var(--serif);font-size:14px;font-weight:600;letter-spacing:-.005em}
+
+  /* compare table */
+  .compare{
+    width:100%;border-collapse:collapse;margin-top:14px;
+    font-family:var(--mono);font-size:13px;
+  }
+  .compare th, .compare td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--rule)}
+  .compare th{font-size:10px;letter-spacing:.12em;color:var(--thread);text-transform:uppercase}
+  .compare td.us{color:var(--thread);font-weight:600;background:color-mix(in srgb, var(--thread) 5%, transparent)}
+  .compare td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .compare .us-row td{font-weight:600}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../../assets/img/wm/wm-logo.svg" alt="William & Mary" /><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="../H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; Research &nbsp;/&nbsp; <b>A · AI</b></div>
+  <div class="menu">
+    <a href="../H_cinematic.html#programme">All threads</a>
+    <a href="#why">Why</a>
+    <a href="#approach">Approach</a>
+    <a href="#papers">Papers</a>
+    <a href="../H_cinematic.html#join" class="pill">Join the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap inner">
+    <div>
+      <div class="L">
+        <div class="glyph">A</div>
+        <div class="meta">Thread A · AI<b>Resource-efficient foundation models</b></div>
+      </div>
+      <h1>Smaller models, <em>same proof</em>. A research programme for code intelligence that fits on a developer's laptop.</h1>
+      <p class="lede">A 200-billion-parameter model that runs in a datacentre is not the same product as a 200-million-parameter model that runs on a M-series MacBook. The lab studies the engineering and the science of getting the second one to do the first one's job — measurably, and without hiding the cost.</p>
+      <div class="stats">
+        <div class="s"><div class="v">−68<span class="u">%</span></div><div class="l">avg. footprint</div></div>
+        <div class="s"><div class="v">3.4<span class="u">kWh</span></div><div class="l">median energy / paper</div></div>
+        <div class="s"><div class="v">&lt;1<span class="u">s</span></div><div class="l">on-laptop response</div></div>
+      </div>
+    </div>
+
+    <div class="hero-viz">
+      <div class="lab"><span><span class="d"></span>compression atlas · live</span><span>distill · quant · PEFT</span></div>
+      <div class="efficiency-viz">
+        <svg viewBox="0 0 380 340" id="ringSvg">
+          <g class="ring-stack">
+            <circle cx="190" cy="170" r="150" />
+            <circle cx="190" cy="170" r="120" />
+            <circle cx="190" cy="170" r="92" />
+            <circle cx="190" cy="170" r="66" />
+            <circle cx="190" cy="170" r="44" class="core" />
+          </g>
+          <text x="190" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#88a89a" letter-spacing="1.4">GPT-4 · ~110B</text>
+          <text x="190" y="138" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#88a89a" letter-spacing="1.4">CodeLlama · 13B</text>
+          <text x="190" y="158" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#88a89a" letter-spacing="1.4">CodeT5+ · 7B</text>
+          <text x="190" y="176" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#88a89a" letter-spacing="1.2">CodeBERT · 220M</text>
+          <text x="190" y="194" text-anchor="middle" font-family="Source Serif 4" font-size="14" fill="#a4ecc4" font-weight="600" letter-spacing="-.5">AURA · 220M</text>
+          <text x="190" y="208" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#a4ecc4" letter-spacing="1.2">distilled</text>
+        </svg>
+      </div>
+      <div class="acc-bar">
+        <span>quality</span><div class="meter"><div class="fill"></div></div><b>91%</b><span>of teacher</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §1 WHY IT MATTERS -->
+<section class="block">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 1 · Why this matters</span><h2 class="r">Cost is a property of the model, not an inconvenience around it.</h2></div>
+    <div class="row">
+      <div class="col">
+        <div class="prose r">
+          <p>A model that achieves 84 % accuracy on a leaderboard and takes 38 kilowatt-hours per evaluation is, in deployment, a worse model than one that achieves 78 % at 1 kilowatt-hour. The first cannot be run in a developer's IDE, cannot be audited by a small university lab, cannot be priced into a budget. It is a research curiosity. The second is software.</p>
+
+          <p>This is the substantive argument for the AURA Lab's first research thread. Across the field, headline numbers from very large code models are reported with quiet asterisks attached to the energy, the latency, the carbon footprint, and the deployment cost. Practitioners and reviewers alike then make decisions <strong>as if the cost were zero</strong>. It is not.</p>
+
+          <span class="pull">A model whose energy budget is not declared cannot be compared.</span>
+
+          <p>We treat efficiency as an evaluation dimension equal in standing to accuracy. We report parameters, latency, peak memory, and energy alongside every quality metric — for our own models <em>and</em> for the baselines we run. We publish the measurement scripts. We accept submissions to our benchmarks that disagree with our numbers.</p>
+
+          <p>The downstream effect is concrete: developers in the IDE who can run our distilled code-summarisation model locally, on CPU, in under 800 ms; reviewers who can rerun our experiments on a single workstation; institutions that can adopt these systems without procuring a datacentre.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px" class="r">
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--thread);text-transform:uppercase;margin-bottom:14px">Comparison · code summarization</div>
+          <table class="compare">
+            <thead><tr><th>Model</th><th class="num">Params</th><th class="num">BLEU</th><th class="num">Energy</th></tr></thead>
+            <tbody>
+              <tr><td>GPT-4</td><td class="num">~110 B</td><td class="num">84.0</td><td class="num">~38 kWh</td></tr>
+              <tr><td>CodeLlama-13B</td><td class="num">13 B</td><td class="num">75.0</td><td class="num">~6 kWh</td></tr>
+              <tr><td>CodeBERT</td><td class="num">220 M</td><td class="num">64.0</td><td class="num">~0.3 kWh</td></tr>
+              <tr class="us-row"><td class="us">AURA · distilled</td><td class="us num">220 M</td><td class="us num">78.2</td><td class="us num">1.4 kWh</td></tr>
+            </tbody>
+          </table>
+          <div style="font-family:var(--serif);font-style:italic;font-size:13px;color:var(--mute);margin-top:10px">FORGE 2025; reproducible end-to-end on a single workstation in 52 min.</div>
+        </div>
+
+        <div style="background:white;border:1px solid var(--rule);border-radius:14px;padding:22px 24px;margin-top:18px" class="r">
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--thread);text-transform:uppercase;margin-bottom:10px">The three failure modes we study</div>
+          <ul class="check-list" style="margin-top:6px">
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg></span><div><div class="t">Latency that excludes interactive use</div><div class="d">If autocomplete blocks for 2 s, the developer turned it off three weeks ago.</div></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></span><div><div class="t">Memory that excludes on-device deployment</div><div class="d">If the model needs 80 GB of VRAM, it cannot be the privacy story you wanted.</div></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><div><div class="t">Energy that excludes academic replication</div><div class="d">If reproducing a result costs $40 K, only six labs in the world will check it.</div></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 WHAT'S HARD -->
+<section class="block dark">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 2 · What is hard</span><h2 class="r">Three honest answers about <em>why</em> small models for code are not solved.</h2></div>
+
+    <div class="cards r-stagger">
+      <div class="card">
+        <div class="ix">2.1 · Distillation drift</div>
+        <h4>Student models inherit shortcuts, not understanding.</h4>
+        <p>A 1.1 B student trained to imitate a 70 B teacher on summarisation easily reproduces the surface fluency and loses the chain-of-thought. Standard distillation does not transfer reasoning — only output tokens. The remedy is task-aware distillation that supervises intermediate behaviours, which requires inventing the right intermediates.</p>
+      </div>
+      <div class="card">
+        <div class="ix">2.2 · Quantisation cliffs</div>
+        <h4>4-bit is fine, until it suddenly is not.</h4>
+        <p>Aggregate accuracy holds steady under 4-bit quantisation, then collapses on specific input distributions (long context, rare identifiers, low-resource languages). A benchmark average hides the cliff. ICSME 2025 catalogues where the cliffs live, by language and by task.</p>
+      </div>
+      <div class="card">
+        <div class="ix">2.3 · PEFT &amp; the tuning trap</div>
+        <h4>LoRA gives you eight knobs and a moral hazard.</h4>
+        <p>Parameter-efficient fine-tuning lowers compute per training run, which encourages a larger sweep. The aggregate cost can exceed full fine-tuning. We argue, in the TOSEM 2025 survey, that the comparison should be measured in <em>total energy to first usable model</em>, not per-step cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 OUR APPROACH -->
+<section class="block">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 3 · How we ensure it</span><h2 class="r">Method — <em>measure twice, distil once, publish everything.</em></h2></div>
+
+    <div class="row">
+      <div class="col">
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div><div class="t">Joint metric pact</div><div class="d">Every paper reports {parameters, latency, memory, energy, accuracy}. No partial reports.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h18"/><path d="M12 3v18"/></svg></span><div><div class="t">Honest baselines</div><div class="d">We re-run baselines under the same protocol — never copy numbers from the original paper.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span><div><div class="t">One-command reproduce</div><div class="d">Each artefact ships with <code style="font-family:var(--mono);background:var(--paper-2);padding:1px 6px;border-radius:3px;font-size:12px">./reproduce.sh</code> that rebuilds the headline figure end-to-end, including all efficiency numbers.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 9l9-6 9 6v12H3z"/><path d="M9 21V9h6v12"/></svg></span><div><div class="t">On-device benchmarking</div><div class="d">When a paper claims interactive latency, we measure on a developer machine, not an A100 cluster.</div></div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="code r">
+          <span class="lab">distill.py · excerpt</span>
+<pre style="background:transparent;color:inherit;padding:0;margin:0;font:inherit"><span class="cm"># Task-aware distillation: supervise on intermediate</span>
+<span class="cm"># representations, not just final tokens.</span>
+<span class="kw">from</span> aura <span class="kw">import</span> Teacher, Student, EnergyMeter
+
+teacher = Teacher.load(<span class="str">"codellama-13b"</span>)
+student = Student(arch=<span class="str">"distilbert-220m"</span>)
+meter   = EnergyMeter(<span class="str">"rapl"</span>)         <span class="cm"># on-device joule counts</span>
+
+<span class="kw">with</span> meter.track(<span class="str">"distillation"</span>) <span class="kw">as</span> energy:
+    <span class="kw">for</span> batch <span class="kw">in</span> code_corpus(repos=<span class="str">"top-1k"</span>):
+        t_logits, t_attn = teacher(batch, return_attn=<span class="kw">True</span>)
+        s_logits, s_attn = student(batch, return_attn=<span class="kw">True</span>)
+        loss = task_loss(s_logits, batch.label) \
+             + <span class="num">0.5</span> * attn_kl(s_attn, t_attn)   <span class="cm"># transfer reasoning</span>
+        loss.backward(); student.step()
+
+<span class="cm"># Required honesty: report energy alongside accuracy.</span>
+print(<span class="str">f"BLEU = {student.eval(test).bleu:.2f}   "</span>
+      <span class="str">f"E = {energy.kwh:.2f} kWh   "</span>
+      <span class="str">f"params = {student.n_params/1e6:.0f} M"</span>)</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 PAPERS -->
+<section class="block paper-2">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 4 · Selected papers</span><h2 class="r">The <em>receipts</em> for this thread.</h2></div>
+    <div class="pubs r-stagger">
+      <a class="pub" href="https://doi.org/10.1109/FORGE.2025.11052615" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="v">FORGE<span class="y">2025</span></div>
+        <div><div class="t">Resource-Efficient and Effective Code Summarization.</div><div class="au">S. Afrin, J. Call, K. Nguyen, O. Chaparro, <span class="me">A. Mastropaolo</span>.</div></div>
+        <div class="acts"><a href="https://doi.org/10.1109/FORGE.2025.11052615" target="_blank">DOI · 10.1109/FORGE…</a><a href="#" target="_blank">artefact</a></div>
+      </a>
+      <a class="pub" href="https://arxiv.org/abs/2507.09665" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="v">ICSME<span class="y">2025</span></div>
+        <div><div class="t">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models.</div><div class="au">S. Afrin, B. Xu, <span class="me">A. Mastropaolo</span>.</div></div>
+        <div class="acts"><a href="https://arxiv.org/abs/2507.09665" target="_blank">arXiv · 2507.09665</a><a href="#" target="_blank">artefact</a></div>
+      </a>
+      <a class="pub" href="https://arxiv.org/abs/2504.21569" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="v">TOSEM<span class="y">2025</span></div>
+        <div><div class="t">A Systematic Literature Review of PEFT for Large Code Models.</div><div class="au">S. Afrin, M. Z. Haque, <span class="me">A. Mastropaolo</span>.</div></div>
+        <div class="acts"><a href="https://arxiv.org/abs/2504.21569" target="_blank">arXiv · 2504.21569</a><a href="#" target="_blank">320-paper review</a></div>
+      </a>
+      <a class="pub" href="#" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="v">JAWs<span class="y">2026</span></div>
+        <div><div class="t">BRACE: Unified Benchmarking of Accuracy and Energy for Code Language Models.</div><div class="au">M. Mehditabar, S. Rajput, <span class="me">A. Mastropaolo</span>, T. Sharma.</div></div>
+        <div class="acts"><a href="#" target="_blank">JAWs · 2026</a><a href="#" target="_blank">benchmark</a></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- §5 PRACTITIONERS / §6 RESEARCHERS -->
+<section class="block">
+  <div class="wrap">
+    <div class="row">
+      <div class="col">
+        <div class="head"><span class="num r">§ 5 · For practitioners</span><h2 class="r">What you can use <em>today</em>.</h2></div>
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><div><div class="t">aura-lab/forge-25-summarization</div><div class="d">Distilled 220 M code-summarisation model. Docker image, &lt; 1 s inference on CPU, MIT-licensed.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><div><div class="t">BRACE benchmark suite</div><div class="d">Run accuracy + energy + latency on your model with one command. Submit your result to the public leaderboard.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 4v16m-8-8h16"/></svg></span><div><div class="t">PEFT decision matrix</div><div class="d">Table from the TOSEM 2025 survey: pick LoRA / QLoRA / adapters / IA³ given your data, compute, and target model. Decision tree as a one-pager.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="t">Energy meter</div><div class="d">RAPL + nvidia-smi wrapper. Drop it into any training loop and get a per-experiment kWh figure. Used in all our papers.</div></div></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <div class="head"><span class="num r">§ 6 · For researchers</span><h2 class="r">Open <em>problems</em>.</h2></div>
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><div><div class="t">Quantisation cliffs</div><div class="d">For each task × language × bitwidth, where exactly does accuracy collapse? We have a partial atlas; we want collaborators to fill it in.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2L2 7l10 5 10-5z"/><path d="M2 17l10 5 10-5"/></svg></span><div><div class="t">Task-aware distillation</div><div class="d">Beyond logit distillation: what intermediates transfer? Attention? Activations? Surrogate plans?</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></span><div><div class="t">Energy as a constraint</div><div class="d">Pareto-optimal training under a hard kWh budget — formal treatment, plus practical optimisers.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="t">Honest leaderboards</div><div class="d">Multi-axis leaderboards (accuracy + energy + cost) with audited submissions. We host one; we'd like more groups to host theirs.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §7 PEOPLE -->
+<section class="block paper-2">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 7 · People on this thread</span><h2 class="r">Who is <em>building</em> it.</h2></div>
+    <div class="people-row r-stagger">
+      <a class="pm" href="https://antoniomastropaolo.io" target="_blank"><div class="av" style="background-image:url(../../assets/img/antonio.jpg)"></div><div><div class="nm">A. Mastropaolo</div><div class="rl">PI · director</div></div></a>
+      <a class="pm" href="https://saimaafrin.github.io" target="_blank"><div class="av" style="background-image:url(../../assets/img/saima.jpg)"></div><div><div class="nm">S. Afrin</div><div class="rl">PhD · efficiency lead</div></div></a>
+      <a class="pm" href="https://jbcallv.netlify.app" target="_blank"><div class="av" style="background-image:url(../../assets/img/joseph.jpg)"></div><div><div class="nm">J. Call</div><div class="rl">PhD · evaluation</div></div></a>
+      <a class="pm" href="https://alvi75.github.io" target="_blank"><div class="av" style="background-image:url(../../assets/img/alvi.jpeg)"></div><div><div class="nm">Md Z. H. Alvi</div><div class="rl">PhD · PEFT</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-scene">
+  <div class="wrap">
+    <span class="num r" style="color:var(--thread-glow);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase">§ 8 · Get involved</span>
+    <h2 class="r" style="margin-top:14px">Want to work on <em>actually small</em> models that actually work?</h2>
+    <p class="lede r">We are recruiting PhDs for Fall 2026 with a focus on this thread. We welcome collaborators interested in joint benchmarks, joint papers, or co-supervising student projects across institutions.</p>
+    <div class="cta-row r">
+      <a class="btn primary" href="mailto:amastropaolo@wm.edu">Reach out <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a class="btn ghost" href="../H_cinematic.html">Back to the lab</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener" aria-label="William &amp; Mary">
+        <img src="../../assets/img/wm/wm-logo.svg" alt="William &amp; Mary" />
+        <span class="dept"><b>AURA Lab</b>Computer Science</span>
+      </a>
+      <a class="aura-foot-mark" href="../../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="../H_cinematic.html#programme">Lab home</a><span class="sep">·</span>
+        <a href="A_ai.html">A · AI</a><span class="sep">·</span>
+        <a href="U_understanding.html">U · Understanding</a><span class="sep">·</span>
+        <a href="R_reliable.html">R · Reliable</a><span class="sep">·</span>
+        <a href="A_automation.html">A · Automation</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA · <a href="https://www.wm.edu/as/computerscience/" target="_blank" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.18)">wm.edu/cs</a></span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>thread A · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .14 });
+  document.querySelectorAll('.r, .r-stagger').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

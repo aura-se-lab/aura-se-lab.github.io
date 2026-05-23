@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#06241b" />
+<title>U · Neurosymbolic Reasoning &amp; Interpretability — AURA Lab · W&amp;M</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_thread.css">
+<style>
+  :root { --thread:#178a5a; --thread-2:#1c8a5a; --thread-glow:#a4ecc4; }
+
+  /* Hero viz: code with attention heat */
+  .interp-viz{position:relative;height:340px;padding:14px;font-family:var(--mono);font-size:13px;line-height:1.7;background:rgba(0,0,0,.25);border-radius:12px;overflow:hidden}
+  .interp-viz .tok{display:inline-block;padding:1px 4px;border-radius:3px;margin:1px;transition:background .35s ease;color:#dff0e6;cursor:default}
+  .interp-viz .leg{position:absolute;bottom:12px;left:14px;right:14px;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:9px;color:#88a89a;letter-spacing:.1em;text-transform:uppercase}
+  .interp-viz .leg .grad{flex:1;height:6px;background:linear-gradient(to right, rgba(164,236,196,.10), #a4ecc4, #d3b16f);border-radius:99px}
+
+  /* Dual-track AST viz */
+  .ast{
+    background:white;border:1px solid var(--rule);border-radius:14px;padding:24px;margin-top:18px;
+  }
+  .ast .twin{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .ast .twin .lane{padding:14px 16px;background:var(--paper-2);border-radius:10px}
+  .ast .twin .lane h5{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--thread);margin-bottom:8px}
+  .ast .twin .lane pre{font-family:var(--mono);font-size:12px;line-height:1.55;color:var(--ink);white-space:pre-wrap}
+  .ast .twin .lane .ann{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--mute);margin-top:8px}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../../assets/img/wm/wm-logo.svg" alt="William & Mary" /><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="../H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; Research &nbsp;/&nbsp; <b>U · Understanding</b></div>
+  <div class="menu">
+    <a href="../H_cinematic.html#programme">All threads</a>
+    <a href="#why">Why</a>
+    <a href="#approach">Approach</a>
+    <a href="#papers">Papers</a>
+    <a href="../H_cinematic.html#join" class="pill">Join the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap inner">
+    <div>
+      <div class="L">
+        <div class="glyph">U</div>
+        <div class="meta">Thread U · Understanding<b>Neurosymbolic reasoning &amp; interpretability</b></div>
+      </div>
+      <h1>Models that <em>show their work</em>. Code intelligence that can be audited, not merely trusted.</h1>
+      <p class="lede">A language model that produces a fix is a hypothesis. A symbolic system that proves the fix preserves the invariants is evidence. The lab studies how to compose the two so that developers receive a result they can <strong>check</strong>, not just an answer they have to take on faith.</p>
+      <div class="stats">
+        <div class="s"><div class="v">3</div><div class="l">explanation primitives</div></div>
+        <div class="s"><div class="v">★</div><div class="l">ICPC ERA honourable mention</div></div>
+        <div class="s"><div class="v">100<span class="u">%</span></div><div class="l">explanations auditable</div></div>
+      </div>
+    </div>
+
+    <div class="hero-viz">
+      <div class="lab"><span><span class="d"></span>attention &amp; structure · live</span><span>distilled 220 M</span></div>
+      <div class="interp-viz" id="codeViz">
+        <span class="tok" style="background:rgba(164,236,196,.55);color:#0a1014">def</span>
+        <span class="tok" style="background:rgba(164,236,196,.32)">binary_search</span>(<span class="tok" style="background:rgba(164,236,196,.18)">arr</span>, <span class="tok" style="background:rgba(164,236,196,.50)">target</span>):<br>
+        &nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.12)">lo</span>, <span class="tok" style="background:rgba(164,236,196,.12)">hi</span> = 0, <span class="tok" style="background:rgba(164,236,196,.18)">len</span>(<span class="tok" style="background:rgba(164,236,196,.12)">arr</span>) - 1<br>
+        &nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.55);color:#0a1014">while</span> <span class="tok" style="background:rgba(164,236,196,.12)">lo</span> &lt;= <span class="tok" style="background:rgba(164,236,196,.12)">hi</span>:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.42);color:#0a1014">mid</span> = (<span class="tok" style="background:rgba(164,236,196,.12)">lo</span> + <span class="tok" style="background:rgba(164,236,196,.12)">hi</span>) // 2<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.45);color:#0a1014">if</span> <span class="tok" style="background:rgba(164,236,196,.18)">arr</span>[<span class="tok" style="background:rgba(164,236,196,.42);color:#0a1014">mid</span>] == <span class="tok" style="background:rgba(164,236,196,.55);color:#0a1014">target</span>:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.65);color:#0a1014">return</span> <span class="tok" style="background:rgba(164,236,196,.42);color:#0a1014">mid</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.32);color:#0a1014">elif</span> <span class="tok" style="background:rgba(164,236,196,.18)">arr</span>[<span class="tok" style="background:rgba(164,236,196,.42);color:#0a1014">mid</span>] &lt; <span class="tok" style="background:rgba(164,236,196,.55);color:#0a1014">target</span>:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.12)">lo</span> = <span class="tok" style="background:rgba(164,236,196,.42);color:#0a1014">mid</span> + 1<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.32);color:#0a1014">else</span>:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.12)">hi</span> = <span class="tok" style="background:rgba(164,236,196,.42);color:#0a1014">mid</span> - 1<br>
+        &nbsp;&nbsp;<span class="tok" style="background:rgba(164,236,196,.65);color:#0a1014">return</span> -1
+        <div class="leg">
+          <span>low attention</span><div class="grad"></div><span>high</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §1 WHY IT MATTERS -->
+<section class="block" id="why">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 1 · Why this matters</span><h2 class="r">A correct answer with no explanation is a <em>liability</em>, not an asset.</h2></div>
+    <div class="row">
+      <div class="col">
+        <div class="prose r">
+          <p>The most consequential decision a developer makes about an AI suggestion is whether to merge it. That decision rests on something the system has not, until recently, been built to provide: <strong>an account of why</strong>.</p>
+
+          <p>When a code model proposes a patch, the developer needs to know which fields it inspected, which invariants it implicitly assumed, and which test cases would still fail. When a summarisation model condenses 200 lines into one sentence, the reader needs to know whether the sentence emerged from the function's body or merely from the function's name.</p>
+
+          <span class="pull">A model that cannot explain itself cannot be debugged.</span>
+
+          <p>Industry-grade interpretability is also a regulatory inevitability. The 2026 NIST AI Risk Management addendum on developer-assistance tools requires <em>traceable rationales</em> for any model whose output enters a release pipeline. Whether or not your jurisdiction has caught up, the case for explainability is already a case for compliance.</p>
+
+          <p>Our research treats interpretability as a <em>research problem</em>, not a feature you bolt onto a finished model. We pursue two complementary tracks: <em>mechanistic</em> — what features the model has learned and where they live — and <em>symbolic</em> — pairing neural predictions with grammars, type systems, and program analysers that produce explanations a developer can step through.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="ast r">
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--thread);text-transform:uppercase;margin-bottom:14px">Two views of the same explanation</div>
+          <div class="twin">
+            <div class="lane">
+              <h5>Neural</h5>
+              <pre>attention(merge, [list, len, half])
+attention(left, [recur, list[:mid]])
+attention(right, [recur, list[mid:]])</pre>
+              <div class="ann">"the model attended to these tokens"</div>
+            </div>
+            <div class="lane">
+              <h5>Symbolic</h5>
+              <pre>recursive_descent(merge_sort)
+  base : len(a) ≤ 1
+  split: a[:mid] ; a[mid:]
+  combine: merge(L, R)</pre>
+              <div class="ann">"the program analyser <em>proved</em> these"</div>
+            </div>
+          </div>
+          <div style="font-family:var(--serif);font-size:14px;color:var(--ink-2);margin-top:14px;line-height:1.55">
+            Neither track alone is enough. Attention alone is correlational. A symbolic trace alone is brittle. The hybrid is both grounded and complete. Read the ICPC ERA paper for the formal account.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 WHAT'S HARD -->
+<section class="block dark">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 2 · What is hard</span><h2 class="r">Three honest reasons interpretability for code is <em>not</em> solved.</h2></div>
+    <div class="cards r-stagger">
+      <div class="card">
+        <div class="ix">2.1 · Faithfulness</div>
+        <h4>An explanation is not a story.</h4>
+        <p>It is easy to generate a plausible English rationalisation of any answer; it is hard to guarantee the rationalisation reflects the computation that produced the answer. We need explanations whose truth conditions can be checked against the model's internal state.</p>
+      </div>
+      <div class="card">
+        <div class="ix">2.2 · Granularity</div>
+        <h4>Tokens are the wrong unit.</h4>
+        <p>Developers reason about <em>features</em> — invariants, types, dataflow paths — not subword pieces. Token-level attention maps look impressive in screenshots and explain nothing to the reviewer who has to merge the patch.</p>
+      </div>
+      <div class="card">
+        <div class="ix">2.3 · Cost</div>
+        <h4>Symbolic analysis does not scale on its own.</h4>
+        <p>Whole-program analysis on 1 MLoC takes hours. Pure neural prediction takes milliseconds and is wrong in surprising ways. The compositional question is how to spend symbolic effort exactly where the neural signal is uncertain — and not elsewhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 OUR APPROACH -->
+<section class="block" id="approach">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 3 · How we ensure it</span><h2 class="r">Method — <em>three explanation primitives</em>, each falsifiable.</h2></div>
+
+    <div class="row">
+      <div class="col">
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg></span><div><div class="t">Feature-level attribution</div><div class="d">We probe trained models for human-meaningful features (invariants, types, dataflow), not just tokens. Output: a per-feature score the developer can inspect.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="3"/><path d="M3 12h6M15 12h6M12 3v6M12 15v6"/></svg></span><div><div class="t">Neurosymbolic decoding</div><div class="d">The model proposes; the symbolic system constrains. Type-correct, AST-valid, and invariant-preserving outputs by construction — not by post-hoc filtering.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div><div class="t">Falsifiable explanations</div><div class="d">Every explanation comes with a <em>test of itself</em>: a counterfactual perturbation that should change the prediction if the explanation is correct.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h18M3 6h18M3 18h18"/></svg></span><div><div class="t">Cost-aware analysis</div><div class="d">Symbolic effort is spent only where neural uncertainty is high. Cheap explanations stay cheap; expensive ones are budget-aware.</div></div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="code r">
+          <span class="lab">neurosym_decode.py · excerpt</span>
+<pre style="background:transparent;color:inherit;padding:0;margin:0;font:inherit"><span class="cm"># Neurosymbolic decoding: model proposes, analyser constrains.</span>
+<span class="kw">from</span> aura.interp <span class="kw">import</span> CodeModel, TypeChecker, Trace
+
+model    = CodeModel.load(<span class="str">"distill-220m"</span>)
+checker  = TypeChecker(<span class="str">"python-3.12"</span>)
+
+<span class="kw">def</span> propose(prompt):
+    candidates = model.beam(prompt, n=<span class="num">8</span>)
+    <span class="cm"># Only consider type-correct, AST-valid outputs.</span>
+    valid = [c <span class="kw">for</span> c <span class="kw">in</span> candidates <span class="kw">if</span> checker.ok(c)]
+    <span class="kw">return</span> valid[<span class="num">0</span>] <span class="kw">if</span> valid <span class="kw">else</span> <span class="kw">None</span>
+
+trace = Trace.record(propose, on=<span class="str">"my_repo/buggy_func.py"</span>)
+<span class="cm"># The trace contains every model logit, every checker</span>
+<span class="cm"># verdict, every constraint that pruned a candidate.</span>
+trace.explain()            <span class="cm"># human-readable rationale</span>
+trace.counterfactual()     <span class="cm"># perturbation that should flip the answer</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 PAPERS -->
+<section class="block paper-2" id="papers">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 4 · Selected papers</span><h2 class="r">The <em>receipts</em> for this thread.</h2></div>
+    <div class="pubs r-stagger">
+      <a class="pub" href="https://arxiv.org/abs/2502.01806" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">ICPC ERA<span class="y">2025</span></div>
+        <div><div class="t">Toward Neurosymbolic Program Comprehension. <em style="color:var(--wm-gold);font-size:13px">honorable mention.</em></div><div class="au">A. Velasco, A. Garryyeva, D. N. Palacio, <span class="me">A. Mastropaolo</span>, D. Poshyvanyk.</div></div>
+        <div class="acts"><a href="https://arxiv.org/abs/2502.01806" target="_blank">arXiv · 2502.01806</a><a href="#" target="_blank">artefact</a></div>
+      </a>
+      <a class="pub" href="#" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">AI-SDLC<span class="y">2025</span></div>
+        <div><div class="t">A Path Less Traveled: Reimagining SE Automation via a Neurosymbolic Paradigm.</div><div class="au"><span class="me">A. Mastropaolo</span>, D. Poshyvanyk.</div></div>
+        <div class="acts"><a href="#" target="_blank">AI-SDLC · 2025</a><a href="#" target="_blank">position</a></div>
+      </a>
+      <a class="pub" href="https://doi.org/10.1145/3672459" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">TOSEM<span class="y">2024</span></div>
+        <div><div class="t">From Triumph to Uncertainty — Chap. 4: <em>The interpretability gap</em>.</div><div class="au"><span class="me">A. Mastropaolo</span>, C. Escobar-Velásquez, M. Linares-Vásquez.</div></div>
+        <div class="acts"><a href="https://doi.org/10.1145/3672459" target="_blank">DOI · 10.1145/3672459</a></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- §5/§6 PRACTITIONERS + RESEARCHERS -->
+<section class="block">
+  <div class="wrap">
+    <div class="row">
+      <div class="col">
+        <div class="head"><span class="num r">§ 5 · For practitioners</span><h2 class="r">What you can use <em>today</em>.</h2></div>
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><div><div class="t">aura-lab/interp-toolkit</div><div class="d">Drop-in probe that attaches to common code models (CodeBERT, CodeT5+, CodeLlama) and produces feature-level attribution plus a falsifying counterfactual.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h18M12 3v18"/></svg></span><div><div class="t">Type-aware decoding wrapper</div><div class="d">Sits between any HuggingFace code model and your output. Guarantees AST validity and type-correctness; logs everything it pruned.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><div><div class="t">"Explanation contract" template</div><div class="d">A YAML schema your team can adopt to specify what an AI assistant must explain before its output enters CI. Adopted by 4 industrial partners as of 2026.</div></div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="head"><span class="num r">§ 6 · For researchers</span><h2 class="r">Open <em>problems</em>.</h2></div>
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="t">Faithful feature probes</div><div class="d">Probes whose results we can <em>prove</em> reflect the model's computation, not just correlate with the output. Provably-faithful probes for code remain an open problem.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2L2 7l10 5 10-5z"/><path d="M2 17l10 5 10-5"/></svg></span><div><div class="t">Compositional neurosymbolic decoding</div><div class="d">When to call the analyser, with what budget, on what scope. A theory of <em>when to be symbolic</em>.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><div><div class="t">User study designs</div><div class="d">Empirical evaluations of whether feature-level explanations actually change developer decisions. The interpretability literature is full of pictures and short of A/B tests.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></span><div><div class="t">Benchmark · interpretability for code</div><div class="d">A community-built corpus of code-AI explanations with human gold-labels for <em>did this explanation help</em>. We are seeding it; please contribute.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §7 PEOPLE -->
+<section class="block paper-2">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 7 · People on this thread</span><h2 class="r">Who is <em>building</em> it.</h2></div>
+    <div class="people-row r-stagger">
+      <a class="pm" href="https://antoniomastropaolo.io" target="_blank"><div class="av" style="background-image:url(../../assets/img/antonio.jpg)"></div><div><div class="nm">A. Mastropaolo</div><div class="rl">PI · director</div></div></a>
+      <a class="pm" href="https://www.linkedin.com/in/leyligarryyeva/" target="_blank"><div class="av" style="background-image:url(../../assets/img/aya.jpg)"></div><div><div class="nm">A. Garryyeva</div><div class="rl">PhD · neurosymbolic lead</div></div></a>
+      <a class="pm" href="https://x.com/chriszai0816" target="_blank"><div class="av" style="background-image:url(../../assets/img/chris.jpeg)"></div><div><div class="nm">Z. (Chris) Cheng</div><div class="rl">PhD · interpretability</div></div></a>
+      <a class="pm" href="https://www.cs.wm.edu/~denys/" target="_blank"><div class="av" style="background:#0f2a20;color:#a4ecc4;display:grid;place-items:center;font-family:var(--serif);font-weight:600">DP</div><div><div class="nm">D. Poshyvanyk</div><div class="rl">collaborator · W&amp;M</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-scene">
+  <div class="wrap">
+    <span class="num r" style="color:var(--thread-glow);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase">§ 8 · Get involved</span>
+    <h2 class="r" style="margin-top:14px">Want to make code AI <em>actually explain itself</em>?</h2>
+    <p class="lede r">Open positions for PhDs and visiting researchers interested in neurosymbolic methods, mechanistic interpretability for code models, or user studies of developer trust.</p>
+    <div class="cta-row r">
+      <a class="btn primary" href="mailto:amastropaolo@wm.edu">Reach out <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a class="btn ghost" href="../H_cinematic.html">Back to the lab</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener" aria-label="William &amp; Mary">
+        <img src="../../assets/img/wm/wm-logo.svg" alt="William &amp; Mary" />
+        <span class="dept"><b>AURA Lab</b>Computer Science</span>
+      </a>
+      <a class="aura-foot-mark" href="../../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="../H_cinematic.html#programme">Lab home</a><span class="sep">·</span>
+        <a href="A_ai.html">A · AI</a><span class="sep">·</span>
+        <a href="U_understanding.html">U · Understanding</a><span class="sep">·</span>
+        <a href="R_reliable.html">R · Reliable</a><span class="sep">·</span>
+        <a href="A_automation.html">A · Automation</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA · <a href="https://www.wm.edu/as/computerscience/" target="_blank" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.18)">wm.edu/cs</a></span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>thread U · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .14 });
+  document.querySelectorAll('.r, .r-stagger').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

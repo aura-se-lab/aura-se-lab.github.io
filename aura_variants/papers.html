@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#000" />
+<title>Papers — AURA Lab · William &amp; Mary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wm-green:#115740; --wm-green-2:#1c8a5a; --wm-glow:#a4ecc4; --wm-gold:#B9975B; --wm-deep:#06241b;
+  --paper:#fbfaf3; --paper-2:#f1eedd; --ink:#0a1014; --ink-2:#2a323a; --mute:#6c757d; --mute-2:#a4a89c; --rule:#dad7c8;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Inter Tight",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.7,.2,1);
+  --hpad:clamp(20px,5vw,36px); --gutter:clamp(20px,4vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:var(--wm-green);text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:transparent}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--hpad)}
+
+/* ── NAV ── */
+nav.bar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;
+  padding:12px var(--hpad);
+  background:rgba(0,0,0,.92);backdrop-filter:blur(14px) saturate(180%);
+  -webkit-backdrop-filter:blur(14px) saturate(180%);
+  border-bottom:1px solid rgba(183,146,87,.22);
+}
+.wm-mark{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+.wm-mark img{height:26px;width:auto;display:block;flex-shrink:0;filter:brightness(1.45) saturate(.85)}
+.wm-mark .dept{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap;padding-left:14px;border-left:1px solid rgba(255,255,255,.18);line-height:1.2}
+.wm-mark .dept b{display:block;color:#fff;font-family:var(--serif);font-size:12px;letter-spacing:.01em;text-transform:none;font-weight:600;margin-bottom:2px}
+.crumb{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#a4a89c;text-transform:uppercase}
+.crumb a{color:#cfd2c9}.crumb a:hover{color:var(--wm-glow)}.crumb b{color:#fff}
+.menu{display:flex;gap:24px;align-items:center;justify-content:flex-end;font-size:13.5px}
+.menu a{color:#cfd2c9;transition:color .2s}.menu a:hover{color:var(--wm-glow)}
+.menu .pill{background:var(--wm-glow);color:#06120c;padding:9px 16px;border-radius:99px;font-weight:700;min-height:36px;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .2s}
+.menu .pill:hover{background:#fff;transform:translateY(-1px)}
+.menu .pill svg{width:11px;height:11px}
+
+/* ── HERO ── */
+.head{padding:120px 0 36px;border-bottom:1px solid var(--rule);background:linear-gradient(180deg,var(--paper-2) 0%,var(--paper) 100%)}
+.head .eye{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-green);text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;background:rgba(28,138,90,.10);padding:6px 12px;border-radius:99px;border:1px solid rgba(28,138,90,.22);margin-bottom:18px}
+.head .eye .live{width:6px;height:6px;border-radius:50%;background:var(--wm-green)}
+.head h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,5.5vw,60px);line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:18px}
+.head h1 em{font-style:italic;color:var(--wm-green);font-weight:500}
+.head .lede{font-family:var(--serif);font-size:clamp(17px,2.1vw,20px);color:var(--ink-2);max-width:62ch;line-height:1.5}
+.head .meta{
+  display:flex;gap:18px;margin-top:24px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;
+}
+.head .meta .m{display:inline-flex;align-items:baseline;gap:6px}
+.head .meta .m b{color:var(--ink);font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:-.005em}
+
+/* ── filter bar ── */
+.fbar{
+  position:sticky;top:60px;z-index:50;
+  background:rgba(251,250,243,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--rule);
+  padding:14px 0;
+}
+.fbar .inner{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.fbar .lab{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.14em;text-transform:uppercase}
+.fbar .chips{display:flex;gap:6px;flex-wrap:wrap}
+.fbar .chips button{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:transparent;color:var(--ink-2);border:1px solid var(--rule);padding:6px 12px;border-radius:99px;
+  transition:all .2s;min-height:32px;
+}
+.fbar .chips button:hover{border-color:var(--wm-green);color:var(--wm-green)}
+.fbar .chips button.on{background:var(--wm-green);color:#fff;border-color:var(--wm-green)}
+.fbar .search{margin-left:auto;display:flex;align-items:center;gap:8px;background:white;border:1px solid var(--rule);border-radius:99px;padding:7px 14px;min-width:240px}
+.fbar .search input{border:none;outline:none;font-family:var(--mono);font-size:12px;color:var(--ink);flex:1;background:transparent;letter-spacing:.04em}
+.fbar .search svg{width:13px;height:13px;color:var(--mute)}
+
+/* ── year groups ── */
+.year-grp{margin-top:36px;border-top:1px solid var(--rule);padding-top:28px}
+.year-grp:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.year-grp summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  padding-bottom:18px;
+}
+.year-grp summary::-webkit-details-marker{display:none}
+.year-grp summary .y{
+  font-family:var(--serif);font-size:clamp(36px,5vw,52px);font-weight:500;color:var(--ink);letter-spacing:-.02em;line-height:1;
+}
+.year-grp summary .y .ct{font-family:var(--mono);font-size:13px;color:var(--mute);margin-left:14px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.year-grp summary .caret{
+  font-family:var(--mono);font-size:12px;color:var(--mute);letter-spacing:.08em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.year-grp summary .caret svg{width:14px;height:14px;transition:transform .25s}
+.year-grp[open] summary .caret svg{transform:rotate(180deg)}
+.year-grp summary:hover .y{color:var(--wm-green)}
+
+/* ── PAPER CARDS ── */
+.papers-grid{display:flex;flex-direction:column;gap:18px;margin-top:8px}
+.paper-card{
+  background:white;border:1px solid var(--rule);border-radius:18px;overflow:hidden;
+  display:grid;grid-template-columns:200px 1fr;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s;
+}
+.paper-card:hover{transform:translateY(-4px);box-shadow:0 28px 50px -22px rgba(17,87,64,.18);border-color:rgba(17,87,64,.32)}
+
+/* Left: venue panel */
+.paper-card .venue-pane{
+  background:var(--paper-2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 18px;text-align:center;gap:14px;
+  border-right:1px solid var(--rule);
+  position:relative;
+}
+.paper-card .venue-pane .venue-logo{
+  width:96px;height:96px;background:white;border:1px solid var(--rule);border-radius:14px;
+  display:grid;place-items:center;
+}
+.paper-card .venue-pane .venue-logo svg{width:78px;height:78px;display:block}
+.paper-card .venue-pane .vname{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--wm-green);text-transform:uppercase;font-weight:600;
+}
+.paper-card .venue-pane .vfull{
+  font-family:var(--serif);font-style:italic;font-size:12.5px;color:var(--mute);line-height:1.4;max-width:18ch;
+}
+.paper-card .venue-pane .yr{
+  font-family:var(--serif);font-size:34px;color:var(--ink);font-weight:600;letter-spacing:-.02em;line-height:1;
+}
+.paper-card .venue-pane .badge{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--wm-gold);text-transform:uppercase;
+  background:rgba(185,151,91,.14);padding:3px 8px;border-radius:99px;border:1px solid rgba(185,151,91,.3);
+}
+.paper-card .venue-pane .badge.honor{background:rgba(185,151,91,.18)}
+
+/* Right: details */
+.paper-card .info{padding:24px 26px;display:flex;flex-direction:column;gap:12px}
+.paper-card .info .tags{display:flex;gap:6px;flex-wrap:wrap}
+.paper-card .info .tags .tg{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--paper-2);border:1px solid var(--rule);color:var(--ink-2);padding:3px 8px;border-radius:99px;
+}
+.paper-card .info .t{
+  font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.3;color:var(--ink);letter-spacing:-.005em;
+}
+.paper-card .info .au{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--mute);line-height:1.5}
+.paper-card .info .au .me{font-style:normal;font-weight:600;color:var(--ink)}
+.paper-card .info .abstract{
+  font-family:var(--serif);font-size:14.5px;color:var(--ink-2);line-height:1.55;
+  padding:12px 14px;background:var(--paper-2);border-radius:8px;border-left:2px solid var(--wm-green);
+}
+.paper-card .info .abstract::before{content:"Abstract — ";font-weight:600;color:var(--ink);font-variant:small-caps;letter-spacing:.04em}
+
+.paper-card .info .stats{
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:6px;
+  font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em;
+}
+.paper-card .info .stats .s{display:inline-flex;align-items:baseline;gap:5px}
+.paper-card .info .stats .s b{color:var(--wm-green);font-family:var(--serif);font-size:15px;font-weight:600;letter-spacing:-.005em}
+
+/* Support strip */
+.paper-card .support{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding-top:8px;border-top:1px dashed var(--rule);margin-top:4px;
+  font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;
+}
+.paper-card .support .lab{color:var(--mute)}
+.paper-card .support .funder{
+  display:inline-flex;align-items:center;gap:7px;
+  background:white;border:1px solid var(--rule);border-radius:99px;padding:4px 10px;
+  color:var(--ink-2);
+}
+.paper-card .support .funder svg{width:14px;height:14px}
+.paper-card .support .funder.nsf{color:#1c5b8a;border-color:rgba(28,91,138,.3);background:rgba(28,91,138,.05)}
+.paper-card .support .funder.wm{color:var(--wm-green);border-color:rgba(17,87,64,.3);background:rgba(17,87,64,.05)}
+.paper-card .support .funder.acm{color:#0085ca;border-color:rgba(0,133,202,.3);background:rgba(0,133,202,.05)}
+.paper-card .support .funder.ieee{color:#00629b;border-color:rgba(0,98,155,.3);background:rgba(0,98,155,.05)}
+
+/* Actions */
+.paper-card .actions{
+  display:flex;gap:6px;flex-wrap:wrap;padding-top:4px;
+}
+.paper-card .actions a, .paper-card .actions button{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--rule);color:var(--ink-2);
+  padding:7px 12px;border-radius:6px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+  min-height:32px;transition:border-color .2s, color .2s, background .2s;
+}
+.paper-card .actions a:hover, .paper-card .actions button:hover{border-color:var(--wm-green);color:var(--wm-green);background:rgba(17,87,64,.04)}
+.paper-card .actions .doi{color:var(--wm-green);border-color:rgba(17,87,64,.32)}
+.paper-card .actions svg{width:11px;height:11px}
+
+/* BibTeX panel */
+.paper-card .bib-panel{
+  grid-column:1 / -1;
+  background:var(--wm-deep);color:#cfe7da;
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease, padding .35s ease;
+  padding:0 26px;
+}
+.paper-card.bib-open .bib-panel{max-height:400px;padding:18px 26px}
+.paper-card .bib-panel pre{font-family:var(--mono);font-size:11.5px;line-height:1.65;white-space:pre-wrap}
+.paper-card .bib-panel .actions{margin-top:12px}
+.paper-card .bib-panel .actions button{background:var(--wm-glow);color:var(--wm-deep);border:none;font-weight:700}
+
+/* footer · compact */
+.foot{background:#000;color:#7d8a82;padding:22px 0 calc(20px + env(safe-area-inset-bottom));font-family:var(--mono);font-size:11px;letter-spacing:.06em;border-top:1px solid rgba(183,146,87,.22);margin-top:64px}
+.foot .inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.foot-links a{color:#cfd2c9;font-size:11.5px;letter-spacing:.06em;padding:4px 0}
+.foot-links a:hover{color:var(--wm-glow)}
+.foot-links .sep{color:rgba(255,255,255,.18)}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.05);font-size:10.5px}
+.foot-bot .qed{color:var(--wm-glow);text-transform:uppercase;letter-spacing:.14em;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+
+/* reveal */
+.r{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease), transform .6s var(--ease)}
+.r.in{opacity:1;transform:translateY(0)}
+
+@media (max-width:880px){
+  .paper-card{grid-template-columns:1fr}
+  .paper-card .venue-pane{flex-direction:row;border-right:none;border-bottom:1px solid var(--rule);padding:14px 18px;justify-content:flex-start;text-align:left}
+  .paper-card .venue-pane .venue-logo{width:56px;height:56px}
+  .paper-card .venue-pane .venue-logo svg{width:46px;height:46px}
+  .paper-card .venue-pane .vname{font-size:10.5px}
+  .paper-card .venue-pane .vfull{font-size:11.5px;max-width:none;flex:1}
+  .paper-card .venue-pane .yr{font-size:24px;margin-left:auto}
+  .paper-card .info{padding:18px 20px}
+  .paper-card .info .t{font-size:18.5px}
+  .paper-card .info .abstract{font-size:13.5px;padding:10px 12px}
+  .fbar{top:54px}
+  .fbar .inner{gap:10px}
+  .fbar .search{margin-left:0;width:100%;min-width:0}
+  .fbar .chips{gap:5px}
+  .fbar .chips button{padding:5px 10px;font-size:9.5px}
+  .wm-mark .dept{display:none}.wm-mark img{height:22px}
+  .menu a:not(.pill){display:none}
+  .menu .pill svg{display:none}
+  .crumb{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}.r{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary" /><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; <b>Papers</b></div>
+  <div class="menu">
+    <a href="H_cinematic.html">Home</a>
+    <a href="H_cinematic.html#programme">Research</a>
+    <a href="H_cinematic.html#code">Code</a>
+    <a href="H_cinematic.html#people">People</a>
+    <a href="H_cinematic.html#join" class="pill">Join the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<!-- HEAD -->
+<header class="head">
+  <div class="wrap">
+    <div class="eye r"><span class="live"></span>complete index · updated 2026-05</div>
+    <h1 class="r">Every paper, with <em>receipts</em>.</h1>
+    <p class="lede r">A complete index of the AURA Lab's peer-reviewed work, grouped by year. Each entry carries the venue, the funders, a public artefact link, full BibTeX, and the lab's tags. Only the current year is open by default — click any year to expand.</p>
+    <div class="meta r">
+      <span class="m"><b>8</b>papers</span>
+      <span class="m"><b>5</b>venues</span>
+      <span class="m"><b>92</b>citations · combined</span>
+      <span class="m"><b>2024 → 2026</b>span</span>
+      <span class="m"><b>100%</b>artefacts released</span>
+    </div>
+  </div>
+</header>
+
+<!-- FILTER BAR -->
+<div class="fbar">
+  <div class="wrap inner">
+    <span class="lab">Filter</span>
+    <div class="chips" id="chips">
+      <button class="on" data-tag="all">All</button>
+      <button data-tag="efficiency">Efficiency</button>
+      <button data-tag="interpretability">Interpretability</button>
+      <button data-tag="reliability">Reliability</button>
+      <button data-tag="automation">Automation</button>
+      <button data-tag="survey">Survey</button>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input type="text" id="searchBox" placeholder="search title, author, venue…" />
+    </div>
+  </div>
+</div>
+
+<!-- PAPERS · grouped by year -->
+<main class="wrap" style="padding-top:36px">
+
+  <!-- 2026 (current year, open by default) -->
+  <details class="year-grp" open>
+    <summary>
+      <div class="y">2026<span class="ct">3 papers</span></div>
+      <div class="caret">collapse <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </summary>
+
+    <div class="papers-grid">
+
+      <!-- TSE 2026 -->
+      <article class="paper-card r" data-tags="reliability,evaluation" data-bib="crupi2026judge">
+        <div class="venue-pane">
+          <div class="venue-logo">
+            <!-- IEEE TSE custom logo -->
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="6" width="68" height="68" rx="10" fill="#00629b"/>
+              <text x="40" y="36" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="700" font-size="14" fill="#fff" letter-spacing="1">IEEE</text>
+              <line x1="20" y1="44" x2="60" y2="44" stroke="#fff" stroke-width="1" opacity=".4"/>
+              <text x="40" y="62" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="14" fill="#fff" letter-spacing="2">TSE</text>
+            </svg>
+          </div>
+          <div class="vname">TSE</div>
+          <div class="vfull">IEEE Transactions on Software Engineering</div>
+          <div class="yr">2026</div>
+        </div>
+        <div class="info">
+          <div class="tags"><span class="tg">reliability</span><span class="tg">LLM-as-Judge</span><span class="tg">evaluation</span></div>
+          <div class="t">On the Effectiveness of LLM-as-a-Judge for Code Generation and Summarization.</div>
+          <div class="au">G. Crupi, R. Tufano, A. Velasco, <span class="me">A. Mastropaolo</span>, D. Poshyvanyk, G. Bavota.</div>
+          <div class="abstract">A controlled evaluation of the LLM-as-a-Judge paradigm across code generation and summarisation. We measure agreement against a curated human gold set; report where it agrees, where it does not, and the calibration gap most prior work omits.</div>
+          <div class="stats">
+            <div class="s"><b>4</b>citations</div><div class="s"><b>148&nbsp;MB</b>artefact</div><div class="s"><b>1.1&nbsp;kWh</b>training energy</div><div class="s"><b>A*</b>venue rank</div>
+          </div>
+          <div class="support">
+            <span class="lab">supported by</span>
+            <span class="funder nsf">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">NSF</text></svg>
+              NSF CRII #2451058
+            </span>
+            <span class="funder wm">
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">W&amp;M</text></svg>
+              William &amp; Mary CS
+            </span>
+            <span class="funder ieee">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="currentColor">IEEE</text></svg>
+              IEEE
+            </span>
+          </div>
+          <div class="actions">
+            <a class="doi" href="https://doi.org/10.1109/TSE.2026.11071936" target="_blank" rel="noopener">DOI · 10.1109/TSE.2026.11071936</a>
+            <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> PDF</a>
+            <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 19c-5 1.5-5-2.5-7-3"/></svg> Artefact</a>
+            <button data-tog>BibTeX ▾</button>
+          </div>
+        </div>
+        <div class="bib-panel">
+          <pre>@article{crupi2026judge,
+  author  = {Crupi, G. and Tufano, R. and Velasco, A. and Mastropaolo, A. and Poshyvanyk, D. and Bavota, G.},
+  title   = {On the Effectiveness of {LLM}-as-a-Judge for Code Generation and Summarization},
+  journal = {IEEE Transactions on Software Engineering},
+  year    = {2026},
+  doi     = {10.1109/TSE.2026.11071936}
+}</pre>
+          <div class="actions"><button data-cp>Copy BibTeX ↓</button></div>
+        </div>
+      </article>
+
+      <!-- JAWs 2026 — BRACE -->
+      <article class="paper-card r" data-tags="efficiency,automation,benchmark" data-bib="mehditabar2026brace">
+        <div class="venue-pane">
+          <div class="venue-logo">
+            <svg viewBox="0 0 80 80">
+              <rect x="6" y="6" width="68" height="68" rx="10" fill="#3a4a3f"/>
+              <text x="40" y="36" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="700" font-size="11" fill="#a4ecc4" letter-spacing="1.6">JAWs</text>
+              <line x1="22" y1="44" x2="58" y2="44" stroke="#a4ecc4" stroke-width=".8" opacity=".4"/>
+              <text x="40" y="58" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="500" font-size="7" fill="#a4ecc4" letter-spacing="1.6">2026</text>
+            </svg>
+          </div>
+          <div class="vname">JAWs</div>
+          <div class="vfull">J. Algorithms for AI in Software</div>
+          <div class="yr">2026</div>
+        </div>
+        <div class="info">
+          <div class="tags"><span class="tg">efficiency</span><span class="tg">benchmark</span><span class="tg">energy</span></div>
+          <div class="t">BRACE: Unified Benchmarking of Accuracy and Energy for Code Language Models.</div>
+          <div class="au">M. Mehditabar, S. Rajput, <span class="me">A. Mastropaolo</span>, T. Sharma.</div>
+          <div class="abstract">BRACE is a joint accuracy/energy benchmark for code LMs: a shared protocol that measures task quality and total compute energy on the same workload. Used to produce the lab's <em>Efficiency Atlas</em>.</div>
+          <div class="stats"><div class="s"><b>1</b>citation</div><div class="s"><b>open</b>leaderboard</div><div class="s"><b>RAPL</b>energy meter</div></div>
+          <div class="support">
+            <span class="lab">supported by</span>
+            <span class="funder nsf"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">NSF</text></svg>NSF CRII #2451058</span>
+            <span class="funder wm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">W&amp;M</text></svg>William &amp; Mary CS</span>
+          </div>
+          <div class="actions">
+            <a class="doi" href="#" target="_blank">JAWs · 2026</a>
+            <a href="#" target="_blank">PDF</a><a href="#" target="_blank">Artefact</a>
+            <button data-tog>BibTeX ▾</button>
+          </div>
+        </div>
+        <div class="bib-panel">
+          <pre>@inproceedings{mehditabar2026brace,
+  author    = {Mehditabar, M. and Rajput, S. and Mastropaolo, A. and Sharma, T.},
+  title     = {{BRACE}: Unified Benchmarking of Accuracy and Energy for Code Language Models},
+  booktitle = {Proc. JAWs},
+  year      = {2026}
+}</pre>
+          <div class="actions"><button data-cp>Copy BibTeX ↓</button></div>
+        </div>
+      </article>
+
+      <!-- IEEE Computer 2026 column -->
+      <article class="paper-card r" data-tags="reliability,column" data-bib="mastropaolo2026humanmachine">
+        <div class="venue-pane">
+          <div class="venue-logo">
+            <svg viewBox="0 0 80 80">
+              <rect x="6" y="6" width="68" height="68" rx="10" fill="#0a1d2c"/>
+              <text x="40" y="32" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#fff" letter-spacing="2.4">IEEE</text>
+              <line x1="20" y1="40" x2="60" y2="40" stroke="#B9975B" stroke-width="1.2"/>
+              <text x="40" y="58" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="600" font-size="10" fill="#B9975B" letter-spacing=".5">Computer</text>
+            </svg>
+          </div>
+          <div class="vname">IEEE Computer</div>
+          <div class="vfull">Vol. 59 · No. 1 · column</div>
+          <div class="yr">2026</div>
+        </div>
+        <div class="info">
+          <div class="tags"><span class="tg">reliability</span><span class="tg">editorial</span></div>
+          <div class="t">Human or Machine? Rebuilding Trust in the Age of AI Text Generation.</div>
+          <div class="au"><span class="me">A. Mastropaolo</span>. <em style="color:var(--mute)">Spotlight on Transactions column.</em></div>
+          <div class="abstract">An editorial making the case that the SE+AI community's trust in machine-generated text rests on weaker evaluation than it admits, and proposing concrete protocols for restoring it.</div>
+          <div class="stats"><div class="s"><b>2</b>citations</div><div class="s"><b>magazine</b>format</div></div>
+          <div class="support">
+            <span class="lab">supported by</span>
+            <span class="funder wm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">W&amp;M</text></svg>William &amp; Mary CS</span>
+            <span class="funder ieee"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="currentColor">IEEE</text></svg>IEEE Computer Society</span>
+          </div>
+          <div class="actions">
+            <a class="doi" href="#" target="_blank">IEEE · vol 59 no 1</a>
+            <a href="#" target="_blank">Read</a>
+            <button data-tog>BibTeX ▾</button>
+          </div>
+        </div>
+        <div class="bib-panel">
+          <pre>@article{mastropaolo2026humanmachine,
+  author  = {Mastropaolo, A.},
+  title   = {Human or Machine? Rebuilding Trust in the Age of AI Text Generation},
+  journal = {Computer},
+  volume  = {59}, number = {1}, year = {2026},
+  publisher = {IEEE}
+}</pre>
+          <div class="actions"><button data-cp>Copy BibTeX ↓</button></div>
+        </div>
+      </article>
+    </div>
+  </details>
+
+  <!-- 2025 (collapsed) -->
+  <details class="year-grp">
+    <summary>
+      <div class="y">2025<span class="ct">4 papers</span></div>
+      <div class="caret">expand <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </summary>
+
+    <div class="papers-grid">
+
+      <!-- TOSEM 2025 PEFT -->
+      <article class="paper-card r" data-tags="efficiency,survey" data-bib="afrin2025peftslr">
+        <div class="venue-pane">
+          <div class="venue-logo">
+            <svg viewBox="0 0 80 80">
+              <rect x="6" y="6" width="68" height="68" rx="10" fill="#0085ca"/>
+              <text x="40" y="36" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="2">ACM</text>
+              <line x1="20" y1="44" x2="60" y2="44" stroke="#fff" stroke-width="1" opacity=".4"/>
+              <text x="40" y="62" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#fff" letter-spacing="1.5">TOSEM</text>
+            </svg>
+          </div>
+          <div class="vname">TOSEM</div>
+          <div class="vfull">ACM Trans. on Softw. Eng. and Methodology</div>
+          <div class="yr">2025</div>
+        </div>
+        <div class="info">
+          <div class="tags"><span class="tg">efficiency</span><span class="tg">survey</span><span class="tg">PEFT</span><span class="tg">LoRA</span></div>
+          <div class="t">A Systematic Literature Review of PEFT for Large Code Models.</div>
+          <div class="au">S. Afrin, M. Z. Haque, <span class="me">A. Mastropaolo</span>.</div>
+          <div class="abstract">A survey of parameter-efficient fine-tuning across 320 papers in the code-modelling literature — taxonomy, evaluation conventions, gaps, and the decision matrix practitioners can use to pick LoRA / QLoRA / adapters / IA³.</div>
+          <div class="stats"><div class="s"><b>22</b>citations</div><div class="s"><b>320</b>papers surveyed</div><div class="s"><b>A*</b>venue rank</div></div>
+          <div class="support">
+            <span class="lab">supported by</span>
+            <span class="funder wm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">W&amp;M</text></svg>William &amp; Mary CS</span>
+            <span class="funder acm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="currentColor">ACM</text></svg>ACM Lifetime Grant</span>
+          </div>
+          <div class="actions">
+            <a class="doi" href="https://arxiv.org/abs/2504.21569" target="_blank">arXiv · 2504.21569</a>
+            <a href="#" target="_blank">PDF</a><a href="#" target="_blank">Companion site</a>
+            <button data-tog>BibTeX ▾</button>
+          </div>
+        </div>
+        <div class="bib-panel"><pre>@article{afrin2025peftslr,
+  author  = {Afrin, S. and Haque, M.~Z. and Mastropaolo, A.},
+  title   = {A Systematic Literature Review of PEFT for Large Code Models},
+  journal = {ACM Trans. Softw. Eng. Methodol.},
+  year    = {2025},
+  note    = {arXiv:2504.21569}
+}</pre><div class="actions"><button data-cp>Copy BibTeX ↓</button></div></div>
+      </article>
+
+      <!-- FORGE 2025 -->
+      <article class="paper-card r" data-tags="efficiency,summarization" data-bib="afrin2025forge">
+        <div class="venue-pane">
+          <div class="venue-logo">
+            <svg viewBox="0 0 80 80">
+              <rect x="6" y="6" width="68" height="68" rx="10" fill="#7a4810"/>
+              <text x="40" y="38" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="700" font-size="14" fill="#fff" letter-spacing="2">FORGE</text>
+              <line x1="22" y1="46" x2="58" y2="46" stroke="#B9975B" stroke-width="1" opacity=".7"/>
+              <text x="40" y="60" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="500" font-size="6.5" fill="#B9975B" letter-spacing="1.6">ACM / IEEE</text>
+            </svg>
+          </div>
+          <div class="vname">FORGE</div>
+          <div class="vfull">ACM/IEEE Forum on AI Foundations for SE</div>
+          <div class="yr">2025</div>
+        </div>
+        <div class="info">
+          <div class="tags"><span class="tg">efficiency</span><span class="tg">distillation</span><span class="tg">summarization</span></div>
+          <div class="t">Resource-Efficient and Effective Code Summarization.</div>
+          <div class="au">S. Afrin, J. Call, O. Chaparro, <span class="me">A. Mastropaolo</span>.</div>
+          <div class="abstract">A distilled 220 M code-summarisation model that hits 91% of the quality of a 13 B teacher at a fraction of the energy. End-to-end reproducible on a single workstation in 52 minutes.</div>
+          <div class="stats"><div class="s"><b>14</b>citations</div><div class="s"><b>220&nbsp;M</b>params</div><div class="s"><b>1.4&nbsp;kWh</b>energy / paper</div><div class="s"><b>91%</b>of teacher</div></div>
+          <div class="support">
+            <span class="lab">supported by</span>
+            <span class="funder nsf"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">NSF</text></svg>NSF CRII #2451058</span>
+            <span class="funder wm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">W&amp;M</text></svg>William &amp; Mary CS</span>
+            <span class="funder acm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="currentColor">ACM</text></svg>ACM SIGSOFT</span>
+          </div>
+          <div class="actions">
+            <a class="doi" href="https://doi.org/10.1109/FORGE.2025.11052615" target="_blank">DOI · 10.1109/FORGE.2025.11052615</a>
+            <a href="#" target="_blank">PDF</a><a href="#" target="_blank">Artefact</a>
+            <button data-tog>BibTeX ▾</button>
+          </div>
+        </div>
+        <div class="bib-panel"><pre>@inproceedings{afrin2025forge,
+  author    = {Afrin, S. and Call, J. and Chaparro, O. and Mastropaolo, A.},
+  title     = {Resource-Efficient and Effective Code Summarization},
+  booktitle = {Proc. ACM/IEEE FORGE},
+  year      = {2025},
+  doi       = {10.1109/FORGE.2025.11052615}
+}</pre><div class="actions"><button data-cp>Copy BibTeX ↓</button></div></div>
+      </article>
+
+      <!-- ICPC ERA 2025 -->
+      <article class="paper-card r" data-tags="interpretability,neurosymbolic" data-bib="velasco2025neurosym">
+        <div class="venue-pane">
+          <div class="venue-logo">
+            <svg viewBox="0 0 80 80">
+              <rect x="6" y="6" width="68" height="68" rx="10" fill="#3a2f12"/>
+              <text x="40" y="34" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="700" font-size="14" fill="#B9975B" letter-spacing="2">ICPC</text>
+              <line x1="22" y1="42" x2="58" y2="42" stroke="#B9975B" stroke-width=".8" opacity=".5"/>
+              <text x="40" y="56" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="8" fill="#d3b16f" letter-spacing="2">ERA</text>
+            </svg>
+          </div>
+          <div class="vname">ICPC · ERA</div>
+          <div class="vfull">Int'l Conf. on Program Comprehension</div>
+          <div class="yr">2025</div>
+          <div class="badge honor">★ honourable mention</div>
+        </div>
+        <div class="info">
+          <div class="tags"><span class="tg">interpretability</span><span class="tg">neurosymbolic</span><span class="tg">AST</span></div>
+          <div class="t">Toward Neurosymbolic Program Comprehension. <em style="color:var(--wm-gold);font-size:13px;font-style:italic">honourable mention.</em></div>
+          <div class="au">A. Velasco, A. Garryyeva, D. N. Palacio, <span class="me">A. Mastropaolo</span>, D. Poshyvanyk.</div>
+          <div class="abstract">A position + early-results paper arguing for hybrid LLM + program-analysis pipelines as a path to interpretable program comprehension. Awarded honourable mention.</div>
+          <div class="stats"><div class="s"><b>9</b>citations</div><div class="s"><b>★</b>honourable mention</div></div>
+          <div class="support">
+            <span class="lab">supported by</span>
+            <span class="funder nsf"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">NSF</text></svg>NSF CRII #2451058</span>
+            <span class="funder wm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">W&amp;M</text></svg>William &amp; Mary CS</span>
+          </div>
+          <div class="actions">
+            <a class="doi" href="https://arxiv.org/abs/2502.01806" target="_blank">arXiv · 2502.01806</a>
+            <a href="#" target="_blank">PDF</a><a href="#" target="_blank">Artefact</a>
+            <button data-tog>BibTeX ▾</button>
+          </div>
+        </div>
+        <div class="bib-panel"><pre>@inproceedings{velasco2025neurosym,
+  author    = {Velasco, A. and Garryyeva, A. and Palacio, D.~N. and Mastropaolo, A. and Poshyvanyk, D.},
+  title     = {Toward Neurosymbolic Program Comprehension},
+  booktitle = {Proc. ICPC -- Early Research Achievements},
+  year      = {2025},
+  note      = {arXiv:2502.01806; honourable mention}
+}</pre><div class="actions"><button data-cp>Copy BibTeX ↓</button></div></div>
+      </article>
+
+      <!-- ICSME 2025 -->
+      <article class="paper-card r" data-tags="efficiency,quantization,empirical" data-bib="afrin2025icsmequant">
+        <div class="venue-pane">
+          <div class="venue-logo">
+            <svg viewBox="0 0 80 80">
+              <rect x="6" y="6" width="68" height="68" rx="10" fill="#00629b"/>
+              <text x="40" y="36" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="2">IEEE</text>
+              <line x1="20" y1="44" x2="60" y2="44" stroke="#fff" stroke-width="1" opacity=".4"/>
+              <text x="40" y="62" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#fff" letter-spacing="1.5">ICSME</text>
+            </svg>
+          </div>
+          <div class="vname">ICSME</div>
+          <div class="vfull">IEEE Int'l Conf. on Software Maintenance and Evolution</div>
+          <div class="yr">2025</div>
+        </div>
+        <div class="info">
+          <div class="tags"><span class="tg">efficiency</span><span class="tg">quantization</span><span class="tg">empirical</span></div>
+          <div class="t">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models.</div>
+          <div class="au">S. Afrin, B. Xu, <span class="me">A. Mastropaolo</span>.</div>
+          <div class="abstract">A controlled empirical study mapping where low-bit quantisation preserves code-model quality and where it collapses. Catalogues the cliffs by language and task.</div>
+          <div class="stats"><div class="s"><b>11</b>citations</div><div class="s"><b>880&nbsp;MB</b>weights</div><div class="s"><b>4-bit</b>focus</div></div>
+          <div class="support">
+            <span class="lab">supported by</span>
+            <span class="funder nsf"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">NSF</text></svg>NSF CRII #2451058</span>
+            <span class="funder wm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">W&amp;M</text></svg>William &amp; Mary CS</span>
+          </div>
+          <div class="actions">
+            <a class="doi" href="https://arxiv.org/abs/2507.09665" target="_blank">arXiv · 2507.09665</a>
+            <a href="#" target="_blank">PDF</a><a href="#" target="_blank">Artefact</a>
+            <button data-tog>BibTeX ▾</button>
+          </div>
+        </div>
+        <div class="bib-panel"><pre>@inproceedings{afrin2025icsmequant,
+  author    = {Afrin, S. and Xu, B. and Mastropaolo, A.},
+  title     = {Is Quantization a Deal-breaker? Empirical Insights from Large Code Models},
+  booktitle = {Proc. IEEE ICSME},
+  year      = {2025},
+  note      = {arXiv:2507.09665}
+}</pre><div class="actions"><button data-cp>Copy BibTeX ↓</button></div></div>
+      </article>
+
+    </div>
+  </details>
+
+  <!-- 2024 -->
+  <details class="year-grp">
+    <summary>
+      <div class="y">2024<span class="ct">1 paper</span></div>
+      <div class="caret">expand <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </summary>
+
+    <div class="papers-grid">
+      <!-- TOSEM 2024 -->
+      <article class="paper-card r" data-tags="reliability,survey" data-bib="mastropaolo2024triumph">
+        <div class="venue-pane">
+          <div class="venue-logo">
+            <svg viewBox="0 0 80 80">
+              <rect x="6" y="6" width="68" height="68" rx="10" fill="#0085ca"/>
+              <text x="40" y="36" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="2">ACM</text>
+              <line x1="20" y1="44" x2="60" y2="44" stroke="#fff" stroke-width="1" opacity=".4"/>
+              <text x="40" y="62" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#fff" letter-spacing="1.5">TOSEM</text>
+            </svg>
+          </div>
+          <div class="vname">TOSEM</div>
+          <div class="vfull">ACM Trans. on Softw. Eng. and Methodology</div>
+          <div class="yr">2024</div>
+          <div class="badge">most-cited lab paper</div>
+        </div>
+        <div class="info">
+          <div class="tags"><span class="tg">reliability</span><span class="tg">survey</span><span class="tg">SE+AI</span></div>
+          <div class="t">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era.</div>
+          <div class="au"><span class="me">A. Mastropaolo</span>, C. Escobar-Velásquez, M. Linares-Vásquez.</div>
+          <div class="abstract">A reflection on the trajectory of software engineering in the age of AI assistance — what has been gained, what remains open, and which questions the field's reviewers ought to be asking.</div>
+          <div class="stats"><div class="s"><b>40</b>citations</div><div class="s"><b>most-cited</b>lab paper</div><div class="s"><b>A*</b>venue rank</div></div>
+          <div class="support">
+            <span class="lab">supported by</span>
+            <span class="funder wm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15" text-anchor="middle" font-family="Source Serif 4, serif" font-size="8" font-weight="700" fill="currentColor">W&amp;M</text></svg>William &amp; Mary CS</span>
+            <span class="funder acm"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="currentColor">ACM</text></svg>ACM SIGSOFT</span>
+          </div>
+          <div class="actions">
+            <a class="doi" href="https://doi.org/10.1145/3672459" target="_blank">DOI · 10.1145/3672459</a>
+            <a href="#" target="_blank">PDF</a>
+            <button data-tog>BibTeX ▾</button>
+          </div>
+        </div>
+        <div class="bib-panel"><pre>@article{mastropaolo2024triumph,
+  author  = {Mastropaolo, A. and Escobar-Vel\'{a}squez, C. and Linares-V\'{a}squez, M.},
+  title   = {From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era},
+  journal = {ACM Trans. Softw. Eng. Methodol.},
+  year    = {2024},
+  doi     = {10.1145/3672459}
+}</pre><div class="actions"><button data-cp>Copy BibTeX ↓</button></div></div>
+      </article>
+    </div>
+  </details>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary" /><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+      <a class="aura-foot-mark" href="../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="H_cinematic.html">Home</a><span class="sep">·</span>
+        <a href="H_cinematic.html#programme">Research</a><span class="sep">·</span>
+        <a href="papers.html">Papers</a><span class="sep">·</span>
+        <a href="H_cinematic.html#code">Code</a><span class="sep">·</span>
+        <a href="H_cinematic.html#people">People</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA · <a href="https://www.wm.edu/as/computerscience/" target="_blank" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.18)">wm.edu/cs</a></span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>papers index · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* reveal */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .12 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+  /* tag filter */
+  const chips = document.getElementById('chips');
+  const searchBox = document.getElementById('searchBox');
+  function applyFilter(){
+    const tag = chips.querySelector('button.on').dataset.tag;
+    const q = (searchBox.value || '').trim().toLowerCase();
+    document.querySelectorAll('.year-grp').forEach(grp => {
+      let visible = 0;
+      grp.querySelectorAll('.paper-card').forEach(c => {
+        const tags = (c.dataset.tags || '').toLowerCase().split(',');
+        const text = c.innerText.toLowerCase();
+        const tagOk = tag === 'all' || tags.includes(tag);
+        const qOk = !q || text.includes(q);
+        const show = tagOk && qOk;
+        c.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      // hide whole year group if nothing matches
+      grp.style.display = visible === 0 ? 'none' : '';
+    });
+  }
+  chips.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    chips.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    applyFilter();
+  }));
+  searchBox.addEventListener('input', applyFilter);
+
+  /* BibTeX toggles */
+  document.querySelectorAll('[data-tog]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.paper-card');
+      card.classList.toggle('bib-open');
+      btn.textContent = card.classList.contains('bib-open') ? 'BibTeX ▴' : 'BibTeX ▾';
+    });
+  });
+  document.querySelectorAll('[data-cp]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const pre = btn.closest('.bib-panel').querySelector('pre');
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        const t = btn.textContent;
+        btn.textContent = 'Copied ✓';
+        setTimeout(() => btn.textContent = t, 1300);
+      } catch(_){ btn.textContent = 'Select & copy'; }
+    });
+  });
+</script>
+</body>
+</html>

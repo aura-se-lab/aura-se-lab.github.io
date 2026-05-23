@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#06241b" />
+<title>R · Reliability, Causality &amp; Honest Evaluation — AURA Lab · W&amp;M</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_thread.css">
+<style>
+  :root { --thread:#1c8a5a; --thread-2:#249f6c; --thread-glow:#a4ecc4; }
+
+  /* Hero viz: agreement dashboard */
+  .judge{padding:8px;display:grid;grid-template-rows:auto 1fr;gap:14px;height:340px}
+  .judge .row{display:grid;grid-template-columns:120px 1fr 70px;align-items:center;gap:12px;font-family:var(--mono);font-size:11px;color:#cfdcd3}
+  .judge .row .nm{color:#fff;font-family:var(--serif);font-size:13.5px;font-weight:600;letter-spacing:-.005em}
+  .judge .row .bar{height:14px;background:rgba(164,236,196,.10);border-radius:99px;overflow:hidden;position:relative}
+  .judge .row .fill{height:100%;border-radius:99px;background:linear-gradient(to right, var(--thread-glow), var(--wm-gold-2))}
+  .judge .row .v{text-align:right;color:#fff;font-family:var(--serif);font-size:14px;font-weight:600}
+  .judge .legend{font-family:var(--mono);font-size:9.5px;color:#88a89a;letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
+  .judge .delta{
+    margin-top:14px;background:rgba(0,0,0,.25);border-radius:8px;padding:12px 14px;
+    font-family:var(--serif);font-style:italic;font-size:13.5px;color:#dff0e6;line-height:1.5;
+    border-left:2px solid var(--thread-glow);
+  }
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../../assets/img/wm/wm-logo.svg" alt="William & Mary" /><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="../H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; Research &nbsp;/&nbsp; <b>R · Reliable</b></div>
+  <div class="menu">
+    <a href="../H_cinematic.html#programme">All threads</a>
+    <a href="#why">Why</a>
+    <a href="#approach">Approach</a>
+    <a href="#papers">Papers</a>
+    <a href="../H_cinematic.html#join" class="pill">Join the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap inner">
+    <div>
+      <div class="L">
+        <div class="glyph">R</div>
+        <div class="meta">Thread R · Reliable<b>Causality, robustness &amp; honest evaluation</b></div>
+      </div>
+      <h1>Numbers that <em>survive scrutiny</em>. Evaluation that measures what matters, not what's easy.</h1>
+      <p class="lede">An LLM judge agrees with itself across runs. An LLM judge agrees with another LLM judge. Neither fact answers the question that matters: does it agree with a competent human reviewer of code? Our work on TSE 2026 makes that question precise — and finds the disagreement is much larger than the literature suggests.</p>
+      <div class="stats">
+        <div class="s"><div class="v">62<span class="u">%</span></div><div class="l">human ↔ LLM-Judge agreement</div></div>
+        <div class="s"><div class="v">86<span class="u">%</span></div><div class="l">LLM ↔ LLM agreement</div></div>
+        <div class="s"><div class="v">−24<span class="u">pts</span></div><div class="l">the gap most papers miss</div></div>
+      </div>
+    </div>
+
+    <div class="hero-viz">
+      <div class="lab"><span><span class="d"></span>judge calibration · live</span><span>TSE 2026</span></div>
+      <div class="judge">
+        <div>
+          <div class="row"><span class="nm">Human reviewer</span><div class="bar"><div class="fill" style="width:100%"></div></div><span class="v">100</span></div>
+          <div class="row"><span class="nm">Human ↔ Human</span><div class="bar"><div class="fill" style="width:84%"></div></div><span class="v">84</span></div>
+          <div class="row"><span class="nm">GPT-4 as Judge</span><div class="bar"><div class="fill" style="width:62%"></div></div><span class="v">62</span></div>
+          <div class="row"><span class="nm">Claude as Judge</span><div class="bar"><div class="fill" style="width:58%"></div></div><span class="v">58</span></div>
+          <div class="row"><span class="nm">GPT-4 ↔ Claude</span><div class="bar"><div class="fill" style="width:86%"></div></div><span class="v">86</span></div>
+        </div>
+        <div class="delta">
+          The reason the field reports high "agreement" is that they measure LLM-vs-LLM. Measure LLM-vs-human and the optimism collapses. The right metric is the one that hurts.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §1 -->
+<section class="block" id="why">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 1 · Why this matters</span><h2 class="r">A benchmark is a <em>claim</em>. Most of the field's claims do not survive their own assumptions.</h2></div>
+    <div class="row">
+      <div class="col">
+        <div class="prose r">
+          <p>Three quiet shortcuts dominate the evaluation of code AI today: (i) datasets that overlap with the model's training corpus, (ii) automatic metrics (BLEU, CodeBLEU, exact match) that correlate weakly with developer judgement, and (iii) LLM-as-a-Judge that <em>looks like</em> a human evaluator but agrees with one only 60 % of the time. Each shortcut moves a paper forward. Stacked, they produce a literature in which everything works and nothing replicates.</p>
+
+          <p>The lab's third thread is about restoring honest evaluation as a load-bearing element of the field. We re-run baselines under controlled protocols. We pair every automatic metric with a human study. We publish disagreements, not only agreements.</p>
+
+          <span class="pull">The right metric is the one that you would still publish if it disagreed with you.</span>
+
+          <p>We also study <strong>causality</strong>: does the intervention <em>cause</em> the effect, or do both follow from a confounder? In code AI, the confounder is usually data leakage, prompt sensitivity, or evaluator drift. Counterfactual analyses isolate the signal; we ship them as artefacts.</p>
+
+          <p>The lab's most-read paper, the TOSEM 2024 reflection "From Triumph to Uncertainty", argues that the field's perceived progress is partly real and partly a measurement illusion. The papers in this thread try to do something about it.</p>
+        </div>
+      </div>
+
+      <div class="col">
+        <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px" class="r">
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--thread);text-transform:uppercase;margin-bottom:14px">Three quiet shortcuts the literature relies on</div>
+          <ul class="check-list" style="margin-top:6px">
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg></span><div><div class="t">Train-test contamination</div><div class="d">Public benchmarks overlap with public code. Headline accuracy on HumanEval includes solutions the model has seen verbatim.</div></div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h18M12 3v18"/></svg></span><div><div class="t">Auto-metrics as proxies</div><div class="d">BLEU/CodeBLEU correlate with human ratings around r = 0.4 — better than random, far from sufficient.</div></div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="t">LLM-as-a-Judge</div><div class="d">When the judge and the judged share a training distribution, the agreement is inflated by 20+ points relative to humans.</div></div></li>
+          </ul>
+        </div>
+
+        <div style="background:white;border:1px solid var(--rule);border-radius:14px;padding:22px 24px;margin-top:18px" class="r">
+          <div style="font-family:var(--serif);font-size:15px;line-height:1.6;color:var(--ink-2)">
+            <strong>Editorial note.</strong> Antonio's <em>IEEE Computer</em> column (Jan 2026, vol. 59 no. 1), "Human or Machine? Rebuilding Trust in the Age of AI Text Generation", develops the broader version of this argument for a non-specialist audience.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 -->
+<section class="block dark">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 2 · What is hard</span><h2 class="r">Three reasons reliability is not <em>just</em> a checklist.</h2></div>
+    <div class="cards r-stagger">
+      <div class="card">
+        <div class="ix">2.1 · Drift</div>
+        <h4>Today's judge is not tomorrow's judge.</h4>
+        <p>LLM evaluators drift as their underlying models are retrained. A score reported in 2024 is not directly comparable to a score reported in 2026 with "the same" judge. We propose <em>judge-versioning</em> as a community norm.</p>
+      </div>
+      <div class="card">
+        <div class="ix">2.2 · Counterfactuals are expensive</div>
+        <h4>The right comparison is rarely the cheap one.</h4>
+        <p>"Does this fix fail because of length, or because of the variable name?" — answering needs a controlled rewrite of the input. Tools to generate counterfactuals for code are immature. The lab is building them.</p>
+      </div>
+      <div class="card">
+        <div class="ix">2.3 · Human time</div>
+        <h4>Studies that need humans, need humans.</h4>
+        <p>There is no shortcut around it. Reliable evaluation of developer-facing AI requires developer studies — protocols, IRB, real-time compensation. We design these; we publish the protocols; we welcome co-authors with subject access.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 -->
+<section class="block" id="approach">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 3 · How we ensure it</span><h2 class="r">Method — <em>four pillars</em> of an honest evaluation.</h2></div>
+
+    <div class="row">
+      <div class="col">
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h18"/></svg></span><div><div class="t">Decontamination first</div><div class="d">We hash test sets against public training corpora and discard overlap before reporting.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/></svg></span><div><div class="t">Judge calibration</div><div class="d">Every LLM judge we use is reported with its agreement against a small but real human gold set. If we don't have one, we collect one.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2L2 7l10 5 10-5z"/></svg></span><div><div class="t">Counterfactual perturbations</div><div class="d">For every claimed causal effect, we ship the minimal input edit that should flip the outcome — and report whether it does.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 21h18"/><path d="M6 21V6l6-3 6 3v15"/></svg></span><div><div class="t">Disagreements published</div><div class="d">When our results contradict prior work, we say so and we explain — in dedicated subsections, not footnotes.</div></div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="code r">
+          <span class="lab">honest_eval.py · excerpt</span>
+<pre style="background:transparent;color:inherit;padding:0;margin:0;font:inherit"><span class="cm"># Calibrated judging: never report LLM-judge score</span>
+<span class="cm"># without its human-agreement context.</span>
+<span class="kw">from</span> aura.eval <span class="kw">import</span> HumanGold, LLMJudge, Decontaminator
+
+gold = HumanGold.load(<span class="str">"my-task"</span>, n=<span class="num">120</span>)
+judge = LLMJudge(<span class="str">"gpt-4-2024-04"</span>)
+
+<span class="cm"># 1. Calibrate against humans.</span>
+agreement = judge.calibrate(gold)        <span class="cm"># Cohen's κ; agreement %</span>
+
+<span class="cm"># 2. Decontaminate the test set.</span>
+clean = Decontaminator.run(my_test, against=<span class="str">"the-stack"</span>)
+
+<span class="cm"># 3. Report jointly.</span>
+score = judge.score(model_outputs(clean))
+print(<span class="str">f"score = {score:.2f}   "</span>
+      <span class="str">f"(judge κ-human = {agreement.kappa:.2f}; "</span>
+      <span class="str">f"test cleaned = {clean.kept_pct:.0%})"</span>)</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 -->
+<section class="block paper-2" id="papers">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 4 · Selected papers</span><h2 class="r">The <em>receipts</em> for this thread.</h2></div>
+    <div class="pubs r-stagger">
+      <a class="pub" href="https://doi.org/10.1109/TSE.2026.11071936" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">TSE<span class="y">2026</span></div>
+        <div><div class="t">On the Effectiveness of LLM-as-a-Judge for Code Generation and Summarization.</div><div class="au">G. Crupi, R. Tufano, A. Velasco, <span class="me">A. Mastropaolo</span>, D. Poshyvanyk, G. Bavota.</div></div>
+        <div class="acts"><a href="https://doi.org/10.1109/TSE.2026.11071936" target="_blank">DOI · 10.1109/TSE…</a><a href="#" target="_blank">artefact</a></div>
+      </a>
+      <a class="pub" href="https://doi.org/10.1145/3672459" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">TOSEM<span class="y">2024</span></div>
+        <div><div class="t">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era.</div><div class="au"><span class="me">A. Mastropaolo</span>, C. Escobar-Velásquez, M. Linares-Vásquez.</div></div>
+        <div class="acts"><a href="https://doi.org/10.1145/3672459" target="_blank">DOI · 10.1145/3672459</a></div>
+      </a>
+      <a class="pub" href="#" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">IEEE Computer<span class="y">2026</span></div>
+        <div><div class="t">Human or Machine? Rebuilding Trust in the Age of AI Text Generation. <em style="color:var(--mute);font-size:13px">(Spotlight column.)</em></div><div class="au"><span class="me">A. Mastropaolo</span>.</div></div>
+        <div class="acts"><a href="#" target="_blank">vol 59 no 1</a></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- §5/§6 -->
+<section class="block">
+  <div class="wrap">
+    <div class="row">
+      <div class="col">
+        <div class="head"><span class="num r">§ 5 · For practitioners</span><h2 class="r">What you can use <em>today</em>.</h2></div>
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><div><div class="t">aura-lab/llm-judge</div><div class="d">Reference implementation + harness for judge calibration. Plug your task in, get an agreement-with-humans report on day one.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2L2 7l10 5 10-5z"/></svg></span><div><div class="t">Decontamination toolkit</div><div class="d">Hash your test set against the Stack / GitHub / OSS corpora. Returns the overlap, the source files, and a cleaned subset.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 21h18"/></svg></span><div><div class="t">Human-study protocol pack</div><div class="d">IRB-ready protocol templates for code-AI user studies. Compensation guidance, sampling, statistical pre-registration.</div></div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="head"><span class="num r">§ 6 · For researchers</span><h2 class="r">Open <em>problems</em>.</h2></div>
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/></svg></span><div><div class="t">Cross-judge calibration</div><div class="d">A unified scale across LLM judges so scores from different evaluators are directly comparable across years.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 11l3 3L22 4"/></svg></span><div><div class="t">Counterfactual corpora for code</div><div class="d">Public corpora of minimally-edited code pairs labelled by which semantic property changed. Seeded by the lab; contributions welcome.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h18"/></svg></span><div><div class="t">Long-tail metrics</div><div class="d">Most metrics summarise the mean. The interesting failures live in the tail. We need standard, agreed-upon tail metrics for code-AI evaluation.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 3h18v18H3z"/></svg></span><div><div class="t">Pre-registration in SE+AI</div><div class="d">Pre-registered hypotheses and analysis plans are standard in psychology and increasingly in CS. The SE+AI community should adopt them; the lab will host a registry.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §7 -->
+<section class="block paper-2">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 7 · People on this thread</span><h2 class="r">Who is <em>building</em> it.</h2></div>
+    <div class="people-row r-stagger">
+      <a class="pm" href="https://antoniomastropaolo.io" target="_blank"><div class="av" style="background-image:url(../../assets/img/antonio.jpg)"></div><div><div class="nm">A. Mastropaolo</div><div class="rl">PI · director</div></div></a>
+      <a class="pm" href="https://alvi75.github.io" target="_blank"><div class="av" style="background-image:url(../../assets/img/alvi.jpeg)"></div><div><div class="nm">Md Z. H. Alvi</div><div class="rl">PhD · reliability</div></div></a>
+      <a class="pm" href="https://jbcallv.netlify.app" target="_blank"><div class="av" style="background-image:url(../../assets/img/joseph.jpg)"></div><div><div class="nm">J. Call</div><div class="rl">PhD · evaluation</div></div></a>
+      <a class="pm" href="https://www.cs.wm.edu/~denys/" target="_blank"><div class="av" style="background:#0f2a20;color:#a4ecc4;display:grid;place-items:center;font-family:var(--serif);font-weight:600">DP</div><div><div class="nm">D. Poshyvanyk</div><div class="rl">collaborator · W&amp;M</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-scene">
+  <div class="wrap">
+    <span class="num r" style="color:var(--thread-glow);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase">§ 8 · Get involved</span>
+    <h2 class="r" style="margin-top:14px">Want to evaluate code AI <em>like it matters</em>?</h2>
+    <p class="lede r">PhD and postdoc inquiries welcome from researchers interested in causal evaluation, judge calibration, user studies, or pre-registration for SE+AI.</p>
+    <div class="cta-row r">
+      <a class="btn primary" href="mailto:amastropaolo@wm.edu">Reach out <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a class="btn ghost" href="../H_cinematic.html">Back to the lab</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener" aria-label="William &amp; Mary">
+        <img src="../../assets/img/wm/wm-logo.svg" alt="William &amp; Mary" />
+        <span class="dept"><b>AURA Lab</b>Computer Science</span>
+      </a>
+      <a class="aura-foot-mark" href="../../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="../H_cinematic.html#programme">Lab home</a><span class="sep">·</span>
+        <a href="A_ai.html">A · AI</a><span class="sep">·</span>
+        <a href="U_understanding.html">U · Understanding</a><span class="sep">·</span>
+        <a href="R_reliable.html">R · Reliable</a><span class="sep">·</span>
+        <a href="A_automation.html">A · Automation</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA · <a href="https://www.wm.edu/as/computerscience/" target="_blank" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.18)">wm.edu/cs</a></span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>thread R · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .14 });
+  document.querySelectorAll('.r, .r-stagger').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

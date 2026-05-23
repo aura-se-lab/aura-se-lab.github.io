@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AURA Lab :: git log --merged</title>
+<meta name="description" content="The AURA Lab at William & Mary — AI for Understandable and Responsible Automation in Software Engineering. Homepage rendered as a patchset of merged pull requests." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="shell">
+  <section class="win" aria-label="AURA Lab terminal — patchset">
+
+    <!-- Window title bar -->
+    <header class="win__bar">
+      <span class="win__dots" aria-hidden="true">[ x ][ - ][ + ]</span>
+      <span class="win__title">aura-se-lab.github.io / tty5 / git log</span>
+      <span class="win__meta">William &amp; Mary &middot; Dept. of Computer Science</span>
+    </header>
+
+    <div class="win__body">
+
+      <!-- ───── HERO ───── -->
+      <div class="prompt">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">git log</span>
+        <span class="arg">--merged --author=aura-lab --pretty=patch</span>
+      </div>
+
+      <!-- ASCII wordmark logo: AURA (identical to v02) -->
+      <pre class="logo" aria-label="AURA Lab" role="img">
+<span class="logo__glow"> █████  ██    ██ ██████   █████
+██   ██ ██    ██ ██   ██ ██   ██
+███████ ██    ██ ██████  ███████
+██   ██ ██    ██ ██   ██ ██   ██
+██   ██  ██████  ██   ██ ██   ██</span>
+<span class="logo__rule">────────────────────────────────────────────</span>
+<span class="logo__sub">// LAB · WILLIAM &amp; MARY · SINCE 2024 · PATCHSET</span></pre>
+
+      <h1 class="h1">
+        The <span class="acro">A</span><span>URA</span> Lab<span class="cursor" aria-hidden="true">&nbsp;</span>
+      </h1>
+
+      <p class="tagline">
+        <span class="acro">(A)</span>I for
+        <span class="acro">(U)</span>nderstandable and
+        <span class="acro">(R)</span>esponsible
+        <span class="acro">(A)</span>utomation in Software Engineering.
+      </p>
+
+      <dl class="facts">
+        <dt>Director</dt>     <dd>Dr. Antonio Mastropaolo &middot; Assistant Professor</dd>
+        <dt>Institution</dt>  <dd>William &amp; Mary &middot; Department of Computer Science</dd>
+        <dt>Founded</dt>      <dd>Fall 2024</dd>
+        <dt>Contact</dt>      <dd>amastropaolo at wm dot edu</dd>
+        <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+        <dt>Repository</dt>   <dd>github.com/aura-se-lab &middot; <code>main</code> &middot; HEAD @ PR #24</dd>
+      </dl>
+
+      <p class="device-note">
+        // STRUCTURAL DEVICE — This homepage <em>is</em> the lab's patchset.
+        Every avenue, paper, member, and announcement is a merged pull request
+        against <code>main</code>. The stream below is the lab in commit order.
+      </p>
+
+      <!-- ───── FILTER TOOLBAR ───── -->
+      <hr class="rule" aria-hidden="true" />
+
+      <div class="filterbar" role="region" aria-label="Pull request filter">
+        <div class="filterbar__tabs">
+          <span class="tab tab--on">
+            <span class="tab__glyph" aria-hidden="true">✓</span>
+            25 Merged
+          </span>
+          <span class="tab tab--off">0 Open</span>
+          <span class="tab tab--off">0 Draft</span>
+        </div>
+        <div class="filterbar__filter">
+          <span class="filterbar__label">Filter:</span>
+          <span class="filterbar__token">is:merged</span>
+          <span class="filterbar__token">author:aura-lab</span>
+          <span class="filterbar__token">sort:created-asc</span>
+        </div>
+        <div class="filterbar__count">
+          <strong>25 results</strong> &middot; from <code>0f3a8b1</code> (initial commit) to <code>HEAD</code>
+        </div>
+      </div>
+
+      <!-- ───── PATCHSET STREAM ───── -->
+      <ol class="patchset" aria-label="AURA Lab patchset">
+
+        <!-- ░░░░░ PR #0 — initial commit / mission ░░░░░ -->
+        <li class="pr" id="pr-0">
+          <header class="pr__head">
+            <span class="pr__id">PR #0</span>
+            <span class="pr__title">Initial commit &middot; charter the AURA Lab</span>
+            <span class="pr__merged">merged 2024-Q3</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +mission.md @@</span>
+<span class="diff__plus">+ The AURA Lab, founded in Fall 2024, advances research at the</span>
+<span class="diff__plus">+ intersection of efficiency, automation, and explainability in</span>
+<span class="diff__plus">+ software engineering. Our mission is to design innovative and</span>
+<span class="diff__plus">+ responsible AI-driven solutions that improve developer productivity</span>
+<span class="diff__plus">+ while addressing key challenges of transparency and resource</span>
+<span class="diff__plus">+ efficiency. Through rigorous methods, open collaboration, and a</span>
+<span class="diff__plus">+ commitment to impactful work, the AURA Lab contributes practical</span>
+<span class="diff__plus">+ advances in AI-supported software engineering for academia,</span>
+<span class="diff__plus">+ industry, and society.</span></pre>
+          </div>
+          <ul class="pr__labels" aria-label="labels">
+            <li>[type:charter]</li>
+            <li>[scope:mission]</li>
+            <li>[role:director]</li>
+          </ul>
+        </li>
+
+        <!-- ░░░░░ PR #1 — avenue 01 ░░░░░ -->
+        <li class="pr" id="pr-1">
+          <header class="pr__head">
+            <span class="pr__id">PR #1</span>
+            <span class="pr__title">research: open avenue [01] Explainability &amp; Interpretability</span>
+            <span class="pr__merged">merged 2024-Q3</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +research/01-explainability.md @@</span>
+<span class="diff__plus">+ # Explainability &amp; Interpretability</span>
+<span class="diff__plus">+</span>
+<span class="diff__plus">+ Methods that reveal how code models reason (rationales, traces,</span>
+<span class="diff__plus">+ tests) so developers can inspect, trust, and debug automation.</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[avenue:01]</li><li>[area:explainability]</li><li>[status:active]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #2 — avenue 02 ░░░░░ -->
+        <li class="pr" id="pr-2">
+          <header class="pr__head">
+            <span class="pr__id">PR #2</span>
+            <span class="pr__title">research: open avenue [02] Efficiency &amp; Resource-Aware Automation</span>
+            <span class="pr__merged">merged 2024-Q3</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +research/02-efficiency.md @@</span>
+<span class="diff__plus">+ # Efficiency &amp; Resource-Aware Automation</span>
+<span class="diff__plus">+</span>
+<span class="diff__plus">+ Quantization, distillation, and PEFT to deliver low-latency,</span>
+<span class="diff__plus">+ memory-light, cost-aware automation measured on real workloads</span>
+<span class="diff__plus">+ with reproducible metrics.</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[avenue:02]</li><li>[area:efficiency]</li><li>[status:active]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #3 — avenue 03 ░░░░░ -->
+        <li class="pr" id="pr-3">
+          <header class="pr__head">
+            <span class="pr__id">PR #3</span>
+            <span class="pr__title">research: open avenue [03] Multi-Agent LLMs for SE</span>
+            <span class="pr__merged">merged 2024-Q3</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +research/03-multi-agent.md @@</span>
+<span class="diff__plus">+ # Multi-Agent LLMs for SE</span>
+<span class="diff__plus">+</span>
+<span class="diff__plus">+ Role-aligned agents that plan, code, test, and review, coordinated</span>
+<span class="diff__plus">+ to produce coherent, end-to-end developer assistance.</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[avenue:03]</li><li>[area:multi-agent]</li><li>[status:active]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #4 — avenue 04 ░░░░░ -->
+        <li class="pr" id="pr-4">
+          <header class="pr__head">
+            <span class="pr__id">PR #4</span>
+            <span class="pr__title">research: open avenue [04] Neurosymbolic AI for SE</span>
+            <span class="pr__merged">merged 2024-Q3</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +research/04-neurosymbolic.md @@</span>
+<span class="diff__plus">+ # Neurosymbolic AI for SE</span>
+<span class="diff__plus">+</span>
+<span class="diff__plus">+ Hybrid pipelines pairing LLMs with program analysis and</span>
+<span class="diff__plus">+ constraints to produce interpretable, checkable fixes, tests,</span>
+<span class="diff__plus">+ and designs.</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[avenue:04]</li><li>[area:neurosymbolic]</li><li>[status:active]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #5 — task-aware (THIS VARIANT'S highlight) ░░░░░ -->
+        <li class="pr pr--feat" id="pr-5">
+          <header class="pr__head">
+            <span class="pr__id">PR #5</span>
+            <span class="pr__title">research: open avenue [+1] Task-Aware Code Automation</span>
+            <span class="pr__merged">merged 2024-Q3</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +research/05-task-aware.md @@</span>
+<span class="diff__plus">+ # Task-Aware Code Automation  (supporting direction)</span>
+<span class="diff__plus">+</span>
+<span class="diff__plus">+ From issues, diffs, and traces to concise summaries, TODOs, and</span>
+<span class="diff__plus">+ plans; models that reduce developer toil with actionable,</span>
+<span class="diff__plus">+ repo-aware guidance.</span>
+<span class="diff__context">  // this homepage itself is the canonical demo of the avenue:</span>
+<span class="diff__context">  // a stream of diffs, issues, and merged TODOs against a repo.</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[avenue:+1]</li><li>[area:task-aware]</li><li>[role:featured]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #6 — Saima onboarding ░░░░░ -->
+        <li class="pr" id="pr-6">
+          <header class="pr__head">
+            <span class="pr__id">PR #6</span>
+            <span class="pr__title">people: welcome Saima Afrin</span>
+            <span class="pr__merged">merged 2024-09</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/roster.yml @@</span>
+<span class="diff__plus">+ - phd_student: saima_afrin</span>
+<span class="diff__plus">+   joined: 2024-09</span>
+<span class="diff__plus">+   advisor: antonio_mastropaolo</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:phd_student]</li><li>[cohort:2024]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #7 — news: Saima welcome ░░░░░ -->
+        <li class="pr" id="pr-7">
+          <header class="pr__head">
+            <span class="pr__id">PR #7</span>
+            <span class="pr__title">news: welcome Saima Afrin, joining the AURA Lab</span>
+            <span class="pr__merged">merged 2024-09</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +news/2024-09-welcome-saima.md @@</span>
+<span class="diff__plus">+ 2024-09 — Welcome to Saima Afrin, joining the AURA Lab.</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:news]</li><li>[date:2024-09]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #8 — news: announce Aya + Joseph ░░░░░ -->
+        <li class="pr" id="pr-8">
+          <header class="pr__head">
+            <span class="pr__id">PR #8</span>
+            <span class="pr__title">news: announce Aya Garryyeva and Joseph Call — January start</span>
+            <span class="pr__merged">merged 2024-11</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +news/2024-11-announce-aya-joseph.md @@</span>
+<span class="diff__plus">+ 2024-11 — Welcome to Aya and Joseph (announced ahead of January start).</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:news]</li><li>[date:2024-11]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #9 — pub: TOSEM ░░░░░ -->
+        <li class="pr" id="pr-9">
+          <header class="pr__head">
+            <span class="pr__id">PR #9</span>
+            <span class="pr__title">pub: accept "From Triumph to Uncertainty" → TOSEM</span>
+            <span class="pr__merged">merged 2024-12</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +pubs/mastropaolo2024triumph.bib @@</span>
+<span class="diff__plus">+ @article{mastropaolo2024triumph,</span>
+<span class="diff__plus">+   author  = {Mastropaolo, A. and Escobar-Velásquez, C. and Linares-Vásquez, M.},</span>
+<span class="diff__plus">+   title   = {From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era},</span>
+<span class="diff__plus">+   journal = {ACM Trans. Softw. Eng. Methodol. (TOSEM)},</span>
+<span class="diff__plus">+   year    = {2024}</span>
+<span class="diff__plus">+ }</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:pub]</li><li>[venue:tosem]</li><li>[year:2024]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #10 — news: TOSEM acceptance ░░░░░ -->
+        <li class="pr" id="pr-10">
+          <header class="pr__head">
+            <span class="pr__id">PR #10</span>
+            <span class="pr__title">news: "From Triumph to Uncertainty" accepted to TOSEM</span>
+            <span class="pr__merged">merged 2024-12</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +news/2024-12-tosem-accept.md @@</span>
+<span class="diff__plus">+ 2024-12 — "From Triumph to Uncertainty: The Journey of Software</span>
+<span class="diff__plus">+ Engineering in the AI Era" accepted to TOSEM.</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:news]</li><li>[venue:tosem]</li><li>[date:2024-12]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #11 — people: Aya ░░░░░ -->
+        <li class="pr" id="pr-11">
+          <header class="pr__head">
+            <span class="pr__id">PR #11</span>
+            <span class="pr__title">people: welcome Aya Garryyeva</span>
+            <span class="pr__merged">merged 2025-01</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/roster.yml @@</span>
+<span class="diff__plus">+ - phd_student: aya_garryyeva</span>
+<span class="diff__plus">+   joined: 2025-01</span>
+<span class="diff__plus">+   advisor: antonio_mastropaolo</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:phd_student]</li><li>[cohort:2025]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #12 — people: Joseph ░░░░░ -->
+        <li class="pr" id="pr-12">
+          <header class="pr__head">
+            <span class="pr__id">PR #12</span>
+            <span class="pr__title">people: welcome Joseph Call</span>
+            <span class="pr__merged">merged 2025-01</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/roster.yml @@</span>
+<span class="diff__plus">+ - phd_student: joseph_call</span>
+<span class="diff__plus">+   joined: 2025-01</span>
+<span class="diff__plus">+   advisor: antonio_mastropaolo</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:phd_student]</li><li>[cohort:2025]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #13 — news: Aya+Joseph joined ░░░░░ -->
+        <li class="pr" id="pr-13">
+          <header class="pr__head">
+            <span class="pr__id">PR #13</span>
+            <span class="pr__title">news: Aya Garryyeva and Joseph Call join the AURA Lab</span>
+            <span class="pr__merged">merged 2025-01</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +news/2025-01-welcome-aya-joseph.md @@</span>
+<span class="diff__plus">+ 2025-01 — Welcome to Aya Garryyeva and Joseph Call, joining the</span>
+<span class="diff__plus">+ AURA Lab.</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:news]</li><li>[date:2025-01]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #14 — pub: vitale ICPC ░░░░░ -->
+        <li class="pr" id="pr-14">
+          <header class="pr__head">
+            <span class="pr__id">PR #14</span>
+            <span class="pr__title">pub: accept "Optimizing Datasets for Code Summarization" → ICPC</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +pubs/vitale2025codesumm.bib @@</span>
+<span class="diff__plus">+ @inproceedings{vitale2025codesumm,</span>
+<span class="diff__plus">+   author    = {Vitale, A. and Mastropaolo, A. and Oliveto, R. and Di Penta, M. and Scalabrino, S.},</span>
+<span class="diff__plus">+   title     = {Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?},</span>
+<span class="diff__plus">+   booktitle = {Proc. Int. Conf. on Program Comprehension (ICPC)},</span>
+<span class="diff__plus">+   year      = {2025}</span>
+<span class="diff__plus">+ }</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:pub]</li><li>[venue:icpc]</li><li>[year:2025]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #15 — pub: afrin FORGE ░░░░░ -->
+        <li class="pr" id="pr-15">
+          <header class="pr__head">
+            <span class="pr__id">PR #15</span>
+            <span class="pr__title">pub: accept "Resource-Efficient &amp; Effective Code Summarization" → FORGE</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +pubs/afrin2025resource.bib @@</span>
+<span class="diff__plus">+ @inproceedings{afrin2025resource,</span>
+<span class="diff__plus">+   author    = {Afrin, S. and Call, J. and Nguyen, K.-N. and Chaparro, O. and Mastropaolo, A.},</span>
+<span class="diff__plus">+   title     = {Resource-Efficient &amp; Effective Code Summarization},</span>
+<span class="diff__plus">+   booktitle = {Proc. FORGE},</span>
+<span class="diff__plus">+   year      = {2025}</span>
+<span class="diff__plus">+ }</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:pub]</li><li>[venue:forge]</li><li>[avenue:02]</li><li>[year:2025]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #16 — pub: velasco ICPC ERA ░░░░░ -->
+        <li class="pr" id="pr-16">
+          <header class="pr__head">
+            <span class="pr__id">PR #16</span>
+            <span class="pr__title">pub: accept "Toward Neurosymbolic Program Comprehension" → ICPC ERA</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +pubs/velasco2025neurosymbolic.bib @@</span>
+<span class="diff__plus">+ @inproceedings{velasco2025neurosymbolic,</span>
+<span class="diff__plus">+   author    = {Velasco, A. and Garryyeva, A. and Palacio, D. N. and Mastropaolo, A. and Poshyvanyk, D.},</span>
+<span class="diff__plus">+   title     = {Toward Neurosymbolic Program Comprehension},</span>
+<span class="diff__plus">+   booktitle = {Proc. ICPC — Early Research Achievements},</span>
+<span class="diff__plus">+   year      = {2025}</span>
+<span class="diff__plus">+ }</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:pub]</li><li>[venue:icpc-era]</li><li>[avenue:04]</li><li>[year:2025]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #17 — pub: afrin ICSME quantization ░░░░░ -->
+        <li class="pr" id="pr-17">
+          <header class="pr__head">
+            <span class="pr__id">PR #17</span>
+            <span class="pr__title">pub: accept "Is Quantization a Deal-breaker?" → ICSME</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +pubs/afrin2025quantization.bib @@</span>
+<span class="diff__plus">+ @inproceedings{afrin2025quantization,</span>
+<span class="diff__plus">+   author    = {Afrin, S. and Xu, B. and Mastropaolo, A.},</span>
+<span class="diff__plus">+   title     = {Is Quantization a Deal-breaker? Empirical Insights from Large Code Models},</span>
+<span class="diff__plus">+   booktitle = {Proc. Int. Conf. on Software Maintenance and Evolution (ICSME)},</span>
+<span class="diff__plus">+   year      = {2025}</span>
+<span class="diff__plus">+ }</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:pub]</li><li>[venue:icsme]</li><li>[avenue:02]</li><li>[year:2025]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #18 — pub: mastropaolo FSE Ideas ░░░░░ -->
+        <li class="pr" id="pr-18">
+          <header class="pr__head">
+            <span class="pr__id">PR #18</span>
+            <span class="pr__title">pub: accept "A Path Less Traveled" → FSE Ideas</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +pubs/mastropaolo2025pathless.bib @@</span>
+<span class="diff__plus">+ @inproceedings{mastropaolo2025pathless,</span>
+<span class="diff__plus">+   author    = {Mastropaolo, A. and Poshyvanyk, D.},</span>
+<span class="diff__plus">+   title     = {A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm},</span>
+<span class="diff__plus">+   booktitle = {Proc. FSE — Ideas, Visions and Reflections},</span>
+<span class="diff__plus">+   year      = {2025}</span>
+<span class="diff__plus">+ }</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:pub]</li><li>[venue:fse-ideas]</li><li>[avenue:04]</li><li>[year:2025]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #19 — people: Khai-Nguyen ░░░░░ -->
+        <li class="pr" id="pr-19">
+          <header class="pr__head">
+            <span class="pr__id">PR #19</span>
+            <span class="pr__title">people: register Khai-Nguyen Nguyen</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/roster.yml @@</span>
+<span class="diff__plus">+ - phd_student: khai-nguyen_nguyen</span>
+<span class="diff__plus">+   joined: ----------</span>
+<span class="diff__plus">+   advisor: antonio_mastropaolo</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:phd_student]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #20 — people: Alvi ░░░░░ -->
+        <li class="pr" id="pr-20">
+          <header class="pr__head">
+            <span class="pr__id">PR #20</span>
+            <span class="pr__title">people: register Alvi</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/roster.yml @@</span>
+<span class="diff__plus">+ - phd_student: alvi</span>
+<span class="diff__plus">+   joined: ----------</span>
+<span class="diff__plus">+   advisor: antonio_mastropaolo</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:phd_student]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #21 — people: Ben ░░░░░ -->
+        <li class="pr" id="pr-21">
+          <header class="pr__head">
+            <span class="pr__id">PR #21</span>
+            <span class="pr__title">people: register Ben</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/roster.yml @@</span>
+<span class="diff__plus">+ - phd_student: ben</span>
+<span class="diff__plus">+   joined: ----------</span>
+<span class="diff__plus">+   advisor: antonio_mastropaolo</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:phd_student]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #22 — people: Chris ░░░░░ -->
+        <li class="pr" id="pr-22">
+          <header class="pr__head">
+            <span class="pr__id">PR #22</span>
+            <span class="pr__title">people: register Chris</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/roster.yml @@</span>
+<span class="diff__plus">+ - phd_student: chris</span>
+<span class="diff__plus">+   joined: ----------</span>
+<span class="diff__plus">+   advisor: antonio_mastropaolo</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:phd_student]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #23 — people: collaborators ░░░░░ -->
+        <li class="pr" id="pr-23">
+          <header class="pr__head">
+            <span class="pr__id">PR #23</span>
+            <span class="pr__title">people: register frequent collaborators</span>
+            <span class="pr__merged">merged 2025</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/collaborators.yml @@</span>
+<span class="diff__plus">+ - collaborator: denys_poshyvanyk        # W&amp;M</span>
+<span class="diff__plus">+ - collaborator: david_nader_palacio</span>
+<span class="diff__plus">+ - collaborator: alejandro_velasco</span>
+<span class="diff__plus">+ - collaborator: oscar_chaparro</span>
+<span class="diff__plus">+ - collaborator: bowen_xu</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:collaborator]</li></ul>
+        </li>
+
+        <!-- ░░░░░ PR #24 — director registration (HEAD) ░░░░░ -->
+        <li class="pr pr--head" id="pr-24">
+          <header class="pr__head">
+            <span class="pr__id">PR #24</span>
+            <span class="pr__title">people: register director Antonio Mastropaolo</span>
+            <span class="pr__merged">merged 2024-09 &middot; HEAD &rarr; main</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ +members/roster.yml @@</span>
+<span class="diff__plus">+ - director: antonio_mastropaolo</span>
+<span class="diff__plus">+   title:    Assistant Professor</span>
+<span class="diff__plus">+   inst:     William &amp; Mary, Dept. of Computer Science</span>
+<span class="diff__plus">+   phd:      Università della Svizzera Italiana, 2024</span>
+<span class="diff__plus">+   msc_bsc:  University of Molise</span>
+<span class="diff__plus">+   email:    amastropaolo at wm dot edu</span>
+<span class="diff__plus">+   site:     antoniomastropaolo.com</span></pre>
+          </div>
+          <ul class="pr__labels"><li>[type:people]</li><li>[role:director]</li><li>[branch:main]</li></ul>
+        </li>
+
+      </ol>
+
+      <!-- ───── FOOTER / SIG ───── -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="prompt" style="margin-top:10px;">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">git log</span>
+        <span class="arg">--exit</span>
+      </div>
+      <div class="sig">
+        <div>
+          mailto:&nbsp;<a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a>
+          &nbsp;&middot;&nbsp;
+          web:&nbsp;<a href="https://aura-se-lab.github.io">aura-se-lab.github.io</a>
+        </div>
+        <div class="sig__hint">// 25 commits &middot; clean working tree</div>
+      </div>
+
+    </div>
+  </section>
+</main>
+</body>
+</html>

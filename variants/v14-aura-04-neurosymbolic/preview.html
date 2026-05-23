@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AURA Lab :: spec.aura</title>
+<meta name="description" content="The AURA Lab at William &amp; Mary — Spec / Prose pairs. Every claim paired with a checkable predicate." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="shell">
+  <section class="win" aria-label="AURA Lab spec terminal">
+
+    <header class="win__bar">
+      <span class="win__dots" aria-hidden="true">[ x ][ - ][ + ]</span>
+      <span class="win__title">aura-se-lab.github.io / tty4 / spec.aura</span>
+      <span class="win__meta">William &amp; Mary &middot; Dept. of Computer Science</span>
+    </header>
+
+    <div class="win__body">
+
+      <!-- ───── HERO ───── -->
+      <div class="prompt">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">load</span>
+        <span class="arg">spec.aura --check</span>
+      </div>
+
+      <pre class="logo" aria-label="AURA Lab" role="img"><span class="logo__glow"> █████  ██    ██ ██████   █████
+██   ██ ██    ██ ██   ██ ██   ██
+███████ ██    ██ ██████  ███████
+██   ██ ██    ██ ██   ██ ██   ██
+██   ██  ██████  ██   ██ ██   ██</span>
+<span class="logo__rule">────────────────────────────────────────────</span>
+<span class="logo__sub">// LAB · WILLIAM &amp; MARY · SINCE 2024 · spec/prose pairs</span></pre>
+
+      <h1 class="h1">
+        The <span class="acro">A</span><span>URA</span> Lab<span class="cursor" aria-hidden="true">&nbsp;</span>
+      </h1>
+
+      <p class="tagline">
+        <span class="acro">(A)</span>I for
+        <span class="acro">(U)</span>nderstandable and
+        <span class="acro">(R)</span>esponsible
+        <span class="acro">(A)</span>utomation in Software Engineering.
+      </p>
+
+      <dl class="facts">
+        <dt>Director</dt>     <dd>Dr. Antonio Mastropaolo &middot; Assistant Professor</dd>
+        <dt>Institution</dt>  <dd>William &amp; Mary &middot; Department of Computer Science</dd>
+        <dt>Founded</dt>      <dd>Fall 2024</dd>
+        <dt>Contact</dt>      <dd>amastropaolo at wm dot edu</dd>
+        <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+      </dl>
+
+      <!-- ═════════════════════════════════════════════ MISSION ═════════════════════════════════════════════ -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('mission').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">check</span>
+          <span class="arg">$mission</span>
+        </button>
+        <span class="section__tag">// 01 — mission &middot; spec ⊢ prose</span>
+      </div>
+
+      <section id="mission" aria-labelledby="mission-h">
+        <h2 class="h2" id="mission-h">Mission</h2>
+
+        <div class="pair__head" aria-hidden="true">
+          <span>spec.aura</span><span></span><span>// prose</span>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="com">-- the lab, as a record value</span>
+<span class="kw">record</span> <span class="ty">Lab</span> <span class="kw">where</span>
+  <span class="fn">founded</span>     : <span class="ty">Year</span>
+  <span class="fn">dept</span>        : <span class="ty">Dept</span>
+  <span class="fn">director</span>    : <span class="ty">Person</span>
+  <span class="fn">pillars</span>     : <span class="ty">Set</span> <span class="ty">Avenue</span>
+  <span class="fn">mission</span>     : <span class="ty">Prop</span>
+
+<span class="fn">aura</span> : <span class="ty">Lab</span>
+<span class="fn">aura</span> = {
+  <span class="fn">founded</span>  = <span class="num">2024</span>,
+  <span class="fn">dept</span>     = <span class="ctor">CS@WM</span>,
+  <span class="fn">director</span> = <span class="ctor">Mastropaolo</span>,
+  <span class="fn">pillars</span>  = { <span class="ctor">Explainability</span>,
+               <span class="ctor">Efficiency</span>,
+               <span class="ctor">MultiAgent</span>,
+               <span class="ctor">Neurosymbolic</span>,
+               <span class="ctor">TaskAware</span> },
+  <span class="fn">mission</span>  = <span class="sym">∀</span> <span class="tyv">x</span> <span class="sym">∈</span> <span class="fn">pillars</span>,
+             <span class="fn">contributes</span>(<span class="fn">aura</span>, <span class="tyv">x</span>)
+              <span class="sym">∧</span> <span class="fn">responsible</span>(<span class="tyv">x</span>)
+              <span class="sym">∧</span> <span class="fn">understandable</span>(<span class="tyv">x</span>)
+}</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <p class="lead">
+              The AURA Lab, founded in Fall 2024, advances research at the
+              intersection of efficiency, automation, and explainability in
+              software engineering. Our mission is to design innovative and
+              responsible AI-driven solutions that improve developer productivity
+              while addressing key challenges of transparency and resource
+              efficiency. Through rigorous methods, open collaboration, and a
+              commitment to impactful work, the AURA Lab contributes practical
+              advances in AI-supported software engineering for academia,
+              industry, and society.
+            </p>
+            <span class="meta">obligation: contributes(aura, x) for every pillar x</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════ AVENUES ═════════════════════════════════════════════ -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('research').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">data</span>
+          <span class="arg">Avenue</span>
+        </button>
+        <span class="section__tag">// 02 — research avenues</span>
+      </div>
+
+      <section id="research" aria-labelledby="research-h">
+        <h2 class="h2" id="research-h">Research Avenues</h2>
+
+        <div class="pair__head" aria-hidden="true">
+          <span>spec.aura</span><span></span><span>// prose</span>
+        </div>
+
+        <!-- The sum type itself -->
+        <div class="pair">
+          <pre class="pair__spec"><span class="com">-- five constructors; four primary + one supporting</span>
+<span class="kw">type</span> <span class="ty">Avenue</span>
+  = <span class="ctor">Explainability</span>
+  | <span class="ctor">Efficiency</span>
+  | <span class="ctor">MultiAgent</span>
+  | <span class="ctor">Neurosymbolic</span>
+  | <span class="ctor">TaskAware</span>   <span class="com">-- supporting</span>
+
+<span class="fn">primary</span> : <span class="ty">Set</span> <span class="ty">Avenue</span>
+<span class="fn">primary</span> = { <span class="ctor">Explainability</span>, <span class="ctor">Efficiency</span>,
+            <span class="ctor">MultiAgent</span>, <span class="ctor">Neurosymbolic</span> }
+
+<span class="kw">axiom</span> <span class="fn">supporting_iff</span> :
+  <span class="sym">∀</span> <span class="tyv">a</span> : <span class="ty">Avenue</span>,
+    <span class="fn">supporting</span>(<span class="tyv">a</span>) <span class="sym">↔</span> <span class="tyv">a</span> = <span class="ctor">TaskAware</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <p class="dim">
+              Five constructors, four primary and one supporting. Each entry
+              below pairs an <code>Avenue</code> constructor with its prose
+              description. The supporting direction is <em>Task-Aware Code
+              Automation</em>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Each avenue: constructor on left, prose on right -->
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">Explainability</span> : <span class="ty">Avenue</span>
+  <span class="op">|=</span> <span class="fn">reveals</span>(<span class="tyv">model</span>, <span class="tyv">reasoning</span>)
+  <span class="op">|=</span> <span class="fn">artifacts</span> = { <span class="str">rationales</span>,
+                   <span class="str">traces</span>, <span class="str">tests</span> }
+  <span class="op">|=</span> <span class="fn">enables</span>(<span class="tyv">dev</span>, { <span class="ctor">inspect</span>,
+                       <span class="ctor">trust</span>, <span class="ctor">debug</span> })</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <h3>[01] Explainability &amp; Interpretability</h3>
+            <p class="dim">
+              Methods that reveal how code models reason — rationales, traces,
+              tests — so developers can inspect, trust, and debug automation.
+            </p>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">Efficiency</span> : <span class="ty">Avenue</span>
+  <span class="op">|=</span> <span class="fn">techniques</span> = { <span class="ctor">Quantization</span>,
+                    <span class="ctor">Distillation</span>,
+                    <span class="ctor">PEFT</span> }
+  <span class="op">|=</span> <span class="sym">∀</span> <span class="tyv">m</span> : <span class="ty">Model</span>,
+       <span class="fn">latency</span>(<span class="tyv">m</span>) <span class="sym">≤</span> <span class="num">τ</span>
+        <span class="sym">∧</span> <span class="fn">memory</span>(<span class="tyv">m</span>)  <span class="sym">≤</span> <span class="num">μ</span>
+        <span class="sym">∧</span> <span class="fn">cost</span>(<span class="tyv">m</span>)    <span class="sym">≤</span> <span class="num">κ</span>
+  <span class="op">|=</span> <span class="fn">reproducible</span>(<span class="fn">metrics</span>)</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <h3>[02] Efficiency &amp; Resource-Aware Automation</h3>
+            <p class="dim">
+              Quantization, distillation, and PEFT to deliver low-latency,
+              memory-light, cost-aware automation measured on real workloads
+              with reproducible metrics.
+            </p>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">MultiAgent</span> : <span class="ty">Avenue</span>
+  <span class="op">|=</span> <span class="fn">roles</span> = { <span class="ctor">Plan</span>, <span class="ctor">Code</span>,
+                <span class="ctor">Test</span>, <span class="ctor">Review</span> }
+  <span class="op">|=</span> <span class="sym">∀</span> <span class="tyv">r</span> <span class="sym">∈</span> <span class="fn">roles</span>,
+       <span class="fn">aligned</span>(<span class="tyv">r</span>, <span class="fn">goal</span>)
+  <span class="op">|=</span> <span class="fn">coordinated</span>(<span class="fn">roles</span>)
+        <span class="sym">⇒</span> <span class="fn">coherent</span>(<span class="fn">assistance</span>)</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <h3>[03] Multi-Agent LLMs for SE</h3>
+            <p class="dim">
+              Role-aligned agents that plan, code, test, and review,
+              coordinated to produce coherent, end-to-end developer
+              assistance.
+            </p>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">Neurosymbolic</span> : <span class="ty">Avenue</span>
+  <span class="op">|=</span> <span class="fn">pipeline</span> = <span class="ctor">LLM</span> <span class="sym">⊕</span> <span class="ctor">Analysis</span>
+                          <span class="sym">⊕</span> <span class="ctor">Constraints</span>
+  <span class="op">|=</span> <span class="sym">∀</span> <span class="tyv">o</span> : <span class="ty">Output</span>,
+       <span class="fn">checkable</span>(<span class="tyv">o</span>) <span class="sym">∧</span> <span class="fn">interpretable</span>(<span class="tyv">o</span>)
+  <span class="op">|=</span> <span class="fn">produces</span> <span class="sym">⊆</span> { <span class="ctor">Fix</span>, <span class="ctor">Test</span>,
+                      <span class="ctor">Design</span> }</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <h3>[04] Neurosymbolic AI for SE</h3>
+            <p class="dim">
+              Hybrid pipelines pairing LLMs with program analysis and
+              constraints to produce interpretable, checkable fixes, tests,
+              and designs.
+            </p>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">TaskAware</span> : <span class="ty">Avenue</span>   <span class="com">-- supporting</span>
+  <span class="op">|=</span> <span class="fn">inputs</span>  = { <span class="ctor">Issue</span>, <span class="ctor">Diff</span>, <span class="ctor">Trace</span> }
+  <span class="op">|=</span> <span class="fn">outputs</span> = { <span class="ctor">Summary</span>,
+                   <span class="ctor">TODO</span>, <span class="ctor">Plan</span> }
+  <span class="op">|=</span> <span class="sym">∀</span> <span class="tyv">g</span> : <span class="ty">Guidance</span>,
+       <span class="fn">actionable</span>(<span class="tyv">g</span>) <span class="sym">∧</span> <span class="fn">repoAware</span>(<span class="tyv">g</span>)
+  <span class="op">|=</span> <span class="fn">reduces</span>(<span class="fn">developer_toil</span>)</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <h3>[+1] Task-Aware Code Automation <span class="meta" style="display:inline; margin-left:6px;">supporting</span></h3>
+            <p class="dim">
+              From issues, diffs, and traces to concise summaries, TODOs, and
+              plans; models that reduce developer toil with actionable,
+              repo-aware guidance.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════ PUBLICATIONS ═════════════════════════════════════════════ -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('pubs').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">sig</span>
+          <span class="arg">pubs/*.bib</span>
+        </button>
+        <span class="section__tag">// 03 — selected publications</span>
+      </div>
+
+      <section id="pubs" aria-labelledby="pubs-h">
+        <h2 class="h2" id="pubs-h">Selected Publications</h2>
+
+        <div class="pair__head" aria-hidden="true">
+          <span>signature</span><span></span><span>// bibtex</span>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="fn">mastropaolo2024triumph</span>
+  : <span class="ty">Insight</span> <span class="sym">→</span> <span class="ty">Trajectory</span>(<span class="ty">SE</span>)
+  <span class="op">@</span> <span class="ctor">TOSEM</span> <span class="num">2024</span>
+  <span class="com">-- triumph ⇝ uncertainty in the AI era</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+<pre style="margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font-size:12.5px; line-height:1.55;"><span class="sym">@article{</span><span class="ctor">mastropaolo2024triumph</span>,
+  <span class="kw">author</span>  = <span class="str">{Mastropaolo, A. and Escobar-Velásquez, C. and Linares-Vásquez, M.}</span>,
+  <span class="kw">title</span>   = <span class="str">{From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era}</span>,
+  <span class="kw">journal</span> = <span class="str">{ACM Trans. Softw. Eng. Methodol. (TOSEM)}</span>,
+  <span class="kw">year</span>    = <span class="str">{2024}</span>
+<span class="sym">}</span></pre>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="fn">vitale2025codesumm</span>
+  : <span class="ty">Dataset</span>(<span class="ty">Code</span>,<span class="ty">Comment</span>)
+    <span class="sym">→</span> <span class="ty">Coherence</span> <span class="sym">→</span> <span class="ty">Summary</span>
+  <span class="op">@</span> <span class="ctor">ICPC</span> <span class="num">2025</span>
+  <span class="com">-- is code-comment coherence enough?</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+<pre style="margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font-size:12.5px; line-height:1.55;"><span class="sym">@inproceedings{</span><span class="ctor">vitale2025codesumm</span>,
+  <span class="kw">author</span>    = <span class="str">{Vitale, A. and Mastropaolo, A. and Oliveto, R. and Di Penta, M. and Scalabrino, S.}</span>,
+  <span class="kw">title</span>     = <span class="str">{Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?}</span>,
+  <span class="kw">booktitle</span> = <span class="str">{Proc. Int. Conf. on Program Comprehension (ICPC)}</span>,
+  <span class="kw">year</span>      = <span class="str">{2025}</span>
+<span class="sym">}</span></pre>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="fn">afrin2025resource</span>
+  : <span class="ty">Model</span> <span class="sym">→</span> (<span class="ty">Resource</span> <span class="sym">×</span> <span class="ty">Quality</span>)
+  <span class="op">@</span> <span class="ctor">FORGE</span> <span class="num">2025</span>
+  <span class="com">-- resource-efficient &amp; effective code summarization</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+<pre style="margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font-size:12.5px; line-height:1.55;"><span class="sym">@inproceedings{</span><span class="ctor">afrin2025resource</span>,
+  <span class="kw">author</span>    = <span class="str">{Afrin, S. and Call, J. and Nguyen, K.-N. and Chaparro, O. and Mastropaolo, A.}</span>,
+  <span class="kw">title</span>     = <span class="str">{Resource-Efficient &amp; Effective Code Summarization}</span>,
+  <span class="kw">booktitle</span> = <span class="str">{Proc. FORGE}</span>,
+  <span class="kw">year</span>      = <span class="str">{2025}</span>
+<span class="sym">}</span></pre>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="fn">velasco2025neurosymbolic</span>
+  : <span class="ty">LLM</span> <span class="sym">⊕</span> <span class="ty">Symbols</span>
+    <span class="sym">→</span> <span class="ty">ProgramComprehension</span>
+  <span class="op">@</span> <span class="ctor">ICPC-ERA</span> <span class="num">2025</span>
+  <span class="com">-- toward neurosymbolic program comprehension</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+<pre style="margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font-size:12.5px; line-height:1.55;"><span class="sym">@inproceedings{</span><span class="ctor">velasco2025neurosymbolic</span>,
+  <span class="kw">author</span>    = <span class="str">{Velasco, A. and Garryyeva, A. and Palacio, D. N. and Mastropaolo, A. and Poshyvanyk, D.}</span>,
+  <span class="kw">title</span>     = <span class="str">{Toward Neurosymbolic Program Comprehension}</span>,
+  <span class="kw">booktitle</span> = <span class="str">{Proc. ICPC — Early Research Achievements}</span>,
+  <span class="kw">year</span>      = <span class="str">{2025}</span>
+<span class="sym">}</span></pre>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="fn">afrin2025quantization</span>
+  : <span class="ty">CodeLLM</span> <span class="sym">→</span> <span class="ty">Bits</span>
+    <span class="sym">→</span> <span class="ty">Maybe</span>(<span class="ty">Quality</span>)
+  <span class="op">@</span> <span class="ctor">ICSME</span> <span class="num">2025</span>
+  <span class="com">-- is quantization a deal-breaker?</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+<pre style="margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font-size:12.5px; line-height:1.55;"><span class="sym">@inproceedings{</span><span class="ctor">afrin2025quantization</span>,
+  <span class="kw">author</span>    = <span class="str">{Afrin, S. and Xu, B. and Mastropaolo, A.}</span>,
+  <span class="kw">title</span>     = <span class="str">{Is Quantization a Deal-breaker? Empirical Insights from Large Code Models}</span>,
+  <span class="kw">booktitle</span> = <span class="str">{Proc. Int. Conf. on Software Maintenance and Evolution (ICSME)}</span>,
+  <span class="kw">year</span>      = <span class="str">{2025}</span>
+<span class="sym">}</span></pre>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="fn">mastropaolo2025pathless</span>
+  : <span class="ty">Paradigm</span>(<span class="ty">SE</span>)
+    <span class="sym">→</span> <span class="ty">Neurosymbolic</span>(<span class="ty">Automation</span>)
+  <span class="op">@</span> <span class="ctor">FSE-Ideas</span> <span class="num">2025</span>
+  <span class="com">-- a path less traveled</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+<pre style="margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font-size:12.5px; line-height:1.55;"><span class="sym">@inproceedings{</span><span class="ctor">mastropaolo2025pathless</span>,
+  <span class="kw">author</span>    = <span class="str">{Mastropaolo, A. and Poshyvanyk, D.}</span>,
+  <span class="kw">title</span>     = <span class="str">{A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm}</span>,
+  <span class="kw">booktitle</span> = <span class="str">{Proc. FSE — Ideas, Visions and Reflections}</span>,
+  <span class="kw">year</span>      = <span class="str">{2025}</span>
+<span class="sym">}</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════ PEOPLE ═════════════════════════════════════════════ -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('people').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">data</span>
+          <span class="arg">Role; members : Set(Person)</span>
+        </button>
+        <span class="section__tag">// 04 — people</span>
+      </div>
+
+      <section id="people" aria-labelledby="people-h">
+        <h2 class="h2" id="people-h">Members</h2>
+
+        <div class="pair__head" aria-hidden="true">
+          <span>spec.aura</span><span></span><span>// prose</span>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="kw">type</span> <span class="ty">Role</span>
+  = <span class="ctor">Director</span>
+  | <span class="ctor">PhD</span>
+  | <span class="ctor">Collaborator</span>
+
+<span class="kw">record</span> <span class="ty">Person</span> <span class="kw">where</span>
+  <span class="fn">name</span> : <span class="ty">String</span>
+  <span class="fn">role</span> : <span class="ty">Role</span>
+  <span class="fn">aff</span>  : <span class="ty">Maybe</span>(<span class="ty">Institution</span>)
+
+<span class="fn">members</span> : <span class="ty">Set</span>(<span class="ty">Person</span>)</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <p class="dim">
+              Three roles inhabit the lab: a single <code>Director</code>, a
+              set of <code>PhD</code> students, and a set of frequent
+              <code>Collaborator</code>s. Each entry below is a member of
+              <code>members</code>.
+            </p>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">Director</span> : <span class="ty">Role</span>
+  <span class="op">|=</span> <span class="fn">person</span> = <span class="ctor">Mastropaolo</span>
+  <span class="op">|=</span> <span class="fn">title</span>  = <span class="str">"Assistant Professor"</span>
+  <span class="op">|=</span> <span class="fn">phd</span>    = (<span class="ctor">USI</span>, <span class="num">2024</span>)
+  <span class="op">|=</span> <span class="fn">prior</span>  = (<span class="ctor">Molise</span>, <span class="ty">MSc</span> <span class="sym">∧</span> <span class="ty">BSc</span>)</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <h3>Director</h3>
+            <p class="dim">
+              <strong>Antonio Mastropaolo</strong> — Assistant Professor,
+              William &amp; Mary CS. Ph.D., Università della Svizzera
+              Italiana (2024). M.Sc. / B.Sc., University of Molise.
+            </p>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="fn">phd_students</span> : <span class="ty">Set</span>(<span class="ty">Person</span>)
+<span class="fn">phd_students</span> =
+  { <span class="ctor">Afrin</span>     <span class="op">@</span> <span class="num">2024-09</span>,
+    <span class="ctor">Garryyeva</span> <span class="op">@</span> <span class="num">2025-01</span>,
+    <span class="ctor">Call</span>      <span class="op">@</span> <span class="num">2025-01</span>,
+    <span class="ctor">Nguyen</span>    <span class="op">@</span> <span class="tyv">_</span>,
+    <span class="ctor">Alvi</span>      <span class="op">@</span> <span class="tyv">_</span>,
+    <span class="ctor">Ben</span>       <span class="op">@</span> <span class="tyv">_</span>,
+    <span class="ctor">Chris</span>     <span class="op">@</span> <span class="tyv">_</span> }
+
+<span class="kw">axiom</span> <span class="fn">role_phd</span> :
+  <span class="sym">∀</span> <span class="tyv">p</span> <span class="sym">∈</span> <span class="fn">phd_students</span>,
+    <span class="fn">role</span>(<span class="tyv">p</span>) = <span class="ctor">PhD</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <h3>Ph.D. Students</h3>
+            <ul style="margin:0; padding-left:18px;">
+              <li><strong>Saima Afrin</strong> — joined Sep 2024.</li>
+              <li><strong>Aya Garryyeva</strong> — joined Jan 2025.</li>
+              <li><strong>Joseph Call</strong> — joined Jan 2025.</li>
+              <li><strong>Khai-Nguyen Nguyen</strong> — student.</li>
+              <li><strong>Alvi</strong> — student.</li>
+              <li><strong>Ben</strong> — student.</li>
+              <li><strong>Chris</strong> — student.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="fn">collaborators</span> : <span class="ty">Set</span>(<span class="ty">Person</span>)
+<span class="fn">collaborators</span> =
+  { <span class="ctor">Poshyvanyk</span>    <span class="op">@</span> <span class="ctor">W&amp;M</span>,
+    <span class="ctor">NaderPalacio</span>  <span class="op">@</span> <span class="tyv">_</span>,
+    <span class="ctor">Velasco</span>       <span class="op">@</span> <span class="tyv">_</span>,
+    <span class="ctor">Chaparro</span>      <span class="op">@</span> <span class="tyv">_</span>,
+    <span class="ctor">Xu</span>            <span class="op">@</span> <span class="tyv">_</span> }
+
+<span class="kw">axiom</span> <span class="fn">coauthor</span> :
+  <span class="sym">∀</span> <span class="tyv">c</span> <span class="sym">∈</span> <span class="fn">collaborators</span>,
+    <span class="sym">∃</span> <span class="tyv">p</span> : <span class="ty">Paper</span>,
+      <span class="fn">authors</span>(<span class="tyv">p</span>) <span class="sym">∋</span> { <span class="tyv">c</span>, <span class="ctor">Mastropaolo</span> }</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <h3>Collaborators</h3>
+            <p class="dim">Frequent co-authors:</p>
+            <ul style="margin:0; padding-left:18px;">
+              <li>Denys Poshyvanyk (W&amp;M)</li>
+              <li>David Nader Palacio</li>
+              <li>Alejandro Velasco</li>
+              <li>Oscar Chaparro</li>
+              <li>Bowen Xu</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════ NEWS ═════════════════════════════════════════════ -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('news').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">trace</span>
+          <span class="arg">events/</span>
+        </button>
+        <span class="section__tag">// 05 — news</span>
+      </div>
+
+      <section id="news" aria-labelledby="news-h">
+        <h2 class="h2" id="news-h">Activity Log</h2>
+
+        <div class="pair__head" aria-hidden="true">
+          <span>event</span><span></span><span>// prose</span>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="kw">data</span> <span class="ty">Event</span>
+  = <span class="ctor">Accept</span>(<span class="ty">Paper</span>, <span class="ty">Venue</span>)
+  | <span class="ctor">Welcome</span>(<span class="ty">Person</span>)
+  | <span class="ctor">Announce</span>(<span class="ty">String</span>)
+
+<span class="fn">log</span> : <span class="ty">List</span>(<span class="ty">Event</span> <span class="sym">×</span> <span class="ty">Date</span>)</pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <p class="dim">
+              Events are typed; the log is a list of (event, date) pairs, in
+              reverse chronological order.
+            </p>
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">Accept</span>(<span class="ctor">mastropaolo2024triumph</span>,
+       <span class="ctor">TOSEM</span>)
+  <span class="op">@</span> <span class="num">2024-12</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <span class="meta">2024-12</span>
+            "From Triumph to Uncertainty: The Journey of Software
+            Engineering in the AI Era" accepted to TOSEM.
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">Welcome</span>({ <span class="ctor">Garryyeva</span>, <span class="ctor">Call</span> })
+  <span class="op">@</span> <span class="num">2025-01</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <span class="meta">2025-01</span>
+            Welcome to Aya Garryyeva and Joseph Call, joining the AURA Lab.
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">Announce</span>(<span class="str">"Jan start confirmed:
+            Garryyeva, Call"</span>)
+  <span class="op">@</span> <span class="num">2024-11</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <span class="meta">2024-11</span>
+            Welcome to Aya and Joseph (announced Nov 2024 ahead of January
+            start).
+          </div>
+        </div>
+
+        <div class="pair">
+          <pre class="pair__spec"><span class="ctor">Welcome</span>(<span class="ctor">Afrin</span>)
+  <span class="op">@</span> <span class="num">2024-09</span></pre>
+          <div class="pair__turnstile" aria-hidden="true"><span>⊢</span></div>
+          <div class="pair__prose">
+            <span class="meta">2024-09</span>
+            Welcome to Saima Afrin, joining the AURA Lab.
+          </div>
+        </div>
+      </section>
+
+      <!-- ───── FOOTER ───── -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="prompt" style="margin-top:10px;">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">qed</span>
+        <span class="arg">--exit 0</span>
+      </div>
+      <div class="sig">
+        <div>
+          mailto:&nbsp;<a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a>
+          &nbsp;&middot;&nbsp;
+          web:&nbsp;<a href="https://aura-se-lab.github.io">aura-se-lab.github.io</a>
+        </div>
+        <div class="sig__hint">// ⊢ spec entails prose &middot; end of file</div>
+      </div>
+
+    </div>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The AURA Lab — AI for Understandable and Responsible Automation in Software Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
+
+<nav class="topnav" aria-label="Section navigation">
+  <div class="topnav__inner">
+    <a href="#top" class="topnav__mark">
+      The <span class="acc">A</span>URA Lab
+    </a>
+    <ul class="topnav__list">
+      <li><a href="#statement">Statement</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#people">People</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<article class="article" id="top">
+
+  <header class="reveal">
+    <h1 class="display">
+      The <span class="acc--underline">A</span>URA Lab —
+      <span class="acc--underline">A</span>I for
+      <span class="acc--underline">U</span>nderstandable and
+      <span class="acc--underline">R</span>esponsible
+      <span class="acc--underline">A</span>utomation in Software Engineering.
+    </h1>
+    <p class="thesis">A research practice for AI-driven software engineering that is efficient, explainable, and responsibly built.</p>
+    <div class="meta">
+      <span>William &amp; Mary, Department of Computer Science</span>
+      <span>Founded Fall 2024</span>
+      <span>Director, Dr. Antonio Mastropaolo</span>
+    </div>
+  </header>
+
+  <section class="reveal" id="statement">
+    <div class="break">
+      <span class="break__label">I. Statement</span>
+      <span class="break__rule"></span>
+    </div>
+    <div class="prose">
+      <p class="dropcap">The AURA Lab, founded in Fall 2024 at William &amp; Mary, advances research at the intersection of efficiency, automation, and explainability in software engineering. Our mission is to design innovative and responsible AI-driven solutions that improve developer productivity while addressing key challenges of transparency and resource efficiency.</p>
+      <p>Through rigorous methods, open collaboration, and a commitment to impactful work, the AURA Lab contributes practical advances in AI-supported software engineering for academia, industry, and society. The work is deliberately slow where it must be slow — careful empirical evaluation, reproducible benchmarks, instrumented studies — and fast where the field is fast — new models, new tooling, new questions every quarter.</p>
+      <p>We treat automation as a craft. Every claim has a workload behind it; every artifact has a release. We publish what we build, and we build what we can explain.</p>
+    </div>
+  </section>
+
+  <section class="reveal" id="research">
+    <div class="break">
+      <span class="break__label">II. Research Avenues</span>
+      <span class="break__rule"></span>
+    </div>
+
+    <div class="avenues">
+
+      <div class="avenue">
+        <div class="avenue__num">I.</div>
+        <div class="avenue__body">
+          <h3>Explainability &amp; Interpretability</h3>
+          <p>Methods that reveal how code models reason — rationales, traces, executable tests — so that developers can inspect, trust, and debug automation rather than accept it as a black box. The lab studies what makes a model's behavior legible to a working engineer.</p>
+        </div>
+      </div>
+
+      <div class="avenue">
+        <div class="avenue__num">II.</div>
+        <div class="avenue__body">
+          <h3>Efficiency &amp; Resource-Aware Automation</h3>
+          <p>Quantization, distillation, and parameter-efficient fine-tuning to deliver low-latency, memory-light, cost-aware automation. Claims are measured on real workloads with reproducible metrics — not on synthetic micro-benchmarks divorced from the developer's machine.</p>
+        </div>
+      </div>
+
+      <div class="avenue">
+        <div class="avenue__num">III.</div>
+        <div class="avenue__body">
+          <h3>Multi-Agent LLMs for Software Engineering</h3>
+          <p>Role-aligned agents that plan, code, test, and review — coordinated to produce coherent, end-to-end developer assistance. The work focuses on protocols of cooperation between agents and the human engineer they ultimately serve.</p>
+        </div>
+      </div>
+
+      <div class="avenue">
+        <div class="avenue__num">IV.</div>
+        <div class="avenue__body">
+          <h3>Neurosymbolic AI for Software Engineering</h3>
+          <p>Hybrid pipelines pairing large language models with program analysis and explicit constraints, producing fixes, tests, and designs that are interpretable and checkable. We treat the symbolic layer as a guarantor of correctness, not as a relic.</p>
+        </div>
+      </div>
+
+      <div class="avenue avenue--supporting">
+        <div class="avenue__num">V.</div>
+        <div class="avenue__body">
+          <h3>Task-Aware Code Automation</h3>
+          <p>From issues, diffs, and traces to concise summaries, TODOs, and plans — models that reduce developer toil with actionable, repository-aware guidance. A supporting direction that informs every other strand of the lab's work.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <blockquote class="pullquote reveal">
+    Our mission is to design innovative and responsible AI-driven solutions that improve developer productivity while addressing key challenges of transparency and resource efficiency.
+    <cite>— Lab statement, Fall 2024</cite>
+  </blockquote>
+
+  <section class="reveal" id="publications">
+    <div class="break">
+      <span class="break__label">III. Selected Publications</span>
+      <span class="break__rule"></span>
+    </div>
+
+    <ol class="pubs">
+
+      <li>
+        <div>
+          <p class="pub__venue"><span class="accent">TOSEM</span> · 2024</p>
+          <p class="pub__title">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era.</p>
+          <p class="pub__authors"><span class="self">Mastropaolo, A.</span>; Escobar-Velásquez, C.; Linares-Vásquez, M.</p>
+          <p class="pub__note">A reflective survey of how AI-assisted tooling has reshaped — and unsettled — the discipline of software engineering. Published in ACM Transactions on Software Engineering and Methodology.</p>
+        </div>
+      </li>
+
+      <li>
+        <div>
+          <p class="pub__venue"><span class="accent">ICPC</span> · 2025</p>
+          <p class="pub__title">Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?</p>
+          <p class="pub__authors">Vitale, A.; <span class="self">Mastropaolo, A.</span>; Oliveto, R.; Di Penta, M.; Scalabrino, S.</p>
+          <p class="pub__note">Examines whether code-comment coherence is a sufficient training signal for summarization, and what dataset choices actually move the needle.</p>
+        </div>
+      </li>
+
+      <li>
+        <div>
+          <p class="pub__venue"><span class="accent">FORGE</span> · 2025</p>
+          <p class="pub__title">Resource-Efficient &amp; Effective Code Summarization.</p>
+          <p class="pub__authors">Afrin, S.; Call, J.; Nguyen, K.-N.; Chaparro, O.; <span class="self">Mastropaolo, A.</span></p>
+          <p class="pub__note">A pragmatic look at how compact, well-trained models can match larger systems on code summarization while remaining cheap to run.</p>
+        </div>
+      </li>
+
+      <li>
+        <div>
+          <p class="pub__venue"><span class="accent">ICPC ERA</span> · 2025</p>
+          <p class="pub__title">Toward Neurosymbolic Program Comprehension.</p>
+          <p class="pub__authors">Velasco, A.; Garryyeva, A.; Palacio, D. N.; <span class="self">Mastropaolo, A.</span>; Poshyvanyk, D.</p>
+          <p class="pub__note">An early-research-achievement vision for pairing neural code models with symbolic reasoning over program structure.</p>
+        </div>
+      </li>
+
+      <li>
+        <div>
+          <p class="pub__venue"><span class="accent">ICSME</span> · 2025</p>
+          <p class="pub__title">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models.</p>
+          <p class="pub__authors">Afrin, S.; Xu, B.; <span class="self">Mastropaolo, A.</span></p>
+          <p class="pub__note">Empirical evidence on when aggressive quantization preserves — and when it breaks — the behavior of large code models in realistic SE tasks.</p>
+        </div>
+      </li>
+
+      <li>
+        <div>
+          <p class="pub__venue"><span class="accent">FSE Ideas</span> · 2025</p>
+          <p class="pub__title">A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm.</p>
+          <p class="pub__authors"><span class="self">Mastropaolo, A.</span>; Poshyvanyk, D.</p>
+          <p class="pub__note">A position paper sketching a neurosymbolic agenda for SE automation grounded in interpretability and verifiable behavior.</p>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <section class="reveal" id="people">
+    <div class="break">
+      <span class="break__label">IV. People</span>
+      <span class="break__rule"></span>
+    </div>
+    <div class="prose">
+      <p>The lab is directed by <strong>Antonio Mastropaolo</strong>, Assistant Professor of Computer Science at William &amp; Mary. He earned his Ph.D. at Università della Svizzera Italiana in 2024, and previously completed his M.Sc. and B.Sc. at the University of Molise. The director's research line — efficient, explainable, and responsible automation — sets the direction the lab takes up day to day.</p>
+
+      <p>In <strong>September 2024</strong>, <strong>Saima Afrin</strong> joined as the lab's first doctoral student; her work centers on resource-efficient code automation and the empirical study of quantization for large code models. In <strong>January 2025</strong>, <strong>Aya Garryyeva</strong> and <strong>Joseph Call</strong> joined the lab — Aya contributes to neurosymbolic program comprehension, and Joseph to summarization and code-aware language modeling. <strong>Khai-Nguyen Nguyen</strong>, <strong>Alvi</strong>, <strong>Ben</strong>, and <strong>Chris</strong> round out the current cohort of students, working across the lab's four primary research avenues.</p>
+
+      <p>The lab's work is sustained by a circle of frequent collaborators: <strong>Denys Poshyvanyk</strong> (William &amp; Mary), <strong>David Nader Palacio</strong>, <strong>Alejandro Velasco</strong>, <strong>Oscar Chaparro</strong>, and <strong>Bowen Xu</strong>. These collaborations shape the lab's emphasis on rigorous empirical method and on bridging neural and symbolic approaches to software engineering automation.</p>
+    </div>
+  </section>
+
+  <section class="reveal" id="news">
+    <div class="break">
+      <span class="break__label">V. News</span>
+      <span class="break__rule"></span>
+    </div>
+
+    <ul class="news">
+      <li>
+        <div class="news__date">Dec 2024</div>
+        <div class="news__body"><em>From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era</em> accepted to <strong>TOSEM</strong>.</div>
+      </li>
+      <li>
+        <div class="news__date">Jan 2025</div>
+        <div class="news__body">Welcome to <strong>Aya Garryyeva</strong> and <strong>Joseph Call</strong>, joining the AURA Lab as doctoral students.</div>
+      </li>
+      <li>
+        <div class="news__date">Nov 2024</div>
+        <div class="news__body">Welcome to <strong>Aya</strong> and <strong>Joseph</strong>, announced ahead of their January start.</div>
+      </li>
+      <li>
+        <div class="news__date">Sep 2024</div>
+        <div class="news__body">Welcome to <strong>Saima Afrin</strong>, joining the AURA Lab as its inaugural doctoral student.</div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="reveal signoff" id="contact">
+    <p>The AURA Lab welcomes correspondence from prospective collaborators, students whose interests overlap our research avenues, and colleagues working on adjacent problems in AI for software engineering. The director reads his own mail.</p>
+    <p><span class="director">— Dr. Antonio Mastropaolo</span>, Director, The AURA Lab.</p>
+    <span class="contact">
+      <a href="mailto:amastropaolo@wm.edu">amastropaolo at wm dot edu</a>
+      &nbsp;·&nbsp;
+      <a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a>
+    </span>
+  </section>
+
+</article>
+
+<script>
+(function () {
+  // Reading progress
+  var bar = document.getElementById('progressBar');
+  function onScroll() {
+    var doc = document.documentElement;
+    var max = (doc.scrollHeight - doc.clientHeight) || 1;
+    var pct = Math.min(1, Math.max(0, window.scrollY / max));
+    bar.style.width = (pct * 100).toFixed(2) + '%';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // Reveal on scroll
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function (e) { e.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  }
+
+  // Smooth anchor offset for sticky nav
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      ev.preventDefault();
+      var navH = document.querySelector('.topnav').getBoundingClientRect().height;
+      var top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
+      window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
