@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The AURA Lab — A Research Notebook</title>
+<meta name="description" content="The AURA Lab at William & Mary: AI for Understandable and Responsible Automation in Software Engineering." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<main class="page" id="top">
+
+  <!-- ============== TOC ============== -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li class="is-current"><a href="#abstract">Abstract</a></li>
+      <li><a href="#agenda">Research Agenda</a></li>
+      <li><a href="#avenues">Five Avenues</a></li>
+      <li><a href="#publications">Selected Publications</a></li>
+      <li><a href="#people">People</a></li>
+      <li><a href="#news">Recent News</a></li>
+      <li><a href="#colophon">Colophon</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============== Article ============== -->
+  <article class="article">
+
+    <div class="eyebrow">
+      <span>The AURA Lab</span>
+      <span class="sep">/</span>
+      <span>William &amp; Mary CS</span>
+      <span class="sep">/</span>
+      <span>Notebook v.2026.05</span>
+    </div>
+
+    <h1 class="headline">
+      <span class="acronym-mark">A</span>I for
+      <span class="acronym-mark">U</span>nderstandable and
+      <span class="acronym-mark">R</span>esponsible
+      <span class="acronym-mark">A</span>utomation
+      <em>in software engineering.</em>
+    </h1>
+
+    <p class="deck">
+      A research notebook for a lab that builds the next generation of
+      AI-supported developer tooling &mdash; transparent, efficient, and
+      accountable by construction.
+    </p>
+
+    <header class="byline" aria-label="Article byline">
+      <div class="byline-field">
+        <div class="byline-label">Director</div>
+        <div class="byline-value">
+          Antonio Mastropaolo<br />
+          <a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a>
+        </div>
+      </div>
+      <div class="byline-field">
+        <div class="byline-label">Affiliation</div>
+        <div class="byline-value">
+          Department of Computer Science<br />
+          William &amp; Mary, Williamsburg VA
+        </div>
+      </div>
+      <div class="byline-field">
+        <div class="byline-label">Established</div>
+        <div class="byline-value">
+          Fall 2024<br />
+          <a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============== §1 Abstract / Statement ============== -->
+    <section id="abstract" aria-labelledby="h-abstract">
+      <h2 class="section-title" id="h-abstract">
+        <span>Abstract</span><span class="sec-num">§ 01</span>
+      </h2>
+
+      <p class="lede">
+        The AURA Lab, founded in Fall 2024 at William &amp; Mary, advances
+        research at the intersection of <em>efficiency</em>,
+        <em>automation</em>, and <em>explainability</em> in software
+        engineering<a href="#sn-1" class="sn-ref">1</a>. Our mission is to
+        design innovative and responsible AI-driven solutions that improve
+        developer productivity while addressing the harder problems sitting
+        underneath that promise &mdash; transparency about how a model
+        reached a suggestion, and resource efficiency for the people who
+        have to run it.
+      </p>
+
+      <blockquote class="statement">
+        <p>
+          Through rigorous methods, open collaboration, and a commitment to
+          impactful work, the AURA Lab contributes practical advances in
+          AI-supported software engineering for academia, industry, and
+          society.
+        </p>
+      </blockquote>
+
+      <div class="equation" aria-label="Lab acronym as a function">
+        <span class="lhs">AURA</span>
+        <span class="eq">=</span>
+        <span class="fn">f</span>(
+          <span class="arg">transparency</span><span class="arg-sep">,</span>
+          <span class="arg">efficiency</span><span class="arg-sep">,</span>
+          <span class="arg">agency</span><span class="arg-sep">,</span>
+          <span class="arg">autonomy</span>
+        )
+        <div class="equation-caption">
+          <span class="eq-label">Eq. 1</span>
+          The four axes the lab optimizes for, in the order they tend to be
+          traded off against one another.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== §2 Agenda ============== -->
+    <section id="agenda" aria-labelledby="h-agenda">
+      <h2 class="section-title" id="h-agenda">
+        <span>Research Agenda</span><span class="sec-num">§ 02</span>
+      </h2>
+
+      <p>
+        We work where program analysis, machine learning, and human
+        judgment meet. Large language models have changed what is possible
+        in software engineering automation; they have not changed the
+        engineering questions that matter &mdash; can the developer inspect
+        the suggestion, afford to run the model, and trust the result on a
+        legacy codebase that no one fully remembers writing?<a href="#sn-2" class="sn-ref">2</a>
+      </p>
+
+      <p>
+        Our agenda is organized around four primary avenues and one
+        supporting direction. Each is empirical first: we publish at
+        venues that demand reproducible benchmarks and concrete deltas
+        on real workloads, not just narrative claims about capability.
+      </p>
+
+      <!-- Inline figure: 5-avenue research diagram -->
+      <figure class="figure-inline" aria-labelledby="fig1-cap">
+        <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of five research avenues connected to a central node labeled AURA">
+          <defs>
+            <style>
+              .node-label { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1d1d1f; }
+              .node-sub { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; fill: #6b6b70; letter-spacing: 0.08em; }
+              .center-label { font-family: 'Newsreader', serif; font-size: 14px; font-weight: 600; fill: #1d1d1f; }
+              .center-sub { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; fill: #1f6b3a; letter-spacing: 0.16em; }
+            </style>
+          </defs>
+          <!-- connecting curves from center (360,130) to five nodes -->
+          <g fill="none" stroke="#1f6b3a" stroke-width="0.75" opacity="0.55">
+            <path d="M 360 130 C 280 70, 200 50, 110 55" />
+            <path d="M 360 130 C 280 130, 200 130, 110 130" />
+            <path d="M 360 130 C 280 200, 200 215, 110 215" />
+            <path d="M 360 130 C 440 70, 540 50, 620 70" />
+            <path d="M 360 130 C 440 200, 540 215, 620 200" />
+          </g>
+          <!-- center node -->
+          <circle cx="360" cy="130" r="36" fill="#ffffff" stroke="#1d1d1f" stroke-width="1.25" />
+          <text x="360" y="128" text-anchor="middle" class="center-label">AURA</text>
+          <text x="360" y="144" text-anchor="middle" class="center-sub">W&amp;M · 2024</text>
+          <!-- five nodes -->
+          <g>
+            <circle cx="92" cy="55" r="5" fill="#1f6b3a" />
+            <text x="80" y="44" text-anchor="end" class="node-label">Explainability &amp; Interpretability</text>
+            <text x="80" y="58" text-anchor="end" class="node-sub">A.01 · rationales / traces</text>
+          </g>
+          <g>
+            <circle cx="92" cy="130" r="5" fill="#1f6b3a" />
+            <text x="80" y="119" text-anchor="end" class="node-label">Efficiency &amp; Resource-Aware Automation</text>
+            <text x="80" y="133" text-anchor="end" class="node-sub">A.02 · PEFT / distill / quant</text>
+          </g>
+          <g>
+            <circle cx="92" cy="215" r="5" fill="#1f6b3a" />
+            <text x="80" y="204" text-anchor="end" class="node-label">Multi-Agent LLMs for SE</text>
+            <text x="80" y="218" text-anchor="end" class="node-sub">A.03 · plan / code / test / review</text>
+          </g>
+          <g>
+            <circle cx="640" cy="70" r="5" fill="#1f6b3a" />
+            <text x="652" y="59" class="node-label">Neurosymbolic AI for SE</text>
+            <text x="652" y="73" class="node-sub">A.04 · LLM + program analysis</text>
+          </g>
+          <g>
+            <circle cx="640" cy="200" r="5" fill="#a5a5aa" />
+            <text x="652" y="189" class="node-label">Task-Aware Code Automation</text>
+            <text x="652" y="203" class="node-sub">A.05 · supporting direction</text>
+          </g>
+        </svg>
+        <div class="fig-caption">
+          <span class="fig-label">Fig. 1</span>
+          The five research directions, with A.05 (Task-Aware Code
+          Automation) rendered in grey to indicate it is a supporting,
+          not primary, avenue. Hair-thin curves indicate that the four
+          primary projects share infrastructure (datasets, evaluation
+          harnesses, model adapters) rather than running in isolation.
+        </div>
+      </figure>
+    </section>
+
+    <!-- ============== §3 Avenues ============== -->
+    <section id="avenues" aria-labelledby="h-avenues">
+      <h2 class="section-title" id="h-avenues">
+        <span>Five Research Avenues</span><span class="sec-num">§ 03</span>
+      </h2>
+
+      <ol class="avenues">
+        <li>
+          <h4>Explainability &amp; Interpretability</h4>
+          <p>
+            Methods that reveal how code models reason &mdash; rationales,
+            traces, generated tests &mdash; so developers can inspect,
+            trust, and debug automation rather than accept it on faith.
+          </p>
+        </li>
+        <li>
+          <h4>Efficiency &amp; Resource-Aware Automation</h4>
+          <p>
+            Quantization, distillation, and parameter-efficient fine-tuning
+            to deliver low-latency, memory-light, cost-aware automation
+            measured on real workloads with reproducible metrics<a href="#sn-3" class="sn-ref">3</a>.
+          </p>
+        </li>
+        <li>
+          <h4>Multi-Agent LLMs for SE</h4>
+          <p>
+            Role-aligned agents that plan, code, test, and review,
+            coordinated to produce coherent, end-to-end developer
+            assistance rather than disconnected single-shot completions.
+          </p>
+        </li>
+        <li>
+          <h4>Neurosymbolic AI for SE</h4>
+          <p>
+            Hybrid pipelines pairing LLMs with program analysis and
+            constraints to produce interpretable, checkable fixes, tests,
+            and designs<a href="#sn-4" class="sn-ref">4</a>.
+          </p>
+        </li>
+        <li class="secondary">
+          <h4>Task-Aware Code Automation <small>supporting direction</small></h4>
+          <p>
+            From issues, diffs, and traces to concise summaries, TODOs,
+            and plans; models that reduce developer toil with actionable,
+            repo-aware guidance.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============== §4 Publications ============== -->
+    <section id="publications" aria-labelledby="h-publications">
+      <h2 class="section-title" id="h-publications">
+        <span>Selected Publications</span><span class="sec-num">§ 04</span>
+      </h2>
+
+      <p>
+        A representative slice of recent work. Lab members in
+        <strong>bold</strong>; venues at top of each entry<a href="#sn-5" class="sn-ref">5</a>.
+      </p>
+
+      <ol class="pubs">
+        <li>
+          <div class="authors">
+            <span class="self">Mastropaolo, A.</span>; Escobar-Vel&aacute;squez, C.; Linares-V&aacute;squez, M.
+          </div>
+          <div class="title">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era.</div>
+          <div class="meta">
+            <span class="venue">TOSEM</span><span class="year">2024</span>
+            <span class="key">mastropaolo24triumph</span>
+          </div>
+        </li>
+        <li>
+          <div class="authors">
+            Vitale, A.; <span class="self">Mastropaolo, A.</span>; Oliveto, R.; Di Penta, M.; Scalabrino, S.
+          </div>
+          <div class="title">Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?</div>
+          <div class="meta">
+            <span class="venue">ICPC</span><span class="year">2025</span>
+            <span class="key">vitale25coherence</span>
+          </div>
+        </li>
+        <li>
+          <div class="authors">
+            <span class="self">Afrin, S.</span>; <span class="self">Call, J.</span>; <span class="self">Nguyen, K.-N.</span>; Chaparro, O.; <span class="self">Mastropaolo, A.</span>
+          </div>
+          <div class="title">Resource-Efficient &amp; Effective Code Summarization.</div>
+          <div class="meta">
+            <span class="venue">FORGE</span><span class="year">2025</span>
+            <span class="key">afrin25resource</span>
+          </div>
+        </li>
+        <li>
+          <div class="authors">
+            Velasco, A.; <span class="self">Garryyeva, A.</span>; Palacio, D. N.; <span class="self">Mastropaolo, A.</span>; Poshyvanyk, D.
+          </div>
+          <div class="title">Toward Neurosymbolic Program Comprehension.</div>
+          <div class="meta">
+            <span class="venue">ICPC&nbsp;ERA</span><span class="year">2025</span>
+            <span class="key">velasco25neurosymbolic</span>
+          </div>
+        </li>
+        <li>
+          <div class="authors">
+            <span class="self">Afrin, S.</span>; Xu, B.; <span class="self">Mastropaolo, A.</span>
+          </div>
+          <div class="title">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models.</div>
+          <div class="meta">
+            <span class="venue">ICSME</span><span class="year">2025</span>
+            <span class="key">afrin25quantization</span>
+          </div>
+        </li>
+        <li>
+          <div class="authors">
+            <span class="self">Mastropaolo, A.</span>; Poshyvanyk, D.
+          </div>
+          <div class="title">A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm.</div>
+          <div class="meta">
+            <span class="venue">FSE&nbsp;Ideas</span><span class="year">2025</span>
+            <span class="key">mastropaolo25pathless</span>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============== §5 People ============== -->
+    <section id="people" aria-labelledby="h-people">
+      <h2 class="section-title" id="h-people">
+        <span>People</span><span class="sec-num">§ 05</span>
+      </h2>
+
+      <div class="people-group">
+        <h4>Director</h4>
+        <div class="director-block">
+          <div class="director-name">Dr. Antonio Mastropaolo</div>
+          <div class="director-meta">
+            Assistant Professor, William &amp; Mary CS &middot; Ph.D.,
+            Universit&agrave; della Svizzera Italiana (2024) &middot; M.Sc.
+            / B.Sc., University of Molise.
+          </div>
+        </div>
+      </div>
+
+      <div class="people-group">
+        <h4>Ph.D. Students</h4>
+        <ul class="people-list">
+          <li><strong>Saima Afrin</strong> <span class="role">&middot; joined Sep 2024</span></li>
+          <li><strong>Aya Garryyeva</strong> <span class="role">&middot; joined Jan 2025</span></li>
+          <li><strong>Joseph Call</strong> <span class="role">&middot; joined Jan 2025</span></li>
+          <li><strong>Khai-Nguyen Nguyen</strong> <span class="role">&middot; student</span></li>
+          <li><strong>Alvi</strong> <span class="role">&middot; student</span></li>
+          <li><strong>Ben</strong> <span class="role">&middot; student</span></li>
+          <li><strong>Chris</strong> <span class="role">&middot; student</span></li>
+        </ul>
+      </div>
+
+      <div class="people-group">
+        <h4>Frequent Collaborators</h4>
+        <ul class="people-list">
+          <li><strong>Denys Poshyvanyk</strong> <span class="role">&middot; William &amp; Mary</span></li>
+          <li><strong>David Nader Palacio</strong></li>
+          <li><strong>Alejandro Velasco</strong></li>
+          <li><strong>Oscar Chaparro</strong></li>
+          <li><strong>Bowen Xu</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============== §6 News ============== -->
+    <section id="news" aria-labelledby="h-news">
+      <h2 class="section-title" id="h-news">
+        <span>Recent News</span><span class="sec-num">§ 06</span>
+      </h2>
+
+      <ul class="news">
+        <li>
+          <span class="date">2024 &middot; 12</span>
+          <span class="item">
+            <strong>"From Triumph to Uncertainty: The Journey of Software
+            Engineering in the AI Era"</strong> accepted to TOSEM.
+          </span>
+        </li>
+        <li>
+          <span class="date">2025 &middot; 01</span>
+          <span class="item">
+            Welcome to <strong>Aya Garryyeva</strong> and <strong>Joseph
+            Call</strong>, joining the AURA Lab as Ph.D. students.
+          </span>
+        </li>
+        <li>
+          <span class="date">2024 &middot; 11</span>
+          <span class="item">
+            Aya and Joseph announced ahead of their January start &mdash;
+            both will work across the lab's interpretability and efficiency
+            tracks.
+          </span>
+        </li>
+        <li>
+          <span class="date">2024 &middot; 09</span>
+          <span class="item">
+            Welcome to <strong>Saima Afrin</strong>, the lab's first Ph.D.
+            student, joining the AURA Lab.
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============== Colophon ============== -->
+    <footer class="colophon" id="colophon">
+      <div>
+        <div class="col-label">Cite this lab</div>
+        The AURA Lab. <em>AI for Understandable and Responsible Automation
+        in Software Engineering.</em> William &amp; Mary, 2024&ndash;.
+      </div>
+      <div>
+        <div class="col-label">Contact</div>
+        <a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a><br />
+        <a href="https://aura-se-lab.github.io">aura-se-lab.github.io</a>
+      </div>
+      <div>
+        <div class="col-label">Typeset in</div>
+        Newsreader (serif body), Inter (margin notes), JetBrains Mono
+        (labels). Set in a Distill-inspired notebook column.
+      </div>
+    </footer>
+
+  </article>
+
+  <!-- ============== Margin column ============== -->
+  <aside class="margin-col" aria-label="Margin notes and figures">
+
+    <div class="note" id="sn-1">
+      <span class="note-num">N.1</span>
+      The expansion of the acronym &mdash; <strong>A</strong>I for
+      <strong>U</strong>nderstandable and <strong>R</strong>esponsible
+      <strong>A</strong>utomation &mdash; encodes the order in which the
+      lab evaluates contributions: understandability before throughput,
+      responsibility before novelty.
+    </div>
+
+    <div class="note" id="sn-2">
+      <span class="note-num">N.2</span>
+      These three constraints &mdash; inspectability, cost, and legacy
+      compatibility &mdash; map onto the four primary research avenues
+      below. The figure on the right shows how the avenues share
+      infrastructure rather than running as silos.
+    </div>
+
+    <div class="note-figure">
+      <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Small diagram showing efficiency trade-offs">
+        <g fill="none" stroke="#1d1d1f" stroke-width="0.75">
+          <line x1="20" y1="90" x2="220" y2="90" />
+          <line x1="20" y1="90" x2="20" y2="14" />
+        </g>
+        <text x="20" y="104" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b6b70" letter-spacing="0.12em">LATENCY &rarr;</text>
+        <text x="14" y="14" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b6b70" letter-spacing="0.12em" text-anchor="start">QUALITY</text>
+        <path d="M 30 80 C 80 78, 110 55, 140 40 S 200 22, 215 20" stroke="#1f6b3a" stroke-width="1.25" fill="none" />
+        <circle cx="60" cy="74" r="2.5" fill="#1d1d1f" />
+        <circle cx="120" cy="48" r="2.5" fill="#1d1d1f" />
+        <circle cx="185" cy="26" r="2.5" fill="#1d1d1f" />
+        <text x="66" y="72" font-family="Inter, sans-serif" font-size="9" fill="#1d1d1f">8-bit</text>
+        <text x="126" y="46" font-family="Inter, sans-serif" font-size="9" fill="#1d1d1f">distilled</text>
+        <text x="155" y="24" font-family="Inter, sans-serif" font-size="9" fill="#1d1d1f">PEFT-tuned</text>
+      </svg>
+      <div class="note-figure-caption">
+        <span class="fig-label">Fig. 2</span>
+        Schematic of the latency / quality trade-off space we measure
+        across the efficiency track. Anchored to ICSME&nbsp;'25 and
+        FORGE&nbsp;'25 results.
+      </div>
+    </div>
+
+    <div class="note" id="sn-3">
+      <span class="note-num">N.3</span>
+      <strong>Why this matters.</strong> Most published gains in code-LM
+      capability come at the cost of inference budget. Our efficiency
+      track asks whether those gains survive 8-bit quantization, PEFT
+      adapters, or a 7B distilled student &mdash; the regimes labs and
+      small teams can actually deploy.
+    </div>
+
+    <div class="note" id="sn-4">
+      <span class="note-num">N.4</span>
+      The neurosymbolic line is articulated in two recent papers:
+      <em>Toward Neurosymbolic Program Comprehension</em> (ICPC ERA '25)
+      and <em>A Path Less Traveled</em> (FSE Ideas '25). The thesis is
+      that program analysis is the cheapest checker LLMs already lack.
+    </div>
+
+    <div class="note" id="sn-5">
+      <span class="note-num">N.5</span>
+      <strong>Venue key.</strong>
+      <em>TOSEM</em> &mdash; ACM Trans. on Software Engineering &amp;
+      Methodology, the field's top journal.
+      <em>ICPC</em> &mdash; Int'l Conference on Program Comprehension.
+      <em>FORGE</em> &mdash; ACM Int'l Conf. on AI Foundation Models
+      and Software Engineering.
+      <em>ICSME</em> &mdash; Int'l Conf. on Software Maintenance &amp;
+      Evolution.
+      <em>FSE Ideas</em> &mdash; the new-ideas track of ESEC/FSE.
+    </div>
+
+    <div class="note">
+      <span class="note-num">N.6</span>
+      <strong>How to read this page.</strong> The narrow column on the
+      left is the table of contents and tracks scroll position. The body
+      column is the article itself. This right margin holds the notes,
+      figures, and citations that would otherwise interrupt the body.
+      Below 1024px it collapses inline.
+    </div>
+
+  </aside>
+
+</main>
+
+<script>
+  // Lightweight scrollspy for the TOC.
+  (function () {
+    var ids = ["abstract","agenda","avenues","publications","people","news","colophon"];
+    var links = {};
+    document.querySelectorAll(".toc li").forEach(function (li) {
+      var a = li.querySelector("a");
+      if (!a) return;
+      var id = a.getAttribute("href").slice(1);
+      links[id] = li;
+    });
+    if (!("IntersectionObserver" in window)) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          Object.values(links).forEach(function (li) { li.classList.remove("is-current"); });
+          var li = links[e.target.id];
+          if (li) li.classList.add("is-current");
+        }
+      });
+    }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+---
+# v08 — Research Graph
+# Drop-in replacement for _layouts/about.liquid
+# Renders the AURA Lab homepage as an interactive knowledge graph (SVG)
+# with a fallback text section for screen readers and small viewports.
+layout: default
+---
+
+<main class="folio v08-research-graph" role="main">
+
+  {% comment %} ============ Top chrome ============ {% endcomment %}
+  <header class="v08-chrome" role="banner">
+    <div class="brand">
+      <span class="brand-mark">The <span class="acc">AURA</span> Lab</span>
+      <span class="brand-meta">graph view · v.01 · william &amp; mary cs</span>
+    </div>
+    <div class="legend" aria-label="Node legend">
+      <span class="legend-item"><span class="swatch avenue"></span>avenue</span>
+      <span class="legend-item"><span class="swatch pub"></span>publication</span>
+      <span class="legend-item"><span class="swatch people"></span>person</span>
+      <span class="legend-item"><span class="swatch venue"></span>venue</span>
+    </div>
+  </header>
+
+  {% comment %} ============ Hero header ============ {% endcomment %}
+  <div class="v08-hero-head">
+    <p class="eyebrow">A.I. for Understandable and Responsible Automation in Software Engineering</p>
+    <h1>
+      The <span class="acc">AURA</span> Lab,
+      mapped as a research graph.
+    </h1>
+    <p class="sub">
+      Five research avenues, six selected publications, the people who connect them. Hover a node
+      to surface its neighborhood; click for detail. Directed by Dr.&nbsp;Antonio&nbsp;Mastropaolo.
+    </p>
+    <p class="pi-line">
+      Director — <a href="https://antoniomastropaolo.com">{{ site.first_name | default: 'Antonio' }} {{ site.last_name | default: 'Mastropaolo' }}</a>, Assistant Professor ·
+      Dept.&nbsp;of Computer Science, William &amp; Mary · founded Fall 2024 ·
+      <a href="mailto:{{ site.email | default: 'amastropaolo@wm.edu' }}">{{ site.email | default: 'amastropaolo@wm.edu' }}</a>
+    </p>
+  </div>
+
+  {% comment %} ============ Graph stage ============ {% endcomment %}
+  <div class="graph-stage">
+    <div class="graph-frame">
+
+      <svg id="graph" class="graph-svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive research graph of the AURA Lab. Use the fallback section below for a text version.">
+
+        <defs>
+          <radialGradient id="avenueGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#3ed59a" stop-opacity="0.10"/>
+            <stop offset="60%" stop-color="#3ed59a" stop-opacity="0.04"/>
+            <stop offset="100%" stop-color="#3ed59a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <ellipse class="cluster-halo" cx="380" cy="240" rx="240" ry="170"/>
+        <ellipse class="cluster-halo" cx="260" cy="420" rx="220" ry="160"/>
+        <ellipse class="cluster-halo" cx="600" cy="620" rx="260" ry="120"/>
+        <ellipse class="cluster-halo" cx="930" cy="460" rx="220" ry="170"/>
+        <ellipse class="cluster-halo" cx="870" cy="200" rx="220" ry="140"/>
+
+        <g class="edges" stroke-linecap="round">
+          <path class="edge" data-a="ave-explain"    data-b="pub-tosem"     d="M 440,180 Q 550,140 660,130"/>
+          <path class="edge" data-a="ave-taskaware"  data-b="pub-tosem"     d="M 880,160 Q 770,140 660,130"/>
+          <path class="edge" data-a="ave-taskaware"  data-b="pub-icpc25"    d="M 880,160 Q 940,210 980,270"/>
+          <path class="edge" data-a="ave-efficient"  data-b="pub-forge"     d="M 220,400 Q 300,330 380,280"/>
+          <path class="edge" data-a="ave-taskaware"  data-b="pub-forge"     d="M 880,160 Q 620,200 380,280"/>
+          <path class="edge" data-a="ave-neurosym"   data-b="pub-icpcera"   d="M 920,440 Q 830,380 740,320"/>
+          <path class="edge" data-a="ave-explain"    data-b="pub-icpcera"   d="M 440,180 Q 590,240 740,320"/>
+          <path class="edge" data-a="ave-efficient"  data-b="pub-icsme"     d="M 220,400 Q 170,340 130,280"/>
+          <path class="edge" data-a="ave-neurosym"   data-b="pub-fseideas"  d="M 920,440 Q 850,480 770,530"/>
+          <path class="edge" data-a="ave-multiagent" data-b="pub-fseideas"  d="M 560,600 Q 670,570 770,530"/>
+
+          <path class="edge" data-a="pub-tosem"    data-b="v-tosem"    d="M 660,130 Q 660,105 660,80"/>
+          <path class="edge" data-a="pub-icpc25"   data-b="v-icpc"     d="M 980,270 Q 1030,255 1080,240"/>
+          <path class="edge" data-a="pub-forge"    data-b="v-forge"    d="M 380,280 Q 360,250 340,220"/>
+          <path class="edge" data-a="pub-icpcera"  data-b="v-icpcera"  d="M 740,320 Q 770,295 800,270"/>
+          <path class="edge" data-a="pub-icsme"    data-b="v-icsme"    d="M 130,280 Q 95,260 60,240"/>
+          <path class="edge" data-a="pub-fseideas" data-b="v-fse"      d="M 770,530 Q 795,555 820,580"/>
+
+          <path class="edge" data-a="pub-tosem"    data-b="p-am"  d="M 660,130 Q 610,255 560,380"/>
+          <path class="edge" data-a="pub-icpc25"   data-b="p-am"  d="M 980,270 Q 770,325 560,380"/>
+          <path class="edge" data-a="pub-forge"    data-b="p-am"  d="M 380,280 Q 470,330 560,380"/>
+          <path class="edge" data-a="pub-forge"    data-b="p-sa"  d="M 380,280 Q 340,410 300,540"/>
+          <path class="edge" data-a="pub-forge"    data-b="p-jc"  d="M 380,280 Q 410,370 440,460"/>
+          <path class="edge" data-a="pub-forge"    data-b="p-kn"  d="M 380,280 Q 455,280 530,280"/>
+          <path class="edge" data-a="pub-forge"    data-b="p-oc"  d="M 380,280 Q 240,350 100,420"/>
+          <path class="edge" data-a="pub-icpcera"  data-b="p-am"  d="M 740,320 Q 650,350 560,380"/>
+          <path class="edge" data-a="pub-icpcera"  data-b="p-ag"  d="M 740,320 Q 780,350 820,380"/>
+          <path class="edge" data-a="pub-icpcera"  data-b="p-av"  d="M 740,320 Q 900,390 1060,460"/>
+          <path class="edge" data-a="pub-icpcera"  data-b="p-dnp" d="M 740,320 Q 895,350 1050,380"/>
+          <path class="edge" data-a="pub-icpcera"  data-b="p-dp"  d="M 740,320 Q 820,460 900,600"/>
+          <path class="edge" data-a="pub-icsme"    data-b="p-am"  d="M 130,280 Q 345,330 560,380"/>
+          <path class="edge" data-a="pub-icsme"    data-b="p-sa"  d="M 130,280 Q 215,410 300,540"/>
+          <path class="edge" data-a="pub-icsme"    data-b="p-bx"  d="M 130,280 Q 95,310 60,340"/>
+          <path class="edge" data-a="pub-fseideas" data-b="p-am"  d="M 770,530 Q 665,455 560,380"/>
+          <path class="edge" data-a="pub-fseideas" data-b="p-dp"  d="M 770,530 Q 835,565 900,600"/>
+
+          <path class="edge" data-a="p-am" data-b="ave-explain"    d="M 560,380 Q 500,280 440,180"/>
+          <path class="edge" data-a="p-am" data-b="ave-efficient"  d="M 560,380 Q 390,390 220,400"/>
+          <path class="edge" data-a="p-am" data-b="ave-multiagent" d="M 560,380 Q 560,490 560,600"/>
+          <path class="edge" data-a="p-am" data-b="ave-neurosym"   d="M 560,380 Q 740,410 920,440"/>
+          <path class="edge" data-a="p-am" data-b="ave-taskaware"  d="M 560,380 Q 720,270 880,160"/>
+
+          <path class="edge" data-a="p-alvi"  data-b="ave-multiagent" d="M 440,660 Q 500,630 560,600"/>
+          <path class="edge" data-a="p-ben"   data-b="ave-multiagent" d="M 570,690 Q 565,645 560,600"/>
+          <path class="edge" data-a="p-chris" data-b="ave-explain"    d="M 700,680 Q 570,430 440,180"/>
+        </g>
+
+        <g class="nodes">
+
+          <g class="node avenue" data-id="ave-explain" tabindex="0" role="button" aria-label="Avenue: Explainability and Interpretability">
+            <circle r="70" cx="440" cy="180" fill="url(#avenueGlow)" style="pointer-events:none"/>
+            <circle class="node-shape" cx="440" cy="180" r="44"/>
+            <text class="node-label avenue-sub" x="440" y="106" text-anchor="middle">AVE.01</text>
+            <text class="node-label avenue-label" x="440" y="244" text-anchor="middle">Explainability</text>
+          </g>
+          <g class="node avenue" data-id="ave-efficient" tabindex="0" role="button" aria-label="Avenue: Efficiency and Resource-Aware Automation">
+            <circle r="70" cx="220" cy="400" fill="url(#avenueGlow)" style="pointer-events:none"/>
+            <circle class="node-shape" cx="220" cy="400" r="44"/>
+            <text class="node-label avenue-sub" x="220" y="326" text-anchor="middle">AVE.02</text>
+            <text class="node-label avenue-label" x="220" y="464" text-anchor="middle">Efficiency</text>
+          </g>
+          <g class="node avenue" data-id="ave-multiagent" tabindex="0" role="button" aria-label="Avenue: Multi-Agent LLMs">
+            <circle r="68" cx="560" cy="600" fill="url(#avenueGlow)" style="pointer-events:none"/>
+            <circle class="node-shape" cx="560" cy="600" r="40"/>
+            <text class="node-label avenue-sub" x="560" y="538" text-anchor="middle">AVE.03</text>
+            <text class="node-label avenue-label" x="560" y="660" text-anchor="middle">Multi-Agent LLMs</text>
+          </g>
+          <g class="node avenue" data-id="ave-neurosym" tabindex="0" role="button" aria-label="Avenue: Neurosymbolic AI">
+            <circle r="72" cx="920" cy="440" fill="url(#avenueGlow)" style="pointer-events:none"/>
+            <circle class="node-shape" cx="920" cy="440" r="44"/>
+            <text class="node-label avenue-sub" x="920" y="366" text-anchor="middle">AVE.04</text>
+            <text class="node-label avenue-label" x="920" y="504" text-anchor="middle">Neurosymbolic</text>
+          </g>
+          <g class="node avenue" data-id="ave-taskaware" tabindex="0" role="button" aria-label="Avenue: Task-Aware Code Automation">
+            <circle r="62" cx="880" cy="160" fill="url(#avenueGlow)" style="pointer-events:none"/>
+            <circle class="node-shape" cx="880" cy="160" r="36"/>
+            <text class="node-label avenue-sub" x="880" y="100" text-anchor="middle">AVE.05 · supporting</text>
+            <text class="node-label avenue-label" x="880" y="216" text-anchor="middle">Task-Aware</text>
+          </g>
+
+          <g class="node pub" data-id="pub-tosem"    data-cx="660" data-cy="130" data-label-dx="14"  data-label-dy="-2"  tabindex="0" role="button" aria-label="From Triumph to Uncertainty, TOSEM 2024"><circle class="node-shape" cx="660" cy="130" r="11"/></g>
+          <g class="node pub" data-id="pub-icpc25"   data-cx="980" data-cy="270" data-label-dx="-14" data-label-dy="-4"  tabindex="0" role="button" aria-label="Optimizing Datasets for Code Summarization, ICPC 2025"><circle class="node-shape" cx="980" cy="270" r="11"/></g>
+          <g class="node pub" data-id="pub-forge"    data-cx="380" data-cy="280" data-label-dx="14"  data-label-dy="-4"  tabindex="0" role="button" aria-label="Resource-Efficient Code Summarization, FORGE 2025"><circle class="node-shape" cx="380" cy="280" r="12"/></g>
+          <g class="node pub" data-id="pub-icpcera"  data-cx="740" data-cy="320" data-label-dx="14"  data-label-dy="-4"  tabindex="0" role="button" aria-label="Toward Neurosymbolic Program Comprehension, ICPC ERA 2025"><circle class="node-shape" cx="740" cy="320" r="13"/></g>
+          <g class="node pub" data-id="pub-icsme"    data-cx="130" data-cy="280" data-label-dx="14"  data-label-dy="-4"  tabindex="0" role="button" aria-label="Is Quantization a Deal-breaker, ICSME 2025"><circle class="node-shape" cx="130" cy="280" r="11"/></g>
+          <g class="node pub" data-id="pub-fseideas" data-cx="770" data-cy="530" data-label-dx="14"  data-label-dy="4"   tabindex="0" role="button" aria-label="A Path Less Traveled, FSE Ideas 2025"><circle class="node-shape" cx="770" cy="530" r="11"/></g>
+
+          <text id="pub-hover-label" class="pub-hover-label" x="0" y="0">label</text>
+
+          <g class="node venue" data-id="v-tosem"   tabindex="0" role="button" aria-label="Venue: ACM TOSEM">
+            <rect class="node-shape" x="-8" y="-8" width="16" height="16" transform="translate(660 80) rotate(45)"/>
+            <text class="venue-label" x="660" y="58" text-anchor="middle">TOSEM</text>
+          </g>
+          <g class="node venue" data-id="v-icpc"    tabindex="0" role="button" aria-label="Venue: ICPC">
+            <rect class="node-shape" x="-8" y="-8" width="16" height="16" transform="translate(1080 240) rotate(45)"/>
+            <text class="venue-label" x="1080" y="218" text-anchor="middle">ICPC</text>
+          </g>
+          <g class="node venue" data-id="v-forge"   tabindex="0" role="button" aria-label="Venue: FORGE">
+            <rect class="node-shape" x="-8" y="-8" width="16" height="16" transform="translate(340 220) rotate(45)"/>
+            <text class="venue-label" x="340" y="200" text-anchor="middle">FORGE</text>
+          </g>
+          <g class="node venue" data-id="v-icpcera" tabindex="0" role="button" aria-label="Venue: ICPC ERA">
+            <rect class="node-shape" x="-8" y="-8" width="16" height="16" transform="translate(800 270) rotate(45)"/>
+            <text class="venue-label" x="800" y="250" text-anchor="middle">ICPC·ERA</text>
+          </g>
+          <g class="node venue" data-id="v-icsme"   tabindex="0" role="button" aria-label="Venue: ICSME">
+            <rect class="node-shape" x="-8" y="-8" width="16" height="16" transform="translate(60 240) rotate(45)"/>
+            <text class="venue-label" x="60" y="218" text-anchor="middle">ICSME</text>
+          </g>
+          <g class="node venue" data-id="v-fse"     tabindex="0" role="button" aria-label="Venue: FSE Ideas">
+            <rect class="node-shape" x="-8" y="-8" width="16" height="16" transform="translate(820 580) rotate(45)"/>
+            <text class="venue-label" x="820" y="602" text-anchor="middle">FSE·Ideas</text>
+          </g>
+
+          <g class="node people director" data-id="p-am" tabindex="0" role="button" aria-label="Antonio Mastropaolo, Director">
+            <rect class="node-shape" x="544" y="364" width="32" height="32" rx="3"/>
+            <text class="node-initial" x="560" y="385" text-anchor="middle">AM</text>
+            <text class="node-label" x="560" y="416" text-anchor="middle" style="fill:#e6e8ee;font-weight:600">A. Mastropaolo</text>
+            <text class="node-label" x="560" y="430" text-anchor="middle" style="fill:#5e6577;font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;text-transform:uppercase">director</text>
+          </g>
+
+          <g class="node people" data-id="p-sa" tabindex="0" role="button" aria-label="Saima Afrin"><rect class="node-shape" x="286" y="526" width="28" height="28" rx="2"/><text class="node-initial" x="300" y="544" text-anchor="middle">SA</text><text class="node-label" x="300" y="572" text-anchor="middle">Saima Afrin</text></g>
+          <g class="node people" data-id="p-jc" tabindex="0" role="button" aria-label="Joseph Call"><rect class="node-shape" x="426" y="446" width="28" height="28" rx="2"/><text class="node-initial" x="440" y="464" text-anchor="middle">JC</text><text class="node-label" x="440" y="492" text-anchor="middle">J. Call</text></g>
+          <g class="node people" data-id="p-kn" tabindex="0" role="button" aria-label="Khai-Nguyen Nguyen"><rect class="node-shape" x="516" y="266" width="28" height="28" rx="2"/><text class="node-initial" x="530" y="284" text-anchor="middle">KN</text><text class="node-label" x="530" y="312" text-anchor="middle">K-N. Nguyen</text></g>
+          <g class="node people" data-id="p-ag" tabindex="0" role="button" aria-label="Aya Garryyeva"><rect class="node-shape" x="806" y="366" width="28" height="28" rx="2"/><text class="node-initial" x="820" y="384" text-anchor="middle">AG</text><text class="node-label" x="820" y="412" text-anchor="middle">A. Garryyeva</text></g>
+          <g class="node people" data-id="p-alvi" tabindex="0" role="button" aria-label="Alvi"><rect class="node-shape" x="428" y="648" width="24" height="24" rx="2"/><text class="node-initial" x="440" y="664" text-anchor="middle">Al</text><text class="node-label" x="440" y="688" text-anchor="middle">Alvi</text></g>
+          <g class="node people" data-id="p-ben" tabindex="0" role="button" aria-label="Ben"><rect class="node-shape" x="558" y="678" width="24" height="24" rx="2"/><text class="node-initial" x="570" y="694" text-anchor="middle">Bn</text></g>
+          <g class="node people" data-id="p-chris" tabindex="0" role="button" aria-label="Chris"><rect class="node-shape" x="688" y="668" width="24" height="24" rx="2"/><text class="node-initial" x="700" y="684" text-anchor="middle">Cr</text><text class="node-label" x="700" y="708" text-anchor="middle">Chris</text></g>
+
+          <g class="node people" data-id="p-dp" tabindex="0" role="button" aria-label="Denys Poshyvanyk"><rect class="node-shape" x="886" y="586" width="28" height="28" rx="2"/><text class="node-initial" x="900" y="604" text-anchor="middle">DP</text><text class="node-label" x="900" y="632" text-anchor="middle">D. Poshyvanyk</text></g>
+          <g class="node people" data-id="p-dnp" tabindex="0" role="button" aria-label="David Nader Palacio"><rect class="node-shape" x="1036" y="366" width="28" height="28" rx="2"/><text class="node-initial" x="1050" y="384" text-anchor="middle">NP</text><text class="node-label" x="1050" y="412" text-anchor="middle">D. Nader Palacio</text></g>
+          <g class="node people" data-id="p-av" tabindex="0" role="button" aria-label="Alejandro Velasco"><rect class="node-shape" x="1046" y="446" width="28" height="28" rx="2"/><text class="node-initial" x="1060" y="464" text-anchor="middle">AV</text><text class="node-label" x="1060" y="492" text-anchor="middle">A. Velasco</text></g>
+          <g class="node people" data-id="p-oc" tabindex="0" role="button" aria-label="Oscar Chaparro"><rect class="node-shape" x="86" y="406" width="28" height="28" rx="2"/><text class="node-initial" x="100" y="424" text-anchor="middle">OC</text><text class="node-label" x="100" y="452" text-anchor="middle">O. Chaparro</text></g>
+          <g class="node people" data-id="p-bx" tabindex="0" role="button" aria-label="Bowen Xu"><rect class="node-shape" x="46" y="326" width="28" height="28" rx="2"/><text class="node-initial" x="60" y="344" text-anchor="middle">BX</text><text class="node-label" x="60" y="372" text-anchor="middle">B. Xu</text></g>
+
+        </g>
+      </svg>
+
+      <aside class="drawer" id="drawer" role="dialog" aria-modal="false" aria-labelledby="drawer-title" aria-hidden="true">
+        <button class="drawer-close" id="drawer-close" aria-label="Close detail panel">×</button>
+        <p class="drawer-kind" id="drawer-kind">Research avenue</p>
+        <h3 class="drawer-title" id="drawer-title">—</h3>
+        <div class="drawer-body" id="drawer-body"></div>
+        <dl class="drawer-meta" id="drawer-meta"></dl>
+        <a class="drawer-affordance" href="#fallback" id="drawer-affordance">View details</a>
+      </aside>
+
+      <div class="graph-foot" aria-hidden="true">
+        <div class="hint">hover <span class="kbd">node</span> to focus · click for detail · <span class="kbd">esc</span> to close</div>
+        <div class="count"><strong>5</strong> avenues &nbsp;·&nbsp; <strong>6</strong> publications &nbsp;·&nbsp; <strong>13</strong> people &nbsp;·&nbsp; <strong>6</strong> venues</div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} ============ Fallback content ============ {% endcomment %}
+  <section class="fallback" id="fallback" aria-labelledby="fb-heading">
+    <div class="fallback-inner">
+
+      <div>
+        <p class="fallback-eyebrow">§ Index</p>
+        <h2 id="fb-heading">Text view</h2>
+        <p class="lede">
+          The graph above is the primary view. This section is the same content in linear text — for
+          screen readers, narrow viewports, and anyone who prefers prose to a node-link diagram.
+        </p>
+      </div>
+
+      <div>
+        <p class="lede" style="margin:0;color:var(--text-dim)">
+          {% if content and content != '' %}
+            {{ content }}
+          {% else %}
+            The AURA Lab, founded in Fall 2024, advances research at the intersection of efficiency,
+            automation, and explainability in software engineering. Our mission is to design innovative
+            and responsible AI-driven solutions that improve developer productivity while addressing
+            key challenges of transparency and resource efficiency. Through rigorous methods, open
+            collaboration, and a commitment to impactful work, the AURA Lab contributes practical
+            advances in AI-supported software engineering for academia, industry, and society.
+          {% endif %}
+        </p>
+      </div>
+
+      <div class="fb-block">
+        <div class="fb-label"><span class="num">§ 01</span>Research avenues</div>
+        <div>
+          <div class="avenues-grid">
+            <article class="avenue-card"><span class="id">AVE.01</span><h3>Explainability &amp; Interpretability</h3><p>Methods that reveal how code models reason — rationales, traces, tests — so developers can inspect, trust, and debug automation.</p></article>
+            <article class="avenue-card"><span class="id">AVE.02</span><h3>Efficiency &amp; Resource-Aware Automation</h3><p>Quantization, distillation, and PEFT to deliver low-latency, memory-light, cost-aware automation, measured on real workloads with reproducible metrics.</p></article>
+            <article class="avenue-card"><span class="id">AVE.03</span><h3>Multi-Agent LLMs for Software Engineering</h3><p>Role-aligned agents that plan, code, test, and review — coordinated to produce coherent, end-to-end developer assistance.</p></article>
+            <article class="avenue-card"><span class="id">AVE.04</span><h3>Neurosymbolic AI for Software Engineering</h3><p>Hybrid pipelines pairing LLMs with program analysis and constraints to produce interpretable, checkable fixes, tests, and designs.</p></article>
+            <article class="avenue-card" style="grid-column:1 / -1"><span class="id">AVE.05 · supporting</span><h3>Task-Aware Code Automation</h3><p>From issues, diffs, and traces to concise summaries, TODOs, and plans — models that reduce developer toil with actionable, repo-aware guidance.</p></article>
+          </div>
+        </div>
+      </div>
+
+      <div class="fb-block">
+        <div class="fb-label"><span class="num">§ 02</span>Selected publications</div>
+        <div>
+          {% if page.selected_papers %}
+            {% include selected_papers.liquid %}
+          {% else %}
+            <ol class="pubs-list">
+              <li><span class="venue">TOSEM</span><span><span class="title">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era.</span><span class="authors"><span class="self">Mastropaolo, A.</span>; Escobar-Velásquez, C.; Linares-Vásquez, M.</span></span><span class="year">2024</span></li>
+              <li><span class="venue">ICPC</span><span><span class="title">Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?</span><span class="authors">Vitale, A.; <span class="self">Mastropaolo, A.</span>; Oliveto, R.; Di Penta, M.; Scalabrino, S.</span></span><span class="year">2025</span></li>
+              <li><span class="venue">FORGE</span><span><span class="title">Resource-Efficient &amp; Effective Code Summarization.</span><span class="authors">Afrin, S.; Call, J.; Nguyen, K.-N.; Chaparro, O.; <span class="self">Mastropaolo, A.</span></span></span><span class="year">2025</span></li>
+              <li><span class="venue">ICPC · ERA</span><span><span class="title">Toward Neurosymbolic Program Comprehension.</span><span class="authors">Velasco, A.; Garryyeva, A.; Palacio, D. N.; <span class="self">Mastropaolo, A.</span>; Poshyvanyk, D.</span></span><span class="year">2025</span></li>
+              <li><span class="venue">ICSME</span><span><span class="title">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models.</span><span class="authors">Afrin, S.; Xu, B.; <span class="self">Mastropaolo, A.</span></span></span><span class="year">2025</span></li>
+              <li><span class="venue">FSE · Ideas</span><span><span class="title">A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm.</span><span class="authors"><span class="self">Mastropaolo, A.</span>; Poshyvanyk, D.</span></span><span class="year">2025</span></li>
+            </ol>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="fb-block">
+        <div class="fb-label"><span class="num">§ 03</span>People</div>
+        <div>
+          <div class="people-grid">
+            <div class="people-group">
+              <h4>Director</h4>
+              <ul><li class="director"><span>Antonio Mastropaolo</span><span class="meta">PI</span></li></ul>
+              <p style="color:var(--text-dim);font-size:12px;margin:8px 0 0;line-height:1.55">Assistant Professor, William &amp; Mary CS. Ph.D., USI (2024). M.Sc./B.Sc., Univ. of Molise.</p>
+            </div>
+            <div class="people-group">
+              <h4>Ph.D. students</h4>
+              <ul>
+                <li><span>Saima Afrin</span><span class="meta">Sep 2024</span></li>
+                <li><span>Aya Garryyeva</span><span class="meta">Jan 2025</span></li>
+                <li><span>Joseph Call</span><span class="meta">Jan 2025</span></li>
+                <li><span>Khai-Nguyen Nguyen</span><span class="meta">student</span></li>
+                <li><span>Alvi</span><span class="meta">student</span></li>
+                <li><span>Ben</span><span class="meta">student</span></li>
+                <li><span>Chris</span><span class="meta">student</span></li>
+              </ul>
+            </div>
+            <div class="people-group">
+              <h4>Frequent collaborators</h4>
+              <ul>
+                <li><span>Denys Poshyvanyk</span><span class="meta">W&amp;M</span></li>
+                <li><span>David Nader Palacio</span><span class="meta">—</span></li>
+                <li><span>Alejandro Velasco</span><span class="meta">—</span></li>
+                <li><span>Oscar Chaparro</span><span class="meta">—</span></li>
+                <li><span>Bowen Xu</span><span class="meta">—</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fb-block">
+        <div class="fb-label"><span class="num">§ 04</span>News</div>
+        <div>
+          {% if page.news and site.announcements.enabled %}
+            {% include news.liquid limit=true %}
+          {% else %}
+            <ol class="news-list">
+              <li><time datetime="2025-01">Jan 2025</time><span><span class="pill">joining</span>Welcome to <strong>Aya Garryyeva</strong> and <strong>Joseph Call</strong>, joining the AURA Lab as Ph.D. students.</span></li>
+              <li><time datetime="2024-12">Dec 2024</time><span><span class="pill">accepted</span><em>From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era</em> accepted to <strong>ACM TOSEM</strong>.</span></li>
+              <li><time datetime="2024-11">Nov 2024</time><span><span class="pill">announcement</span>Welcome to <strong>Aya</strong> and <strong>Joseph</strong> — announced ahead of their January start.</span></li>
+              <li><time datetime="2024-09">Sep 2024</time><span><span class="pill">joining</span>Welcome to <strong>Saima Afrin</strong>, joining the AURA Lab as a Ph.D. student.</span></li>
+            </ol>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {% comment %} ============ Footer ============ {% endcomment %}
+  <footer class="v08-foot">
+    <div>The AURA Lab · Department of Computer Science · William &amp; Mary · Williamsburg, VA</div>
+    <div>
+      <a href="mailto:{{ site.email | default: 'amastropaolo@wm.edu' }}">{{ site.email | default: 'amastropaolo@wm.edu' }}</a> &nbsp;·&nbsp;
+      <a href="{{ site.url | default: 'https://aura-se-lab.github.io' }}">aura-se-lab.github.io</a> &nbsp;·&nbsp;
+      <a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a>
+    </div>
+  </footer>
+
+  {% if page.social %}
+    <div class="social v08-social">
+      <div class="contact-icons">{% include social.liquid %}</div>
+      <div class="contact-note">{{ site.contact_note }}</div>
+    </div>
+  {% endif %}
+
+  <script src="{{ '/assets/js/v08-research-graph.js' | relative_url }}"></script>
+
+</main>

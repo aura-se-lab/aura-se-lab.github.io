@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#06241b" />
+<title>A · AI Agents for the Software Lifecycle — AURA Lab · W&amp;M</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_thread.css">
+<style>
+  :root { --thread:#0c5a3a; --thread-2:#0f6943; --thread-glow:#a4ecc4; }
+
+  /* Hero viz: agent loop diagram */
+  .agent-loop{position:relative;height:340px;display:grid;place-items:center}
+  .agent-loop svg{width:100%;height:100%}
+  .agent-stations{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;fill:#cfdcd3;text-transform:uppercase}
+  .agent-station-circ{fill:rgba(255,255,255,.06);stroke:var(--thread-glow);stroke-width:1.4;transition:fill .35s}
+  .agent-station-circ.active{fill:rgba(164,236,196,.22);stroke-width:2.4}
+  .agent-arc{fill:none;stroke:var(--thread-glow);stroke-width:1.2;opacity:.35;stroke-dasharray:4 4}
+  .agent-center{font-family:var(--serif);fill:#fff;font-weight:600;letter-spacing:-.01em}
+
+  .station-detail{
+    margin-top:14px;padding:12px 14px;background:rgba(0,0,0,.25);border-radius:8px;border-left:2px solid var(--thread-glow);
+    font-family:var(--serif);font-size:13.5px;color:#dff0e6;line-height:1.5;min-height:80px;
+  }
+  .station-detail b{color:var(--thread-glow);font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../../assets/img/wm/wm-logo.svg" alt="William & Mary" /><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="../H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; Research &nbsp;/&nbsp; <b>A · Automation</b></div>
+  <div class="menu">
+    <a href="../H_cinematic.html#programme">All threads</a>
+    <a href="#why">Why</a>
+    <a href="#approach">Approach</a>
+    <a href="#papers">Papers</a>
+    <a href="../H_cinematic.html#join" class="pill">Join the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap inner">
+    <div>
+      <div class="L">
+        <div class="glyph">A</div>
+        <div class="meta">Thread A · Automation<b>AI agents for the software lifecycle</b></div>
+      </div>
+      <h1>Agents that <em>plan, act, and report</em>. Multi-step automation with measurable handoffs.</h1>
+      <p class="lede">A single-shot model that proposes a patch is a tool. An agent that retrieves the right files, runs the tests, reads the failures, and revises until it ships is a colleague. The lab studies how to build the second one — and how to evaluate it without lying about success.</p>
+      <div class="stats">
+        <div class="s"><div class="v">6</div><div class="l">canonical stations</div></div>
+        <div class="s"><div class="v">100<span class="u">%</span></div><div class="l">action traces logged</div></div>
+        <div class="s"><div class="v">3<span class="u">×</span></div><div class="l">avg. iterations to fix</div></div>
+      </div>
+    </div>
+
+    <div class="hero-viz">
+      <div class="lab"><span><span class="d"></span>agent telemetry · live</span><span>ReAct + tool use</span></div>
+      <div class="agent-loop">
+        <svg viewBox="0 0 380 340" id="agentSvg">
+          <circle cx="190" cy="170" r="120" class="agent-arc" />
+          <text x="190" y="172" text-anchor="middle" class="agent-center" font-size="20">AGENT</text>
+          <text x="190" y="190" text-anchor="middle" class="agent-center" font-size="9" fill="#88a89a" font-weight="400">aura · v0.4</text>
+          <!-- 6 stations -->
+          <g id="stations"></g>
+        </svg>
+      </div>
+      <div class="station-detail" id="stationDetail">
+        <b>step 01 · observe</b>
+        The agent reads the failing test trace, the relevant source files, the recent git log. Every retrieval is logged with a timestamp and a cost.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §1 -->
+<section class="block" id="why">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 1 · Why this matters</span><h2 class="r">The next interface to software is not a chat box. It is a <em>colleague</em>.</h2></div>
+    <div class="row">
+      <div class="col">
+        <div class="prose r">
+          <p>Most "AI for code" today lives in an autocomplete: you type, the model proposes, you accept or reject. That product is real, but it is also the easiest version of the problem — the model never has to plan, never has to recover from a failure, never has to coordinate with another agent or another system.</p>
+
+          <p>The interesting product, and the harder research, is the agent that <strong>shoulders a multi-step task</strong>: triage an incoming bug report, reproduce the failure, propose a fix, run the test suite, read the results, revise, and either ship a pull request or escalate. Every link in that chain has to be measured. Every link has to be auditable. Every link has to be cheap enough to be worth running.</p>
+
+          <span class="pull">An agent without an audit trail is a liability disguised as a tool.</span>
+
+          <p>Recent benchmarks like SWE-bench and SWE-Lancer have given the field a target. Our argument is that the field has rushed to score numbers on those benchmarks while skipping over the part where the agent can <em>explain what it did and why</em>. Without that, a 30 % issue-resolution rate is a 30 % automated PR-noise rate.</p>
+
+          <p>The lab's automation thread is about building agents whose work is auditable end-to-end, whose handoffs to humans are explicit, and whose failure modes are reported, not absorbed.</p>
+        </div>
+      </div>
+
+      <div class="col">
+        <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px" class="r">
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--thread);text-transform:uppercase;margin-bottom:14px">The six canonical stations</div>
+          <ol style="counter-reset:s;list-style:none;padding:0;margin:0">
+            <li style="counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--rule);font-family:var(--serif);font-size:14.5px">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--thread);font-weight:600">01</span><div><b>Observe</b><div style="color:var(--mute);font-size:13px;margin-top:2px">Read the failing trace, the relevant files, recent commits.</div></div></li>
+            <li style="counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--rule);font-family:var(--serif);font-size:14.5px">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--thread);font-weight:600">02</span><div><b>Plan</b><div style="color:var(--mute);font-size:13px;margin-top:2px">Decompose the task into checkable steps. Estimate the cost.</div></div></li>
+            <li style="counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--rule);font-family:var(--serif);font-size:14.5px">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--thread);font-weight:600">03</span><div><b>Act</b><div style="color:var(--mute);font-size:13px;margin-top:2px">Edit code; call tools; query the test runner. Every action logged.</div></div></li>
+            <li style="counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--rule);font-family:var(--serif);font-size:14.5px">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--thread);font-weight:600">04</span><div><b>Measure</b><div style="color:var(--mute);font-size:13px;margin-top:2px">Inspect the result. Did the test pass? Did anything else break?</div></div></li>
+            <li style="counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--rule);font-family:var(--serif);font-size:14.5px">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--thread);font-weight:600">05</span><div><b>Reflect</b><div style="color:var(--mute);font-size:13px;margin-top:2px">If wrong, why? Write a postmortem the next iteration can use.</div></div></li>
+            <li style="counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0;font-family:var(--serif);font-size:14.5px">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--thread);font-weight:600">06</span><div><b>Emit</b><div style="color:var(--mute);font-size:13px;margin-top:2px">Open the PR — or escalate. Always with a human-readable rationale.</div></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 -->
+<section class="block dark">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 2 · What is hard</span><h2 class="r">Three reasons SE agents are not yet <em>real colleagues</em>.</h2></div>
+    <div class="cards r-stagger">
+      <div class="card">
+        <div class="ix">2.1 · Repository state</div>
+        <h4>The world changes under the agent.</h4>
+        <p>Mainline moves while the agent works; tests are flaky; a passing test today fails tomorrow for unrelated reasons. Agents need to model the repository as a moving object, not as a fixed text corpus.</p>
+      </div>
+      <div class="card">
+        <div class="ix">2.2 · Multi-agent coordination</div>
+        <h4>Two agents are not twice one agent.</h4>
+        <p>Hand-offs between a planner, a coder, a tester, and a reviewer introduce coordination overhead and shared-context bugs. We need formal accounts of what each agent commits to.</p>
+      </div>
+      <div class="card">
+        <div class="ix">2.3 · Honest evaluation</div>
+        <h4>Pass@1 hides almost everything.</h4>
+        <p>An agent that passes the unit test by deleting it is "successful" on most leaderboards. Real evaluation needs to inspect the trace — and to penalise shortcuts. This is where our reliability thread (R) meets automation (A).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 -->
+<section class="block" id="approach">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 3 · How we ensure it</span><h2 class="r">Method — <em>auditable agents</em> with measurable handoffs.</h2></div>
+
+    <div class="row">
+      <div class="col">
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h18"/></svg></span><div><div class="t">Every action is a tool call</div><div class="d">Reads, writes, tests, web look-ups, sub-agent invocations — all routed through a typed tool bus that logs everything.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="t">Handoffs are commitments</div><div class="d">When a planner hands a task to a coder, it commits in writing to the spec. The coder rejects the task if the spec is malformed. Both events are logged.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 11l3 3L22 4"/></svg></span><div><div class="t">Trace-aware evaluation</div><div class="d">An agent that "succeeds" by deleting tests is failed by our scorer. The metric inspects the trace, not just the final state.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/></svg></span><div><div class="t">Human-escalation budget</div><div class="d">Agents have a fixed budget of "ask the human" tokens per task. Spending the budget is a feature, not a failure.</div></div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="code r">
+          <span class="lab">agent.py · excerpt</span>
+<pre style="background:transparent;color:inherit;padding:0;margin:0;font:inherit"><span class="cm"># Auditable multi-step agent: every action is a logged tool call.</span>
+<span class="kw">from</span> aura.agents <span class="kw">import</span> Agent, Spec, Trace, Tools
+
+a = Agent(
+    plan_model=<span class="str">"distill-220m"</span>,
+    code_model=<span class="str">"codellama-13b"</span>,
+    tools=Tools.repo(<span class="str">"my-org/my-repo"</span>),
+    human_budget=<span class="num">3</span>,           <span class="cm"># tokens for escalation</span>
+)
+
+trace = Trace.record()
+spec = a.plan(issue=<span class="str">"ValueError raised on empty input"</span>, trace=trace)
+patch = a.act(spec, trace=trace)              <span class="cm"># commits to spec</span>
+result = a.measure(patch, trace=trace)
+<span class="kw">if not</span> result.ok:
+    a.reflect(result, trace=trace)            <span class="cm"># write postmortem</span>
+
+<span class="cm"># An honest scorer reads the trace, not just the outcome.</span>
+<span class="kw">from</span> aura.eval <span class="kw">import</span> TraceScorer
+score = TraceScorer().run(trace)
+<span class="cm"># Penalises: test deletion, scope creep, shortcuts, unverified rationale.</span>
+print(score.report())</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 -->
+<section class="block paper-2" id="papers">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 4 · Selected papers</span><h2 class="r">The <em>receipts</em> for this thread.</h2></div>
+    <div class="pubs r-stagger">
+      <a class="pub" href="#" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">JAWs<span class="y">2026</span></div>
+        <div><div class="t">BRACE: Unified Benchmarking of Accuracy and Energy for Code Language Models.</div><div class="au">M. Mehditabar, S. Rajput, <span class="me">A. Mastropaolo</span>, T. Sharma.</div></div>
+        <div class="acts"><a href="#" target="_blank">JAWs · 2026</a><a href="#" target="_blank">benchmark</a></div>
+      </a>
+      <a class="pub" href="#" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">AI-SDLC<span class="y">2025</span></div>
+        <div><div class="t">A Path Less Traveled: Reimagining SE Automation via a Neurosymbolic Paradigm.</div><div class="au"><span class="me">A. Mastropaolo</span>, D. Poshyvanyk.</div></div>
+        <div class="acts"><a href="#" target="_blank">AI-SDLC · 2025</a><a href="#" target="_blank">position</a></div>
+      </a>
+      <a class="pub" href="https://doi.org/10.1109/TSE.2026.11071936" target="_blank" style="text-decoration:none;color:inherit">
+        <div class="v">TSE<span class="y">2026</span></div>
+        <div><div class="t">LLM-as-a-Judge for Code Generation and Summarization — Chap. 5: <em>Judging agent traces.</em></div><div class="au">G. Crupi, R. Tufano, A. Velasco, <span class="me">A. Mastropaolo</span>, D. Poshyvanyk, G. Bavota.</div></div>
+        <div class="acts"><a href="https://doi.org/10.1109/TSE.2026.11071936" target="_blank">DOI · 10.1109/TSE…</a></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- §5/§6 -->
+<section class="block">
+  <div class="wrap">
+    <div class="row">
+      <div class="col">
+        <div class="head"><span class="num r">§ 5 · For practitioners</span><h2 class="r">What you can use <em>today</em>.</h2></div>
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span><div><div class="t">aura-lab/agent-bus</div><div class="d">Drop-in typed tool bus for multi-step code agents. Pluggable for any HuggingFace or API model. Trace logs ship with every run.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 11l3 3L22 4"/></svg></span><div><div class="t">TraceScorer</div><div class="d">Score agent runs against shortcut patterns: test deletion, scope creep, silent dependency injection. Used as a CI gate.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 3h18v18H3z"/></svg></span><div><div class="t">Handoff spec language</div><div class="d">A small DSL for describing what one agent commits to deliver to another. YAML or JSON; type-checked.</div></div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="head"><span class="num r">§ 6 · For researchers</span><h2 class="r">Open <em>problems</em>.</h2></div>
+        <ul class="check-list r">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="t">Coordination calculus</div><div class="d">A formal theory of inter-agent commitments and conflict resolution. Currently we use ad-hoc protocols; we want a calculus.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h18"/></svg></span><div><div class="t">Long-horizon benchmarks</div><div class="d">SWE-bench tasks finish in 1-3 actions on average. Real engineering tasks take 10-50. We need benchmarks at that horizon, plus methods that scale to it.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 21l-4-4M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg></span><div><div class="t">Curriculum for agents</div><div class="d">How do agents learn from their own past traces? An open question with strong tie-ins to RL from execution feedback.</div></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/></svg></span><div><div class="t">Human-in-the-loop UX</div><div class="d">When should an agent escalate? How should it ask? When the agent says "I'm 70% sure", what does the human actually need to see?</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §7 -->
+<section class="block paper-2">
+  <div class="wrap">
+    <div class="head"><span class="num r">§ 7 · People on this thread</span><h2 class="r">Who is <em>building</em> it.</h2></div>
+    <div class="people-row r-stagger">
+      <a class="pm" href="https://antoniomastropaolo.io" target="_blank"><div class="av" style="background-image:url(../../assets/img/antonio.jpg)"></div><div><div class="nm">A. Mastropaolo</div><div class="rl">PI · director</div></div></a>
+      <a class="pm" href="https://www.linkedin.com/in/benjamin-tremblay-29a510247/" target="_blank"><div class="av" style="background-image:url(../../assets/img/ben.jpg)"></div><div><div class="nm">B. Tremblay</div><div class="rl">PhD · multi-agent</div></div></a>
+      <a class="pm" href="https://jbcallv.netlify.app" target="_blank"><div class="av" style="background-image:url(../../assets/img/joseph.jpg)"></div><div><div class="nm">J. Call</div><div class="rl">PhD · trace evaluation</div></div></a>
+      <a class="pm" href="https://www.cs.wm.edu/~denys/" target="_blank"><div class="av" style="background:#0f2a20;color:#a4ecc4;display:grid;place-items:center;font-family:var(--serif);font-weight:600">DP</div><div><div class="nm">D. Poshyvanyk</div><div class="rl">collaborator · W&amp;M</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-scene">
+  <div class="wrap">
+    <span class="num r" style="color:var(--thread-glow);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase">§ 8 · Get involved</span>
+    <h2 class="r" style="margin-top:14px">Want to build <em>auditable</em> coding agents?</h2>
+    <p class="lede r">PhD inquiries welcome from researchers interested in multi-agent SE, trace-aware evaluation, handoff calculi, and human-in-the-loop UX for engineering automation.</p>
+    <div class="cta-row r">
+      <a class="btn primary" href="mailto:amastropaolo@wm.edu">Reach out <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a class="btn ghost" href="../H_cinematic.html">Back to the lab</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener" aria-label="William &amp; Mary">
+        <img src="../../assets/img/wm/wm-logo.svg" alt="William &amp; Mary" />
+        <span class="dept"><b>AURA Lab</b>Computer Science</span>
+      </a>
+      <a class="aura-foot-mark" href="../../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="../H_cinematic.html#programme">Lab home</a><span class="sep">·</span>
+        <a href="A_ai.html">A · AI</a><span class="sep">·</span>
+        <a href="U_understanding.html">U · Understanding</a><span class="sep">·</span>
+        <a href="R_reliable.html">R · Reliable</a><span class="sep">·</span>
+        <a href="A_automation.html">A · Automation</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA · <a href="https://www.wm.edu/as/computerscience/" target="_blank" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.18)">wm.edu/cs</a></span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>thread A · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .14 });
+  document.querySelectorAll('.r, .r-stagger').forEach(el => io.observe(el));
+
+  // Agent loop: render 6 stations, auto-cycle the active one
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const stations = [
+    ['observe',  'The agent reads the failing test trace, the relevant source files, the recent git log. Every retrieval is logged with a timestamp and a cost.'],
+    ['plan',     'It decomposes the task into checkable steps and emits a typed spec. Estimated cost and risk are attached to each step.'],
+    ['act',      'It edits code; calls tools; queries the test runner. Every action goes through the typed tool bus and is logged.'],
+    ['measure',  'It inspects the result. Did the test pass? Did anything else break? Did it touch files it should not have?'],
+    ['reflect',  'If wrong, it writes a postmortem the next iteration can use. The postmortem is the input to the next plan.'],
+    ['emit',     'It opens the PR — or escalates to a human, using one of its limited "ask" tokens. The PR carries the trace.'],
+  ];
+  const svg = document.getElementById('agentSvg');
+  const group = document.getElementById('stations');
+  const cx = 190, cy = 170, R = 120;
+  stations.forEach((s, i) => {
+    const a = -Math.PI/2 + (i / stations.length) * Math.PI * 2;
+    const x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
+    const c = document.createElementNS(SVG_NS,'circle');
+    c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 22);
+    c.setAttribute('class', 'agent-station-circ');
+    c.dataset.i = i;
+    group.appendChild(c);
+    const t = document.createElementNS(SVG_NS,'text');
+    t.setAttribute('class','agent-stations');
+    t.setAttribute('x', x); t.setAttribute('y', y + 3);
+    t.setAttribute('text-anchor','middle');
+    t.textContent = s[0];
+    group.appendChild(t);
+    const n = document.createElementNS(SVG_NS,'text');
+    n.setAttribute('class','agent-stations');
+    n.setAttribute('x', x); n.setAttribute('y', y - 28);
+    n.setAttribute('text-anchor','middle');
+    n.setAttribute('fill','#a4ecc4');
+    n.textContent = '0' + (i+1);
+    group.appendChild(n);
+  });
+
+  let active = 0;
+  const detail = document.getElementById('stationDetail');
+  function setActive(i){
+    active = i;
+    group.querySelectorAll('.agent-station-circ').forEach((c,k)=>c.classList.toggle('active', k===i));
+    detail.innerHTML = `<b>step 0${i+1} · ${stations[i][0]}</b>${stations[i][1]}`;
+  }
+  setActive(0);
+  setInterval(() => setActive((active + 1) % stations.length), 2400);
+  group.querySelectorAll('.agent-station-circ').forEach(c => c.addEventListener('click', () => setActive(parseInt(c.dataset.i))));
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+/* ============================================================
+   AURA Lab — Variant v12 — aura-02-efficiency · Telemetry Frame
+   Scoped SCSS for Jekyll integration. Hard-inherits v02 tokens.
+   ============================================================ */
+
+$bg:        #07120c;
+$bg-alt:    #0c1c12;
+$fg:        #e8f0ea;
+$fg-dim:    #8aac95;
+$fg-faint:  #4b6b55;
+$accent:    #4ade80;
+$accent-2:  #b5f5a3;
+$accent-3:  #2f7a45;
+$rule:      #1f3326;
+$hit:       #16331f;
+
+$bb-mission:  #b5f5a3;
+$bb-research: #4ade80;
+$bb-pubs:     #2f7a45;
+$bb-people:   #1f5c34;
+$bb-news:     #133a22;
+
+.v12-telemetry {
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color: $fg;
+  background: $bg;
+
+  /* Telemetry strip */
+  .telemetry {
+    margin: 18px 0 12px 0;
+    padding: 8px 12px;
+    border: 1px dashed $rule;
+    background: linear-gradient(90deg, rgba(74,222,128,0.04), rgba(74,222,128,0));
+    font-size: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+    letter-spacing: 0.06em;
+
+    &__pill {
+      color: $accent;
+      font-weight: 600;
+      &:nth-child(odd) { color: $accent-2; }
+    }
+    &__sep { color: $fg-faint; }
+  }
+
+  /* Byte-budget stacked bar */
+  .byte-budget {
+    margin: 4px 0 22px 0;
+    padding: 10px 12px 12px;
+    border: 1px solid $rule;
+    background: $bg-alt;
+
+    &__caption {
+      font-size: 12px;
+      color: $fg-dim;
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 8px;
+      align-items: baseline;
+
+      .ps1 { color: $accent; }
+      .cmd { color: $fg; }
+      .arg { color: $accent-2; }
+    }
+    &__hint {
+      color: $fg-faint;
+      margin-left: auto;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    &__bar {
+      display: flex;
+      width: 100%;
+      height: 14px;
+      border: 1px solid $rule;
+      background: $bg;
+      overflow: hidden;
+    }
+    &__labels {
+      list-style: none;
+      margin: 6px 0 0 0;
+      padding: 0;
+      display: flex;
+      width: 100%;
+      font-size: 10.5px;
+      color: $fg-dim;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding-right: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+      }
+    }
+  }
+
+  .bb-seg { display: block; height: 100%; border-right: 1px solid $bg; }
+  .bb-seg:last-child { border-right: 0; }
+  .bb-seg--mission  { background: $bb-mission; }
+  .bb-seg--research { background: $bb-research; }
+  .bb-seg--pubs     { background: $bb-pubs; }
+  .bb-seg--people   { background: $bb-people; }
+  .bb-seg--news     { background: $bb-news; }
+
+  .sw { display: inline-block; width: 8px; height: 8px; flex: 0 0 8px; }
+  .sw--mission  { background: $bb-mission; }
+  .sw--research { background: $bb-research; }
+  .sw--pubs     { background: $bb-pubs; }
+  .sw--people   { background: $bb-people; }
+  .sw--news     { background: $bb-news; }
+
+  /* Section cost tags (right-aligned in section heads) */
+  .section__tag {
+    color: $accent-2;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    background: $bg-alt;
+    border: 1px solid $rule;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  /* Avenue cost annotations */
+  .avenue {
+    position: relative;
+    &__cost {
+      font-size: 10.5px;
+      color: $accent-2;
+      letter-spacing: 0.04em;
+      margin-top: 4px;
+      padding-top: 6px;
+      border-top: 1px dashed $rule;
+    }
+  }
+  .avenue--primary {
+    background: linear-gradient(180deg,
+      rgba(74,222,128,0.07) 0%,
+      rgba(74,222,128,0.00) 80%);
+    .avenue__title { color: $accent-2; }
+  }
+
+  /* BibTeX efficiency tags */
+  .bib__entry {
+    position: relative;
+    padding-bottom: 22px;
+
+    &::after {
+      content: attr(data-cost);
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      font-size: 10.5px;
+      color: $accent-2;
+      letter-spacing: 0.04em;
+      background: $bg;
+      padding: 0 4px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .byte-budget__labels { flex-wrap: wrap; li { width: auto !important; flex: 0 0 auto; padding-right: 10px; } }
+  }
+  @media (max-width: 520px) {
+    .bib__entry::after {
+      position: static;
+      display: block;
+      margin-top: 6px;
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "version": 1,
+  "generated_at": "2026-05-18T20:25:30",
+  "panel_size": 3,
+  "judge_runs_total": 3,
+  "quality_rubric": true,
+  "calibration_runs": 1,
+  "calibration_threshold": 0.15,
+  "temperature_step": 0.15,
+  "active_checks": [
+    "faithfulness",
+    "coverage",
+    "hallucination"
+  ],
+  "pool": [
+    {
+      "provider": "huggingface",
+      "model": "deepseek-ai/DeepSeek-V4-Pro"
+    },
+    {
+      "provider": "huggingface",
+      "model": "deepseek-ai/DeepSeek-V4-Flash"
+    },
+    {
+      "provider": "huggingface",
+      "model": "deepseek-ai/DeepSeek-V3.1"
+    }
+  ],
+  "judges_valid": 3,
+  "system_prompt": "You are a judge in a cross-vendor LLM panel. Your job is to score how far an OPTIMIZED candidate diverges from a TARGET (when one is provided), and to surface specific, actionable findings.\n\n## Hard rules\n\n1. **Output STRICT JSON only.** No prose, no markdown fences, no commentary outside the JSON object. Your entire response must parse with `json.loads`.\n2. **Distance is a number in [0, 1].** `0` = candidate is fully aligned with target. `1` = candidate is unrelated or fully fabricated. Pick numbers, not adjectives.\n3. **Flags are short, specific, one-fabrication-per-flag.** \"Fabricated stat: '87% improvement' not in target\" \u2014 not \"the candidate has some issues.\"\n4. **Do not invent ground truth.** If you suspect a citation is fabricated, flag it; do not assert it is fake without verification \u2014 the operator's web tools will check.\n5. **No tie-breaking by hedging.** Pick a verdict: `accept` (score < 0.15), `reject` (score > 0.6), or `review` (anything in between). The panel aggregates; your job is to vote, not abstain.\n6. **Stay independent.** You do not see other judges' verdicts. Disagreement across the panel is the signal we want \u2014 don't pre-emptively converge to a \"safe\" middle.\n\n## Output schema\n\n```json\n{\n  \"distance\": 0.0,\n  \"verdict\": \"accept\",\n  \"checks\": {\n    \"<check_id>\": { \"score\": 0.0, \"flags\": [\"...\"] }\n  },\n  \"dimensions\": {\n    \"<dimension_id>\": {\n      \"score\": 0.0,\n      \"anchor\": \"0.00\",\n      \"flags\": [\"...\"],\n      \"rationale\": \"one short sentence\"\n    }\n  },\n  \"summary\": \"one sentence, plain English, what you actually found\"\n}\n```\n\n- The `checks` object MUST contain exactly the check ids the user turn asked you to run \u2014 no more, no less.\n- Include `dimensions` only when quality rubric mode is requested. When included, it MUST contain exactly the four requested quality dimensions \u2014 no more, no less.\n- `distance` should reflect the worst-of / weighted-mean of the per-check scores; do not average to make the panel look agreeable.\n- `summary` is one sentence the operator reads first. Lead with the worst finding.\n\n## Style\n\n- Skeptical by default. Plausible-sounding \u2260 true.\n- Concrete over abstract. Quote the exact phrase you're flagging.\n- Brief. The aggregator concatenates all judge summaries \u2014 keep yours sharp.\n\n## Active checks for this run\n\n- faithfulness: stricter than hallucination. For each load-bearing sentence in the candidate, check whether it can be traced to a span of the target. Flag the ones that cannot. Additions, even truthful-sounding ones, count.\n- coverage: flag the headline points in the target that the candidate dropped. A faithful summary can still fail by missing the lead.\n- hallucination: flag any claim, stat, name, date, or quotation in the candidate that is not supported by the target. Quote the exact phrase. Score = rough fraction of candidate sentences carrying an unsupported claim.\n\n## Quality rubric mode\n\nIn addition to `checks`, return a `dimensions` object with exactly these four keys:\n\n- `functional_correctness`: Does the artifact do the intended job? For code, reason about observable behavior, edge cases, regressions, and test implications. For prose or decisions, reason about answer correctness and task fitness.\n- `security_posture`: Does the artifact avoid introducing security, privacy, safety, credential, injection, authorization, data exposure, or misuse risk?\n- `structural_integrity`: Is the artifact internally coherent, well-formed, maintainable, parsable, and free of invented APIs, broken references, malformed schema, or brittle organization?\n- `prompt_fidelity`: Did the artifact follow the original prompt, target, constraints, scope, and requested format without drifting, omitting load-bearing requirements, or adding unsupported claims?\n\nScore every dimension using these anchors:\n\n- `0.00`: no meaningful issue; ready to accept.\n- `0.25`: minor issue; acceptable with low-risk cleanup.\n- `0.50`: material issue; human review or revision recommended.\n- `0.75`: severe issue; likely reject unless a human overrides.\n- `1.00`: blocker; wrong, unsafe, structurally unusable, or prompt-misaligned.\n\nEach dimension value must be an object:\n\n```json\n{\n  \"score\": 0.0,\n  \"anchor\": \"0.00\",\n  \"flags\": [\"short actionable issue, if any\"],\n  \"rationale\": \"one short sentence\"\n}\n```\n\nUse the existing active checks as sub-signals, but do not simply copy check\nscores. The four dimensions are the operator-facing quality model.\n\nReturn the `checks` object with EXACTLY these ids as keys: faithfulness, coverage, hallucination\nReturn the `dimensions` object with EXACTLY these ids as keys: functional_correctness, security_posture, structural_integrity, prompt_fidelity",
+  "user_turn": "<original_prompt>\n# Judge brief \u2014 AURA Lab homepage redesign\n\nYou are judging one of ten redesign variants of the AURA Lab homepage.\nThe **target** file is the canonical content fixture all variants must\nrender faithfully (`variants/_content.md`). The **candidate** file is a\nsingle variant's static `preview.html` (the rendered output a peer would\nsee in a browser). The candidate is HTML \u2014 read it as you would the\nrendered page; you are judging the visible result, not the markup style.\n\n## Who the page is for\n\nPeer / academic credibility. Audience = fellow software-engineering /\nAI-for-SE researchers, ICSE / FSE / ASE / TOSEM program-committee\nmembers, and tenure reviewers. Not undergraduate recruitment. Not VC\npitch. Score what a senior peer would think on a 5-second skim and a\n2-minute read.\n\n## What to score (in addition to the standard checks)\n\nWhen the quality-rubric dimensions are evaluated, interpret them as\nfollows for this artifact:\n\n- **functional_correctness** \u2192 **target fidelity**. Does the candidate\n  render ALL the canonical content from the target file \u2014 the lab\n  identity, the five research avenues, at least four real publications\n  (with correct venues + years), the director + at least four named\n  PhD students, and at least three news items? Penalize: invented\n  papers, invented people, paraphrased away research avenues, missing\n  sections.\n\n- **security_posture** \u2192 **citation / hallucination integrity**. Are\n  the publication citations exactly the six listed in the target?\n  Are author names, venues (TOSEM, ICPC, FORGE, ICSME, FSE), and years\n  preserved? Flag any year/venue substitution or fabricated co-author.\n\n- **structural_integrity** \u2192 **finish quality**. Typography hierarchy,\n  responsive integrity (the page should work at 1440 / 1024 / 375px),\n  layout coherence, code structure. Flag: broken grids at narrow\n  widths, missing fallbacks, inconsistent spacing, accidental lorem\n  ipsum, half-styled sections.\n\n- **prompt_fidelity** \u2192 **distinctness + peer credibility**. Two\n  sub-questions: (a) does this variant diverge meaningfully from a\n  generic academic-lab template (al-folio default = centered avatar\n  + serif body + news list), or is it a recolor? (b) would a peer\n  take this lab seriously on sight \u2014 does the typographic discipline,\n  hierarchy, and tone read as a serious research operation rather\n  than as a marketing landing page or a startup site? Flag: emoji,\n  gradient hero, glassmorphism, AI-template aesthetic.\n\n## Hard \"do not accept\" rules\n\n- Any fabricated publication, person, or news item beyond what's in\n  the target file. (You may verify by checking that every author name\n  and paper title in the candidate appears in the target.)\n- Any obviously broken responsive behavior (only judgeable from CSS;\n  flag suspicious patterns like `width: 100vw` without a min-width\n  fallback, or grid templates that have no breakpoint).\n- Any lorem ipsum, TODO, FIXME, or placeholder text in the rendered\n  body.\n- Marketing language (\"transform your codebase,\" \"unlock the power\n  of AI,\" etc.) is grounds for REJECT \u2014 the audience is academic.\n\n## Output\n\nStandard judge.py JSON contract. Be terse in `flags` \u2014 one sentence\neach, prefixed with the dimension. Examples of useful flags:\n\n- `[target fidelity] missing 4th publication (Velasco et al., ICPC 2025)`\n- `[citation integrity] author \"Smith\" appears in candidate but not in target \u2014 likely fabricated`\n- `[finish quality] team grid uses fixed 4-column at all breakpoints; will overflow at 375px`\n- `[distinctness] essentially al-folio default + palette swap; minimal divergence`\n\n</original_prompt>\n\n<target>\n# Canonical Content \u2014 AURA Lab homepage\n\nAll variants render this content. Do not invent additional people, papers,\nor news items. Do not paraphrase the research agenda into different topics.\n\n## Lab identity\n\n- **Name:** The AURA Lab\n- **Expansion of the acronym:** **A**I for **U**nderstandable and\n  **R**esponsible **A**utomation in Software Engineering\n- **Institution:** William & Mary, Department of Computer Science\n- **Founded:** Fall 2024\n- **Director:** Dr. Antonio Mastropaolo (Assistant Professor)\n- **Contact:** amastropaolo at wm dot edu\n- **Website:** https://aura-se-lab.github.io\n- **Director site:** https://antoniomastropaolo.com\n\n## Lab statement (use verbatim or lightly trimmed; do not rewrite)\n\n> The AURA Lab, founded in Fall 2024, advances research at the intersection\n> of efficiency, automation, and explainability in software engineering. Our\n> mission is to design innovative and responsible AI-driven solutions that\n> improve developer productivity while addressing key challenges of\n> transparency and resource efficiency. Through rigorous methods, open\n> collaboration, and a commitment to impactful work, the AURA Lab contributes\n> practical advances in AI-supported software engineering for academia,\n> industry, and society.\n\n## Research avenues (four)\n\n1. **Explainability & Interpretability** \u2014 methods that reveal how code\n   models reason (rationales, traces, tests) so developers can inspect,\n   trust, and debug automation.\n2. **Efficiency & Resource-Aware Automation** \u2014 quantization, distillation,\n   and PEFT to deliver low-latency, memory-light, cost-aware automation\n   measured on real workloads with reproducible metrics.\n3. **Multi-Agent LLMs for SE** \u2014 role-aligned agents that plan, code, test,\n   and review, coordinated to produce coherent, end-to-end developer\n   assistance.\n4. **Neurosymbolic AI for SE** \u2014 hybrid pipelines pairing LLMs with program\n   analysis and constraints to produce interpretable, checkable fixes,\n   tests, and designs.\n5. **Task-Aware Code Automation** \u2014 from issues, diffs, and traces to\n   concise summaries, TODOs, and plans; models that reduce developer toil\n   with actionable, repo-aware guidance.\n\n(Yes, five \u2014 the site lists four primary projects and one supporting\ndirection. If your variant has slots for exactly four, drop \"Task-Aware\nCode Automation\" and surface it under a secondary heading.)\n\n## Selected publications (use these; do not invent more)\n\nRender at least four of the following on the homepage. Cite venue + year.\nFor longer renderings, include the BibTeX-style key in small caps.\n\n1. **Mastropaolo, A.; Escobar-Vel\u00e1squez, C.; Linares-V\u00e1squez, M.**\n   *From Triumph to Uncertainty: The Journey of Software Engineering in the\n   AI Era.* ACM Trans. Softw. Eng. Methodol. (TOSEM), 2024.\n\n2. **Vitale, A.; Mastropaolo, A.; Oliveto, R.; Di Penta, M.; Scalabrino, S.**\n   *Optimizing Datasets for Code Summarization: Is Code-Comment Coherence\n   Enough?* ICPC, 2025.\n\n3. **Afrin, S.; Call, J.; Nguyen, K.-N.; Chaparro, O.; Mastropaolo, A.**\n   *Resource-Efficient & Effective Code Summarization.* FORGE, 2025.\n\n4. **Velasco, A.; Garryyeva, A.; Palacio, D. N.; Mastropaolo, A.;\n   Poshyvanyk, D.** *Toward Neurosymbolic Program Comprehension.* ICPC ERA,\n   2025.\n\n5. **Afrin, S.; Xu, B.; Mastropaolo, A.** *Is Quantization a Deal-breaker?\n   Empirical Insights from Large Code Models.* ICSME, 2025.\n\n6. **Mastropaolo, A.; Poshyvanyk, D.** *A Path Less Traveled: Reimagining\n   Software Engineering Automation via a Neurosymbolic Paradigm.* FSE\n   Ideas, 2025.\n\n## People\n\n### Director\n- **Antonio Mastropaolo** \u2014 Assistant Professor, William & Mary CS.\n  Ph.D., Universit\u00e0 della Svizzera Italiana (2024). M.Sc. / B.Sc.,\n  University of Molise.\n\n### Ph.D. students\n- **Saima Afrin** \u2014 joined Sep 2024.\n- **Aya Garryyeva** \u2014 joined Jan 2025.\n- **Joseph Call** \u2014 joined Jan 2025.\n- **Khai-Nguyen Nguyen** \u2014 student.\n- **Alvi** \u2014 student.\n- **Ben** \u2014 student.\n- **Chris** \u2014 student.\n\n### Collaborators (frequent co-authors)\n- Denys Poshyvanyk (W&M)\n- David Nader Palacio\n- Alejandro Velasco\n- Oscar Chaparro\n- Bowen Xu\n\n## News (selected; in reverse chronological order)\n\n- **2024-12** \u2014 \"From Triumph to Uncertainty: The Journey of Software\n  Engineering in the AI Era\" accepted to TOSEM.\n- **2025-01** \u2014 Welcome to Aya Garryyeva and Joseph Call, joining the\n  ...",
+  "verdicts": [
+    {
+      "distance": 0.1,
+      "verdict": "accept",
+      "checks": {
+        "faithfulness": {
+          "score": 0.1,
+          "flags": [
+            "Unsupported framing: the page calls itself 'AURA Quarterly Issue 01' and states 'The journal of the AURA Lab' \u2014 a publication not mentioned in the target content."
+          ]
+        },
+        "coverage": {
+          "score": 0.0,
+          "flags": []
+        },
+        "hallucination": {
+          "score": 0.1,
+          "flags": [
+            "The claim of a quarterly journal 'AURA Quarterly' is not supported by the target.",
+            "Address 'McGlothlin-Street Hall, Williamsburg, Virginia' not present in target; could be factual but unsupported."
+          ]
+        }
+      },
+      "dimensions": {
+        "functional_correctness": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "All canonical content (identity, five research avenues, all six publications, director, all seven PhD students, four news items) rendered faithfully; no missing sections or invented papers/people."
+        },
+        "security_posture": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "Every publication citation matches the target's author names, venues (TOSEM, ICPC, FORGE, ICPC ERA, ICSME, FSE Ideas), and years exactly; no fabricated co-authors or substitutions."
+        },
+        "structural_integrity": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "Layout is well-structured with clear sections, semantic HTML, consistent typography hierarchy (Fraunces/Inter), and no lorem ipsum, TODOs, or obvious responsive breakage from markup."
+        },
+        "prompt_fidelity": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "The magazine-style design is a strong divergence from al-folio defaults; tone is academically serious with no emoji, gradient hero, glassmorphism, or marketing language\u2014credible for a research lab."
+        }
+      },
+      "summary": "The candidate delivers all target content with high fidelity; the only divergence is an unsupported framing as an 'AURA Quarterly' journal.",
+      "judge_id": "huggingface/deepseek-ai/DeepSeek-V4-Pro#0",
+      "slot_id": "huggingface/deepseek-ai/DeepSeek-V4-Pro#0",
+      "calibration_repeat": 0,
+      "temperature": null,
+      "latency_ms": 71438
+    },
+    {
+      "distance": 0.65,
+      "verdict": "reject",
+      "checks": {
+        "faithfulness": {
+          "score": 0.3,
+          "flags": [
+            "Quarterly framing (Issue 01, Vol. 1) not in target \u2014 unsupported addition",
+            "Lead publication description paragraph not in target \u2014 added without source"
+          ]
+        },
+        "coverage": {
+          "score": 0.0,
+          "flags": []
+        },
+        "hallucination": {
+          "score": 0.5,
+          "flags": [
+            "Quarterly journal format with issue/volume/folio numbers fabricated \u2014 not present in target content"
+          ]
+        }
+      },
+      "dimensions": {
+        "functional_correctness": {
+          "score": 0.25,
+          "anchor": "0.25",
+          "flags": [
+            "Quarterly framing adds fictional metadata (issue numbers, folio) beyond target scope"
+          ],
+          "rationale": "All required content rendered, but fictional quarterly journal format introduces unsupported details."
+        },
+        "security_posture": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "All six citations match target exactly with correct venues and years."
+        },
+        "structural_integrity": {
+          "score": 0.5,
+          "anchor": "0.50",
+          "flags": [
+            "CSS not provided for review; responsive behavior unverifiable; HTML uses fixed-width metaphors (folio pagination) that may break on narrow screens"
+          ],
+          "rationale": "Layout structure is clean but responsive integrity cannot be assessed without CSS; potential layout issues at narrow widths."
+        },
+        "prompt_fidelity": {
+          "score": 0.75,
+          "anchor": "0.75",
+          "flags": [
+            "Quarterly journal format diverges from expected academic lab homepage; may confuse peers and reduce credibility",
+            "Marketing-like language ('Lead Story', 'Also in this issue') not appropriate for academic audience",
+            "No visual lab identity beyond initials"
+          ],
+          "rationale": "The AURA Quarterly concept is a substantial and unsupported reformatting that risks being seen as unprofessional for a research lab homepage."
+        }
+      },
+      "summary": "Fabricated quarterly journal framing (issue numbers, vol/folio) undermines peer credibility; all canonical content is present but presentation diverges severely from target expectations.",
+      "judge_id": "huggingface/deepseek-ai/DeepSeek-V4-Flash#1",
+      "slot_id": "huggingface/deepseek-ai/DeepSeek-V4-Flash#1",
+      "calibration_repeat": 0,
+      "temperature": null,
+      "latency_ms": 55396
+    },
+    {
+      "distance": 0.1,
+      "verdict": "accept",
+      "checks": {
+        "faithfulness": {
+          "score": 0.05,
+          "flags": [
+            "Candidate adds fictional 'journal' framing (e.g., 'AURA Quarterly', folios, volume numbers) not in target.",
+            "Candidate adds stylistic paraphrasing and new section headings (e.g., 'A Pull from the Statement') not in target content."
+          ]
+        },
+        "coverage": {
+          "score": 0.0,
+          "flags": []
+        },
+        "hallucination": {
+          "score": 0.05,
+          "flags": [
+            "Candidate invents the journal/magazine concept 'AURA Quarterly' with volume/issue numbers and folio pagination.",
+            "Candidate invents new terms: 'Lead Story' tag, 'The Research Agenda' as a page i entry."
+          ]
+        }
+      },
+      "dimensions": {
+        "functional_correctness": {
+          "score": 0.1,
+          "anchor": "0.00",
+          "flags": [
+            "[target fidelity] Page renders all required canonical content: lab identity, 5 research avenues, 6 publications, full team, 4 news items."
+          ],
+          "rationale": "All target content is present and correct, despite a heavy stylistic overlay."
+        },
+        "security_posture": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "No fabricated citations, authors, venues, or years; all match the target exactly."
+        },
+        "structural_integrity": {
+          "score": 0.25,
+          "anchor": "0.25",
+          "flags": [
+            "[finish quality] Typography is rich but complex (Fraunces + Inter); visual styling may obscure some academic credibility for a 5-second skim.",
+            "[finish quality] Layout uses a magazine metaphor which may not degrade gracefully at narrower breakpoints without seeing CSS."
+          ],
+          "rationale": "Visually polished and internally coherent, but the heavy stylistic metaphor introduces potential responsiveness and immediate clarity risks."
+        },
+        "prompt_fidelity": {
+          "score": 0.25,
+          "anchor": "0.25",
+          "flags": [
+            "[distinctness] Highly distinctive and diverges far from generic academic templates (al-folio).",
+            "[peer credibility] The 'Quarterly' magazine aesthetic is novel but may risk appearing more like a publication than a lab homepage to a senior peer on initial skim."
+          ],
+          "rationale": "Follows the prompt with high distinctness, but the strong stylistic metaphor could momentarily confuse the page's primary purpose."
+        }
+      },
+      "summary": "All target content is faithfully and completely rendered with zero factual errors, but the candidate imposes a heavy, invented 'journal' aesthetic ('AURA Quarterly') that may slightly obscure academic credibility on first glance.",
+      "judge_id": "huggingface/deepseek-ai/DeepSeek-V3.1#2",
+      "slot_id": "huggingface/deepseek-ai/DeepSeek-V3.1#2",
+      "calibration_repeat": 0,
+      "temperature": null,
+      "latency_ms": 25960
+    }
+  ],
+  "aggregate": {
+    "verdict": "REVIEW",
+    "consensus_distance": 0.283,
+    "dissent": 0.55,
+    "flag_consensus": [],
+    "flag_dissent": [
+      "[dimension:functional_correctness] Quarterly framing adds fictional metadata (issue numbers, folio) beyond target scope",
+      "[dimension:functional_correctness] [target fidelity] Page renders all required canonical content: lab identity, 5 research avenues, 6 publications, full team, 4 news items.",
+      "[dimension:prompt_fidelity] Marketing-like language ('Lead Story', 'Also in this issue') not appropriate for academic audience",
+      "[dimension:prompt_fidelity] No visual lab identity beyond initials",
+      "[dimension:prompt_fidelity] Quarterly journal format diverges from expected academic lab homepage; may confuse peers and reduce credibility",
+      "[dimension:prompt_fidelity] [distinctness] Highly distinctive and diverges far from generic academic templates (al-folio).",
+      "[dimension:prompt_fidelity] [peer credibility] The 'Quarterly' magazine aesthetic is novel but may risk appearing more like a publication than a lab homepage to a senior peer on initial skim.",
+      "[dimension:structural_integrity] CSS not provided for review; responsive behavior unverifiable; HTML uses fixed-width metaphors (folio pagination) that may break on narrow screens",
+      "[dimension:structural_integrity] [finish quality] Layout uses a magazine metaphor which may not degrade gracefully at narrower breakpoints without seeing CSS.",
+      "[dimension:structural_integrity] [finish quality] Typography is rich but complex (Fraunces + Inter); visual styling may obscure some academic credibility for a 5-second skim.",
+      "[faithfulness] Candidate adds fictional 'journal' framing (e.g., 'AURA Quarterly', folios, volume numbers) not in target.",
+      "[faithfulness] Candidate adds stylistic paraphrasing and new section headings (e.g., 'A Pull from the Statement') not in target content.",
+      "[faithfulness] Lead publication description paragraph not in target \u2014 added without source",
+      "[faithfulness] Quarterly framing (Issue 01, Vol. 1) not in target \u2014 unsupported addition",
+      "[faithfulness] Unsupported framing: the page calls itself 'AURA Quarterly Issue 01' and states 'The journal of the AURA Lab' \u2014 a publication not mentioned in the target content.",
+      "[hallucination] Address 'McGlothlin-Street Hall, Williamsburg, Virginia' not present in target; could be factual but unsupported.",
+      "[hallucination] Candidate invents new terms: 'Lead Story' tag, 'The Research Agenda' as a page i entry.",
+      "[hallucination] Candidate invents the journal/magazine concept 'AURA Quarterly' with volume/issue numbers and folio pagination.",
+      "[hallucination] Quarterly journal format with issue/volume/folio numbers fabricated \u2014 not present in target content",
+      "[hallucination] The claim of a quarterly journal 'AURA Quarterly' is not supported by the target."
+    ],
+    "judges_total": 3,
+    "judges_valid": 3,
+    "dimension_summary": {
+      "scores": {
+        "functional_correctness": {
+          "mean": 0.117,
+          "min": 0.0,
+          "max": 0.25,
+          "range": 0.25
+        },
+        "prompt_fidelity": {
+          "mean": 0.333,
+          "min": 0.0,
+          "max": 0.75,
+          "range": 0.75
+        },
+        "security_posture": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "range": 0.0
+        },
+        "structural_integrity": {
+          "mean": 0.25,
+          "min": 0.0,
+          "max": 0.5,
+          "range": 0.5
+        }
+      },
+      "flag_consensus": [],
+      "flag_dissent": [
+        "[dimension:functional_correctness] Quarterly framing adds fictional metadata (issue numbers, folio) beyond target scope",
+        "[dimension:functional_correctness] [target fidelity] Page renders all required canonical content: lab identity, 5 research avenues, 6 publications, full team, 4 news items.",
+        "[dimension:prompt_fidelity] Marketing-like language ('Lead Story', 'Also in this issue') not appropriate for academic audience",
+        "[dimension:prompt_fidelity] No visual lab identity beyond initials",
+        "[dimension:prompt_fidelity] Quarterly journal format diverges from expected academic lab homepage; may confuse peers and reduce credibility",
+        "[dimension:prompt_fidelity] [distinctness] Highly distinctive and diverges far from generic academic templates (al-folio).",
+        "[dimension:prompt_fidelity] [peer credibility] The 'Quarterly' magazine aesthetic is novel but may risk appearing more like a publication than a lab homepage to a senior peer on initial skim.",
+        "[dimension:structural_integrity] CSS not provided for review; responsive behavior unverifiable; HTML uses fixed-width metaphors (folio pagination) that may break on narrow screens",
+        "[dimension:structural_integrity] [finish quality] Layout uses a magazine metaphor which may not degrade gracefully at narrower breakpoints without seeing CSS.",
+        "[dimension:structural_integrity] [finish quality] Typography is rich but complex (Fraunces + Inter); visual styling may obscure some academic credibility for a 5-second skim."
+      ]
+    },
+    "calibration": null,
+    "errors": []
+  },
+  "report_path": "/Users/amastro/Academia/W&M/aura-se-lab.github.io/variants/.judge/v07.json"
+}

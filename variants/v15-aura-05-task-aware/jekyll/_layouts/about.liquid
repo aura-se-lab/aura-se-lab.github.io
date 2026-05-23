@@ -1,0 +1,130 @@
+---
+# AURA Lab — Variant v15 — aura-05-task-aware
+# Lab-as-Patchset: the homepage IS a stream of merged PRs.
+# Hard-inherits v02-brutalist-terminal palette + ASCII wordmark.
+layout: default
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<main class="shell v15-task-aware">
+  <section class="win" aria-label="AURA Lab terminal — patchset">
+
+    <header class="win__bar">
+      <span class="win__dots" aria-hidden="true">[ x ][ - ][ + ]</span>
+      <span class="win__title">aura-se-lab.github.io / tty5 / git log</span>
+      <span class="win__meta">{{ site.institution | default: "William &amp; Mary &middot; Dept. of Computer Science" }}</span>
+    </header>
+
+    <div class="win__body">
+
+      <div class="prompt">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">git log</span>
+        <span class="arg">--merged --author=aura-lab --pretty=patch</span>
+      </div>
+
+      <pre class="logo" aria-label="AURA Lab" role="img">
+<span class="logo__glow"> █████  ██    ██ ██████   █████
+██   ██ ██    ██ ██   ██ ██   ██
+███████ ██    ██ ██████  ███████
+██   ██ ██    ██ ██   ██ ██   ██
+██   ██  ██████  ██   ██ ██   ██</span>
+<span class="logo__rule">────────────────────────────────────────────</span>
+<span class="logo__sub">// LAB · WILLIAM &amp; MARY · SINCE 2024 · PATCHSET</span></pre>
+
+      <h1 class="h1">
+        The <span class="acro">A</span><span>URA</span> Lab<span class="cursor" aria-hidden="true">&nbsp;</span>
+      </h1>
+
+      <p class="tagline">
+        <span class="acro">(A)</span>I for
+        <span class="acro">(U)</span>nderstandable and
+        <span class="acro">(R)</span>esponsible
+        <span class="acro">(A)</span>utomation in Software Engineering.
+      </p>
+
+      <dl class="facts">
+        <dt>Director</dt>     <dd>Dr. Antonio Mastropaolo &middot; Assistant Professor</dd>
+        <dt>Institution</dt>  <dd>William &amp; Mary &middot; Department of Computer Science</dd>
+        <dt>Founded</dt>      <dd>Fall 2024</dd>
+        <dt>Contact</dt>      <dd>amastropaolo at wm dot edu</dd>
+        <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+      </dl>
+
+      <p class="device-note">
+        // STRUCTURAL DEVICE — This homepage <em>is</em> the lab's patchset.
+        Every avenue, paper, member, and announcement is a merged pull request
+        against <code>main</code>.
+      </p>
+
+      {% assign prs = site.data.patchset.prs %}
+      {% assign pr_count = prs | size %}
+
+      <hr class="rule" aria-hidden="true" />
+
+      <div class="filterbar" role="region" aria-label="Pull request filter">
+        <div class="filterbar__tabs">
+          <span class="tab tab--on">
+            <span class="tab__glyph" aria-hidden="true">✓</span>
+            {{ pr_count }} Merged
+          </span>
+          <span class="tab tab--off">0 Open</span>
+          <span class="tab tab--off">0 Draft</span>
+        </div>
+        <div class="filterbar__filter">
+          <span class="filterbar__label">Filter:</span>
+          <span class="filterbar__token">is:merged</span>
+          <span class="filterbar__token">author:aura-lab</span>
+          <span class="filterbar__token">sort:created-asc</span>
+        </div>
+        <div class="filterbar__count">
+          <strong>{{ pr_count }} results</strong> &middot; from <code>0f3a8b1</code> to <code>HEAD</code>
+        </div>
+      </div>
+
+      <ol class="patchset" aria-label="AURA Lab patchset">
+        {% for pr in prs %}
+        <li class="pr {% if pr.feat %}pr--feat{% endif %}{% if pr.head %}pr--head{% endif %}" id="pr-{{ pr.id }}">
+          <header class="pr__head">
+            <span class="pr__id">PR #{{ pr.id }}</span>
+            <span class="pr__title">{{ pr.title }}</span>
+            <span class="pr__merged">merged {{ pr.merged }}{% if pr.head %} &middot; HEAD &rarr; main{% endif %}</span>
+            <span class="pr__check" aria-label="merged">✓</span>
+          </header>
+          <div class="pr__body">
+            <pre class="diff"><span class="diff__hunk">@@ {{ pr.file }} @@</span>
+{% for line in pr.diff %}{% if line.kind == "plus" %}<span class="diff__plus">+ {{ line.text | escape }}</span>
+{% elsif line.kind == "minus" %}<span class="diff__minus">- {{ line.text | escape }}</span>
+{% else %}<span class="diff__context">  {{ line.text | escape }}</span>
+{% endif %}{% endfor %}</pre>
+          </div>
+          {% if pr.labels %}
+          <ul class="pr__labels" aria-label="labels">
+            {% for l in pr.labels %}<li>[{{ l }}]</li>{% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+
+      <hr class="rule" aria-hidden="true" />
+      <div class="prompt" style="margin-top:10px;">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">git log</span>
+        <span class="arg">--exit</span>
+      </div>
+      <div class="sig">
+        <div>
+          mailto:&nbsp;<a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a>
+          &nbsp;&middot;&nbsp;
+          web:&nbsp;<a href="https://aura-se-lab.github.io">aura-se-lab.github.io</a>
+        </div>
+        <div class="sig__hint">// {{ pr_count }} commits &middot; clean working tree</div>
+      </div>
+
+    </div>
+  </section>
+</main>

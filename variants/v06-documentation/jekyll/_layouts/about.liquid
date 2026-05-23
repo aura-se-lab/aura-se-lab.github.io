@@ -1,0 +1,304 @@
+---
+layout: default
+---
+{% comment %}
+  AURA Lab — v06 Documentation Site
+  Drop-in replacement for _layouts/about.liquid.
+  Renders the homepage as a docs-style three-pane reference.
+  Pulls people/news from front-matter or _data; falls back to hard-coded
+  canonical content when those are unavailable.
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="v06-doc">
+
+  <header class="topbar">
+    <button class="hamburger" id="v06-hamburger" aria-label="Toggle navigation"><span></span></button>
+    <a href="{{ '/' | relative_url }}" class="brand">
+      <span class="mark">A</span>
+      <span>{{ site.title | default: "AURA Lab" }}</span>
+      <span class="version">v2024.fall</span>
+    </a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="{{ '/' | relative_url }}" class="current">Docs</a>
+      <a href="{{ '/publications/' | relative_url }}">Publications</a>
+      <a href="#people">People</a>
+      <a href="{{ '/news/' | relative_url }}">News</a>
+      <a href="https://antoniomastropaolo.com">Director</a>
+    </nav>
+    <span class="spacer"></span>
+    <a href="{{ site.url | default: 'https://aura-se-lab.github.io' }}" class="gh">aura-se-lab.github.io &#x2197;</a>
+  </header>
+
+  <div class="shell">
+
+    {% comment %} ===== Sidebar ===== {% endcomment %}
+    <aside class="sidebar" id="v06-sidebar" aria-label="Sections">
+      <label class="search" for="v06-search">
+        <span class="magnify" aria-hidden="true"></span>
+        <input id="v06-search" type="text" placeholder="Search the lab..." />
+        <span class="kbd">&#8984;K</span>
+      </label>
+
+      <nav>
+        <div class="nav-group">
+          <div class="nav-group-label">Getting started</div>
+          <ul class="nav-list">
+            <li><a href="#overview" class="active">Overview</a></li>
+            <li><a href="#identity">Lab identity</a></li>
+            <li><a href="#mission">Mission</a></li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">Research</div>
+          <ul class="nav-list">
+            <li><a href="#research">Avenues</a>
+              <ul class="sub">
+                <li><a href="#avenue-explainability"><span class="num">01</span>Explainability</a></li>
+                <li><a href="#avenue-efficiency"><span class="num">02</span>Efficiency</a></li>
+                <li><a href="#avenue-agents"><span class="num">03</span>Multi-Agent LLMs</a></li>
+                <li><a href="#avenue-neurosymbolic"><span class="num">04</span>Neurosymbolic AI</a></li>
+                <li><a href="#avenue-task-aware"><span class="num">05</span>Task-Aware Automation</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">Reference</div>
+          <ul class="nav-list">
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#people">People</a>
+              <ul class="sub">
+                <li><a href="#director"><span class="num">&bull;</span>Director</a></li>
+                <li><a href="#students"><span class="num">&bull;</span>Ph.D. students</a></li>
+                <li><a href="#collaborators"><span class="num">&bull;</span>Collaborators</a></li>
+              </ul>
+            </li>
+            <li><a href="#news">News</a></li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">Resources</div>
+          <ul class="nav-list">
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://antoniomastropaolo.com">Director site &#x2197;</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-foot">
+          <div class="row"><span>Build</span><span>fall-2024</span></div>
+          <div class="row"><span>Location</span><span>W&amp;M CS</span></div>
+          <div class="row"><span>License</span><span>research</span></div>
+        </div>
+      </nav>
+    </aside>
+
+    {% comment %} ===== Main ===== {% endcomment %}
+    <main class="main">
+
+      <div class="breadcrumb">
+        <a href="{{ '/' | relative_url }}">Lab</a><span class="sep">/</span><a href="{{ '/' | relative_url }}">Docs</a><span class="sep">/</span><span>Overview</span>
+      </div>
+
+      <h1 class="page-title" id="overview">Overview</h1>
+      <div class="page-meta">
+        <span>The AURA Lab</span><span class="dot">&middot;</span>
+        <span>William &amp; Mary, Department of Computer Science</span><span class="dot">&middot;</span>
+        <span>Founded Fall 2024</span>
+      </div>
+
+      <p class="lead">
+        The AURA Lab advances research at the intersection of efficiency, automation, and
+        explainability in software engineering. Our mission is to design innovative and
+        responsible AI-driven solutions that improve developer productivity while
+        addressing key challenges of transparency and resource efficiency. Through
+        rigorous methods, open collaboration, and a commitment to impactful work, the
+        AURA Lab contributes practical advances in AI-supported software engineering
+        for academia, industry, and society.
+      </p>
+
+      <div class="callout">
+        <span class="tag">Acronym</span>
+        <p><strong>AURA</strong> &mdash; <strong>A</strong>I for <strong>U</strong>nderstandable
+        and <strong>R</strong>esponsible <strong>A</strong>utomation in Software Engineering.
+        Directed by Dr. Antonio Mastropaolo, Assistant Professor at William &amp; Mary.</p>
+      </div>
+
+      {% comment %} If page front-matter provides custom content, allow it through too {% endcomment %}
+      {{ content }}
+
+      <h2 class="section" id="identity">Lab identity <a href="#identity" class="anchor">#</a></h2>
+      <p class="section-meta">Fast facts &mdash; for citing, scheduling, and correspondence.</p>
+      <dl class="dl-grid">
+        <dt>Name</dt><dd>The AURA Lab</dd>
+        <dt>Acronym</dt><dd><span class="green">A</span>I for <span class="green">U</span>nderstandable and <span class="green">R</span>esponsible <span class="green">A</span>utomation in Software Engineering</dd>
+        <dt>Institution</dt><dd>William &amp; Mary, Department of Computer Science</dd>
+        <dt>Founded</dt><dd>Fall 2024</dd>
+        <dt>Director</dt><dd>Dr. Antonio Mastropaolo, Assistant Professor</dd>
+        <dt>Contact</dt><dd><code>amastropaolo&nbsp;at&nbsp;wm&nbsp;dot&nbsp;edu</code></dd>
+        <dt>Website</dt><dd><a href="https://aura-se-lab.github.io">aura-se-lab.github.io</a></dd>
+        <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+      </dl>
+
+      <h2 class="section" id="mission">Mission <a href="#mission" class="anchor">#</a></h2>
+      <p class="section-meta">Verbatim lab statement. Quote directly when needed.</p>
+      <p>Design innovative and responsible AI-driven solutions that improve developer
+      productivity while addressing the twin challenges of transparency and resource
+      efficiency. Practical advances, rigorous methods, open collaboration.</p>
+
+      <h2 class="section" id="research">Research avenues <a href="#research" class="anchor">#</a></h2>
+      <p class="section-meta">Four primary directions and one supporting direction.</p>
+      <ol class="avenues">
+        <li id="avenue-explainability"><div class="num">01</div><div class="body"><span class="name">Explainability &amp; Interpretability</span><p>Methods that reveal how code models reason &mdash; rationales, traces, tests &mdash; so developers can inspect, trust, and debug automation.</p></div></li>
+        <li id="avenue-efficiency"><div class="num">02</div><div class="body"><span class="name">Efficiency &amp; Resource-Aware Automation</span><p>Quantization, distillation, and PEFT to deliver low-latency, memory-light, cost-aware automation measured on real workloads with reproducible metrics.</p></div></li>
+        <li id="avenue-agents"><div class="num">03</div><div class="body"><span class="name">Multi-Agent LLMs for SE</span><p>Role-aligned agents that plan, code, test, and review &mdash; coordinated to produce coherent, end-to-end developer assistance.</p></div></li>
+        <li id="avenue-neurosymbolic"><div class="num">04</div><div class="body"><span class="name">Neurosymbolic AI for SE</span><p>Hybrid pipelines pairing LLMs with program analysis and constraints to produce interpretable, checkable fixes, tests, and designs.</p></div></li>
+        <li class="secondary" id="avenue-task-aware"><div class="num">05</div><div class="body"><span class="name">Task-Aware Code Automation <span class="chip" style="margin-left:6px">supporting</span></span><p>From issues, diffs, and traces to concise summaries, TODOs, and plans; models that reduce developer toil with actionable, repo-aware guidance.</p></div></li>
+      </ol>
+
+      <h2 class="section" id="publications">Publications <a href="#publications" class="anchor">#</a></h2>
+      <p class="section-meta">Selected, peer-reviewed.</p>
+      <table class="pubs">
+        <thead><tr><th>Key</th><th>Title &amp; authors</th><th>Venue</th><th class="right">Year</th></tr></thead>
+        <tbody>
+          <tr><td class="key">mastro2024triumph</td><td class="title">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era.<span class="authors">Mastropaolo, A.; Escobar-Vel&aacute;squez, C.; Linares-V&aacute;squez, M.</span></td><td class="venue"><span class="chip chip-accent">TOSEM</span></td><td class="year">2024</td></tr>
+          <tr><td class="key">vitale2025coherence</td><td class="title">Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?<span class="authors">Vitale, A.; Mastropaolo, A.; Oliveto, R.; Di Penta, M.; Scalabrino, S.</span></td><td class="venue"><span class="chip">ICPC</span></td><td class="year">2025</td></tr>
+          <tr><td class="key">afrin2025resource</td><td class="title">Resource-Efficient &amp; Effective Code Summarization.<span class="authors">Afrin, S.; Call, J.; Nguyen, K.-N.; Chaparro, O.; Mastropaolo, A.</span></td><td class="venue"><span class="chip">FORGE</span></td><td class="year">2025</td></tr>
+          <tr><td class="key">velasco2025neurosym</td><td class="title">Toward Neurosymbolic Program Comprehension.<span class="authors">Velasco, A.; Garryyeva, A.; Palacio, D. N.; Mastropaolo, A.; Poshyvanyk, D.</span></td><td class="venue"><span class="chip">ICPC ERA</span></td><td class="year">2025</td></tr>
+          <tr><td class="key">afrin2025quant</td><td class="title">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models.<span class="authors">Afrin, S.; Xu, B.; Mastropaolo, A.</span></td><td class="venue"><span class="chip">ICSME</span></td><td class="year">2025</td></tr>
+          <tr><td class="key">mastro2025path</td><td class="title">A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm.<span class="authors">Mastropaolo, A.; Poshyvanyk, D.</span></td><td class="venue"><span class="chip">FSE Ideas</span></td><td class="year">2025</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="section" id="people">People <a href="#people" class="anchor">#</a></h2>
+      <p class="section-meta">Director, Ph.D. students, and frequent collaborators.</p>
+
+      <h3 class="sub" id="director">Director</h3>
+      <table class="people-table"><tbody>
+        <tr><td class="name">Antonio Mastropaolo</td><td class="role">Assistant Professor, William &amp; Mary CS. Ph.D., Universit&agrave; della Svizzera Italiana (2024). M.Sc. / B.Sc., University of Molise.</td><td class="joined">director</td></tr>
+      </tbody></table>
+
+      <h3 class="sub" id="students">Ph.D. students</h3>
+      <table class="people-table">
+        <thead><tr><th>Name</th><th>Role</th><th class="right">Joined</th></tr></thead>
+        <tbody>
+          <tr><td class="name">Saima Afrin</td><td class="role">Ph.D. student</td><td class="joined">2024-09</td></tr>
+          <tr><td class="name">Aya Garryyeva</td><td class="role">Ph.D. student</td><td class="joined">2025-01</td></tr>
+          <tr><td class="name">Joseph Call</td><td class="role">Ph.D. student</td><td class="joined">2025-01</td></tr>
+          <tr><td class="name">Khai-Nguyen Nguyen</td><td class="role">Student</td><td class="joined">&mdash;</td></tr>
+          <tr><td class="name">Alvi</td><td class="role">Student</td><td class="joined">&mdash;</td></tr>
+          <tr><td class="name">Ben</td><td class="role">Student</td><td class="joined">&mdash;</td></tr>
+          <tr><td class="name">Chris</td><td class="role">Student</td><td class="joined">&mdash;</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub" id="collaborators">Collaborators</h3>
+      <ul class="collab-list">
+        <li>Denys Poshyvanyk <span class="aff">W&amp;M</span></li>
+        <li>David Nader Palacio</li>
+        <li>Alejandro Velasco</li>
+        <li>Oscar Chaparro</li>
+        <li>Bowen Xu</li>
+      </ul>
+
+      <h2 class="section" id="news">News <a href="#news" class="anchor">#</a></h2>
+      <p class="section-meta">Selected updates, reverse chronological.</p>
+      {% if site.news %}
+        <ul class="news">
+          {% assign sorted_news = site.news | sort: 'date' | reverse %}
+          {% for item in sorted_news limit: 6 %}
+            <li>
+              <span class="date">{{ item.date | date: "%Y-%m" }}</span>
+              <span class="text">{{ item.content | strip_html | truncatewords: 36 }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <ul class="news">
+          <li><span class="date">2025-01</span><span class="text">Welcome to <strong>Aya Garryyeva</strong> and <strong>Joseph Call</strong>, joining the AURA Lab as Ph.D. students.</span></li>
+          <li><span class="date">2024-12</span><span class="text"><em>From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era</em> accepted to <span class="chip chip-accent">TOSEM</span>.</span></li>
+          <li><span class="date">2024-11</span><span class="text">Aya Garryyeva and Joseph Call announced ahead of their January start.</span></li>
+          <li><span class="date">2024-09</span><span class="text">Welcome to <strong>Saima Afrin</strong>, joining the AURA Lab.</span></li>
+        </ul>
+      {% endif %}
+
+      <h2 class="section" id="contact">Contact <a href="#contact" class="anchor">#</a></h2>
+      <p class="section-meta">For collaboration, prospective students, and program-committee correspondence.</p>
+      <dl class="dl-grid">
+        <dt>Email</dt><dd><code>amastropaolo&nbsp;at&nbsp;wm&nbsp;dot&nbsp;edu</code></dd>
+        <dt>Department</dt><dd>Computer Science, William &amp; Mary</dd>
+        <dt>Lab site</dt><dd><a href="https://aura-se-lab.github.io">aura-se-lab.github.io</a></dd>
+        <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+      </dl>
+
+      <div class="page-foot">
+        <a href="#overview">&#8593; Back to top</a>
+        <a class="edit" href="https://github.com/aura-se-lab/aura-se-lab.github.io" target="_blank" rel="noopener">Edit on GitHub &#x2197;</a>
+      </div>
+    </main>
+
+    {% comment %} ===== Rail ===== {% endcomment %}
+    <aside class="rail" aria-label="On this page">
+      <div class="rail-label">On this page</div>
+      <ul class="rail-list" id="v06-rail-list">
+        <li><a href="#overview" class="active">Overview</a></li>
+        <li><a href="#identity">Lab identity</a></li>
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#research">Research avenues</a></li>
+        <li class="indent"><a href="#avenue-explainability">Explainability</a></li>
+        <li class="indent"><a href="#avenue-efficiency">Efficiency</a></li>
+        <li class="indent"><a href="#avenue-agents">Multi-Agent LLMs</a></li>
+        <li class="indent"><a href="#avenue-neurosymbolic">Neurosymbolic AI</a></li>
+        <li class="indent"><a href="#avenue-task-aware">Task-Aware Automation</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#people">People</a></li>
+        <li class="indent"><a href="#director">Director</a></li>
+        <li class="indent"><a href="#students">Ph.D. students</a></li>
+        <li class="indent"><a href="#collaborators">Collaborators</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="rail-foot">
+        <a href="#overview">Back to top &#8593;</a>
+        <a href="https://github.com/aura-se-lab" target="_blank" rel="noopener">Source &#x2197;</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var hb = document.getElementById('v06-hamburger');
+    var sb = document.getElementById('v06-sidebar');
+    if (hb && sb) {
+      hb.addEventListener('click', function () { sb.classList.toggle('open'); });
+      sb.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') sb.classList.remove('open');
+      });
+    }
+    var rail = document.getElementById('v06-rail-list');
+    if (rail && 'IntersectionObserver' in window) {
+      var links = Array.prototype.slice.call(rail.querySelectorAll('a'));
+      var idMap = {};
+      links.forEach(function (a) {
+        var id = a.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (el) idMap[id] = a;
+      });
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            var a = idMap[e.target.id];
+            if (a) a.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-72px 0px -70% 0px', threshold: 0 });
+      Object.keys(idMap).forEach(function (id) {
+        observer.observe(document.getElementById(id));
+      });
+    }
+  })();
+</script>

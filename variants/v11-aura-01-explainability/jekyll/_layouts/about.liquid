@@ -1,0 +1,64 @@
+---
+layout: default
+---
+{%- comment -%}
+  AURA Lab — homepage layout for variant v11-aura-01-explainability.
+  Annotated Margins: main column + sticky rationale rail.
+  Hard-inherits v02 visual DNA (palette, IBM Plex Mono, ASCII AURA plate,
+  terminal window chrome).
+{%- endcomment -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<main class="shell">
+  <section class="win" aria-label="AURA Lab terminal — explain.md">
+
+    <header class="win__bar">
+      <span class="win__dots" aria-hidden="true">[ x ][ - ][ + ]</span>
+      <span class="win__title">aura-se-lab.github.io / tty1 / explain.md</span>
+      <span class="win__meta">William &amp; Mary &middot; Dept. of Computer Science</span>
+    </header>
+
+    <div class="win__body">
+
+      <div class="prompt">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">cat</span>
+        <span class="arg">explain.md  --with-rationale</span>
+      </div>
+
+      <pre class="logo" aria-label="AURA Lab" role="img">
+<span class="logo__glow"> █████  ██    ██ ██████   █████
+██   ██ ██    ██ ██   ██ ██   ██
+███████ ██    ██ ██████  ███████
+██   ██ ██    ██ ██   ██ ██   ██
+██   ██  ██████  ██   ██ ██   ██</span>
+<span class="logo__rule">────────────────────────────────────────────</span>
+<span class="logo__sub">// LAB · WILLIAM &amp; MARY · SINCE 2024</span></pre>
+
+      <h1 class="h1">
+        The <span class="acro">A</span><span>URA</span> Lab<span class="cursor" aria-hidden="true">&nbsp;</span>
+      </h1>
+
+      <p class="tagline">
+        <span class="acro">(A)</span>I for
+        <span class="acro">(U)</span>nderstandable and
+        <span class="acro">(R)</span>esponsible
+        <span class="acro">(A)</span>utomation in Software Engineering.
+      </p>
+
+      <dl class="facts">
+        <dt>Director</dt>     <dd>{{ site.author.name | default: "Dr. Antonio Mastropaolo" }} &middot; Assistant Professor</dd>
+        <dt>Institution</dt>  <dd>William &amp; Mary &middot; Department of Computer Science</dd>
+        <dt>Founded</dt>      <dd>Fall 2024</dd>
+        <dt>Contact</dt>      <dd>amastropaolo at wm dot edu</dd>
+        <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+      </dl>
+
+      {{ content }}
+
+    </div>
+  </section>
+</main>

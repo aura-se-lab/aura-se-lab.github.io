@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#000" />
+<title>People — AURA Lab · William &amp; Mary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wm-green:#115740; --wm-green-2:#1c8a5a; --wm-glow:#a4ecc4; --wm-gold:#B9975B; --wm-deep:#06241b;
+  --paper:#fbfaf3; --paper-2:#f1eedd; --ink:#0a1014; --ink-2:#2a323a; --mute:#6c757d; --rule:#dad7c8;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Inter Tight",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.7,.2,1);
+  --hpad:clamp(20px,5vw,36px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:var(--wm-green);text-decoration:none}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--hpad)}
+.narrow{max-width:920px;margin:0 auto;padding:0 var(--hpad)}
+
+/* NAV */
+nav.bar{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:12px var(--hpad);background:rgba(0,0,0,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(183,146,87,.22)}
+.wm-mark{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+.wm-mark img{height:26px;filter:brightness(1.45) saturate(.85)}
+.wm-mark .dept{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap;padding-left:14px;border-left:1px solid rgba(255,255,255,.18);line-height:1.2}
+.wm-mark .dept b{display:block;color:#fff;font-family:var(--serif);font-size:12px;text-transform:none;font-weight:600;margin-bottom:2px}
+.crumb{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#a4a89c;text-transform:uppercase}
+.crumb a{color:#cfd2c9}.crumb a:hover{color:var(--wm-glow)}.crumb b{color:#fff}
+.menu{display:flex;gap:24px;align-items:center;justify-content:flex-end;font-size:13.5px}
+.menu a{color:#cfd2c9;transition:color .2s}.menu a:hover{color:var(--wm-glow)}
+.menu .pill{background:var(--wm-glow);color:#06120c;padding:9px 16px;border-radius:99px;font-weight:700;min-height:36px;display:inline-flex;align-items:center;gap:8px}
+.menu .pill:hover{background:#fff}.menu .pill svg{width:11px;height:11px}
+
+/* HEAD */
+.head{padding:120px 0 28px;background:linear-gradient(180deg, var(--paper-2), var(--paper))}
+.head .eye{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-green);text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;background:rgba(28,138,90,.10);padding:6px 12px;border-radius:99px;border:1px solid rgba(28,138,90,.22);margin-bottom:18px}
+.head .eye .live{width:6px;height:6px;border-radius:50%;background:var(--wm-green)}
+.head h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,5.5vw,60px);line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:18px}
+.head h1 em{font-style:italic;color:var(--wm-green);font-weight:500}
+.head .lede{font-family:var(--serif);font-size:clamp(17px,2.1vw,20px);color:var(--ink-2);max-width:62ch;line-height:1.5}
+.head .meta{display:flex;gap:18px;margin-top:24px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.06em;text-transform:uppercase}
+.head .meta .m b{color:var(--ink);font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:-.005em;margin-right:4px}
+
+/* SECTION */
+section.block{padding:48px 0;border-top:1px solid var(--rule)}
+section.block.paper-2{background:var(--paper-2)}
+.num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-green);text-transform:uppercase;display:block;margin-bottom:12px}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,40px);letter-spacing:-.018em;color:var(--ink);max-width:30ch;margin-bottom:24px}
+h2 em{font-style:italic;color:var(--wm-green);font-weight:500}
+
+/* PI CARD */
+.pi-card{
+  background:linear-gradient(135deg, white 60%, rgba(17,87,64,.06));
+  border:1px solid var(--rule);border-radius:22px;padding:36px;
+  display:grid;grid-template-columns:240px 1fr;gap:36px;align-items:start;
+  margin-top:24px;
+}
+.pi-card .av{
+  width:220px;height:220px;border-radius:50%;background-size:cover;background-position:center;
+  border:4px solid rgba(17,87,64,.22);
+  box-shadow:0 20px 50px -16px rgba(17,87,64,.25);
+}
+.pi-card .nm{font-family:var(--serif);font-weight:600;font-size:34px;letter-spacing:-.018em;color:var(--ink)}
+.pi-card .rl{font-family:var(--mono);font-size:11px;color:var(--wm-green);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+.pi-card .bio{font-family:var(--serif);font-size:16.5px;color:var(--ink-2);line-height:1.65;margin-top:18px}
+.pi-card .bio strong{color:var(--ink)}
+.pi-card .meta{display:flex;gap:18px;margin-top:18px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.06em}
+.pi-card .meta .m b{color:var(--ink);font-family:var(--serif);font-size:15px;font-weight:600;letter-spacing:-.005em;margin-right:4px}
+.pi-card .links{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.pi-card .links a{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--wm-green);background:white;border:1px solid rgba(17,87,64,.3);padding:7px 13px;border-radius:99px;
+  transition:background .2s, color .2s;
+}
+.pi-card .links a:hover{background:var(--wm-green);color:#fff}
+.pi-card .links svg{width:11px;height:11px}
+
+/* PERSON CARDS */
+.people-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:24px}
+.person{
+  display:grid;grid-template-columns:140px 1fr;gap:22px;
+  background:white;border:1px solid var(--rule);border-radius:18px;padding:24px;
+  align-items:start;
+  text-decoration:none;color:inherit;
+  transition:transform .25s var(--ease), box-shadow .25s, border-color .25s;
+  position:relative;
+}
+.person:hover{transform:translateY(-4px);box-shadow:0 24px 40px -18px rgba(17,87,64,.16);border-color:rgba(17,87,64,.32)}
+.person::after{
+  content:"↗";position:absolute;top:20px;right:24px;
+  font-family:var(--mono);font-size:14px;color:var(--mute);
+  transition:color .25s, transform .25s;
+}
+.person:hover::after{color:var(--wm-green);transform:translate(2px,-2px)}
+.person .av{
+  width:128px;height:128px;border-radius:50%;background-size:cover;background-position:center;
+  border:3px solid var(--rule);
+}
+.person .nm{font-family:var(--serif);font-weight:600;font-size:20px;letter-spacing:-.005em;color:var(--ink)}
+.person .rl{font-family:var(--mono);font-size:10px;color:var(--wm-green);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.person .since{font-family:var(--mono);font-size:10px;color:var(--mute);letter-spacing:.06em;margin-top:2px}
+.person .bio{margin-top:12px;color:var(--ink-2);font-size:14px;line-height:1.55}
+.person .focus{
+  margin-top:10px;display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);
+  background:var(--paper-2);border:1px solid var(--rule);padding:3px 8px;border-radius:99px;
+}
+.person .focus::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--wm-green)}
+
+/* collaborators */
+.coll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.coll{
+  display:flex;align-items:center;gap:12px;
+  background:white;border:1px solid var(--rule);border-radius:14px;padding:14px 16px;
+  transition:border-color .2s,transform .2s;
+  text-decoration:none;color:inherit;
+}
+.coll:hover{transform:translateY(-2px);border-color:rgba(17,87,64,.3)}
+.coll .av{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:rgba(17,87,64,.08);color:var(--wm-green);
+  display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:18px;
+}
+.coll .nm{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.005em}
+.coll .aff{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.04em;margin-top:2px}
+
+/* HIRING */
+.hire{
+  background:linear-gradient(135deg, var(--wm-deep), #0a3023);color:#dff0e6;
+  border-radius:18px;padding:36px;margin-top:24px;position:relative;overflow:hidden;
+}
+.hire::before{content:"";position:absolute;inset:0;background:radial-gradient(800px 500px at 90% 0%, rgba(164,236,196,.16), transparent 60%)}
+.hire h3{position:relative;font-family:var(--serif);font-weight:500;font-size:30px;color:#fff;letter-spacing:-.018em;line-height:1.1;max-width:24ch}
+.hire h3 em{color:var(--wm-glow);font-style:italic;font-weight:500}
+.hire p{position:relative;font-family:var(--serif);font-size:16.5px;color:#b6cbbf;max-width:60ch;margin-top:14px;line-height:1.6}
+.hire .row{position:relative;display:flex;gap:14px;margin-top:24px;flex-wrap:wrap}
+.hire .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:99px;font-family:var(--sans);font-weight:600;font-size:14.5px;text-decoration:none;min-height:46px;transition:transform .2s, background .2s}
+.hire .btn.primary{background:var(--wm-glow);color:var(--wm-deep)}
+.hire .btn.primary:hover{background:#fff;transform:translateY(-1px)}
+.hire .btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.22)}
+.hire .btn.ghost:hover{border-color:var(--wm-glow);color:var(--wm-glow)}
+.hire .btn svg{width:13px;height:13px}
+
+/* footer */
+.foot{background:#000;color:#7d8a82;padding:22px 0 calc(20px + env(safe-area-inset-bottom));font-family:var(--mono);font-size:11px;letter-spacing:.06em;border-top:1px solid rgba(183,146,87,.22);margin-top:64px}
+.foot .inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.foot-links a{color:#cfd2c9;font-size:11.5px;padding:4px 0}
+.foot-links .sep{color:rgba(255,255,255,.18)}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.05);font-size:10.5px}
+.foot-bot .qed{color:var(--wm-glow);text-transform:uppercase;letter-spacing:.14em;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+
+.r{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease), transform .6s var(--ease)}
+.r.in{opacity:1;transform:translateY(0)}
+
+@media (max-width:1024px){
+  .pi-card{grid-template-columns:1fr;text-align:left}
+  .pi-card .av{width:160px;height:160px;margin:0 0 12px 0}
+  .people-grid{grid-template-columns:1fr}
+  .coll-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:680px){
+  .menu a:not(.pill){display:none}.menu .pill svg{display:none}.wm-mark .dept{display:none}.wm-mark img{height:22px}.crumb{display:none}
+  .person{grid-template-columns:96px 1fr;padding:18px;gap:16px}
+  .person .av{width:96px;height:96px}
+  .coll-grid{grid-template-columns:1fr}
+  .pi-card{padding:24px}
+  .pi-card .nm{font-size:26px}
+  .hire{padding:26px}
+  .hire h3{font-size:24px}
+  .foot .inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary"/><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; <b>People</b></div>
+  <div class="menu">
+    <a href="H_cinematic.html">Home</a>
+    <a href="papers.html">Papers</a>
+    <a href="projects.html">Projects</a>
+    <a href="forecasts.html">Forecasts</a>
+    <a href="code.html">Code</a>
+    <a href="mailto:amastropaolo@wm.edu" class="pill">Email PI <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<header class="head wrap">
+  <div class="eye r"><span class="live"></span>director + 6 PhDs · est. Fall 2024</div>
+  <h1 class="r">A small <em>group</em>, advised end-to-end.</h1>
+  <p class="lede r">The AURA Lab is intentionally small. The director works directly with every PhD student from research idea to camera-ready writing. Below: the full roster, the frequent collaborators, and how to apply.</p>
+  <div class="meta r">
+    <span class="m"><b>1</b>director · PI</span>
+    <span class="m"><b>6</b>PhD students</span>
+    <span class="m"><b>5</b>collaborators</span>
+    <span class="m"><b>2</b>open Fall 2026</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- DIRECTOR -->
+  <section class="block" style="border-top:none" id="director">
+    <span class="num r">§ 1 · Director</span>
+    <h2 class="r">The <em>principal investigator</em>.</h2>
+    <article class="pi-card r">
+      <div class="av" style="background-image:url(../assets/img/antonio.jpg)"></div>
+      <div>
+        <div class="nm">Antonio Mastropaolo</div>
+        <div class="rl">Assistant Professor · Director · Principal Investigator</div>
+        <div class="bio">
+          <p><strong>Antonio Mastropaolo</strong> is an Assistant Professor in the Department of Computer Science at William &amp; Mary, where he directs the AURA Lab. He earned his Ph.D. in Computer Science from <strong>Università della Svizzera Italiana (USI Lugano)</strong> in 2024, his M.Sc. and B.Sc. from the <strong>University of Molise</strong>. His research lives at the intersection of AI, NLP, and software engineering — with an emphasis on explainability, efficiency, and trustworthiness.</p>
+          <p>He is the sole PI of an <strong>NSF CRII</strong> award (#2451058, 2025–2027) on trustworthy and resource-efficient foundation models for SE, and advises seven Ph.D. students at W&amp;M.</p>
+        </div>
+        <div class="meta">
+          <span class="m"><b>7</b>PhDs advised</span>
+          <span class="m"><b>29+</b>peer-reviewed papers</span>
+          <span class="m"><b>$175K</b>NSF CRII</span>
+          <span class="m"><b>USI Lugano</b>PhD 2024</span>
+        </div>
+        <div class="links">
+          <a href="https://antoniomastropaolo.io" target="_blank" rel="noopener">antoniomastropaolo.io ↗</a>
+          <a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a>
+          <a href="https://scholar.google.com/citations?user=A6E30JkAAAAJ" target="_blank">Google Scholar ↗</a>
+          <a href="https://github.com/antonio-mastropaolo" target="_blank">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/antonio-mastropaolo-b3a1a2169/" target="_blank">LinkedIn ↗</a>
+          <a href="https://x.com/AntonioMastro2" target="_blank">X / Twitter ↗</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- PhDs -->
+  <section class="block" id="phds">
+    <span class="num r">§ 2 · PhD students</span>
+    <h2 class="r">Six doctoral students, advised <em>end-to-end</em>.</h2>
+
+    <div class="people-grid">
+
+      <a class="person r" href="https://saimaafrin.github.io" target="_blank" rel="noopener">
+        <div class="av" style="background-image:url(../assets/img/saima.jpg)"></div>
+        <div>
+          <div class="nm">Saima Afrin</div>
+          <div class="rl">PhD Student · Efficiency lead</div>
+          <div class="since">joined Sep 2024 · BSc Daffodil Intl. Univ.</div>
+          <div class="bio">Resource-efficient code intelligence with a strong emphasis on Green AI. Lead author on the lab's PEFT systematic literature review (TOSEM 2025) and the FORGE 2025 distilled-summarisation paper.</div>
+          <span class="focus">PEFT · quantization · code summarization</span>
+        </div>
+      </a>
+
+      <a class="person r" href="https://www.linkedin.com/in/leyligarryyeva/" target="_blank" rel="noopener">
+        <div class="av" style="background-image:url(../assets/img/aya.jpg)"></div>
+        <div>
+          <div class="nm">Aya Garryyeva</div>
+          <div class="rl">PhD Student · Neurosymbolic</div>
+          <div class="since">joined Jan 2025 · MS William &amp; Mary</div>
+          <div class="bio">Hybrid LLM + program-analysis pipelines for code comprehension. Co-author on the ICPC ERA 2025 honourable-mention paper. Co-advised with Denys Poshyvanyk.</div>
+          <span class="focus">interpretability · neurosymbolic · trustworthiness</span>
+        </div>
+      </a>
+
+      <a class="person r" href="https://jbcallv.netlify.app" target="_blank" rel="noopener">
+        <div class="av" style="background-image:url(../assets/img/joseph.jpg)"></div>
+        <div>
+          <div class="nm">Joseph Call</div>
+          <div class="rl">PhD Student · Evaluation</div>
+          <div class="since">joined Jan 2025 · from La Paz, Honduras</div>
+          <div class="bio">Resource-efficient machine learning for code analysis and generation, with a focus on evaluation methodology. Co-author on FORGE 2025 and on the JAWs 2026 search-based data pruning paper.</div>
+          <span class="focus">evaluation · data pruning · summarization</span>
+        </div>
+      </a>
+
+      <a class="person r" href="https://alvi75.github.io" target="_blank" rel="noopener">
+        <div class="av" style="background-image:url(../assets/img/alvi.jpeg)"></div>
+        <div>
+          <div class="nm">Md Zahidul Haque (Alvi)</div>
+          <div class="rl">PhD Student · PEFT &amp; reliability</div>
+          <div class="since">BSc Sylhet Engineering College</div>
+          <div class="bio">Parameter-efficient fine-tuning for large code models and reliability of code-generation systems. Co-author on the lab's PEFT survey.</div>
+          <span class="focus">PEFT · reliability · large code models</span>
+        </div>
+      </a>
+
+      <a class="person r" href="https://www.linkedin.com/in/benjamin-tremblay-29a510247/" target="_blank" rel="noopener">
+        <div class="av" style="background-image:url(../assets/img/ben.jpg)"></div>
+        <div>
+          <div class="nm">Benjamin Tremblay</div>
+          <div class="rl">PhD Student · Optimization</div>
+          <div class="since">CS undergraduate, W&amp;M (AI/ML)</div>
+          <div class="bio">PEFT, quantization, and neural compression for large code models. Studies how optimization methods that alter a model's topology affect <em>holistic</em> code quality — maintainability, security, readability — not just correctness.</div>
+          <span class="focus">quantization · compression · code quality</span>
+        </div>
+      </a>
+
+      <a class="person r" href="https://x.com/chriszai0816" target="_blank" rel="noopener">
+        <div class="av" style="background-image:url(../assets/img/chris.jpeg)"></div>
+        <div>
+          <div class="nm">Zaiyu (Chris) Cheng</div>
+          <div class="rl">PhD Student · Interpretability</div>
+          <div class="since">BSc Birmingham · MSc Manchester (2024)</div>
+          <div class="bio">Interpretability of code language models and data-integration strategies for pre-training/fine-tuning. Studies how to boost model performance while reducing cost.</div>
+          <span class="focus">interpretability · pre-training · data</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- COLLABORATORS -->
+  <section class="block paper-2" id="collaborators">
+    <div class="wrap">
+      <span class="num r">§ 3 · Frequent collaborators</span>
+      <h2 class="r">The wider <em>network</em>.</h2>
+      <div class="coll-grid">
+        <a class="coll" href="https://www.cs.wm.edu/~denys/" target="_blank" rel="noopener"><div class="av">DP</div><div><div class="nm">Denys Poshyvanyk</div><div class="aff">William &amp; Mary · CS</div></div></a>
+        <a class="coll" href="#" target="_blank"><div class="av">OC</div><div><div class="nm">Oscar Chaparro</div><div class="aff">William &amp; Mary · CS</div></div></a>
+        <a class="coll" href="#" target="_blank"><div class="av">BX</div><div><div class="nm">Bowen Xu</div><div class="aff">William &amp; Mary · CS</div></div></a>
+        <a class="coll" href="#" target="_blank"><div class="av">AV</div><div><div class="nm">Alejandro Velasco</div><div class="aff">SEMERU · W&amp;M</div></div></a>
+        <a class="coll" href="#" target="_blank"><div class="av">DN</div><div><div class="nm">David Nader Palacio</div><div class="aff">SEMERU · W&amp;M</div></div></a>
+        <a class="coll" href="#" target="_blank"><div class="av">GB</div><div><div class="nm">Gabriele Bavota</div><div class="aff">USI Lugano · SEART</div></div></a>
+        <a class="coll" href="#" target="_blank"><div class="av">RT</div><div><div class="nm">Rosalia Tufano</div><div class="aff">USI Lugano · SEART</div></div></a>
+        <a class="coll" href="#" target="_blank"><div class="av">MD</div><div><div class="nm">Massimiliano Di Penta</div><div class="aff">Univ. of Sannio</div></div></a>
+        <a class="coll" href="#" target="_blank"><div class="av">TS</div><div><div class="nm">Tushar Sharma</div><div class="aff">Dalhousie Univ.</div></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIRING -->
+  <section class="block" id="join">
+    <span class="num r">§ 4 · We are hiring</span>
+    <h2 class="r">Want to <em>join</em>?</h2>
+
+    <div class="hire r">
+      <h3>Two PhD slots open for <em>Fall 2026</em>.</h3>
+      <p>We look for: genuine interest in deep-learning systems or programming-language semantics (ideally both); solid programming (Python, plus willingness to read C/C++/Java/Go); a taste for empirical work — shipping reproducible experiments and writing carefully; curiosity about <em>why</em> a model behaves the way it does.</p>
+      <p>Undergraduate research opportunities at W&amp;M are also available year-round. Get in touch directly.</p>
+      <div class="row">
+        <a class="btn primary" href="mailto:amastropaolo@wm.edu">Email PI <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a class="btn ghost" href="https://www.wm.edu/as/computerscience/" target="_blank" rel="noopener">W&amp;M CS PhD application ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary"/><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+      <a class="aura-foot-mark" href="../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="H_cinematic.html">Home</a><span class="sep">·</span>
+        <a href="papers.html">Papers</a><span class="sep">·</span>
+        <a href="projects.html">Projects</a><span class="sep">·</span>
+        <a href="forecasts.html">Forecasts</a><span class="sep">·</span>
+        <a href="code.html">Code</a><span class="sep">·</span>
+        <a href="people.html">People</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA</span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>people · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .12 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

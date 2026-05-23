@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AURA Lab :: explain.md</title>
+<meta name="description" content="The AURA Lab at William & Mary — AI for Understandable and Responsible Automation in Software Engineering. Annotated-margins variant." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="shell">
+  <section class="win" aria-label="AURA Lab terminal — explain.md">
+
+    <!-- Window title bar -->
+    <header class="win__bar">
+      <span class="win__dots" aria-hidden="true">[ x ][ - ][ + ]</span>
+      <span class="win__title">aura-se-lab.github.io / tty1 / explain.md</span>
+      <span class="win__meta">William &amp; Mary &middot; Dept. of Computer Science</span>
+    </header>
+
+    <div class="win__body">
+
+      <!-- ───── HERO ───── -->
+      <div class="prompt">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">cat</span>
+        <span class="arg">explain.md  --with-rationale</span>
+      </div>
+
+      <!-- ASCII wordmark logo: AURA (verbatim from v02) -->
+      <pre class="logo" aria-label="AURA Lab" role="img">
+<span class="logo__glow"> █████  ██    ██ ██████   █████
+██   ██ ██    ██ ██   ██ ██   ██
+███████ ██    ██ ██████  ███████
+██   ██ ██    ██ ██   ██ ██   ██
+██   ██  ██████  ██   ██ ██   ██</span>
+<span class="logo__rule">────────────────────────────────────────────</span>
+<span class="logo__sub">// LAB · WILLIAM &amp; MARY · SINCE 2024</span></pre>
+
+      <h1 class="h1">
+        The <span class="acro">A</span><span>URA</span> Lab<span class="cursor" aria-hidden="true">&nbsp;</span>
+      </h1>
+
+      <p class="tagline">
+        <span class="acro">(A)</span>I for
+        <span class="acro">(U)</span>nderstandable and
+        <span class="acro">(R)</span>esponsible
+        <span class="acro">(A)</span>utomation in Software Engineering.
+      </p>
+
+      <dl class="facts">
+        <dt>Director</dt>     <dd>Dr. Antonio Mastropaolo &middot; Assistant Professor</dd>
+        <dt>Institution</dt>  <dd>William &amp; Mary &middot; Department of Computer Science</dd>
+        <dt>Founded</dt>      <dd>Fall 2024</dd>
+        <dt>Contact</dt>      <dd>amastropaolo at wm dot edu</dd>
+        <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+      </dl>
+
+      <!-- ───── MISSION ───── -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">cat</span>
+          <span class="arg">$about.md  --annotate</span>
+        </button>
+        <span class="section__tag">// 01 — mission</span>
+      </div>
+
+      <div class="track">
+        <section class="about track__main" id="about" aria-labelledby="about-h">
+          <h2 class="h2" id="about-h">Mission</h2>
+          <p class="pull">
+            The AURA Lab, founded in Fall 2024, advances research at the
+            intersection of efficiency<sub class="tag" title="Avenue [02] — Efficiency &amp; Resource-Aware Automation">[02]</sub>,
+            automation<sub class="tag" title="Avenue [05] — Task-Aware Code Automation">[05]</sub>,
+            and explainability<sub class="tag" title="Avenue [01] — Explainability &amp; Interpretability">[01]</sub>
+            in software engineering. Our mission is to design innovative and
+            responsible AI-driven solutions that improve developer productivity
+            while addressing key challenges of transparency<sub class="tag" title="Avenue [01]">[01]</sub>
+            and resource efficiency<sub class="tag" title="Avenue [02]">[02]</sub>.
+            Through rigorous methods, open collaboration, and a commitment to
+            impactful work, the AURA Lab contributes practical advances in
+            AI-supported software engineering for academia, industry, and
+            society.
+          </p>
+        </section>
+        <aside class="track__rail" aria-label="Mission rationale">
+          <div class="rationale">
+            <span class="rationale__head">&gt; rationale</span>
+            <span class="rationale__body">
+              The three pillars (<code>efficiency</code>, <code>automation</code>,
+              <code>explainability</code>) map to avenues <code>[02]</code>,
+              <code>[05]</code>, <code>[01]</code>. Sentence count: 3.
+              Verifiable claims: founding date (Fall 2024), institution (W&amp;M CS).
+            </span>
+          </div>
+          <div class="rationale">
+            <span class="rationale__head rationale__head--trace">&gt; trace</span>
+            <span class="rationale__body">
+              Subscript tags are real links into avenues below. Hover any
+              <code>[NN]</code> tag to confirm the target.
+            </span>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ───── RESEARCH ───── -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('research').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">ls</span>
+          <span class="arg">research/  --explain</span>
+        </button>
+        <span class="section__tag">// 02 — research avenues</span>
+      </div>
+
+      <div class="track">
+        <section id="research" class="track__main" aria-labelledby="research-h">
+          <h2 class="h2" id="research-h">Research Avenues</h2>
+
+          <div class="avenues">
+            <article class="avenue avenue--01">
+              <div class="avenue__no">[01]</div>
+              <h3 class="avenue__title">Explainability &amp; Interpretability</h3>
+              <p class="avenue__body">
+                Methods that reveal how code models reason — rationales, traces,
+                tests — so developers can inspect, trust, and debug automation.
+              </p>
+            </article>
+
+            <article class="avenue">
+              <div class="avenue__no">[02]</div>
+              <h3 class="avenue__title">Efficiency &amp; Resource-Aware Automation</h3>
+              <p class="avenue__body">
+                Quantization, distillation, and PEFT to deliver low-latency,
+                memory-light, cost-aware automation measured on real workloads
+                with reproducible metrics.
+              </p>
+            </article>
+
+            <article class="avenue">
+              <div class="avenue__no">[03]</div>
+              <h3 class="avenue__title">Multi-Agent LLMs for SE</h3>
+              <p class="avenue__body">
+                Role-aligned agents that plan, code, test, and review,
+                coordinated to produce coherent, end-to-end developer assistance.
+              </p>
+            </article>
+
+            <article class="avenue">
+              <div class="avenue__no">[04]</div>
+              <h3 class="avenue__title">Neurosymbolic AI for SE</h3>
+              <p class="avenue__body">
+                Hybrid pipelines pairing LLMs with program analysis and
+                constraints to produce interpretable, checkable fixes, tests,
+                and designs.
+              </p>
+            </article>
+
+            <article class="avenue avenue--sub">
+              <div class="avenue__no">[+1] supporting direction</div>
+              <h3 class="avenue__title">Task-Aware Code Automation</h3>
+              <p class="avenue__body">
+                From issues, diffs, and traces to concise summaries, TODOs, and
+                plans; models that reduce developer toil with actionable,
+                repo-aware guidance.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <aside class="track__rail" aria-label="Research avenues rationale">
+          <div class="rationale">
+            <span class="rationale__head rationale__head--trace">&gt; trace [01]</span>
+            <span class="rationale__body">
+              2 of 6 selected pubs sit under Explainability: Velasco et al.
+              2025 (ICPC ERA) and Mastropaolo &amp; Poshyvanyk 2025 (FSE Ideas).
+            </span>
+          </div>
+          <div class="rationale">
+            <span class="rationale__head rationale__head--trace">&gt; trace [02]</span>
+            <span class="rationale__body">
+              2 of 6 selected pubs sit under Efficiency: Afrin et al. 2025
+              (FORGE) and Afrin, Xu &amp; Mastropaolo 2025 (ICSME, quantization).
+            </span>
+          </div>
+          <div class="rationale">
+            <span class="rationale__head rationale__head--trace">&gt; trace [04]</span>
+            <span class="rationale__body">
+              Neurosymbolic AI surfaces in 2 pubs (Velasco et al. 2025;
+              Mastropaolo &amp; Poshyvanyk 2025) — overlaps avenue [01].
+            </span>
+          </div>
+          <div class="rationale">
+            <span class="rationale__head">&gt; note</span>
+            <span class="rationale__body">
+              Avenue [01] is highlighted as the focus of this variant:
+              <code>v11-aura-01-explainability</code>.
+            </span>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ───── PUBLICATIONS ───── -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('pubs').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">bibtex</span>
+          <span class="arg">--selected pubs/*.bib  --explain</span>
+        </button>
+        <span class="section__tag">// 03 — selected publications</span>
+      </div>
+
+      <div class="track">
+        <section id="pubs" class="track__main" aria-labelledby="pubs-h">
+          <h2 class="h2" id="pubs-h">Selected Publications</h2>
+
+          <div class="bib">
+
+            <div class="bib__item">
+<pre class="bib__entry"><span class="bib__open">@article{</span><span class="bib__key">mastropaolo2024triumph</span><span>,</span>
+  <span class="bib__field">author</span>  = <span class="bib__val">{Mastropaolo, A. and Escobar-Velásquez, C. and Linares-Vásquez, M.}</span>,
+  <span class="bib__field">title</span>   = <span class="bib__val">{From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era}</span>,
+  <span class="bib__field">journal</span> = <span class="bib__val">{ACM Trans. Softw. Eng. Methodol. (TOSEM)}</span>,
+  <span class="bib__field">year</span>    = <span class="bib__val">{2024}</span>
+<span class="bib__close">}</span></pre>
+              <details class="explain">
+                <summary aria-label="Explain this paper"></summary>
+                <div class="explain__body">
+                  Surveys the trajectory of SE in the AI era — framing
+                  opportunities and risks of LLM-driven automation; relates to
+                  avenues <code>[01]</code>, <code>[03]</code>.
+                </div>
+              </details>
+            </div>
+
+            <div class="bib__item">
+<pre class="bib__entry"><span class="bib__open">@inproceedings{</span><span class="bib__key">vitale2025codesumm</span><span>,</span>
+  <span class="bib__field">author</span>    = <span class="bib__val">{Vitale, A. and Mastropaolo, A. and Oliveto, R. and Di Penta, M. and Scalabrino, S.}</span>,
+  <span class="bib__field">title</span>     = <span class="bib__val">{Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?}</span>,
+  <span class="bib__field">booktitle</span> = <span class="bib__val">{Proc. Int. Conf. on Program Comprehension (ICPC)}</span>,
+  <span class="bib__field">year</span>      = <span class="bib__val">{2025}</span>
+<span class="bib__close">}</span></pre>
+              <details class="explain">
+                <summary aria-label="Explain this paper"></summary>
+                <div class="explain__body">
+                  Tests whether code-comment coherence alone suffices to curate
+                  code-summarization datasets; relates to avenues
+                  <code>[02]</code>, <code>[05]</code>.
+                </div>
+              </details>
+            </div>
+
+            <div class="bib__item">
+<pre class="bib__entry"><span class="bib__open">@inproceedings{</span><span class="bib__key">afrin2025resource</span><span>,</span>
+  <span class="bib__field">author</span>    = <span class="bib__val">{Afrin, S. and Call, J. and Nguyen, K.-N. and Chaparro, O. and Mastropaolo, A.}</span>,
+  <span class="bib__field">title</span>     = <span class="bib__val">{Resource-Efficient &amp; Effective Code Summarization}</span>,
+  <span class="bib__field">booktitle</span> = <span class="bib__val">{Proc. FORGE}</span>,
+  <span class="bib__field">year</span>      = <span class="bib__val">{2025}</span>
+<span class="bib__close">}</span></pre>
+              <details class="explain">
+                <summary aria-label="Explain this paper"></summary>
+                <div class="explain__body">
+                  Studies how to summarize code under tight compute budgets —
+                  cost-aware automation evidence; relates to avenue
+                  <code>[02]</code>.
+                </div>
+              </details>
+            </div>
+
+            <div class="bib__item">
+<pre class="bib__entry"><span class="bib__open">@inproceedings{</span><span class="bib__key">velasco2025neurosymbolic</span><span>,</span>
+  <span class="bib__field">author</span>    = <span class="bib__val">{Velasco, A. and Garryyeva, A. and Palacio, D. N. and Mastropaolo, A. and Poshyvanyk, D.}</span>,
+  <span class="bib__field">title</span>     = <span class="bib__val">{Toward Neurosymbolic Program Comprehension}</span>,
+  <span class="bib__field">booktitle</span> = <span class="bib__val">{Proc. ICPC — Early Research Achievements}</span>,
+  <span class="bib__field">year</span>      = <span class="bib__val">{2025}</span>
+<span class="bib__close">}</span></pre>
+              <details class="explain" open>
+                <summary aria-label="Explain this paper"></summary>
+                <div class="explain__body">
+                  Introduces a neurosymbolic program-comprehension framework
+                  that pairs LLM reasoning with symbolic program analysis;
+                  relates to avenues <code>[01]</code>, <code>[04]</code>.
+                </div>
+              </details>
+            </div>
+
+            <div class="bib__item">
+<pre class="bib__entry"><span class="bib__open">@inproceedings{</span><span class="bib__key">afrin2025quantization</span><span>,</span>
+  <span class="bib__field">author</span>    = <span class="bib__val">{Afrin, S. and Xu, B. and Mastropaolo, A.}</span>,
+  <span class="bib__field">title</span>     = <span class="bib__val">{Is Quantization a Deal-breaker? Empirical Insights from Large Code Models}</span>,
+  <span class="bib__field">booktitle</span> = <span class="bib__val">{Proc. Int. Conf. on Software Maintenance and Evolution (ICSME)}</span>,
+  <span class="bib__field">year</span>      = <span class="bib__val">{2025}</span>
+<span class="bib__close">}</span></pre>
+              <details class="explain">
+                <summary aria-label="Explain this paper"></summary>
+                <div class="explain__body">
+                  Empirically probes when quantization of large code models
+                  preserves task quality; relates to avenue <code>[02]</code>.
+                </div>
+              </details>
+            </div>
+
+            <div class="bib__item">
+<pre class="bib__entry"><span class="bib__open">@inproceedings{</span><span class="bib__key">mastropaolo2025pathless</span><span>,</span>
+  <span class="bib__field">author</span>    = <span class="bib__val">{Mastropaolo, A. and Poshyvanyk, D.}</span>,
+  <span class="bib__field">title</span>     = <span class="bib__val">{A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm}</span>,
+  <span class="bib__field">booktitle</span> = <span class="bib__val">{Proc. FSE — Ideas, Visions and Reflections}</span>,
+  <span class="bib__field">year</span>      = <span class="bib__val">{2025}</span>
+<span class="bib__close">}</span></pre>
+              <details class="explain">
+                <summary aria-label="Explain this paper"></summary>
+                <div class="explain__body">
+                  Argues a neurosymbolic paradigm makes SE automation more
+                  interpretable and checkable; relates to avenues
+                  <code>[01]</code>, <code>[04]</code>.
+                </div>
+              </details>
+            </div>
+
+          </div>
+        </section>
+
+        <aside class="track__rail" aria-label="Publications rationale">
+          <div class="rationale">
+            <span class="rationale__head rationale__head--ev">&gt; evidence</span>
+            <span class="rationale__body">
+              6 of 6 canonical publications rendered. Each entry has an inline
+              <code>[explain]</code> drawer with a one-sentence contribution
+              note. No drawer is generated; all six are hand-derived from the
+              paper titles.
+            </span>
+          </div>
+          <div class="rationale">
+            <span class="rationale__head rationale__head--trace">&gt; trace</span>
+            <span class="rationale__body">
+              Coverage by avenue: [01]&times;3, [02]&times;3, [03]&times;1,
+              [04]&times;2, [05]&times;1 (overlap allowed — a single paper may
+              touch multiple avenues).
+            </span>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ───── PEOPLE ───── -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('people').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">ls -la</span>
+          <span class="arg">members/  --annotate</span>
+        </button>
+        <span class="section__tag">// 04 — people</span>
+      </div>
+
+      <div class="track">
+        <section id="people" class="track__main" aria-labelledby="people-h">
+          <h2 class="h2" id="people-h">Members</h2>
+
+          <div class="ls" role="table" aria-label="Lab members directory listing">
+            <div class="ls__total">total 12 &middot; drwxr-xr-x  aura_lab  staff</div>
+
+            <div class="ls__row ls__row--head" role="row">
+              <span>perms</span>
+              <span>n</span>
+              <span>role</span>
+              <span>name</span>
+              <span>joined</span>
+            </div>
+
+            <div class="ls__group">// director</div>
+            <div class="ls__row" role="row">
+              <span class="ls__perm">drwxr-xr-x</span>
+              <span class="ls__n">1</span>
+              <span class="ls__role">director</span>
+              <span class="ls__name">antonio_mastropaolo &mdash; Asst. Prof.; PhD USI '24</span>
+              <span class="ls__date">2024-09-01</span>
+            </div>
+
+            <div class="ls__group">// phd students</div>
+            <div class="ls__row" role="row">
+              <span class="ls__perm">-rw-r--r--</span>
+              <span class="ls__n">1</span>
+              <span class="ls__role">phd_student</span>
+              <span class="ls__name">saima_afrin</span>
+              <span class="ls__date">2024-09-01</span>
+            </div>
+            <div class="ls__row" role="row">
+              <span class="ls__perm">-rw-r--r--</span>
+              <span class="ls__n">1</span>
+              <span class="ls__role">phd_student</span>
+              <span class="ls__name">aya_garryyeva</span>
+              <span class="ls__date">2025-01-15</span>
+            </div>
+            <div class="ls__row" role="row">
+              <span class="ls__perm">-rw-r--r--</span>
+              <span class="ls__n">1</span>
+              <span class="ls__role">phd_student</span>
+              <span class="ls__name">joseph_call</span>
+              <span class="ls__date">2025-01-15</span>
+            </div>
+            <div class="ls__row" role="row">
+              <span class="ls__perm">-rw-r--r--</span>
+              <span class="ls__n">1</span>
+              <span class="ls__role">phd_student</span>
+              <span class="ls__name">khai-nguyen_nguyen</span>
+              <span class="ls__date">----------</span>
+            </div>
+            <div class="ls__row" role="row">
+              <span class="ls__perm">-rw-r--r--</span>
+              <span class="ls__n">1</span>
+              <span class="ls__role">phd_student</span>
+              <span class="ls__name">alvi</span>
+              <span class="ls__date">----------</span>
+            </div>
+            <div class="ls__row" role="row">
+              <span class="ls__perm">-rw-r--r--</span>
+              <span class="ls__n">1</span>
+              <span class="ls__role">phd_student</span>
+              <span class="ls__name">ben</span>
+              <span class="ls__date">----------</span>
+            </div>
+            <div class="ls__row" role="row">
+              <span class="ls__perm">-rw-r--r--</span>
+              <span class="ls__n">1</span>
+              <span class="ls__role">phd_student</span>
+              <span class="ls__name">chris</span>
+              <span class="ls__date">----------</span>
+            </div>
+          </div>
+
+          <div class="ls__group" style="margin-top:18px;">// collaborators &mdash; frequent co-authors</div>
+          <ul class="collab" aria-label="Collaborators">
+            <li>denys_poshyvanyk &middot; W&amp;M</li>
+            <li>david_nader_palacio</li>
+            <li>alejandro_velasco</li>
+            <li>oscar_chaparro</li>
+            <li>bowen_xu</li>
+          </ul>
+        </section>
+
+        <aside class="track__rail" aria-label="People rationale">
+          <div class="rationale">
+            <span class="rationale__head rationale__head--ev">&gt; evidence</span>
+            <span class="rationale__body">
+              1 director + 7 PhD students + 5 collaborators = 13 listed
+              members. Joined dates known for 3 students (Afrin
+              <code>2024-09</code>, Garryyeva &amp; Call <code>2025-01</code>).
+            </span>
+          </div>
+          <div class="rationale">
+            <span class="rationale__head rationale__head--trace">&gt; trace</span>
+            <span class="rationale__body">
+              4 of 5 collaborators appear as co-authors on the selected pubs:
+              Poshyvanyk (&times;2), Velasco, Palacio, Xu, Chaparro.
+            </span>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ───── NEWS ───── -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="section__head">
+        <button class="section__nav" type="button" onclick="document.getElementById('news').scrollIntoView({behavior:'smooth',block:'start'})">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">git log</span>
+          <span class="arg">--oneline news/  --explain</span>
+        </button>
+        <span class="section__tag">// 05 — news</span>
+      </div>
+
+      <div class="track">
+        <section id="news" class="track__main" aria-labelledby="news-h">
+          <h2 class="h2" id="news-h">Activity Log</h2>
+
+          <ol class="gitlog">
+            <li class="gitlog__row">
+              <span class="gitlog__hash">a4f1c02</span>
+              <span class="gitlog__date">2025-01</span>
+              <span class="gitlog__msg">
+                <span class="gitlog__head">HEAD &rarr; main</span>
+                welcome: Aya Garryyeva and Joseph Call join the AURA Lab.
+              </span>
+            </li>
+            <li class="gitlog__row">
+              <span class="gitlog__hash">7b9e3d4</span>
+              <span class="gitlog__date">2024-12</span>
+              <span class="gitlog__msg">
+                pub: "From Triumph to Uncertainty: The Journey of Software
+                Engineering in the AI Era" accepted to TOSEM.
+              </span>
+            </li>
+            <li class="gitlog__row">
+              <span class="gitlog__hash">2c80a17</span>
+              <span class="gitlog__date">2024-11</span>
+              <span class="gitlog__msg">
+                announce: Aya Garryyeva and Joseph Call &mdash; January start
+                confirmed.
+              </span>
+            </li>
+            <li class="gitlog__row">
+              <span class="gitlog__hash">0f3a8b1</span>
+              <span class="gitlog__date">2024-09</span>
+              <span class="gitlog__msg">
+                welcome: Saima Afrin joins the AURA Lab.
+              </span>
+            </li>
+          </ol>
+        </section>
+
+        <aside class="track__rail" aria-label="News rationale">
+          <div class="rationale">
+            <span class="rationale__head rationale__head--ev">&gt; evidence</span>
+            <span class="rationale__body">
+              4 of 4 canonical news items rendered, reverse-chronological.
+              Two announce-vs-welcome pairs cover Aya &amp; Joseph
+              (<code>2024-11</code> &rarr; <code>2025-01</code>).
+            </span>
+          </div>
+          <div class="rationale">
+            <span class="rationale__head rationale__head--trace">&gt; trace</span>
+            <span class="rationale__body">
+              The TOSEM entry (<code>2024-12</code>) is the same paper rendered
+              as <code>@mastropaolo2024triumph</code> above.
+            </span>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ───── FOOTER ───── -->
+      <hr class="rule" aria-hidden="true" />
+      <div class="prompt" style="margin-top:10px;">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">contact</span>
+        <span class="arg">--mail</span>
+      </div>
+      <div class="sig">
+        <div>
+          mailto:&nbsp;<a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a>
+          &nbsp;&middot;&nbsp;
+          web:&nbsp;<a href="https://aura-se-lab.github.io">aura-se-lab.github.io</a>
+        </div>
+        <div class="sig__hint">// end of file &middot; explain.md</div>
+      </div>
+
+    </div>
+  </section>
+</main>
+</body>
+</html>

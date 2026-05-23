@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The AURA Lab — Manuscript of Record</title>
+  <meta name="description" content="The AURA Lab at William & Mary — AI for Understandable and Responsible Automation in Software Engineering.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <main class="folio" role="main">
+
+    <!-- Running head -->
+    <div class="running-head" aria-hidden="true">
+      <span class="rh-left">AURA Lab · William &amp; Mary CS</span>
+      <span class="rh-mid">Manuscript of Record · Vol. I</span>
+      <span class="rh-right">MMXXVI · p.&nbsp;01</span>
+    </div>
+
+    <!-- Manuscript header -->
+    <header class="manuscript-header" aria-labelledby="ms-title">
+      <p class="ms-eyebrow">
+        <span>Research Group</span><span class="sep"></span><span>Department of Computer Science</span><span class="sep"></span><span>Est. Fall MMXXIV</span>
+      </p>
+
+      <h1 class="ms-title" id="ms-title">
+        The <span class="acro-mark">AURA</span> Lab<br>
+        <em>AI for Understandable and Responsible Automation<br>in Software Engineering</em>
+      </h1>
+
+      <p class="ms-authors">
+        Antonio Mastropaolo<sup>1</sup>
+        <span class="mid">·</span> The AURA Lab
+        <span class="mid">·</span> William &amp; Mary
+      </p>
+      <p class="ms-affil">
+        <sup>1</sup> Director &amp; Principal Investigator · Department of Computer Science · amastropaolo<span aria-hidden="true">[at]</span>wm.edu
+      </p>
+
+      <section class="abstract" aria-label="Abstract">
+        <p class="abstract-label">Abstract</p>
+        <p>
+          The AURA Lab, founded in Fall 2024, advances research at the intersection
+          of efficiency, automation, and explainability in software engineering. Our
+          mission is to design innovative and responsible AI-driven solutions that
+          improve developer productivity while addressing key challenges of
+          transparency and resource efficiency. Through rigorous methods, open
+          collaboration, and a commitment to impactful work, the AURA Lab
+          contributes practical advances in AI-supported software engineering for
+          academia, industry, and society.
+        </p>
+      </section>
+
+      <p class="keywords">
+        <span class="kw-label">Keywords</span>
+        <span class="kw">explainable AI</span>
+        <span class="kw">code models</span>
+        <span class="kw">neurosymbolic SE</span>
+        <span class="kw">multi-agent LLMs</span>
+        <span class="kw">resource-aware automation</span>
+        <span class="kw">empirical software engineering</span>
+      </p>
+    </header>
+
+    <div class="folio-rule"><span>Contents</span></div>
+
+    <!-- Section 1 — Research Agenda -->
+    <section class="section" id="agenda" aria-labelledby="sec-agenda">
+      <aside class="section-marginalia" aria-hidden="true">
+        <span class="num">§&nbsp;1</span>
+        <span>Research Agenda</span>
+        <span class="anchor">/agenda</span>
+      </aside>
+      <div class="section-body">
+        <h2 class="section-head" id="sec-agenda">Research Agenda</h2>
+        <p class="section-dek">
+          Four primary directions, one supporting line. Each pursued with reproducible
+          methods and a bias toward useful, inspectable artefacts.
+        </p>
+
+        <ol class="agenda">
+          <li>
+            <h3>Explainability &amp; Interpretability</h3>
+            <p>
+              Methods that reveal how code models reason — rationales, traces, tests —
+              so developers can inspect, trust, and debug automation.
+            </p>
+          </li>
+          <li>
+            <h3>Efficiency &amp; Resource-Aware Automation</h3>
+            <p>
+              Quantization, distillation, and PEFT to deliver low-latency,
+              memory-light, cost-aware automation measured on real workloads with
+              reproducible metrics.
+            </p>
+          </li>
+          <li>
+            <h3>Multi-Agent LLMs for Software Engineering</h3>
+            <p>
+              Role-aligned agents that plan, code, test, and review — coordinated to
+              produce coherent, end-to-end developer assistance.
+            </p>
+          </li>
+          <li>
+            <h3>Neurosymbolic AI for Software Engineering</h3>
+            <p>
+              Hybrid pipelines pairing LLMs with program analysis and constraints to
+              produce interpretable, checkable fixes, tests, and designs.
+            </p>
+          </li>
+          <li>
+            <h3>Task-Aware Code Automation <span class="supporting">Supporting line</span></h3>
+            <p>
+              From issues, diffs, and traces to concise summaries, TODOs, and plans —
+              models that reduce developer toil with actionable, repo-aware guidance.
+            </p>
+          </li>
+        </ol>
+
+        <figure class="display-equation" aria-label="Lab equation">
+          <span class="eq-mark">A</span><span class="eq-op">+</span><span class="eq-mark">U</span><span class="eq-op">+</span><span class="eq-mark">R</span><span class="eq-op">+</span><span class="eq-mark">A</span><span class="eq-eq">=</span>understandable, responsible automation for software
+          <span class="eq-caption">Eq. 1 · The Lab in one line</span>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Section 2 — Selected Publications -->
+    <section class="section" id="publications" aria-labelledby="sec-pubs">
+      <aside class="section-marginalia" aria-hidden="true">
+        <span class="num">§&nbsp;2</span>
+        <span>Selected Publications</span>
+        <span class="anchor">/publications</span>
+      </aside>
+      <div class="section-body">
+        <h2 class="section-head" id="sec-pubs">Selected Publications</h2>
+        <p class="section-dek">
+          A reverse-chronological excerpt. Full archive on the
+          <a href="#">publications page</a>; cite the venue, not the preprint.
+        </p>
+
+        <ol class="refs">
+          <li>
+            <span class="authors"><span class="self">Mastropaolo, A.</span>; Escobar-Velásquez, C.; Linares-Vásquez, M.</span>
+            <span class="title">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era.</span>
+            <span class="venue">ACM Trans. Softw. Eng. Methodol. (TOSEM)</span>,
+            <span class="year">2024</span>.
+            <span class="bibkey">mastropaolo24tosem</span>
+            <span class="affordances">
+              <a class="aff" href="#">pdf</a>
+              <a class="aff" href="#">bibtex</a>
+            </span>
+          </li>
+
+          <li>
+            <span class="authors">Vitale, A.; <span class="self">Mastropaolo, A.</span>; Oliveto, R.; Di Penta, M.; Scalabrino, S.</span>
+            <span class="title">Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?</span>
+            <span class="venue">ICPC</span>,
+            <span class="year">2025</span>.
+            <span class="bibkey">vitale25icpc</span>
+            <span class="affordances">
+              <a class="aff" href="#">pdf</a>
+              <a class="aff" href="#">bibtex</a>
+            </span>
+          </li>
+
+          <li>
+            <span class="authors">Afrin, S.; Call, J.; Nguyen, K.-N.; Chaparro, O.; <span class="self">Mastropaolo, A.</span></span>
+            <span class="title">Resource-Efficient &amp; Effective Code Summarization.</span>
+            <span class="venue">FORGE</span>,
+            <span class="year">2025</span>.
+            <span class="bibkey">afrin25forge</span>
+            <span class="affordances">
+              <a class="aff" href="#">pdf</a>
+              <a class="aff" href="#">bibtex</a>
+            </span>
+          </li>
+
+          <li>
+            <span class="authors">Velasco, A.; Garryyeva, A.; Palacio, D. N.; <span class="self">Mastropaolo, A.</span>; Poshyvanyk, D.</span>
+            <span class="title">Toward Neurosymbolic Program Comprehension.</span>
+            <span class="venue">ICPC ERA</span>,
+            <span class="year">2025</span>.
+            <span class="bibkey">velasco25icpcera</span>
+            <span class="affordances">
+              <a class="aff" href="#">pdf</a>
+              <a class="aff" href="#">bibtex</a>
+            </span>
+          </li>
+
+          <li>
+            <span class="authors">Afrin, S.; Xu, B.; <span class="self">Mastropaolo, A.</span></span>
+            <span class="title">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models.</span>
+            <span class="venue">ICSME</span>,
+            <span class="year">2025</span>.
+            <span class="bibkey">afrin25icsme</span>
+            <span class="affordances">
+              <a class="aff" href="#">pdf</a>
+              <a class="aff" href="#">bibtex</a>
+            </span>
+          </li>
+
+          <li>
+            <span class="authors"><span class="self">Mastropaolo, A.</span>; Poshyvanyk, D.</span>
+            <span class="title">A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm.</span>
+            <span class="venue">FSE Ideas</span>,
+            <span class="year">2025</span>.
+            <span class="bibkey">mastropaolo25fseideas</span>
+            <span class="affordances">
+              <a class="aff" href="#">pdf</a>
+              <a class="aff" href="#">bibtex</a>
+            </span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Section 3 — People -->
+    <section class="section" id="people" aria-labelledby="sec-people">
+      <aside class="section-marginalia" aria-hidden="true">
+        <span class="num">§&nbsp;3</span>
+        <span>People</span>
+        <span class="anchor">/people</span>
+      </aside>
+      <div class="section-body">
+        <h2 class="section-head" id="sec-people">People</h2>
+        <p class="section-dek">
+          A small group, deliberately constructed. Affiliations are W&amp;M unless noted.
+        </p>
+
+        <div class="people-block">
+
+          <p class="people-role">Director</p>
+          <p class="director-line">
+            <span class="name">Antonio Mastropaolo</span>
+            <span class="descriptor">Assistant Professor, William &amp; Mary CS.</span>
+          </p>
+          <p class="director-bio">
+            Ph.D., Università della Svizzera Italiana (2024). M.Sc. and B.Sc., University
+            of Molise.
+          </p>
+
+          <p class="people-role">Ph.D. Students</p>
+          <ul class="author-list">
+            <li><span class="name"><span class="initial">S.</span> Saima Afrin</span><span class="meta">Joined Sep 2024</span></li>
+            <li><span class="name"><span class="initial">A.</span> Aya Garryyeva</span><span class="meta">Joined Jan 2025</span></li>
+            <li><span class="name"><span class="initial">J.</span> Joseph Call</span><span class="meta">Joined Jan 2025</span></li>
+            <li><span class="name"><span class="initial">K.</span> Khai-Nguyen Nguyen</span><span class="meta">Student</span></li>
+            <li><span class="name"><span class="initial">A.</span> Alvi</span><span class="meta">Student</span></li>
+            <li><span class="name"><span class="initial">B.</span> Ben</span><span class="meta">Student</span></li>
+            <li><span class="name"><span class="initial">C.</span> Chris</span><span class="meta">Student</span></li>
+          </ul>
+
+          <p class="people-role">Frequent Collaborators</p>
+          <p class="collab-list">
+            <span class="name">Denys Poshyvanyk</span> <em>(W&amp;M)</em>
+            <span class="sep">·</span>
+            <span class="name">David Nader Palacio</span>
+            <span class="sep">·</span>
+            <span class="name">Alejandro Velasco</span>
+            <span class="sep">·</span>
+            <span class="name">Oscar Chaparro</span>
+            <span class="sep">·</span>
+            <span class="name">Bowen Xu</span>
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4 — News -->
+    <section class="section" id="news" aria-labelledby="sec-news">
+      <aside class="section-marginalia" aria-hidden="true">
+        <span class="num">§&nbsp;4</span>
+        <span>News</span>
+        <span class="anchor">/news</span>
+      </aside>
+      <div class="section-body">
+        <h2 class="section-head" id="sec-news">News</h2>
+        <p class="section-dek">
+          Lab announcements in reverse chronological order.
+        </p>
+
+        <ol class="news-list">
+          <li>
+            <time datetime="2025-01">Jan 2025</time>
+            <span class="body">
+              <span class="pill">Joining</span>
+              Welcome to <strong>Aya Garryyeva</strong> and <strong>Joseph Call</strong>,
+              joining the AURA Lab as Ph.D. students.
+            </span>
+          </li>
+          <li>
+            <time datetime="2024-12">Dec 2024</time>
+            <span class="body">
+              <span class="pill">Accepted</span>
+              <em>From Triumph to Uncertainty: The Journey of Software Engineering in the
+              AI Era</em> accepted to <strong>ACM TOSEM</strong>.
+            </span>
+          </li>
+          <li>
+            <time datetime="2024-11">Nov 2024</time>
+            <span class="body">
+              <span class="pill">Announcement</span>
+              Welcome to <strong>Aya</strong> and <strong>Joseph</strong> — announced
+              ahead of their January start.
+            </span>
+          </li>
+          <li>
+            <time datetime="2024-09">Sep 2024</time>
+            <span class="body">
+              <span class="pill">Joining</span>
+              Welcome to <strong>Saima Afrin</strong>, joining the AURA Lab as a Ph.D.
+              student.
+            </span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <footer class="colophon" role="contentinfo">
+      <div class="col-mark">
+        Typeset by the <span class="accent">AURA</span> Lab · Williamsburg, Virginia ·
+        Department of Computer Science, William &amp; Mary
+      </div>
+      <div class="col-meta">
+        <a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a><br>
+        <a href="https://aura-se-lab.github.io">aura-se-lab.github.io</a>
+        <span aria-hidden="true"> · </span>
+        <a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+// =============================================================
+// AURA Quarterly — Editorial Magazine (v07)
+// Drop-in sass partial. @import after _base.scss.
+// All styles scoped under .aura-quarterly + global masthead bar.
+// =============================================================
+
+:root {
+  --ivory: #f6f1e8;
+  --ivory-deep: #ede5d3;
+  --ink: #14110d;
+  --ink-soft: #2a241c;
+  --rule: #1a1612;
+  --mute: #6b5f4d;
+  --accent: #b8332a;
+  --accent-dark: #8a2419;
+  --green: #1f6b3a;
+  --paper: #fbf8f1;
+}
+
+body.layout-about,
+body:has(.aura-quarterly) {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ---------- Masthead (sits outside .page) ----------
+.masthead-bar {
+  background: var(--ink);
+  color: var(--ivory);
+  padding: 14px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 4px solid var(--accent);
+
+  .left, .right { display: flex; gap: 28px; align-items: center; }
+  a { color: var(--ivory); border: none; text-decoration: none;
+      &:hover { color: var(--accent); } }
+  .mb-dot { width: 6px; height: 6px; background: var(--accent);
+            border-radius: 50%; display: inline-block; }
+}
+
+.aura-quarterly {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 56px 120px;
+
+  a { color: var(--ink); text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      &:hover { color: var(--accent); } }
+
+  // Issue plate
+  .issue-plate {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 32px;
+    align-items: end;
+    padding: 38px 0 22px;
+    border-bottom: 1px solid var(--rule);
+
+    .quarterly {
+      font-family: "Fraunces", "Times New Roman", serif;
+      font-weight: 900;
+      font-variation-settings: "opsz" 144;
+      font-size: 64px;
+      line-height: 0.85;
+      letter-spacing: -0.02em;
+      em { font-style: italic; color: var(--accent); }
+    }
+    .meta {
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--mute); text-align: right; line-height: 1.7;
+      strong { color: var(--ink); }
+    }
+    .stamp {
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--mute);
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      padding-bottom: 8px;
+      border-right: 1px solid var(--rule); padding-right: 14px;
+    }
+  }
+
+  // Cover
+  .cover {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 56px;
+    padding: 48px 0 56px;
+    border-bottom: 3px solid var(--ink);
+    position: relative;
+    & > * { position: relative; z-index: 1; }
+  }
+  .cover-headline {
+    font-family: "Fraunces", serif;
+    font-weight: 900;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(64px, 9vw, 132px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    margin: 0;
+    .breaker { display: block; }
+    .italic { font-style: italic; font-weight: 900; }
+    .accent { color: var(--accent); }
+    .ampersand { font-style: italic; font-weight: 900;
+                 font-size: 0.85em; color: var(--accent); }
+  }
+  .cover-deck {
+    font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+    font-size: 22px; line-height: 1.4; color: var(--ink-soft);
+    max-width: 720px; margin: 32px 0 0;
+    border-top: 1px solid var(--rule); padding-top: 20px;
+  }
+  .cover-aside {
+    border-left: 1px solid var(--rule); padding-left: 28px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    .kicker { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+              color: var(--accent); font-weight: 700; margin-bottom: 14px; }
+    .byline { font-family: "Fraunces", serif; font-weight: 700;
+              font-size: 20px; line-height: 1.25; margin-bottom: 8px;
+              a { border-bottom-color: transparent; } }
+    .role { font-size: 13px; color: var(--mute); margin-bottom: 20px; }
+    .credentials { font-size: 13px; color: var(--ink-soft); line-height: 1.5;
+                   border-top: 1px solid var(--rule); padding-top: 14px; }
+  }
+  .letterform {
+    position: absolute; right: 0; top: 80px;
+    font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+    font-variation-settings: "opsz" 144;
+    font-size: 520px; line-height: 0.8; color: var(--accent);
+    opacity: 0.08; pointer-events: none; z-index: 0;
+    letter-spacing: -0.05em;
+  }
+
+  // Department
+  .dept {
+    display: flex; align-items: baseline; gap: 16px;
+    margin: 80px 0 28px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+    .number { font-family: "Fraunces", serif; font-weight: 900;
+              font-style: italic; font-size: 28px; color: var(--accent);
+              line-height: 1; }
+    .name { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+            font-weight: 700; }
+    .rule { flex: 1; height: 1px; }
+    .folio { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+             color: var(--mute); }
+  }
+
+  // Contents
+  .contents {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px;
+    padding: 36px 0 24px; border-bottom: 1px solid var(--rule);
+    .contents-entry {
+      .num { font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+             font-size: 20px; color: var(--accent); display: block; margin-bottom: 6px; }
+      .title { font-family: "Fraunces", serif; font-weight: 700;
+               font-size: 18px; line-height: 1.2; margin-bottom: 4px; }
+      .page { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+              color: var(--mute); }
+    }
+  }
+
+  // Agenda
+  .agenda { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: start; }
+  .agenda-intro {
+    border-right: 1px solid var(--rule); padding-right: 48px;
+    .drop { font-family: "Fraunces", serif; font-weight: 900;
+            font-size: 96px; line-height: 0.8;
+            float: left; margin: 8px 14px -8px 0; color: var(--accent); }
+    p { font-family: "Fraunces", serif; font-size: 19px; line-height: 1.5;
+        color: var(--ink-soft); margin: 0 0 18px;
+        & + p { font-size: 16px; font-family: "Inter", sans-serif; } }
+    .establishment { margin-top: 26px; padding-top: 18px;
+                     border-top: 1px solid var(--rule);
+                     font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+                     color: var(--mute); line-height: 1.9;
+                     strong { color: var(--ink); } }
+  }
+  .avenues { list-style: none; margin: 0; padding: 0; }
+  .avenue {
+    display: grid; grid-template-columns: 56px 1fr; gap: 24px;
+    padding: 22px 0; border-bottom: 1px solid var(--rule);
+    &:first-child { padding-top: 0; }
+    .num { font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+           font-size: 44px; line-height: 1; color: var(--accent); }
+    h3 { font-family: "Fraunces", serif; font-weight: 800; font-size: 26px;
+         line-height: 1.1; margin: 0 0 8px; letter-spacing: -0.01em; }
+    p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+    &.secondary {
+      .num { color: var(--mute); }
+      h3::after {
+        content: "Supporting direction";
+        margin-left: 12px; font-family: "Inter", sans-serif; font-weight: 600;
+        font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--mute); background: var(--ivory-deep);
+        padding: 4px 8px; vertical-align: middle;
+      }
+    }
+  }
+
+  // Pull quote
+  .pullquote {
+    margin: 100px -56px 0; padding: 80px 96px;
+    background: var(--ink); color: var(--ivory);
+    position: relative; overflow: hidden;
+    &::before {
+      content: "\201C"; position: absolute; left: 24px; top: -40px;
+      font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+      font-size: 360px; line-height: 1; color: var(--accent); opacity: 0.9;
+    }
+    blockquote {
+      font-family: "Fraunces", serif; font-weight: 600; font-style: italic;
+      font-size: clamp(36px, 5.2vw, 78px); line-height: 1.05;
+      letter-spacing: -0.02em; margin: 0; max-width: 1100px;
+      position: relative; z-index: 1;
+      .em { color: var(--accent); }
+    }
+    .attribution {
+      margin-top: 36px; font-family: "Inter", sans-serif;
+      font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--ivory); font-weight: 600; position: relative; z-index: 1;
+      &::before { content: ""; display: inline-block; width: 40px; height: 1px;
+                  background: var(--accent); vertical-align: middle; margin-right: 14px; }
+    }
+  }
+
+  // Publications
+  .pubs { display: grid; grid-template-columns: 7fr 5fr; gap: 56px; }
+  .pub-lead {
+    border-right: 1px solid var(--rule); padding-right: 48px;
+    .tag { display: inline-block; background: var(--accent); color: var(--ivory);
+           font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+           font-weight: 700; padding: 6px 12px; margin-bottom: 22px; }
+    .key { font-family: "Fraunces", serif; font-weight: 700; font-style: italic;
+           font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+           color: var(--mute); margin-bottom: 10px; }
+    h2 { font-family: "Fraunces", serif; font-weight: 900; font-size: 44px;
+         line-height: 1.02; letter-spacing: -0.02em; margin: 0 0 18px;
+         .em { font-style: italic; } }
+    .authors { font-size: 14px; font-weight: 600; margin-bottom: 16px;
+               .self { color: var(--accent); } }
+    .desc { font-family: "Fraunces", serif; font-size: 17px; line-height: 1.55;
+            color: var(--ink-soft); margin: 0 0 22px; }
+    .venue { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+             color: var(--mute); font-weight: 700;
+             padding-top: 16px; border-top: 1px solid var(--rule);
+             strong { color: var(--ink); } }
+  }
+  .pub-list {
+    list-style: none; margin: 0; padding: 0;
+    .label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+             color: var(--mute); font-weight: 700; margin-bottom: 18px; }
+    li {
+      padding: 18px 0; border-bottom: 1px solid var(--rule);
+      display: grid; grid-template-columns: 32px 1fr; gap: 14px;
+      &:first-of-type { border-top: 1px solid var(--rule); }
+    }
+    .ix { font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+          font-size: 22px; color: var(--accent); line-height: 1; }
+    .t { font-family: "Fraunces", serif; font-weight: 700; font-size: 17px;
+         line-height: 1.25; margin: 0 0 6px;
+         .em { font-style: italic; } }
+    .a { font-size: 12px; color: var(--ink-soft); margin-bottom: 6px;
+         .self { color: var(--accent); font-weight: 600; } }
+    .v { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+         color: var(--mute); font-weight: 700; }
+  }
+
+  // Bylines
+  .bylines { display: grid; grid-template-columns: 4fr 4fr 4fr; gap: 48px; }
+  .bylines-col h3 {
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin: 0 0 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+  }
+  .director-card {
+    border: 1px solid var(--rule); padding: 24px; background: var(--paper);
+    .initials { font-family: "Fraunces", serif; font-weight: 900;
+                font-style: italic; font-size: 84px; line-height: 0.9;
+                color: var(--accent); margin-bottom: 16px; letter-spacing: -0.03em; }
+    .name { font-family: "Fraunces", serif; font-weight: 800; font-size: 26px;
+            line-height: 1.1; margin: 0 0 4px; }
+    .title { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+             color: var(--mute); font-weight: 600; margin-bottom: 16px; }
+    .bio { font-size: 14px; line-height: 1.55; color: var(--ink-soft);
+           margin: 0 0 14px; }
+    .contact { font-size: 12px; color: var(--ink-soft);
+               padding-top: 12px; border-top: 1px solid var(--rule);
+               a { font-weight: 600; } }
+  }
+  .roster {
+    list-style: none; margin: 0; padding: 0;
+    li {
+      padding: 12px 0; border-bottom: 1px solid var(--rule);
+      display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+      &:first-child { border-top: 1px solid var(--rule); }
+    }
+    .who { font-family: "Fraunces", serif; font-weight: 700; font-size: 17px; }
+    .when { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--mute); font-weight: 600; white-space: nowrap; }
+  }
+
+  // Dispatches
+  .dispatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .dispatch {
+    border-top: 3px solid var(--ink); padding-top: 18px;
+    &:first-child { border-top-color: var(--accent); }
+    .date { font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+            font-size: 22px; color: var(--accent); margin-bottom: 10px; }
+    .body { font-family: "Fraunces", serif; font-weight: 500; font-size: 18px;
+            line-height: 1.3; color: var(--ink);
+            .em { font-style: italic; font-weight: 600; } }
+    .tag { display: inline-block; margin-top: 12px;
+           font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+           color: var(--mute); font-weight: 700; }
+  }
+
+  // Colophon
+  .colophon {
+    margin-top: 120px; padding-top: 32px; border-top: 3px solid var(--ink);
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px;
+    .brand { font-family: "Fraunces", serif; font-weight: 900; font-size: 36px;
+             line-height: 0.9; letter-spacing: -0.02em;
+             em { color: var(--accent); font-style: italic; } }
+    h4 { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+         font-weight: 700; color: var(--mute); margin: 0 0 10px; }
+    p { font-size: 13px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 6px; }
+  }
+  .colophon-bottom {
+    margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between;
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--mute); font-weight: 600;
+  }
+}
+
+// ---------- Responsive ----------
+@media (max-width: 1100px) {
+  .masthead-bar { padding: 12px 36px; }
+  .aura-quarterly {
+    padding: 0 36px 80px;
+    .cover { grid-template-columns: 1fr; }
+    .cover-aside { border-left: none; border-top: 1px solid var(--rule);
+                   padding: 24px 0 0; }
+    .agenda { grid-template-columns: 1fr; gap: 36px; }
+    .agenda-intro { border-right: none; border-bottom: 1px solid var(--rule);
+                    padding: 0 0 32px; }
+    .pubs { grid-template-columns: 1fr; gap: 48px; }
+    .pub-lead { border-right: none; border-bottom: 1px solid var(--rule);
+                padding: 0 0 40px; }
+    .bylines { grid-template-columns: 1fr 1fr;
+               .bylines-col.director { grid-column: 1 / -1; } }
+    .dispatches { grid-template-columns: 1fr 1fr; }
+    .colophon { grid-template-columns: 1fr 1fr; }
+    .contents { grid-template-columns: 1fr 1fr; }
+    .letterform { font-size: 380px; opacity: 0.06; }
+    .pullquote { margin: 80px -36px 0; padding: 56px 48px;
+                 &::before { font-size: 240px; top: -20px; } }
+  }
+}
+
+@media (max-width: 720px) {
+  .masthead-bar {
+    padding: 10px 22px; flex-direction: column; gap: 6px;
+    font-size: 9px; text-align: center;
+    .left, .right { gap: 14px; flex-wrap: wrap; justify-content: center; }
+  }
+  .aura-quarterly {
+    padding: 0 22px 64px;
+    .issue-plate { grid-template-columns: 1fr; gap: 14px; padding: 24px 0 16px;
+                   .quarterly { font-size: 44px; }
+                   .stamp { display: none; }
+                   .meta { text-align: left; } }
+    .cover { padding: 28px 0 36px; gap: 28px; }
+    .cover-headline { font-size: 48px; letter-spacing: -0.025em; }
+    .cover-deck { font-size: 17px; margin-top: 22px; padding-top: 16px; }
+    .cover-aside { padding-top: 18px; }
+    .letterform { display: none; }
+    .dept { margin: 56px 0 22px; gap: 12px;
+            .number { font-size: 22px; }
+            .name { font-size: 10px; letter-spacing: 0.24em; } }
+    .contents { grid-template-columns: 1fr; gap: 18px; padding: 24px 0 16px; }
+    .agenda-intro { padding-bottom: 24px; .drop { font-size: 64px; } }
+    .avenue { grid-template-columns: 40px 1fr; gap: 14px; padding: 18px 0;
+              .num { font-size: 30px; }
+              h3 { font-size: 20px; }
+              &.secondary h3::after { display: block; margin: 6px 0 0; } }
+    .pullquote { margin: 64px -22px 0; padding: 44px 28px;
+                 blockquote { font-size: 28px; }
+                 &::before { font-size: 180px; left: 8px; top: -10px; } }
+    .pub-lead { padding-bottom: 32px;
+                h2 { font-size: 30px; } }
+    .bylines { grid-template-columns: 1fr; gap: 32px; }
+    .director-card { padding: 20px;
+                     .initials { font-size: 64px; } }
+    .dispatches { grid-template-columns: 1fr; gap: 24px; }
+    .colophon { grid-template-columns: 1fr; gap: 24px; margin-top: 72px;
+                .brand { font-size: 28px; } }
+    .colophon-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+}

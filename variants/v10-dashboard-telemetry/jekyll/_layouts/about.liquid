@@ -1,0 +1,287 @@
+---
+layout: default
+---
+
+{% comment %}
+  AURA Lab — v10 Dashboard / Telemetry
+  Drop-in replacement for _layouts/about.liquid.
+  Requires _sass/_variant.scss (imported from _sass/_base.scss or main.scss)
+  and the Google Fonts link in _includes/head.liquid (see PORT.md).
+{% endcomment %}
+
+<div class="aura-v10">
+
+  <header class="topbar" role="banner">
+    <div class="brand">
+      <span><span class="mark"></span><strong>aura/lab</strong></span>
+      <span class="sep">/</span>
+      <span class="path">telemetry · {{ site.time | date: "%b %Y" | downcase }}</span>
+    </div>
+    <div class="live" aria-label="Live indicator">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Updated · {{ site.time | date: "%b %Y" }}</span>
+    </div>
+  </header>
+
+  <main class="dash" role="main">
+
+    <!-- Overview -->
+    <section class="panel overview col-12" aria-labelledby="ov-h">
+      <div class="panel-head">
+        <span class="label">Lab Overview · Identity &amp; Charter</span>
+        <span class="arrow" aria-hidden="true">live since fall&nbsp;2024</span>
+      </div>
+      <div class="panel-body">
+        <div>
+          <h1 id="ov-h">
+            The <span class="acro"><b>A</b><span>I for </span><b>U</b><span>nderstandable and </span><b>R</b><span>esponsible </span><b>A</b><span>utomation</span></span> Lab
+          </h1>
+          <p class="lede">
+            {% if page.lab_statement %}{{ page.lab_statement }}{% else %}The AURA Lab advances research at the intersection of efficiency, automation, and explainability in software engineering. Our mission is to design innovative and responsible AI-driven solutions that improve developer productivity while addressing key challenges of transparency and resource efficiency. Through rigorous methods, open collaboration, and a commitment to impactful work, the lab contributes practical advances in AI-supported software engineering for academia, industry, and society.{% endif %}
+          </p>
+        </div>
+        <dl class="meta">
+          <dt>Director</dt><dd>Dr. Antonio Mastropaolo · Assistant Professor</dd>
+          <dt>Host</dt><dd>William &amp; Mary, Dept. of Computer Science</dd>
+          <dt>Founded</dt><dd>Fall 2024</dd>
+          <dt>Contact</dt><dd>{{ site.email | default: "amastropaolo at wm.edu" }}</dd>
+          <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- KPI tiles -->
+    {% assign pub_count = site.data.publications | size | default: 6 %}
+    <section class="panel kpi col-3">
+      <div class="panel-head"><span class="label">Publications</span><span class="arrow">↗</span></div>
+      <div class="panel-body">
+        <div class="value">06<span class="unit">selected</span></div>
+        <div class="sub">2024–2025 · venues: TOSEM, ICPC, FORGE, ICSME, FSE</div>
+      </div>
+    </section>
+    <section class="panel kpi col-3">
+      <div class="panel-head"><span class="label">Research Avenues</span><span class="arrow">↗</span></div>
+      <div class="panel-body">
+        <div class="value">05<span class="unit">directions</span></div>
+        <div class="sub">4 primary · 1 supporting</div>
+      </div>
+    </section>
+    <section class="panel kpi col-3">
+      <div class="panel-head"><span class="label">Lab Members</span><span class="arrow">↗</span></div>
+      <div class="panel-body">
+        <div class="value">08<span class="unit">on roster</span></div>
+        <div class="sub">1 director · 7 Ph.D. students <span class="delta">+2 in 2025</span></div>
+      </div>
+    </section>
+    <section class="panel kpi col-3">
+      <div class="panel-head"><span class="label">Operational Since</span><span class="arrow">·</span></div>
+      <div class="panel-body">
+        <div class="value">2024<span class="unit">Q3</span></div>
+        <div class="sub">William &amp; Mary · Williamsburg, VA</div>
+      </div>
+    </section>
+
+    <!-- Publications timeline -->
+    <section class="panel col-6">
+      <div class="panel-head"><span class="label">Publications · By Year</span><span class="arrow">n=6</span></div>
+      <div class="panel-body">
+        <div class="chart-wrap">
+          <svg class="chart" viewBox="0 0 560 220" role="img" aria-label="Publications by year. 2024: 1. 2025: 5.">
+            <line class="gridline" x1="60" y1="180" x2="540" y2="180" />
+            <line class="gridline" x1="60" y1="150" x2="540" y2="150" />
+            <line class="gridline" x1="60" y1="120" x2="540" y2="120" />
+            <line class="gridline" x1="60" y1="90"  x2="540" y2="90" />
+            <line class="gridline" x1="60" y1="60"  x2="540" y2="60" />
+            <line class="gridline" x1="60" y1="30"  x2="540" y2="30" />
+            <text x="50" y="184" text-anchor="end">0</text>
+            <text x="50" y="154" text-anchor="end">1</text>
+            <text x="50" y="124" text-anchor="end">2</text>
+            <text x="50" y="94"  text-anchor="end">3</text>
+            <text x="50" y="64"  text-anchor="end">4</text>
+            <text x="50" y="34"  text-anchor="end">5</text>
+            <text class="axis-label" x="20" y="20">papers</text>
+            <rect class="bar" x="160" y="150" width="80" height="30" />
+            <text class="bar-label" x="200" y="142" text-anchor="middle">1</text>
+            <text x="200" y="200" text-anchor="middle">2024</text>
+            <rect class="bar" x="340" y="30" width="80" height="150" />
+            <text class="bar-label" x="380" y="22" text-anchor="middle">5</text>
+            <text x="380" y="200" text-anchor="middle">2025</text>
+            <line class="axis" x1="60" y1="180" x2="540" y2="180" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Avenue coverage -->
+    <section class="panel col-6">
+      <div class="panel-head"><span class="label">Avenue Coverage · Selected Pubs Mapped</span><span class="arrow">n=6</span></div>
+      <div class="panel-body">
+        <div class="chart-wrap">
+          <svg class="chart" viewBox="0 0 560 220" role="img" aria-label="Avenue coverage: Efficiency 2, Neurosymbolic 2, Task-Aware 1, Explainability 1, Multi-Agent 0.">
+            <line class="gridline" x1="240" y1="20" x2="240" y2="200" />
+            <line class="gridline" x1="390" y1="20" x2="390" y2="200" />
+            <line class="gridline" x1="540" y1="20" x2="540" y2="200" />
+            <text x="240" y="215" text-anchor="middle">0</text>
+            <text x="390" y="215" text-anchor="middle">1</text>
+            <text x="540" y="215" text-anchor="middle">2</text>
+            <text class="axis-label" x="240" y="14">pubs</text>
+            <text x="232" y="40" text-anchor="end">Efficiency</text>
+            <rect class="bar" x="240" y="28" width="300" height="18" />
+            <text class="bar-label" x="546" y="42">2</text>
+            <text x="232" y="74" text-anchor="end">Neurosymbolic</text>
+            <rect class="bar" x="240" y="62" width="300" height="18" />
+            <text class="bar-label" x="546" y="76">2</text>
+            <text x="232" y="108" text-anchor="end">Task-Aware</text>
+            <rect class="bar" x="240" y="96" width="150" height="18" />
+            <text class="bar-label" x="396" y="110">1</text>
+            <text x="232" y="142" text-anchor="end">Explainability</text>
+            <rect class="bar" x="240" y="130" width="150" height="18" />
+            <text class="bar-label" x="396" y="144">1</text>
+            <text x="232" y="176" text-anchor="end">Multi-Agent</text>
+            <rect class="bar-soft" x="240" y="164" width="6" height="18" />
+            <text class="bar-label" x="252" y="178">0</text>
+            <line class="axis" x1="240" y1="20" x2="240" y2="200" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications list -->
+    <section class="panel pubs col-8">
+      <div class="panel-head"><span class="label">Selected Publications · Reverse Chronological</span><span class="arrow">→ /publications</span></div>
+      <div class="panel-body">
+        <ol class="pub-list">
+          <li><span class="idx">P/06</span>
+            <div class="body">
+              <span class="title">A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm</span>
+              <span class="authors">Mastropaolo, A.; Poshyvanyk, D.</span>
+            </div>
+            <span class="venue">FSE Ideas<span class="yr">'25</span></span>
+          </li>
+          <li><span class="idx">P/05</span>
+            <div class="body">
+              <span class="title">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models</span>
+              <span class="authors">Afrin, S.; Xu, B.; Mastropaolo, A.</span>
+            </div>
+            <span class="venue">ICSME<span class="yr">'25</span></span>
+          </li>
+          <li><span class="idx">P/04</span>
+            <div class="body">
+              <span class="title">Toward Neurosymbolic Program Comprehension</span>
+              <span class="authors">Velasco, A.; Garryyeva, A.; Palacio, D. N.; Mastropaolo, A.; Poshyvanyk, D.</span>
+            </div>
+            <span class="venue">ICPC ERA<span class="yr">'25</span></span>
+          </li>
+          <li><span class="idx">P/03</span>
+            <div class="body">
+              <span class="title">Resource-Efficient &amp; Effective Code Summarization</span>
+              <span class="authors">Afrin, S.; Call, J.; Nguyen, K.-N.; Chaparro, O.; Mastropaolo, A.</span>
+            </div>
+            <span class="venue">FORGE<span class="yr">'25</span></span>
+          </li>
+          <li><span class="idx">P/02</span>
+            <div class="body">
+              <span class="title">Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?</span>
+              <span class="authors">Vitale, A.; Mastropaolo, A.; Oliveto, R.; Di Penta, M.; Scalabrino, S.</span>
+            </div>
+            <span class="venue">ICPC<span class="yr">'25</span></span>
+          </li>
+          <li><span class="idx">P/01</span>
+            <div class="body">
+              <span class="title">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era</span>
+              <span class="authors">Mastropaolo, A.; Escobar-Velásquez, C.; Linares-Vásquez, M.</span>
+            </div>
+            <span class="venue">TOSEM<span class="yr">'24</span></span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="panel team col-4">
+      <div class="panel-head"><span class="label">Team Roster · Active</span><span class="arrow">n=8</span></div>
+      <div class="panel-body">
+        <div class="team-section">
+          <h4>Director</h4>
+          <ul class="team-list">
+            <li><span class="mono">AM</span><span class="name">Antonio Mastropaolo</span><span class="joined">PI</span></li>
+          </ul>
+        </div>
+        <div class="team-section">
+          <h4>Ph.D. Students</h4>
+          <ul class="team-list">
+            <li><span class="mono">SA</span><span class="name">Saima Afrin</span><span class="joined">Sep&nbsp;'24</span></li>
+            <li><span class="mono">AG</span><span class="name">Aya Garryyeva</span><span class="joined">Jan&nbsp;'25</span></li>
+            <li><span class="mono">JC</span><span class="name">Joseph Call</span><span class="joined">Jan&nbsp;'25</span></li>
+            <li><span class="mono">KN</span><span class="name">Khai-Nguyen Nguyen</span><span class="joined">active</span></li>
+            <li><span class="mono">AL</span><span class="name">Alvi</span><span class="joined">active</span></li>
+            <li><span class="mono">BE</span><span class="name">Ben</span><span class="joined">active</span></li>
+            <li><span class="mono">CH</span><span class="name">Chris</span><span class="joined">active</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Avenues charter -->
+    <section class="panel avenues col-6">
+      <div class="panel-head"><span class="label">Research Avenues · Charter</span><span class="arrow">5 total</span></div>
+      <div class="panel-body">
+        <ul class="avenue-list">
+          <li><span class="num">01</span><div><span class="name">Explainability &amp; Interpretability</span><span class="desc">Methods that reveal how code models reason — rationales, traces, tests — so developers can inspect, trust, and debug automation.</span></div></li>
+          <li><span class="num">02</span><div><span class="name">Efficiency &amp; Resource-Aware Automation</span><span class="desc">Quantization, distillation, and PEFT to deliver low-latency, memory-light, cost-aware automation measured on real workloads with reproducible metrics.</span></div></li>
+          <li><span class="num">03</span><div><span class="name">Multi-Agent LLMs for SE</span><span class="desc">Role-aligned agents that plan, code, test, and review — coordinated to produce coherent, end-to-end developer assistance.</span></div></li>
+          <li><span class="num">04</span><div><span class="name">Neurosymbolic AI for SE</span><span class="desc">Hybrid pipelines pairing LLMs with program analysis and constraints to produce interpretable, checkable fixes, tests, and designs.</span></div></li>
+          <li class="secondary"><span class="num">05</span><div><span class="name">Task-Aware Code Automation <em style="font-style:normal; color:#8a8a90; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.06em;">· supporting</em></span><span class="desc">From issues, diffs, and traces to concise summaries, TODOs, and plans — models that reduce developer toil with actionable, repo-aware guidance.</span></div></li>
+        </ul>
+        <div class="avenue-foot">4 PRIMARY · 1 SUPPORTING · MAPPED TO PUBLICATIONS ABOVE</div>
+      </div>
+    </section>
+
+    <!-- News -->
+    <section class="panel news col-6">
+      <div class="panel-head"><span class="label">Recent Dispatches · News</span><span class="arrow">→ /news</span></div>
+      <div class="panel-body">
+        {% if site.news and site.news.size > 0 %}
+        <ul class="news-list">
+          {% assign sorted_news = site.news | sort: "date" | reverse %}
+          {% for item in sorted_news limit: 6 %}
+            <li>
+              <span class="when">{{ item.date | date: "%Y-%m" }}</span>
+              <span class="what">{{ item.title | default: item.content | strip_html | truncate: 180 }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <ul class="news-list">
+          <li><span class="when">2025-01</span><span class="what">Welcome to <strong>Aya Garryyeva</strong> and <strong>Joseph Call</strong>, joining the AURA Lab.</span></li>
+          <li><span class="when">2024-12</span><span class="what">"From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era" accepted to <strong>TOSEM</strong>.</span></li>
+          <li><span class="when">2024-11</span><span class="what">Pre-announcement: Aya and Joseph confirmed for a January start.</span></li>
+          <li><span class="when">2024-09</span><span class="what">Welcome to <strong>Saima Afrin</strong>, joining the AURA Lab.</span></li>
+        </ul>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- Collaborators -->
+    <section class="panel collab col-12">
+      <div class="panel-head"><span class="label">Frequent Co-Authors · External Collaborators</span><span class="arrow">n=5</span></div>
+      <div class="panel-body">
+        <ul class="collab-list">
+          <li><span>Denys Poshyvanyk</span><span class="aff">William &amp; Mary</span></li>
+          <li><span>David Nader Palacio</span><span class="aff">co-author</span></li>
+          <li><span>Alejandro Velasco</span><span class="aff">co-author</span></li>
+          <li><span>Oscar Chaparro</span><span class="aff">co-author</span></li>
+          <li><span>Bowen Xu</span><span class="aff">co-author</span></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footstrip">
+    <span>{{ site.url | default: "aura-se-lab.github.io" }} · William &amp; Mary CS</span>
+    <span>build · v10 · telemetry · {{ site.time | date: "%b %Y" | downcase }}</span>
+  </footer>
+
+</div>
+{{ content }}

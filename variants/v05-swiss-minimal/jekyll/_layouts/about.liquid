@@ -1,0 +1,290 @@
+---
+# v05 Swiss Minimal — drop-in replacement for _layouts/about.liquid
+# International Typographic Style: one typeface (Inter), one accent (Swiss red).
+layout: default
+---
+
+<div class="v05-shell" data-variant="swiss-minimal">
+
+  <!-- Hairline column overlay (subtle structural flourish) -->
+  <div class="v05-grid-overlay" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <main class="v05-page">
+
+    <!-- =========== TOPBAR =========== -->
+    <header class="v05-topbar">
+      <div class="v05-label cell-1">{{ site.title | default: "The AURA Lab" }}&nbsp;&nbsp;/&nbsp;&nbsp;est. 2024</div>
+      <div class="v05-label v05-label--dim cell-2">William &amp; Mary&nbsp;·&nbsp;Dept. of Computer Science</div>
+      <div class="v05-label v05-label--dim cell-3">Williamsburg, Virginia</div>
+      <nav class="v05-nav" aria-label="Primary">
+        <a href="{{ '/' | relative_url }}" class="active">Index</a>
+        <a href="{{ '/publications/' | relative_url }}">Pubs</a>
+        <a href="#people">People</a>
+        <a href="{{ '/news/' | relative_url }}">News</a>
+      </nav>
+    </header>
+
+    <!-- =========== HERO =========== -->
+    <section class="v05-hero" aria-labelledby="labname">
+      <h1 id="labname" class="v05-lab-name">
+        <span class="the">The</span><span class="accent">A</span>U<span class="accent">R</span><span class="accent">A</span>&nbsp;LAB
+      </h1>
+
+      <div class="v05-hero-meta">
+        <p class="v05-hero-agenda">
+          A research lab at William &amp; Mary advancing <em>efficient</em>, <em>explainable</em>,
+          and <em>responsible</em> AI for software engineering — designing automation that
+          developers can inspect, trust, and run on real-world budgets.
+        </p>
+        <aside class="v05-hero-side" aria-label="Lab metadata">
+          <div class="meta-row"><span>Founded</span><span>Fall 2024</span></div>
+          <div class="meta-row"><span>Director</span><span>A. Mastropaolo</span></div>
+          <div class="meta-row"><span>Department</span><span>Computer Science</span></div>
+          <div class="meta-row"><span>Institution</span><span>William &amp; Mary</span></div>
+          <div class="meta-row"><span>Contact</span><span>{{ site.email | default: 'amastropaolo · wm.edu' }}</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =========== STATEMENT =========== -->
+    <section class="v05-section" id="statement" aria-labelledby="h-statement">
+      <div class="v05-section-head">
+        <div class="v05-section-num">01</div>
+        <h2 class="v05-section-title" id="h-statement">Statement</h2>
+        <div class="v05-section-kicker">Mission &amp; method</div>
+      </div>
+      <div class="v05-grid">
+        <p class="v05-statement-body">
+          The AURA Lab, founded in Fall 2024, advances research at the intersection of
+          efficiency, automation, and explainability in software engineering. Our mission
+          is to design innovative and responsible AI-driven solutions that improve
+          developer productivity while addressing key challenges of transparency and
+          resource efficiency. Through rigorous methods, open collaboration, and a
+          commitment to impactful work, the lab contributes practical advances in
+          AI-supported software engineering for academia, industry, and society.
+        </p>
+      </div>
+    </section>
+
+    <!-- =========== RESEARCH AVENUES =========== -->
+    <section class="v05-section" id="research" aria-labelledby="h-research">
+      <div class="v05-section-head">
+        <div class="v05-section-num">02</div>
+        <h2 class="v05-section-title" id="h-research">Research avenues — four primary, one supporting</h2>
+        <div class="v05-section-kicker">2024 — present</div>
+      </div>
+
+      <div class="v05-avenues">
+        {% assign avenues = "Explainability &amp; Interpretability|Methods that reveal how code models reason — rationales, traces, tests — so developers can inspect, trust, and debug automation.|Primary|Efficiency &amp; Resource-Aware Automation|Quantization, distillation, and PEFT to deliver low-latency, memory-light, cost-aware automation, measured on real workloads with reproducible metrics.|Primary|Multi-Agent LLMs for SE|Role-aligned agents that plan, code, test, and review — coordinated to produce coherent, end-to-end developer assistance.|Primary|Neurosymbolic AI for SE|Hybrid pipelines pairing LLMs with program analysis and constraints to produce interpretable, checkable fixes, tests, and designs.|Primary|Task-Aware Code Automation|From issues, diffs, and traces to concise summaries, TODOs, and plans — models that reduce developer toil with actionable, repo-aware guidance.|Supporting" | split: "|" %}
+        {% for i in (0..4) %}
+          {% assign base = forloop.index0 | times: 3 %}
+          {% assign n = forloop.index | prepend: "0" %}
+          <div class="v05-avenue-wrap">
+            <div class="v05-avenue-no">{{ n }}</div>
+            <h3 class="v05-avenue-name">{{ avenues[base] }}</h3>
+            <p class="v05-avenue-body">{{ avenues[base | plus: 1] }}</p>
+            <div class="v05-avenue-cat">{{ avenues[base | plus: 2] }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- =========== PUBLICATIONS =========== -->
+    <section class="v05-section" id="publications" aria-labelledby="h-pubs">
+      <div class="v05-section-head">
+        <div class="v05-section-num">03</div>
+        <h2 class="v05-section-title" id="h-pubs">Selected publications</h2>
+        <div class="v05-section-kicker">2024 — 2025</div>
+      </div>
+
+      <div class="v05-pubs">
+        {% include selected_papers.liquid %}
+
+        <article class="v05-pub">
+          <div class="v05-pub-no">P–01</div>
+          <div class="v05-pub-year">2024</div>
+          <div class="v05-pub-main">
+            <h3 class="v05-pub-title">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era</h3>
+            <p class="v05-pub-authors"><b>Mastropaolo, A.</b>; Escobar-Velásquez, C.; Linares-Vásquez, M.</p>
+            <div class="v05-pub-venue">ACM TOSEM <span class="key">Mastropaolo24-Tosem</span></div>
+          </div>
+          <div class="v05-pub-cat">Journal</div>
+          <div class="v05-pub-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <article class="v05-pub">
+          <div class="v05-pub-no">P–02</div>
+          <div class="v05-pub-year">2025</div>
+          <div class="v05-pub-main">
+            <h3 class="v05-pub-title">Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?</h3>
+            <p class="v05-pub-authors">Vitale, A.; <b>Mastropaolo, A.</b>; Oliveto, R.; Di Penta, M.; Scalabrino, S.</p>
+            <div class="v05-pub-venue">ICPC 2025 <span class="key">Vitale25-Icpc</span></div>
+          </div>
+          <div class="v05-pub-cat">Conference</div>
+          <div class="v05-pub-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <article class="v05-pub">
+          <div class="v05-pub-no">P–03</div>
+          <div class="v05-pub-year">2025</div>
+          <div class="v05-pub-main">
+            <h3 class="v05-pub-title">Resource-Efficient &amp; Effective Code Summarization</h3>
+            <p class="v05-pub-authors">Afrin, S.; Call, J.; Nguyen, K.-N.; Chaparro, O.; <b>Mastropaolo, A.</b></p>
+            <div class="v05-pub-venue">FORGE 2025 <span class="key">Afrin25-Forge</span></div>
+          </div>
+          <div class="v05-pub-cat">Conference</div>
+          <div class="v05-pub-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <article class="v05-pub">
+          <div class="v05-pub-no">P–04</div>
+          <div class="v05-pub-year">2025</div>
+          <div class="v05-pub-main">
+            <h3 class="v05-pub-title">Toward Neurosymbolic Program Comprehension</h3>
+            <p class="v05-pub-authors">Velasco, A.; Garryyeva, A.; Palacio, D. N.; <b>Mastropaolo, A.</b>; Poshyvanyk, D.</p>
+            <div class="v05-pub-venue">ICPC ERA 2025 <span class="key">Velasco25-Icpc</span></div>
+          </div>
+          <div class="v05-pub-cat">Workshop</div>
+          <div class="v05-pub-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <article class="v05-pub">
+          <div class="v05-pub-no">P–05</div>
+          <div class="v05-pub-year">2025</div>
+          <div class="v05-pub-main">
+            <h3 class="v05-pub-title">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models</h3>
+            <p class="v05-pub-authors">Afrin, S.; Xu, B.; <b>Mastropaolo, A.</b></p>
+            <div class="v05-pub-venue">ICSME 2025 <span class="key">Afrin25-Icsme</span></div>
+          </div>
+          <div class="v05-pub-cat">Conference</div>
+          <div class="v05-pub-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <article class="v05-pub">
+          <div class="v05-pub-no">P–06</div>
+          <div class="v05-pub-year">2025</div>
+          <div class="v05-pub-main">
+            <h3 class="v05-pub-title">A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm</h3>
+            <p class="v05-pub-authors"><b>Mastropaolo, A.</b>; Poshyvanyk, D.</p>
+            <div class="v05-pub-venue">FSE Ideas 2025 <span class="key">Mastropaolo25-FseIdeas</span></div>
+          </div>
+          <div class="v05-pub-cat">Ideas</div>
+          <div class="v05-pub-arrow" aria-hidden="true">→</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========== PEOPLE =========== -->
+    <section class="v05-section" id="people" aria-labelledby="h-people">
+      <div class="v05-section-head">
+        <div class="v05-section-num">04</div>
+        <h2 class="v05-section-title" id="h-people">People</h2>
+        <div class="v05-section-kicker">Director · Students · Collaborators</div>
+      </div>
+
+      <div class="v05-roster">
+
+        <div class="v05-roster-block">
+          <div class="v05-roster-row">
+            <div class="v05-roster-label">Director</div>
+            <p class="v05-roster-names"><span class="director">Antonio Mastropaolo</span></p>
+          </div>
+          <div class="v05-roster-row">
+            <div class="v05-roster-label"></div>
+            <p class="v05-roster-aux">
+              Assistant Professor, William &amp; Mary CS. Ph.D., Università della Svizzera Italiana, 2024.
+              M.Sc. &amp; B.Sc., University of Molise.
+            </p>
+          </div>
+        </div>
+
+        <div class="v05-roster-block">
+          <div class="v05-roster-row">
+            <div class="v05-roster-label">Ph.D. Students</div>
+            <p class="v05-roster-names">
+              Saima Afrin<span class="sep">·</span>Aya Garryyeva<span class="sep">·</span>Joseph Call<span class="sep">·</span>Khai-Nguyen Nguyen<span class="sep">·</span>Alvi<span class="sep">·</span>Ben<span class="sep">·</span>Chris
+            </p>
+          </div>
+          <div class="v05-roster-row">
+            <div class="v05-roster-label"></div>
+            <p class="v05-roster-aux">
+              Afrin joined Sep 2024 · Garryyeva &amp; Call joined Jan 2025 (announced Nov 2024) · others ongoing.
+            </p>
+          </div>
+        </div>
+
+        <div class="v05-roster-block">
+          <div class="v05-roster-row">
+            <div class="v05-roster-label">Collaborators</div>
+            <p class="v05-roster-names">
+              Denys Poshyvanyk<span class="sep">·</span>David Nader Palacio<span class="sep">·</span>Alejandro Velasco<span class="sep">·</span>Oscar Chaparro<span class="sep">·</span>Bowen Xu
+            </p>
+          </div>
+          <div class="v05-roster-row">
+            <div class="v05-roster-label"></div>
+            <p class="v05-roster-aux">Frequent co-authors across W&amp;M and partner institutions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========== NEWS =========== -->
+    <section class="v05-section" id="news" aria-labelledby="h-news">
+      <div class="v05-section-head">
+        <div class="v05-section-num">05</div>
+        <h2 class="v05-section-title" id="h-news">News</h2>
+        <div class="v05-section-kicker">Reverse chronological</div>
+      </div>
+
+      <div class="v05-news-list">
+        {% if site.news %}
+          {% assign news_items = site.news | sort: "date" | reverse %}
+          {% for item in news_items limit: 6 %}
+            <article class="v05-news-item">
+              <div class="v05-news-date">
+                <span class="y">{{ item.date | date: "%Y" }}</span><span class="m">{{ item.date | date: "%b" }}</span>
+              </div>
+              <p class="v05-news-body">{{ item.content | strip_html | truncate: 220 }}</p>
+              <div class="v05-news-tag">{{ item.category | default: "Update" }}</div>
+            </article>
+          {% endfor %}
+        {% else %}
+          <article class="v05-news-item">
+            <div class="v05-news-date"><span class="y">2024</span><span class="m">Dec</span></div>
+            <p class="v05-news-body">"From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era" accepted to ACM <strong>TOSEM</strong>.</p>
+            <div class="v05-news-tag">Publication</div>
+          </article>
+          <article class="v05-news-item">
+            <div class="v05-news-date"><span class="y">2025</span><span class="m">Jan</span></div>
+            <p class="v05-news-body">Welcome to <strong>Aya Garryyeva</strong> and <strong>Joseph Call</strong>, joining the AURA Lab as Ph.D. students.</p>
+            <div class="v05-news-tag">People</div>
+          </article>
+          <article class="v05-news-item">
+            <div class="v05-news-date"><span class="y">2024</span><span class="m">Nov</span></div>
+            <p class="v05-news-body">Aya Garryyeva and Joseph Call announced as incoming students ahead of January start.</p>
+            <div class="v05-news-tag">People</div>
+          </article>
+          <article class="v05-news-item">
+            <div class="v05-news-date"><span class="y">2024</span><span class="m">Sep</span></div>
+            <p class="v05-news-body">Welcome to <strong>Saima Afrin</strong>, joining the AURA Lab as a Ph.D. student.</p>
+            <div class="v05-news-tag">People</div>
+          </article>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- =========== COLOPHON =========== -->
+    <footer class="v05-colophon">
+      <div class="c1">© 2024–{{ 'now' | date: "%Y" }} The AURA Lab</div>
+      <div class="c2">Set in Inter · 12-column grid · Swiss minimal</div>
+      <div class="c3"><a href="{{ '/' | relative_url }}">aura-se-lab.github.io</a></div>
+    </footer>
+
+  </main>
+
+  {{ content }}
+</div>

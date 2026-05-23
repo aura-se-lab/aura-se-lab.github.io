@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AURA Lab — variant gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf8; --ink: #15161a; --dim: #6e7079;
+    --rule: #e6e5e1; --accent: #1f6b3a; --warn: #b8332a;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 64px 32px 96px; }
+  header { border-bottom: 1px solid var(--rule); padding-bottom: 28px; margin-bottom: 40px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); margin: 0 0 10px; }
+  h1 { font-size: 38px; font-weight: 700; letter-spacing: -0.025em; margin: 0 0 8px; }
+  .sub { color: var(--dim); font-size: 16px; max-width: 75ch; }
+  .meta { margin-top: 18px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px; color: var(--dim); font-family: 'JetBrains Mono', monospace; }
+  .meta b { color: var(--ink); font-weight: 500; }
+
+  h2.section { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); font-weight: 500; margin: 56px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+  h2.section:first-of-type { margin-top: 0; }
+  h2.section .desc { display: block; font-family: 'Inter', sans-serif; text-transform: none; letter-spacing: -0.005em; font-size: 14px; color: var(--ink); margin-top: 6px; font-weight: 400; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+  a.card { display: block; text-decoration: none; color: inherit; border: 1px solid var(--rule); background: #fff; padding: 22px 24px; transition: border-color 120ms ease; }
+  a.card:hover { border-color: var(--ink); }
+  a.card.family { background: #f4faf6; border-color: #cfe5d4; }
+  a.card.family:hover { border-color: var(--accent); }
+  a.card:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .rank { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+  .name { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; margin: 4px 0 4px; }
+  .concept { color: var(--dim); font-size: 14px; }
+  .row2 { margin-top: 16px; display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; flex-wrap: wrap; }
+  .pill { padding: 3px 8px; border: 1px solid var(--rule); border-radius: 0; letter-spacing: 0.08em; text-transform: uppercase; font-size: 10.5px; }
+  .pill.accept { color: #fff; background: var(--accent); border-color: var(--accent); }
+  .pill.review { color: var(--ink); background: transparent; }
+  .score { color: var(--dim); }
+  .score b { color: var(--ink); font-weight: 500; }
+  .pick { color: var(--accent); font-weight: 500; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  .footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--dim); display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .legend { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">AURA LAB · William &amp; Mary · Homepage variants</p>
+    <h1>Fifteen variants — judge-ranked</h1>
+    <p class="sub">Ten distinct directions (v01–v10), plus a five-template family (v11–v15) that hard-inherits v02's terminal palette and ASCII AURA logo — one sibling per research avenue. Clicking a card opens that variant's <code>preview.html</code>. Three variants reached <b>ACCEPT</b> with the panel; the rest are REVIEW (no rejects).</p>
+    <div class="meta">
+      <span><b>Target:</b> peer / academic credibility</span>
+      <span><b>Panel:</b> 3 judges (HF DeepSeek)</span>
+      <span><b>Verdicts:</b> 3 ACCEPT · 12 REVIEW · 0 REJECT</span>
+      <span><b>ACCEPTs:</b> v02 · v14 · v15</span>
+    </div>
+  </header>
+
+  <h2 class="section">v01–v10 · Ten distinct directions
+    <span class="desc">Each variant explores a unique aesthetic and structural idiom. Originally judged in the first panel.</span>
+  </h2>
+
+  <div class="grid">
+
+    <a class="card" href="v01-editorial-manuscript/preview.html">
+      <div class="row"><span class="rank">#02 · COMP 0.06</span><span class="pick">Best for peer audience</span></div>
+      <div class="name">v01 · Editorial Manuscript</div>
+      <div class="concept">arXiv / TOSEM-style typeset paper. Numbered sections, abstract block, reference list, cream parchment.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.00 · <b>cite</b> 0.00 · <b>fin</b> 0.17 · <b>peer</b> 0.08</span></div>
+    </a>
+
+    <a class="card" href="v02-brutalist-terminal/preview.html">
+      <div class="row"><span class="rank">#01 · COMP 0.05</span><span class="pick">Panel ACCEPT · DNA root</span></div>
+      <div class="name">v02 · Brutalist Terminal</div>
+      <div class="concept">100% monospace. ASCII AURA logo, deep-forest + phosphor green, BibTeX listing, ls -la team, git-log news.</div>
+      <div class="row2"><span class="pill accept">Accept</span><span class="score"><b>fid</b> 0.00 · <b>cite</b> 0.00 · <b>fin</b> 0.08 · <b>peer</b> 0.08</span></div>
+    </a>
+
+    <a class="card" href="v03-research-index/preview.html">
+      <div class="row"><span class="rank">#06 · COMP 0.11</span><span></span></div>
+      <div class="name">v03 · Research Index</div>
+      <div class="concept">Anthropic/OpenAI-style modular grid. Publication cards, avenue tiles, initials monograms.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.20 · <b>cite</b> 0.03 · <b>fin</b> 0.05 · <b>peer</b> 0.02</span></div>
+    </a>
+
+    <a class="card" href="v04-distill-notebook/preview.html">
+      <div class="row"><span class="rank">#08 · COMP 0.20</span><span></span></div>
+      <div class="name">v04 · Distill Notebook</div>
+      <div class="concept">distill.pub-inspired. Wide serif body, real margin sidenotes, inline SVG diagram, equation block.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.17 · <b>cite</b> 0.00 · <b>fin</b> 0.08 · <b>peer</b> 0.08</span></div>
+    </a>
+
+    <a class="card" href="v05-swiss-minimal/preview.html">
+      <div class="row"><span class="rank">#03 · COMP 0.08</span><span></span></div>
+      <div class="name">v05 · Swiss Minimal</div>
+      <div class="concept">International Typographic Style. Giant lab name, hard 12-col grid, one Swiss-red accent.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.08 · <b>cite</b> 0.00 · <b>fin</b> 0.17 · <b>peer</b> 0.00</span></div>
+    </a>
+
+    <a class="card" href="v06-documentation/preview.html">
+      <div class="row"><span class="rank">#05 · COMP 0.10</span><span></span></div>
+      <div class="name">v06 · Documentation Site</div>
+      <div class="concept">Stripe-/React-docs feel. Three-pane layout with sticky sidebar, breadcrumb, on-this-page rail, ⌘K.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.12 · <b>cite</b> 0.00 · <b>fin</b> 0.05 · <b>peer</b> 0.15</span></div>
+    </a>
+
+    <a class="card" href="v07-editorial-magazine/preview.html">
+      <div class="row"><span class="rank">#09 · COMP 0.21</span><span></span></div>
+      <div class="name">v07 · Editorial Magazine</div>
+      <div class="concept">Pentagram / Bloomberg Businessweek. Fraunces 900 display, asymmetric grid, big pull quote.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.12 · <b>cite</b> 0.00 · <b>fin</b> 0.25 · <b>peer</b> 0.33</span></div>
+    </a>
+
+    <a class="card" href="v08-research-graph/preview.html">
+      <div class="row"><span class="rank">#04 · COMP 0.08</span><span></span></div>
+      <div class="name">v08 · Research Graph</div>
+      <div class="concept">Hand-positioned SVG knowledge graph. Hover-highlight neighborhoods, click-to-open drawer, text fallback.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.08 · <b>cite</b> 0.00 · <b>fin</b> 0.17 · <b>peer</b> 0.08</span></div>
+    </a>
+
+    <a class="card" href="v09-studio-longform/preview.html">
+      <div class="row"><span class="rank">#07 · COMP 0.14</span><span></span></div>
+      <div class="name">v09 · Studio Longform</div>
+      <div class="concept">Pentagram / atelier longform scroll. Single column, drop cap, oversized italic pull quote, progress bar.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.13 · <b>cite</b> 0.00 · <b>fin</b> 0.12 · <b>peer</b> 0.07</span></div>
+    </a>
+
+    <a class="card" href="v10-dashboard-telemetry/preview.html">
+      <div class="row"><span class="rank">#10 · COMP 0.23</span><span></span></div>
+      <div class="name">v10 · Dashboard Telemetry</div>
+      <div class="concept">Grafana / Stripe-Sigma research dashboard. KPI tiles, inline SVG charts derived from canonical content.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.17 · <b>cite</b> 0.25 · <b>fin</b> 0.08 · <b>peer</b> 0.25</span></div>
+    </a>
+
+  </div>
+
+  <h2 class="section">v11–v15 · AURA family
+    <span class="desc">Five siblings of v02 — same deep-forest + phosphor palette, same IBM Plex Mono, same ASCII AURA logo plate. Each picks a unique structural device aligned with one of the five research avenues. Two of the five (v14 · v15) reached ACCEPT in the panel; v02 remains the third ACCEPT.</span>
+  </h2>
+
+  <div class="grid">
+
+    <a class="card family" href="v11-aura-01-explainability/preview.html">
+      <div class="row"><span class="rank">FAMILY · COMP 0.12</span><span class="pick">Avenue [01] · Explainability</span></div>
+      <div class="name">v11 · aura-01-explainability — Annotated Margins</div>
+      <div class="concept">Two-track grid: main content + right "rationale" rail with real evidence pinned beside every section. BibTeX entries open in-place explain drawers.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.00 · <b>cite</b> 0.12 · <b>fin</b> 0.00 · <b>peer</b> 0.12</span></div>
+    </a>
+
+    <a class="card family" href="v12-aura-02-efficiency/preview.html">
+      <div class="row"><span class="rank">FAMILY · COMP 0.09</span><span class="pick">Avenue [02] · Efficiency</span></div>
+      <div class="name">v12 · aura-02-efficiency — Telemetry Frame</div>
+      <div class="concept">Every section carries an honest cost annotation (words / bytes / read-time). Top-strip mini-dashboard + 5-segment "byte budget" bar — all counts derived from canonical content.</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.08 · <b>cite</b> 0.00 · <b>fin</b> 0.17 · <b>peer</b> 0.08</span></div>
+    </a>
+
+    <a class="card family" href="v13-aura-03-multi-agent/preview.html">
+      <div class="row"><span class="rank">FAMILY · COMP 0.14</span><span class="pick">Avenue [03] · Multi-Agent</span></div>
+      <div class="name">v13 · aura-03-multi-agent — Agent Transcript</div>
+      <div class="concept">Sticky left transcript of planner / coder / tester / reviewer turns; right column carries the canonical content. Tester verifies real counts (5/5 avenues, 6/6 pubs, 8/8 members).</div>
+      <div class="row2"><span class="pill review">Review</span><span class="score"><b>fid</b> 0.08 · <b>cite</b> 0.00 · <b>fin</b> 0.33 · <b>peer</b> 0.08</span></div>
+    </a>
+
+    <a class="card family" href="v14-aura-04-neurosymbolic/preview.html">
+      <div class="row"><span class="rank">FAMILY · COMP 0.05</span><span class="pick">Avenue [04] · Neurosymbolic · ACCEPT</span></div>
+      <div class="name">v14 · aura-04-neurosymbolic — Spec / Prose Pairs</div>
+      <div class="concept">Every claim renders twice — symbolic predicate on the left, prose on the right, paired by a phosphor-green turnstile ⊢. 24 pairs in total, each constructor traces to canonical content.</div>
+      <div class="row2"><span class="pill accept">Accept</span><span class="score"><b>fid</b> 0.00 · <b>cite</b> 0.00 · <b>fin</b> 0.17 · <b>peer</b> 0.00</span></div>
+    </a>
+
+    <a class="card family" href="v15-aura-05-task-aware/preview.html">
+      <div class="row"><span class="rank">FAMILY · COMP 0.08</span><span class="pick">Avenue [05] · Task-Aware · ACCEPT</span></div>
+      <div class="name">v15 · aura-05-task-aware — Lab-as-Patchset</div>
+      <div class="concept">The homepage IS a stream of 25 merged PRs against the lab. Mission, avenues, pubs, onboardings, news — all rendered as merge commits with real diff hunks. GitHub-style filter toolbar.</div>
+      <div class="row2"><span class="pill accept">Accept</span><span class="score"><b>fid</b> 0.00 · <b>cite</b> 0.00 · <b>fin</b> 0.25 · <b>peer</b> 0.00</span></div>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    <span><a href="JUDGE_REPORT.md">Judge report (markdown)</a></span>
+    <span><a href="_content.md">Canonical content fixture</a></span>
+    <span><a href="_judge_brief.md">Judge brief</a></span>
+    <span><a href="README.md">Variants README</a></span>
+  </div>
+  <p class="legend">Scores 0..1, lower is better. fid=target fidelity · cite=citation integrity · fin=finish quality · peer=distinctness + peer credibility. Single-vendor (HF/DeepSeek) panel — rankings are directional.</p>
+</div>
+</body>
+</html>

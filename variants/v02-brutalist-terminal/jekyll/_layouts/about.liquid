@@ -1,0 +1,221 @@
+---
+# AURA Lab — Variant v02 "Brutalist Terminal"
+# Drop-in replacement for _layouts/about.liquid
+layout: default
+---
+
+<main class="v02-shell">
+  <section class="v02-win" aria-label="AURA Lab terminal">
+
+    <header class="v02-win__bar">
+      <span class="v02-win__dots" aria-hidden="true">[ x ][ - ][ + ]</span>
+      <span class="v02-win__title">{{ site.url | remove: "https://" | remove: "http://" }} / tty0 / cat README.md</span>
+      <span class="v02-win__meta">William &amp; Mary &middot; Dept. of Computer Science</span>
+    </header>
+
+    <div class="v02-win__body">
+
+      {% comment %} ── HERO ─────────────────────────────────────── {% endcomment %}
+      <div class="v02-prompt">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">whoami</span>
+      </div>
+
+      {% comment %} ASCII wordmark logo — AURA {% endcomment %}
+      <pre class="v02-logo" aria-label="AURA Lab" role="img">
+<span class="v02-logo__glow"> █████  ██    ██ ██████   █████
+██   ██ ██    ██ ██   ██ ██   ██
+███████ ██    ██ ██████  ███████
+██   ██ ██    ██ ██   ██ ██   ██
+██   ██  ██████  ██   ██ ██   ██</span>
+<span class="v02-logo__rule">────────────────────────────────────────────</span>
+<span class="v02-logo__sub">// LAB · WILLIAM &amp; MARY · SINCE 2024</span></pre>
+
+      <h1 class="v02-h1">
+        {% if site.title == 'blank' %}
+          <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }} {{ site.last_name }}
+        {% else %}
+          The <span class="acro">A</span><span>URA</span> Lab
+        {% endif %}
+        <span class="v02-cursor" aria-hidden="true">&nbsp;</span>
+      </h1>
+
+      {% if page.subtitle %}
+        <p class="v02-tagline">{{ page.subtitle }}</p>
+      {% endif %}
+
+      <dl class="v02-facts">
+        <dt>Director</dt>      <dd>Dr. Antonio Mastropaolo &middot; Assistant Professor</dd>
+        <dt>Institution</dt>   <dd>William &amp; Mary &middot; Department of Computer Science</dd>
+        <dt>Founded</dt>       <dd>Fall 2024</dd>
+        <dt>Contact</dt>       <dd>amastropaolo at wm dot edu</dd>
+        <dt>Director site</dt> <dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+      </dl>
+
+      {% comment %} ── MISSION ──────────────────────────────────── {% endcomment %}
+      <hr class="v02-rule" aria-hidden="true" />
+      <div class="v02-section__head">
+        <a class="v02-section__nav" href="#about">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">cat</span>
+          <span class="arg">$about.md</span>
+        </a>
+        <span class="v02-section__tag">// 01 — mission</span>
+      </div>
+
+      <section class="v02-about" id="about">
+        <h2 class="v02-h2">Mission</h2>
+        <div class="v02-about__body">
+          <div class="pull">{{ content }}</div>
+        </div>
+      </section>
+
+      {% comment %} ── RESEARCH AVENUES ─────────────────────────── {% endcomment %}
+      <hr class="v02-rule" aria-hidden="true" />
+      <div class="v02-section__head">
+        <a class="v02-section__nav" href="#research">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">ls</span>
+          <span class="arg">research/</span>
+        </a>
+        <span class="v02-section__tag">// 02 — research avenues</span>
+      </div>
+
+      <section id="research">
+        <h2 class="v02-h2">Research Avenues</h2>
+        <div class="v02-avenues">
+          <article class="v02-avenue">
+            <div class="v02-avenue__no">[01]</div>
+            <h3 class="v02-avenue__title">Explainability &amp; Interpretability</h3>
+            <p class="v02-avenue__body">Methods that reveal how code models reason — rationales, traces, tests — so developers can inspect, trust, and debug automation.</p>
+          </article>
+          <article class="v02-avenue">
+            <div class="v02-avenue__no">[02]</div>
+            <h3 class="v02-avenue__title">Efficiency &amp; Resource-Aware Automation</h3>
+            <p class="v02-avenue__body">Quantization, distillation, and PEFT to deliver low-latency, memory-light, cost-aware automation measured on real workloads with reproducible metrics.</p>
+          </article>
+          <article class="v02-avenue">
+            <div class="v02-avenue__no">[03]</div>
+            <h3 class="v02-avenue__title">Multi-Agent LLMs for SE</h3>
+            <p class="v02-avenue__body">Role-aligned agents that plan, code, test, and review, coordinated to produce coherent, end-to-end developer assistance.</p>
+          </article>
+          <article class="v02-avenue">
+            <div class="v02-avenue__no">[04]</div>
+            <h3 class="v02-avenue__title">Neurosymbolic AI for SE</h3>
+            <p class="v02-avenue__body">Hybrid pipelines pairing LLMs with program analysis and constraints to produce interpretable, checkable fixes, tests, and designs.</p>
+          </article>
+          <article class="v02-avenue v02-avenue--sub">
+            <div class="v02-avenue__no">[+1] supporting direction</div>
+            <h3 class="v02-avenue__title">Task-Aware Code Automation</h3>
+            <p class="v02-avenue__body">From issues, diffs, and traces to concise summaries, TODOs, and plans; models that reduce developer toil with actionable, repo-aware guidance.</p>
+          </article>
+        </div>
+      </section>
+
+      {% comment %} ── PUBLICATIONS ─────────────────────────────── {% endcomment %}
+      {% if page.selected_papers %}
+        <hr class="v02-rule" aria-hidden="true" />
+        <div class="v02-section__head">
+          <a class="v02-section__nav" href="{{ '/publications/' | relative_url }}">
+            <span class="ps1">&gt; aura_lab ::</span>
+            <span class="cmd">bibtex</span>
+            <span class="arg">--selected pubs/*.bib</span>
+          </a>
+          <span class="v02-section__tag">// 03 — selected publications</span>
+        </div>
+        <section id="pubs">
+          <h2 class="v02-h2">Selected Publications</h2>
+          <div class="v02-bib">
+            {% include selected_papers.liquid %}
+          </div>
+        </section>
+      {% endif %}
+
+      {% comment %} ── PEOPLE ───────────────────────────────────── {% endcomment %}
+      <hr class="v02-rule" aria-hidden="true" />
+      <div class="v02-section__head">
+        <a class="v02-section__nav" href="#people">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">ls -la</span>
+          <span class="arg">members/</span>
+        </a>
+        <span class="v02-section__tag">// 04 — people</span>
+      </div>
+      <section id="people">
+        <h2 class="v02-h2">Members</h2>
+        <div class="v02-ls" role="table">
+          <div class="v02-ls__total">total 12 &middot; drwxr-xr-x  aura_lab  staff</div>
+          <div class="v02-ls__row v02-ls__row--head">
+            <span>perms</span><span>n</span><span>role</span><span>name</span><span>joined</span>
+          </div>
+
+          <div class="v02-ls__group">// director</div>
+          <div class="v02-ls__row">
+            <span class="v02-ls__perm">drwxr-xr-x</span><span class="v02-ls__n">1</span>
+            <span class="v02-ls__role">director</span>
+            <span class="v02-ls__name">antonio_mastropaolo &mdash; Asst. Prof.; PhD USI '24</span>
+            <span class="v02-ls__date">2024-09-01</span>
+          </div>
+
+          <div class="v02-ls__group">// phd students</div>
+          <div class="v02-ls__row"><span class="v02-ls__perm">-rw-r--r--</span><span class="v02-ls__n">1</span><span class="v02-ls__role">phd_student</span><span class="v02-ls__name">saima_afrin</span><span class="v02-ls__date">2024-09-01</span></div>
+          <div class="v02-ls__row"><span class="v02-ls__perm">-rw-r--r--</span><span class="v02-ls__n">1</span><span class="v02-ls__role">phd_student</span><span class="v02-ls__name">aya_garryyeva</span><span class="v02-ls__date">2025-01-15</span></div>
+          <div class="v02-ls__row"><span class="v02-ls__perm">-rw-r--r--</span><span class="v02-ls__n">1</span><span class="v02-ls__role">phd_student</span><span class="v02-ls__name">joseph_call</span><span class="v02-ls__date">2025-01-15</span></div>
+          <div class="v02-ls__row"><span class="v02-ls__perm">-rw-r--r--</span><span class="v02-ls__n">1</span><span class="v02-ls__role">phd_student</span><span class="v02-ls__name">khai-nguyen_nguyen</span><span class="v02-ls__date">----------</span></div>
+          <div class="v02-ls__row"><span class="v02-ls__perm">-rw-r--r--</span><span class="v02-ls__n">1</span><span class="v02-ls__role">phd_student</span><span class="v02-ls__name">alvi</span><span class="v02-ls__date">----------</span></div>
+          <div class="v02-ls__row"><span class="v02-ls__perm">-rw-r--r--</span><span class="v02-ls__n">1</span><span class="v02-ls__role">phd_student</span><span class="v02-ls__name">ben</span><span class="v02-ls__date">----------</span></div>
+          <div class="v02-ls__row"><span class="v02-ls__perm">-rw-r--r--</span><span class="v02-ls__n">1</span><span class="v02-ls__role">phd_student</span><span class="v02-ls__name">chris</span><span class="v02-ls__date">----------</span></div>
+        </div>
+
+        <div class="v02-ls__group" style="margin-top:18px;">// collaborators &mdash; frequent co-authors</div>
+        <ul class="v02-collab">
+          <li>denys_poshyvanyk &middot; W&amp;M</li>
+          <li>david_nader_palacio</li>
+          <li>alejandro_velasco</li>
+          <li>oscar_chaparro</li>
+          <li>bowen_xu</li>
+        </ul>
+      </section>
+
+      {% comment %} ── NEWS ─────────────────────────────────────── {% endcomment %}
+      {% if page.news and site.announcements.enabled %}
+        <hr class="v02-rule" aria-hidden="true" />
+        <div class="v02-section__head">
+          <a class="v02-section__nav" href="{{ '/news/' | relative_url }}">
+            <span class="ps1">&gt; aura_lab ::</span>
+            <span class="cmd">git log</span>
+            <span class="arg">--oneline news/</span>
+          </a>
+          <span class="v02-section__tag">// 05 — news</span>
+        </div>
+        <section id="news">
+          <h2 class="v02-h2">Activity Log</h2>
+          <div class="v02-gitlog-wrap">
+            {% include news.liquid limit=true %}
+          </div>
+        </section>
+      {% endif %}
+
+      {% comment %} ── FOOTER ───────────────────────────────────── {% endcomment %}
+      <hr class="v02-rule" aria-hidden="true" />
+      <div class="v02-prompt" style="margin-top:10px;">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">contact</span>
+        <span class="arg">--mail</span>
+      </div>
+      <div class="v02-sig">
+        <div>
+          mailto:&nbsp;<a href="mailto:amastropaolo@wm.edu">amastropaolo@wm.edu</a>
+          &nbsp;&middot;&nbsp;
+          web:&nbsp;<a href="{{ '/' | absolute_url }}">{{ site.url | remove: "https://" | remove: "http://" }}</a>
+        </div>
+        <div class="v02-sig__hint">// end of file</div>
+      </div>
+
+      {% if page.social %}
+        <div class="v02-social">{% include social.liquid %}</div>
+      {% endif %}
+
+    </div>
+  </section>
+</main>

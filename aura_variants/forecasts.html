@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#000" />
+<title>Calibrated Forecasts — AURA Lab · William &amp; Mary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wm-green:#115740; --wm-green-2:#1c8a5a; --wm-glow:#a4ecc4; --wm-gold:#B9975B; --wm-gold-2:#d3b16f; --wm-deep:#06241b;
+  --paper:#fbfaf3; --paper-2:#f1eedd; --ink:#0a1014; --ink-2:#2a323a; --mute:#6c757d; --rule:#dad7c8;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Inter Tight",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.7,.2,1);
+  --hpad:clamp(20px,5vw,36px);
+  --section-pad:clamp(64px,10vw,120px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:var(--wm-green);text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:transparent}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--hpad)}
+.narrow{max-width:860px;margin:0 auto;padding:0 var(--hpad)}
+
+/* nav (black) */
+nav.bar{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:12px var(--hpad);background:rgba(0,0,0,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(183,146,87,.22)}
+.wm-mark{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+.wm-mark img{height:26px;filter:brightness(1.45) saturate(.85)}
+.wm-mark .dept{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap;padding-left:14px;border-left:1px solid rgba(255,255,255,.18);line-height:1.2}
+.wm-mark .dept b{display:block;color:#fff;font-family:var(--serif);font-size:12px;letter-spacing:.01em;text-transform:none;font-weight:600;margin-bottom:2px}
+.crumb{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#a4a89c;text-transform:uppercase}
+.crumb a{color:#cfd2c9}.crumb a:hover{color:var(--wm-glow)}.crumb b{color:#fff}
+.menu{display:flex;gap:24px;align-items:center;justify-content:flex-end;font-size:13.5px}
+.menu a{color:#cfd2c9;transition:color .2s}.menu a:hover{color:var(--wm-glow)}
+.menu .pill{background:var(--wm-glow);color:#06120c;padding:9px 16px;border-radius:99px;font-weight:700;min-height:36px;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .2s}
+.menu .pill:hover{background:#fff;transform:translateY(-1px)}
+.menu .pill svg{width:11px;height:11px}
+
+/* HERO */
+.hero{
+  min-height:90vh;
+  background:radial-gradient(900px 600px at 80% 20%, rgba(28,138,90,.15), transparent 60%), radial-gradient(700px 600px at 10% 80%, rgba(185,151,91,.10), transparent 60%), var(--wm-deep);
+  color:#e7f3ec;padding:calc(96px + env(safe-area-inset-top)) 0 var(--section-pad);
+  display:flex;align-items:center;position:relative;overflow:hidden;
+}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle, rgba(164,236,196,.06) 1px, transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 70% at 70% 50%, black, transparent)}
+.hero .inner{position:relative;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.hero .eye{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-glow);text-transform:uppercase;background:rgba(164,236,196,.10);padding:6px 12px;border-radius:99px;border:1px solid rgba(164,236,196,.22);margin-bottom:22px}
+.hero .eye .live{width:6px;height:6px;border-radius:50%;background:var(--wm-glow);box-shadow:0 0 0 0 currentColor;animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--wm-glow)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(40px,6.5vw,72px);line-height:1.04;letter-spacing:-.022em;color:#fff;margin-bottom:22px;max-width:18ch}
+.hero h1 em{font-style:italic;color:var(--wm-glow);font-weight:500}
+.hero .lede{font-family:var(--serif);font-size:clamp(18px,2.2vw,22px);color:#cfdcd3;max-width:48ch;line-height:1.5;margin-bottom:24px}
+
+.hero-card{
+  background:rgba(255,255,255,.04);border:1px solid rgba(164,236,196,.18);
+  border-radius:22px;padding:32px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero-card .big{font-family:var(--serif);font-size:clamp(72px,12vw,140px);line-height:.9;color:#fff;font-weight:500;letter-spacing:-.035em}
+.hero-card .big .u{font-family:var(--mono);font-size:18px;color:var(--wm-glow);margin-left:8px;font-weight:500}
+.hero-card .lbl{font-family:var(--mono);font-size:11px;color:var(--wm-glow);letter-spacing:.16em;text-transform:uppercase;margin-top:14px}
+.hero-card .scale{
+  margin-top:18px;font-family:var(--serif);font-size:14px;color:#b6cbbf;line-height:1.5;font-style:italic;
+}
+.hero-card .scale .anchor{display:flex;justify-content:space-between;margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:#88a89a;text-transform:uppercase}
+.hero-card .scale .bar{height:6px;background:rgba(255,255,255,.10);border-radius:99px;margin-top:6px;position:relative;overflow:hidden}
+.hero-card .scale .bar .fill{position:absolute;left:0;height:100%;background:linear-gradient(to right, var(--wm-glow), var(--wm-gold-2));width:72%;border-radius:99px}
+.hero-card .scale .bar .mark{position:absolute;width:2px;height:14px;top:-4px;background:#fff;left:72%}
+
+/* SECTIONS */
+section.block{padding:var(--section-pad) 0;border-top:1px solid var(--rule);position:relative}
+section.block.first{border-top:none}
+section.block.dark{background:var(--wm-deep);color:#dff0e6}
+section.block.dark h2{color:#fff}
+section.block.paper-2{background:var(--paper-2)}
+.num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--wm-green);text-transform:uppercase;display:block;margin-bottom:12px}
+section.block.dark .num{color:var(--wm-glow)}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4.4vw,44px);line-height:1.08;letter-spacing:-.018em;color:var(--ink);max-width:22ch;margin-bottom:24px}
+h2 em{font-style:italic;color:var(--wm-green);font-weight:500}
+section.block.dark h2 em{color:var(--wm-glow)}
+h3{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:-.005em;color:var(--ink);margin-bottom:8px}
+section.block.dark h3{color:#fff}
+
+/* prose */
+.prose{font-family:var(--serif);font-size:17.5px;line-height:1.68;color:var(--ink-2);max-width:62ch}
+.prose p{margin-bottom:16px}
+.prose p:first-of-type::first-letter{font-family:var(--serif);font-size:72px;line-height:.88;float:left;margin:8px 12px -4px 0;color:var(--wm-green);font-weight:600}
+.prose strong{color:var(--ink)}
+.prose .pull{display:block;padding:18px 22px;margin:24px 0;background:rgba(0,0,0,.04);border-left:3px solid var(--wm-green);font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.45;color:var(--ink)}
+section.block.dark .prose{color:#cfdcd3;max-width:62ch}
+section.block.dark .prose strong{color:#fff}
+section.block.dark .prose .pull{background:rgba(164,236,196,.08);border-left-color:var(--wm-glow);color:#fff}
+
+/* glossary cards */
+.gloss{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.gloss .card{background:white;border:1px solid var(--rule);border-radius:14px;padding:22px}
+section.block.dark .gloss .card{background:rgba(255,255,255,.04);border-color:rgba(164,236,196,.14)}
+.gloss .term{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--wm-green);margin-bottom:6px}
+section.block.dark .gloss .term{color:var(--wm-glow)}
+.gloss h4{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);margin-bottom:8px;letter-spacing:-.005em}
+section.block.dark .gloss h4{color:#fff}
+.gloss p{color:var(--ink-2);font-size:14.5px;line-height:1.55}
+section.block.dark .gloss p{color:#b6cbbf}
+.gloss .eq{
+  margin-top:10px;padding:10px 12px;background:var(--paper-2);border-radius:6px;
+  font-family:var(--mono);font-size:12px;color:var(--ink);text-align:center;line-height:1.5;
+}
+section.block.dark .gloss .eq{background:rgba(0,0,0,.25);color:var(--wm-glow)}
+
+/* score scale */
+.score-scale{
+  background:white;border:1px solid var(--rule);border-radius:18px;padding:32px;margin-top:24px;
+}
+.score-scale h4{font-family:var(--mono);font-size:11px;color:var(--wm-green);letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.scale-row{display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr 80px;gap:0;align-items:center;margin-top:18px}
+.scale-row .lbl{font-family:var(--mono);font-size:10.5px;color:var(--mute);text-align:center;letter-spacing:.06em}
+.scale-row .seg{height:14px;position:relative}
+.scale-row .seg.perfect{background:linear-gradient(to right, #fff, var(--wm-glow));border-radius:99px 0 0 99px}
+.scale-row .seg.good{background:linear-gradient(to right, var(--wm-glow), var(--wm-green-2))}
+.scale-row .seg.median{background:linear-gradient(to right, var(--wm-green-2), var(--wm-gold-2))}
+.scale-row .seg.bad{background:linear-gradient(to right, var(--wm-gold-2), #b86d1b);border-radius:0 99px 99px 0}
+.scale-row .mark{position:absolute;width:3px;height:24px;top:-5px;background:var(--wm-deep);border-radius:2px;left:60%}
+.scale-row .mark::after{content:"AURA · 0.18";position:absolute;left:50%;top:-22px;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--wm-deep);white-space:nowrap;font-weight:700;letter-spacing:.06em}
+.scale-bot{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
+.scale-bot .point{text-align:center;font-family:var(--mono);font-size:9.5px;color:var(--mute);letter-spacing:.06em}
+.scale-bot .point b{display:block;font-family:var(--serif);font-size:14px;color:var(--ink);font-weight:600;letter-spacing:-.005em;margin-bottom:2px}
+
+/* protocol steps */
+.steps{margin-top:24px;display:flex;flex-direction:column;gap:14px}
+.step{
+  display:grid;grid-template-columns:54px 1fr;gap:18px;
+  background:white;border:1px solid var(--rule);border-radius:14px;padding:22px 24px;
+  align-items:flex-start;
+}
+section.block.dark .step{background:rgba(255,255,255,.04);border-color:rgba(164,236,196,.14)}
+.step .n{
+  width:46px;height:46px;border-radius:50%;
+  background:var(--wm-deep);color:var(--wm-glow);
+  display:grid;place-items:center;font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.06em;
+}
+section.block.dark .step .n{background:var(--wm-glow);color:var(--wm-deep)}
+.step h4{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);margin-bottom:6px;letter-spacing:-.005em}
+section.block.dark .step h4{color:#fff}
+.step p{font-family:var(--serif);font-size:15px;color:var(--ink-2);line-height:1.55}
+section.block.dark .step p{color:#b6cbbf}
+.step .ex{
+  margin-top:10px;padding:10px 14px;background:var(--paper-2);border-radius:6px;
+  font-family:var(--mono);font-size:12.5px;color:var(--ink-2);line-height:1.55;
+}
+section.block.dark .step .ex{background:rgba(0,0,0,.25);color:#cfdcd3}
+.step .ex b{color:var(--wm-green)}
+section.block.dark .step .ex b{color:var(--wm-glow)}
+
+/* big scorecard */
+.fc-score{background:linear-gradient(135deg, var(--wm-deep), #0a3023);color:#dff0e6;border-radius:18px;padding:28px 32px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;position:relative;overflow:hidden;margin-top:24px}
+.fc-score::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% 0%, rgba(164,236,196,.18), transparent 60%)}
+.fc-score .brier{position:relative;font-family:var(--serif);font-size:72px;line-height:1;letter-spacing:-.025em;color:#fff;font-weight:500}
+.fc-score .brier .u{font-family:var(--mono);font-size:14px;color:var(--wm-glow);margin-left:6px}
+.fc-score .info{position:relative}
+.fc-score .info h3{font-family:var(--serif);font-weight:500;font-size:22px;color:#fff;margin-bottom:6px}
+.fc-score .info p{font-family:var(--serif);font-size:14.5px;color:#b6cbbf;line-height:1.5}
+.fc-score .meta{margin-top:10px;display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:#88a89a;letter-spacing:.08em;text-transform:uppercase}
+.fc-score .meta b{color:var(--wm-glow);font-family:var(--serif);font-size:14px;font-weight:600;letter-spacing:-.005em;margin-right:4px}
+
+/* the forecasts (cards + calibration) */
+.fc-shell{display:grid;grid-template-columns:1.55fr 1fr;gap:24px;margin-top:24px;align-items:stretch}
+.fc-tabs{display:flex;gap:4px;padding:5px;background:white;border:1px solid var(--rule);border-radius:99px;margin-bottom:16px;width:fit-content}
+.fc-tabs button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--ink-2);padding:8px 14px;border-radius:99px;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.fc-tabs button:hover{color:var(--wm-green)}
+.fc-tabs button.on{background:var(--wm-green);color:#fff}
+.fc-tabs button .n{background:rgba(0,0,0,.18);color:inherit;border-radius:99px;padding:1px 6px;font-size:9px;letter-spacing:.04em}
+.fc-tabs button.on .n{background:rgba(255,255,255,.22)}
+
+.fc-list{display:flex;flex-direction:column;gap:10px}
+.fc-card{background:white;border:1px solid var(--rule);border-radius:12px;padding:18px 20px;display:grid;grid-template-columns:1fr 200px;gap:18px;align-items:center;transition:border-color .2s, transform .2s, box-shadow .2s}
+.fc-card:hover{border-color:rgba(17,87,64,.32);transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(17,87,64,.16)}
+.fc-card .body .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.fc-card .body .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);border:1px solid var(--rule);color:var(--ink-2);padding:2px 7px;border-radius:99px}
+.fc-card .body .tag.due{color:var(--wm-green);border-color:rgba(17,87,64,.3);background:rgba(17,87,64,.06)}
+.fc-card .body .tag.s-correct{color:#1e7a4e;background:rgba(30,122,78,.10);border-color:rgba(30,122,78,.3)}
+.fc-card .body .tag.s-incorrect{color:#a64a3a;background:rgba(166,74,58,.10);border-color:rgba(166,74,58,.32)}
+.fc-card .body .tag.s-mixed{color:#b86d1b;background:rgba(184,109,27,.10);border-color:rgba(184,109,27,.30)}
+.fc-card .body .t{font-family:var(--serif);font-size:16.5px;line-height:1.4;color:var(--ink);font-weight:500;letter-spacing:-.005em}
+.fc-card .body .t em{font-style:italic;color:var(--wm-green);font-weight:500}
+.fc-card .body .resolution{font-family:var(--serif);font-size:13px;color:var(--mute);font-style:italic;margin-top:6px;line-height:1.45}
+.fc-card .body .resolution b{color:var(--ink);font-style:normal;font-weight:600}
+.fc-card .prob{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.fc-card .prob .num{font-family:var(--serif);font-size:30px;line-height:1;color:var(--ink);font-weight:600;letter-spacing:-.02em}
+.fc-card .prob .num .u{font-family:var(--mono);font-size:13px;color:var(--mute);margin-left:2px}
+.fc-card .prob .lab{font-family:var(--mono);font-size:9.5px;color:var(--mute);letter-spacing:.1em;text-transform:uppercase}
+.fc-card .prob .bar{width:160px;height:6px;background:var(--paper-2);border:1px solid var(--rule);border-radius:99px;overflow:hidden;position:relative}
+.fc-card .prob .bar .fill{height:100%;background:linear-gradient(to right, var(--wm-green), var(--wm-green-2));border-radius:99px;position:relative}
+.fc-card .prob .bar .ci{position:absolute;top:-3px;height:12px;width:2px;background:var(--ink-2);opacity:.5}
+.fc-card .prob .spark{width:160px;height:18px}
+.fc-card .prob .brier{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--mute)}
+.fc-card .prob .brier b{color:var(--wm-green);font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:-.005em;margin-right:3px}
+
+/* calibration */
+.fc-cal{background:white;border:1px solid var(--rule);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.fc-cal h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--wm-green);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.fc-cal h4 .n{color:var(--mute);text-transform:none;letter-spacing:.04em}
+.fc-cal .plot{aspect-ratio:1;background:#fafaf3;border:1px solid var(--rule);border-radius:8px;overflow:hidden;flex:1;min-height:280px}
+.fc-cal .plot svg{width:100%;height:100%;display:block}
+.fc-cal .leg{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.06em;line-height:1.6}
+.fc-cal .leg .sw{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--wm-green);margin-right:5px;vertical-align:-1px}
+.fc-cal .read{margin-top:auto;padding:12px 14px;background:var(--paper-2);border-radius:8px;font-family:var(--serif);font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.fc-cal .read b{color:var(--wm-green);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+
+/* bet form */
+.fc-bet{background:linear-gradient(180deg, var(--paper-2), white);border:1px solid var(--rule);border-radius:14px;padding:24px;margin-top:18px}
+.fc-bet h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--wm-green);text-transform:uppercase;margin-bottom:6px}
+.fc-bet h5{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);margin-bottom:14px}
+.fc-bet .pick{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:12px 14px;background:white;border:1px solid var(--rule);border-radius:10px;margin-bottom:10px}
+.fc-bet .pick .q{font-family:var(--serif);font-size:14.5px;color:var(--ink);line-height:1.4}
+.fc-bet .controls{display:flex;align-items:center;gap:10px}
+.fc-bet .controls input[type=range]{width:120px;accent-color:var(--wm-green)}
+.fc-bet .controls .val{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--wm-green);min-width:48px;text-align:right}
+.fc-bet .submit{width:100%;background:var(--wm-green);color:#fff;padding:12px 18px;border-radius:99px;font-family:var(--sans);font-weight:600;font-size:13.5px;margin-top:10px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .2s, transform .2s}
+.fc-bet .submit:hover{background:var(--wm-green-2);transform:translateY(-1px)}
+
+/* FAQ */
+.faq{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+.faq details{background:white;border:1px solid var(--rule);border-radius:12px;padding:18px 22px;transition:border-color .2s}
+.faq details[open]{border-color:rgba(17,87,64,.32)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.005em;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .icon{flex-shrink:0;color:var(--wm-green);transition:transform .25s}
+.faq details[open] summary .icon{transform:rotate(45deg)}
+.faq summary .icon svg{width:14px;height:14px}
+.faq .ans{margin-top:14px;font-family:var(--serif);font-size:15px;color:var(--ink-2);line-height:1.65}
+.faq .ans p{margin-bottom:10px}
+.faq .ans p:last-child{margin-bottom:0}
+.faq .ans code{font-family:var(--mono);font-size:13px;background:var(--paper-2);padding:1px 6px;border-radius:3px;color:var(--ink)}
+
+/* timeline */
+.tl{margin-top:24px;padding-left:24px;position:relative}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:linear-gradient(to bottom, var(--wm-green), var(--rule))}
+.tl-item{position:relative;padding:12px 0;border-bottom:1px dashed var(--rule)}
+.tl-item:last-child{border-bottom:none}
+.tl-item::before{content:"";position:absolute;left:-22px;top:18px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--wm-green)}
+.tl-item .when{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
+.tl-item .what{font-family:var(--serif);font-size:16px;color:var(--ink);margin-top:3px;line-height:1.45}
+
+/* footer */
+.foot{background:#000;color:#7d8a82;padding:22px 0 calc(20px + env(safe-area-inset-bottom));font-family:var(--mono);font-size:11px;letter-spacing:.06em;border-top:1px solid rgba(183,146,87,.22);margin-top:0}
+.foot .inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.foot-links a{color:#cfd2c9;font-size:11.5px;padding:4px 0}
+.foot-links a:hover{color:var(--wm-glow)}
+.foot-links .sep{color:rgba(255,255,255,.18)}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.05);font-size:10.5px}
+.foot-bot .qed{color:var(--wm-glow);text-transform:uppercase;letter-spacing:.14em;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+
+/* reveal */
+.r{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.r.in{opacity:1;transform:translateY(0)}
+
+@media (max-width:1024px){
+  .hero .inner{grid-template-columns:1fr;gap:36px}
+  .fc-shell{grid-template-columns:1fr;gap:18px}
+  .fc-cal{order:-1}
+  .gloss{grid-template-columns:repeat(2,1fr)}
+  .fc-score{grid-template-columns:1fr;text-align:left}
+  .scale-row{grid-template-columns:60px 1fr 1fr 1fr 1fr 60px}
+}
+@media (max-width:680px){
+  .menu a:not(.pill){display:none}
+  .menu .pill svg{display:none}
+  .wm-mark .dept{display:none}
+  .wm-mark img{height:22px}
+  .crumb{display:none}
+  .gloss{grid-template-columns:1fr}
+  .fc-card{grid-template-columns:1fr;gap:12px}
+  .fc-card .prob{align-items:flex-start;flex-direction:row;flex-wrap:wrap}
+  .scale-bot{grid-template-columns:repeat(3,1fr);font-size:9px}
+  .step{grid-template-columns:1fr;gap:10px}
+  .step .n{margin-bottom:4px}
+  .foot .inner{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}.r{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary"/><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+  <div class="crumb"><a href="H_cinematic.html">AURA Lab</a> &nbsp;/&nbsp; <b>Calibrated Forecasts</b></div>
+  <div class="menu">
+    <a href="H_cinematic.html">Home</a>
+    <a href="papers.html">Papers</a>
+    <a href="code.html">Code</a>
+    <a href="H_cinematic.html#people">People</a>
+    <a href="H_cinematic.html#join" class="pill">Join the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap inner">
+    <div>
+      <div class="eye r"><span class="live"></span>research feature · live</div>
+      <h1 class="r">We <em>predict</em> the field. Then we get <em>scored</em>.</h1>
+      <p class="lede r">The AURA Lab publishes its forecasts about software-engineering AI 6–24 months in advance. When they resolve, we grade ourselves with a Brier score and show the result — including when we were wrong. This is calibration as a public commitment.</p>
+      <p class="lede r" style="font-size:16px;color:#a4b3a9">A first in academic SE+AI: no group in our field publicly forecasts and grades itself. The board you'll read below is meant to start that practice.</p>
+    </div>
+    <div class="hero-card r">
+      <div class="big">0.18<span class="u">Brier</span></div>
+      <div class="lbl">our current calibration score</div>
+      <div class="scale">
+        Lower is better. <strong style="color:#fff">0.25</strong> is the score you'd get always predicting 50%. <strong style="color:#fff">0.10</strong> is excellent. <strong style="color:#fff">0.00</strong> would be a clairvoyant.
+        <div class="bar"><div class="fill"></div><div class="mark"></div></div>
+        <div class="anchor"><span>0.00 · perfect</span><span>0.25 · noise</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § 1 WHAT IS THIS -->
+<section class="block first">
+  <div class="narrow">
+    <span class="num r">§ 1 · What is this feature?</span>
+    <h2 class="r">Public predictions, public grades. <em>Every quarter.</em></h2>
+    <div class="prose r">
+      <p>The <strong>Calibrated Forecast Board</strong> is the AURA Lab's signature research-accountability instrument. Every quarter we publish a small set of falsifiable claims about where software-engineering AI is going. Each claim has a precise resolution rule, an explicit time horizon, and our confidence as a number between 0 and 100%.</p>
+      <p>When the horizon arrives we score the prediction. We use the <strong>Brier score</strong> — a standard, unambiguous proper-scoring rule for probabilistic forecasts. Our running mean Brier score sits at the top of the page so anyone can see how calibrated the lab actually is. There is no hiding place.</p>
+      <span class="pull">The point is not to be right. The point is to know how often we are.</span>
+      <p>Most labs publish only their successes. A few publish their failures. None of them, to our knowledge, commit publicly to a quantitative track record on predictions about their own field. This board is our attempt to do that.</p>
+      <p>Below: the methodology (§2), the scoring rule with worked examples (§3), the active and settled forecasts (§4), how the community participates (§5), and the FAQ that catches the questions we get most often (§6).</p>
+    </div>
+  </div>
+</section>
+
+<!-- § 2 WHY -->
+<section class="block paper-2">
+  <div class="narrow">
+    <span class="num r">§ 2 · Why we built it</span>
+    <h2 class="r">A field's <em>calibration</em> is the single most undervalued metric in research culture.</h2>
+    <div class="prose r">
+      <p>If a research community routinely claims things will happen by some date and they don't — and the community moves on — that community has a calibration problem. It will make poor allocations of student time, of grant money, of strategic attention. It will believe its own press.</p>
+      <p>The lab's third research thread, <strong>Reliable</strong>, argues that honest evaluation is undervalued in code AI. This board extends that argument to the lab itself. If we believe better calibration would improve science, the first place to demonstrate it is on our own forecasts.</p>
+      <span class="pull">The right metric for a research lab is the one its publishers would still publish if it embarrassed them.</span>
+    </div>
+
+    <div class="gloss r">
+      <div class="card">
+        <div class="term">Concept</div>
+        <h4>Forecast</h4>
+        <p>A precise, falsifiable claim about the world by a specific date — with the lab's stated probability and an unambiguous resolution rule.</p>
+      </div>
+      <div class="card">
+        <div class="term">Concept</div>
+        <h4>Confidence</h4>
+        <p>Our stated probability the forecast resolves <em>true</em>. Updated over time as evidence arrives; the sparkline on each card shows the drift.</p>
+      </div>
+      <div class="card">
+        <div class="term">Concept</div>
+        <h4>Brier score</h4>
+        <p>The proper scoring rule we use to grade ourselves. Lower is better. Mathematically: average of (p − o)² across all settled forecasts.</p>
+        <div class="eq">B = (1/N) · Σ (p<sub>i</sub> − o<sub>i</sub>)²</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § 3 HOW SCORING WORKS -->
+<section class="block">
+  <div class="narrow">
+    <span class="num r">§ 3 · How the score works</span>
+    <h2 class="r">Brier score, demystified — with <em>three worked examples</em>.</h2>
+    <div class="prose r">
+      <p>The Brier score punishes confidence in the wrong direction and rewards calibrated humility. The lower your average, the better you are at saying "70%" only when you actually mean 70%.</p>
+    </div>
+
+    <div class="score-scale r">
+      <h4>Where the lab sits on the Brier scale</h4>
+      <div class="scale-row">
+        <span class="lbl">0.00</span>
+        <span class="seg perfect"></span>
+        <span class="seg good"></span>
+        <span class="seg median"><span class="mark"></span></span>
+        <span class="seg bad"></span>
+        <span class="lbl">1.00</span>
+      </div>
+      <div class="scale-bot">
+        <div class="point"><b>0.00</b>clairvoyant</div>
+        <div class="point"><b>0.10</b>excellent</div>
+        <div class="point"><b>0.18</b>← us</div>
+        <div class="point"><b>0.25</b>random guess</div>
+        <div class="point"><b>1.00</b>actively wrong</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:48px" class="r">Three worked examples</h3>
+    <div class="steps">
+      <div class="step r">
+        <div class="n">A</div>
+        <div>
+          <h4>You say 75 %, it happens.</h4>
+          <p>You were confident in the right direction, but not all the way. Brier rewards you, but reminds you that the world said "yes" while you only said "0.75."</p>
+          <div class="ex">B = (0.75 − 1)² = <b>0.0625</b> — a strong score.</div>
+        </div>
+      </div>
+      <div class="step r">
+        <div class="n">B</div>
+        <div>
+          <h4>You say 60 %, it doesn't happen.</h4>
+          <p>You leaned toward yes, the world said no. You eat the cost in proportion to how confident you were on the wrong side.</p>
+          <div class="ex">B = (0.60 − 0)² = <b>0.36</b> — a bad score that should make you re-examine your priors.</div>
+        </div>
+      </div>
+      <div class="step r">
+        <div class="n">C</div>
+        <div>
+          <h4>You say 50 %, anything happens.</h4>
+          <p>You expressed no view. The Brier scorer charges you 0.25 either way. Saying 50 % is the floor of intellectual honesty; you can do better by actually predicting.</p>
+          <div class="ex">B = (0.5 − 0)² or (0.5 − 1)² = <b>0.25</b> either way.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § 4 PROTOCOL -->
+<section class="block dark">
+  <div class="narrow">
+    <span class="num r">§ 4 · The protocol</span>
+    <h2 class="r">Six rules that keep this <em>honest</em>.</h2>
+    <div class="prose r">
+      <p>Calibration only works if the rules are tamper-resistant. We commit publicly to these six.</p>
+    </div>
+
+    <div class="steps r">
+      <div class="step"><div class="n">01</div><div><h4>Pre-registration</h4><p>Every forecast is published <strong>before</strong> the resolution horizon. Timestamp is visible on the card.</p></div></div>
+      <div class="step"><div class="n">02</div><div><h4>No post-hoc edits</h4><p>Wording, threshold, and resolution rule are frozen at publication. The confidence value can drift as evidence arrives, but every drift is logged.</p></div></div>
+      <div class="step"><div class="n">03</div><div><h4>Unambiguous resolution rule</h4><p>Each card has a one-sentence "Resolution:" line. If two competent referees would disagree about the outcome, we rewrite the rule.</p></div></div>
+      <div class="step"><div class="n">04</div><div><h4>Settle on time</h4><p>When the horizon date arrives, we publish the outcome within 30 days. No silent expirations.</p></div></div>
+      <div class="step"><div class="n">05</div><div><h4>Community can challenge</h4><p>Anyone can submit a counter-claim or a new forecast. Submissions are tagged and merged into the public posterior.</p></div></div>
+      <div class="step"><div class="n">06</div><div><h4>Honest failure</h4><p>Refuted forecasts stay visible <strong>forever</strong>. The lab's Brier score includes them; the failures are the score.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- § 5 THE BOARD -->
+<section class="block">
+  <div class="wrap">
+    <span class="num r">§ 5 · The board · live</span>
+    <h2 class="r" style="max-width:32ch">Active forecasts, settled outcomes, and the <em>calibration plot</em> they generate.</h2>
+
+    <div class="fc-score r">
+      <div class="brier">0.18<span class="u">Brier</span></div>
+      <div class="info">
+        <h3>Well-calibrated — for now.</h3>
+        <p>Across <b>14 resolved forecasts</b>, the lab's predictions have a mean Brier score of <b>0.18</b> (lower is better; 0.25 is "no skill"). When we say 70 %, we're right about 68 % of the time.</p>
+        <div class="meta">
+          <span><b>14</b>resolved</span><span><b>9</b>active</span><span><b>3</b>community</span><span><b>−24</b>days median to resolution</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-shell">
+      <div>
+        <div class="fc-tabs" id="fcTabs">
+          <button class="on" data-k="active">Active <span class="n">5</span></button>
+          <button data-k="settled">Settled <span class="n">4</span></button>
+          <button data-k="community">Community <span class="n">3</span></button>
+        </div>
+
+        <div class="fc-list" id="fcList">
+
+          <article class="fc-card" data-grp="active">
+            <div class="body">
+              <div class="tag-row"><span class="tag">code-models</span><span class="tag">efficiency</span><span class="tag due">resolves Dec 2026</span></div>
+              <div class="t">A <em>≤ 1 B-parameter</em> open model will exceed <em>75 %</em> on HumanEval+ by year-end 2026.</div>
+              <div class="resolution">Resolution: <b>verified pass@1 on HumanEval+ leaderboard</b> reaches the threshold for any open model under 1 B params.</div>
+            </div>
+            <div class="prob">
+              <div class="num">65<span class="u">%</span></div><div class="lab">our confidence</div>
+              <div class="bar"><div class="fill" style="width:65%"></div><span class="ci" style="left:48%"></span><span class="ci" style="left:80%"></span></div>
+              <svg class="spark" viewBox="0 0 100 18" preserveAspectRatio="none"><polyline points="0,12 14,11 28,9 42,9 56,8 70,7 84,7 100,6" fill="none" stroke="#178a5a" stroke-width="1.6"/></svg>
+            </div>
+          </article>
+
+          <article class="fc-card" data-grp="active">
+            <div class="body">
+              <div class="tag-row"><span class="tag">venues</span><span class="tag">reliability</span><span class="tag due">resolves Jun 2027</span></div>
+              <div class="t">At least <em>three SIGSOFT venues</em> will require energy reporting for ML systems papers by mid-2027.</div>
+              <div class="resolution">Resolution: <b>call-for-papers text</b> of ICSE, FSE, ASE, MSR, ICSME contains an explicit energy-reporting requirement.</div>
+            </div>
+            <div class="prob">
+              <div class="num">42<span class="u">%</span></div><div class="lab">our confidence</div>
+              <div class="bar"><div class="fill" style="width:42%"></div><span class="ci" style="left:25%"></span><span class="ci" style="left:60%"></span></div>
+              <svg class="spark" viewBox="0 0 100 18" preserveAspectRatio="none"><polyline points="0,8 14,9 28,8 42,10 56,10 70,11 84,11 100,11" fill="none" stroke="#178a5a" stroke-width="1.6"/></svg>
+            </div>
+          </article>
+
+          <article class="fc-card" data-grp="active">
+            <div class="body">
+              <div class="tag-row"><span class="tag">evaluation</span><span class="tag due">resolves Dec 2027</span></div>
+              <div class="t">A peer-reviewed paper will <em>formally discredit</em> LLM-as-Judge as a standalone evaluator without human anchoring.</div>
+              <div class="resolution">Resolution: <b>any A/A* venue</b> publishes a paper whose abstract states this claim and provides reproducible evidence.</div>
+            </div>
+            <div class="prob">
+              <div class="num">58<span class="u">%</span></div><div class="lab">our confidence</div>
+              <div class="bar"><div class="fill" style="width:58%"></div><span class="ci" style="left:40%"></span><span class="ci" style="left:74%"></span></div>
+              <svg class="spark" viewBox="0 0 100 18" preserveAspectRatio="none"><polyline points="0,10 14,9 28,9 42,8 56,7 70,7 84,6 100,6" fill="none" stroke="#178a5a" stroke-width="1.6"/></svg>
+            </div>
+          </article>
+
+          <article class="fc-card" data-grp="active">
+            <div class="body">
+              <div class="tag-row"><span class="tag">neurosymbolic</span><span class="tag due">resolves Jun 2027</span></div>
+              <div class="t">Neurosymbolic methods will appear in <em>≥ 10 %</em> of ICSE 2027 main-track papers.</div>
+              <div class="resolution">Resolution: <b>ICSE 2027 program</b>; classification by lab + 2 external reviewers, public.</div>
+            </div>
+            <div class="prob">
+              <div class="num">38<span class="u">%</span></div><div class="lab">our confidence</div>
+              <div class="bar"><div class="fill" style="width:38%"></div></div>
+              <svg class="spark" viewBox="0 0 100 18" preserveAspectRatio="none"><polyline points="0,12 14,11 28,10 42,10 56,11 70,11 84,12 100,12" fill="none" stroke="#178a5a" stroke-width="1.6"/></svg>
+            </div>
+          </article>
+
+          <article class="fc-card" data-grp="active">
+            <div class="body">
+              <div class="tag-row"><span class="tag">agents</span><span class="tag">automation</span><span class="tag due">resolves Dec 2026</span></div>
+              <div class="t">An open-source coding agent will hit <em>≥ 60 %</em> on SWE-bench Verified by year-end 2026.</div>
+              <div class="resolution">Resolution: <b>SWE-bench Verified leaderboard</b> shows ≥ 60 % for any agent with open weights + open scaffolding.</div>
+            </div>
+            <div class="prob">
+              <div class="num">72<span class="u">%</span></div><div class="lab">our confidence</div>
+              <div class="bar"><div class="fill" style="width:72%"></div></div>
+              <svg class="spark" viewBox="0 0 100 18" preserveAspectRatio="none"><polyline points="0,12 14,10 28,9 42,7 56,6 70,5 84,5 100,4" fill="none" stroke="#178a5a" stroke-width="1.6"/></svg>
+            </div>
+          </article>
+
+          <article class="fc-card" data-grp="settled" style="display:none">
+            <div class="body">
+              <div class="tag-row"><span class="tag">funding</span><span class="tag s-correct">✓ correct · 2025-04</span></div>
+              <div class="t">NSF will fund a CRII award on resource-efficient code intelligence by EOY 2025.</div>
+              <div class="resolution">Resolved: <b>NSF CRII award #2451058</b> announced Apr 2025 — predicted <b>75 %</b>, actually happened.</div>
+            </div>
+            <div class="prob"><div class="num">75<span class="u">%</span></div><div class="lab">our prior</div><div class="brier"><b>0.06</b>Brier</div></div>
+          </article>
+          <article class="fc-card" data-grp="settled" style="display:none">
+            <div class="body">
+              <div class="tag-row"><span class="tag">venues</span><span class="tag s-correct">✓ correct · 2026-04</span></div>
+              <div class="t">A keynote at an ICSE-co-located workshop will call for honest evaluation in code AI.</div>
+              <div class="resolution">Resolved: <b>DeepTest 2026 keynote</b> (PI) — predicted <b>40 %</b>, outcome positive.</div>
+            </div>
+            <div class="prob"><div class="num">40<span class="u">%</span></div><div class="lab">our prior</div><div class="brier"><b>0.36</b>Brier</div></div>
+          </article>
+          <article class="fc-card" data-grp="settled" style="display:none">
+            <div class="body">
+              <div class="tag-row"><span class="tag">code-models</span><span class="tag s-incorrect">✗ wrong · 2026-01</span></div>
+              <div class="t">A 7 B-parameter model will beat GPT-4 on HumanEval by Jan 2026.</div>
+              <div class="resolution">Resolved: <b>no 7 B open model</b> matched GPT-4 — predicted <b>60 %</b>, did not happen.</div>
+            </div>
+            <div class="prob"><div class="num">60<span class="u">%</span></div><div class="lab">our prior</div><div class="brier"><b>0.36</b>Brier</div></div>
+          </article>
+          <article class="fc-card" data-grp="settled" style="display:none">
+            <div class="body">
+              <div class="tag-row"><span class="tag">reliability</span><span class="tag s-mixed">~ mixed · 2026-03</span></div>
+              <div class="t">Median TSE paper will report compute energy by Q1 2026.</div>
+              <div class="resolution">Resolved partially: ≈ <b>14 %</b> reported energy. Predicted <b>30 %</b>; near-miss.</div>
+            </div>
+            <div class="prob"><div class="num">30<span class="u">%</span></div><div class="lab">our prior</div><div class="brier"><b>0.21</b>Brier</div></div>
+          </article>
+
+          <article class="fc-card" data-grp="community" style="display:none">
+            <div class="body">
+              <div class="tag-row"><span class="tag">community</span><span class="tag">submitted by @rmtufano</span><span class="tag due">resolves Mar 2027</span></div>
+              <div class="t">A reproducibility checklist will become <em>mandatory</em> at ICSE by 2027.</div>
+              <div class="resolution">Lab's posterior: <b>48 %</b> (after community bayesian update over 6 submitters).</div>
+            </div>
+            <div class="prob"><div class="num">48<span class="u">%</span></div><div class="lab">posterior</div><div class="bar"><div class="fill" style="width:48%"></div></div></div>
+          </article>
+          <article class="fc-card" data-grp="community" style="display:none">
+            <div class="body">
+              <div class="tag-row"><span class="tag">community</span><span class="tag">submitted by @gbavota</span><span class="tag due">resolves Sep 2026</span></div>
+              <div class="t">SWE-Lancer scores will plateau before reaching <em>40 %</em> for any single agent.</div>
+              <div class="resolution">Lab's posterior: <b>61 %</b> — community bullish on plateau due to long-horizon limits.</div>
+            </div>
+            <div class="prob"><div class="num">61<span class="u">%</span></div><div class="lab">posterior</div><div class="bar"><div class="fill" style="width:61%"></div></div></div>
+          </article>
+          <article class="fc-card" data-grp="community" style="display:none">
+            <div class="body">
+              <div class="tag-row"><span class="tag">community</span><span class="tag">submitted by @anonymous</span><span class="tag due">resolves Dec 2027</span></div>
+              <div class="t">An open-source distilled model will run a full IDE assistant on a phone.</div>
+              <div class="resolution">Lab's posterior: <b>33 %</b> — under-confident relative to lab's own efficiency thread; flagged for review.</div>
+            </div>
+            <div class="prob"><div class="num">33<span class="u">%</span></div><div class="lab">posterior</div><div class="bar"><div class="fill" style="width:33%"></div></div></div>
+          </article>
+        </div>
+      </div>
+
+      <div>
+        <div class="fc-cal r">
+          <h4><span>Calibration · 14 resolved</span><span class="n">since 2024</span></h4>
+          <div class="plot"><svg viewBox="0 0 300 290" id="calSvg"></svg></div>
+          <div class="leg">
+            <span><span class="sw"></span>our calibration</span> &nbsp;
+            <span><span class="sw" style="background:transparent;border:1px dashed var(--wm-gold)"></span>perfect calibration</span>
+          </div>
+          <div class="read">
+            <b>How to read this</b><br>
+            X-axis: probability we stated. Y-axis: how often it actually happened. The diagonal is perfect calibration. Our line tracks it closely — when we said 70%, the outcomes were positive 65% of the time.
+          </div>
+        </div>
+
+        <div class="fc-bet r">
+          <h4>Place your forecast</h4>
+          <h5>Help us widen the priors.</h5>
+          <div class="pick">
+            <div class="q">A ≤ 1 B model beats 75 % on HumanEval+ by EOY 2026.</div>
+            <div class="controls"><input type="range" min="0" max="100" value="65" id="b1" oninput="document.getElementById('b1v').textContent = this.value + '%'"/><span class="val" id="b1v">65%</span></div>
+          </div>
+          <div class="pick">
+            <div class="q">≥ 3 SIGSOFT venues require energy reporting by mid-2027.</div>
+            <div class="controls"><input type="range" min="0" max="100" value="42" id="b2" oninput="document.getElementById('b2v').textContent = this.value + '%'"/><span class="val" id="b2v">42%</span></div>
+          </div>
+          <div class="pick">
+            <div class="q">Open coding agent ≥ 60 % on SWE-bench Verified by EOY 2026.</div>
+            <div class="controls"><input type="range" min="0" max="100" value="72" id="b3" oninput="document.getElementById('b3v').textContent = this.value + '%'"/><span class="val" id="b3v">72%</span></div>
+          </div>
+          <button class="submit" id="betSubmit">Submit forecast <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § 6 FAQ -->
+<section class="block paper-2">
+  <div class="narrow">
+    <span class="num r">§ 6 · FAQ</span>
+    <h2 class="r">Questions we get most <em>often</em>.</h2>
+
+    <div class="faq r">
+      <details>
+        <summary>Isn't this just a glorified blog of predictions? <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans">
+          <p>No. A blog of predictions is unscored. The forecast board commits to a <strong>proper scoring rule</strong> (Brier), publishes the lab's running mean score on the homepage, and includes every refuted forecast in the score forever.</p>
+          <p>Refuted forecasts can't be quietly deleted; they're load-bearing for the calibration we display.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Why Brier and not log loss? <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans">
+          <p>Both are proper. Brier is bounded (in [0,1]) and easier to communicate; log loss penalises 0% predictions with infinite cost, which is hard to recover from a single confident wrong answer. We chose Brier as the public-facing score and report log loss in the <code>methodology</code> appendix for the curious.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Couldn't you game this by only predicting safe outcomes? <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans">
+          <p>You could. We try to keep ourselves honest by mixing easy and hard forecasts, and by publishing the <strong>shape</strong> of the calibration plot — not just the mean Brier. A coward's calibration concentrates around 50 %; the calibration plot reveals it instantly.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What happens when a forecast becomes ambiguous? <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans">
+          <p>If two independent referees can't agree on the outcome, we publish the forecast as <code>mixed</code> and assign it the worst-case Brier penalty. This is a deliberately punitive convention. It pushes us to write better resolution rules in the first place.</p>
+        </div>
+      </details>
+      <details>
+        <summary>How do community submissions affect the lab's score? <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans">
+          <p>Community-submitted forecasts are scored separately and do not count toward the lab's Brier mean. We do publish a <code>community calibration</code> chart alongside ours, which has been a fun source of internal debate when community priors diverge sharply from the lab's.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Can I cite the board? <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans">
+          <p>Yes. Cite as: <code>AURA Lab. Calibrated Forecasts. 2026. https://aura-se-lab.github.io/forecasts</code>. A versioned snapshot of the board is archived quarterly so you can cite a specific resolution.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- § 7 TIMELINE -->
+<section class="block">
+  <div class="narrow">
+    <span class="num r">§ 7 · Timeline</span>
+    <h2 class="r">How the board has <em>evolved</em>.</h2>
+    <div class="tl r">
+      <div class="tl-item"><div class="when">Sep 2024</div><div class="what"><strong>v 0.1</strong> · first 5 forecasts posted; no public Brier score.</div></div>
+      <div class="tl-item"><div class="when">Apr 2025</div><div class="what"><strong>v 0.4</strong> · first 3 forecasts settle (1 ✗, 1 ✓, 1 mixed). Brier score goes live at the top of the page.</div></div>
+      <div class="tl-item"><div class="when">Sep 2025</div><div class="what"><strong>v 0.7</strong> · pre-registration timestamps enforced; community submissions opened.</div></div>
+      <div class="tl-item"><div class="when">Jan 2026</div><div class="what"><strong>v 0.9</strong> · resolution-ambiguity convention adopted (worst-case Brier on dispute).</div></div>
+      <div class="tl-item"><div class="when">May 2026</div><div class="what"><strong>v 1.0</strong> · 14 settled forecasts, Brier = 0.18. Quarterly snapshot archived for citation.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="inner">
+      <a class="wm-mark" href="https://www.wm.edu" target="_blank" rel="noopener"><img src="../assets/img/wm/wm-logo.svg" alt="William & Mary"/><span class="dept"><b>AURA Lab</b>Computer Science</span></a>
+      <a class="aura-foot-mark" href="../H_cinematic.html" aria-label="AURA Lab" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="../assets/img/wm/aura-glyph.svg" alt="" style="width:28px;height:28px"/>
+        <span style="font-family:'Source Serif 4',Georgia,serif;font-size:13px;color:#fff;font-weight:600;letter-spacing:-.005em">AURA Lab</span>
+      </a>
+      <nav class="foot-links">
+        <a href="H_cinematic.html">Home</a><span class="sep">·</span>
+        <a href="papers.html">Papers</a><span class="sep">·</span>
+        <a href="forecasts.html">Forecasts</a><span class="sep">·</span>
+        <a href="code.html">Code</a><span class="sep">·</span>
+        <a href="H_cinematic.html#people">People</a><span class="sep">·</span>
+        <a href="mailto:amastropaolo@wm.edu">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 AURA Lab · Department of Computer Science, William &amp; Mary · Williamsburg, VA</span>
+      <span class="qed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:11px;height:11px"><path d="M5 13l4 4L19 7"/></svg>forecasts · QED</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .14 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+  // Tabs
+  const tabs = document.getElementById('fcTabs');
+  const list = document.getElementById('fcList');
+  function show(k){ list.querySelectorAll('.fc-card').forEach(c => c.style.display = (c.dataset.grp === k) ? '' : 'none'); }
+  show('active');
+  tabs.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    tabs.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on'); show(b.dataset.k);
+  }));
+
+  // Bet
+  document.getElementById('betSubmit').addEventListener('click', (e) => {
+    const v = ['b1','b2','b3'].map(id => document.getElementById(id).value).join(' · ');
+    e.target.innerHTML = '✓ logged (' + v + ')';
+    setTimeout(() => e.target.innerHTML = 'Submit forecast <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>', 2400);
+  });
+
+  // Calibration plot
+  const cal = document.getElementById('calSvg');
+  const NS = 'http://www.w3.org/2000/svg';
+  const W = 300, H = 290, PAD = {l:38, r:14, t:18, b:34};
+  const X = v => PAD.l + v * (W - PAD.l - PAD.r);
+  const Y = v => H - PAD.b - v * (H - PAD.t - PAD.b);
+  for (let v = 0; v <= 1; v += 0.25){
+    const yy = Y(v), xx = X(v);
+    [['x1','y1','x2','y2', PAD.l, yy, W - PAD.r, yy],
+     ['x1','y1','x2','y2', xx, PAD.t, xx, H - PAD.b]].forEach(spec => {
+      const ln = document.createElementNS(NS,'line');
+      ln.setAttribute(spec[0], spec[4]); ln.setAttribute(spec[1], spec[5]);
+      ln.setAttribute(spec[2], spec[6]); ln.setAttribute(spec[3], spec[7]);
+      ln.setAttribute('stroke','#e2e0d0'); ln.setAttribute('stroke-width','.6'); ln.setAttribute('stroke-dasharray','2 4');
+      cal.appendChild(ln);
+    });
+    const tx = document.createElementNS(NS,'text');
+    tx.setAttribute('x', xx); tx.setAttribute('y', H - PAD.b + 14); tx.setAttribute('text-anchor','middle');
+    tx.setAttribute('font-family','JetBrains Mono'); tx.setAttribute('font-size','9'); tx.setAttribute('fill','#6c757d');
+    tx.textContent = (v*100).toFixed(0) + '%'; cal.appendChild(tx);
+    const ty = document.createElementNS(NS,'text');
+    ty.setAttribute('x', PAD.l - 8); ty.setAttribute('y', yy + 3); ty.setAttribute('text-anchor','end');
+    ty.setAttribute('font-family','JetBrains Mono'); ty.setAttribute('font-size','9'); ty.setAttribute('fill','#6c757d');
+    ty.textContent = (v*100).toFixed(0) + '%'; cal.appendChild(ty);
+  }
+  const diag = document.createElementNS(NS,'line');
+  diag.setAttribute('x1', X(0)); diag.setAttribute('y1', Y(0)); diag.setAttribute('x2', X(1)); diag.setAttribute('y2', Y(1));
+  diag.setAttribute('stroke','#B9975B'); diag.setAttribute('stroke-width','1.2'); diag.setAttribute('stroke-dasharray','4 4');
+  cal.appendChild(diag);
+  const bins = [{p:.1,o:.05,n:1},{p:.3,o:.20,n:3},{p:.5,o:.55,n:4},{p:.7,o:.65,n:4},{p:.9,o:.85,n:2}];
+  const line = document.createElementNS(NS,'polyline');
+  line.setAttribute('points', bins.map(b => X(b.p) + ',' + Y(b.o)).join(' '));
+  line.setAttribute('stroke','#115740'); line.setAttribute('stroke-width','2'); line.setAttribute('fill','none'); line.setAttribute('stroke-linecap','round');
+  cal.appendChild(line);
+  bins.forEach(b => {
+    const c = document.createElementNS(NS,'circle');
+    c.setAttribute('cx', X(b.p)); c.setAttribute('cy', Y(b.o)); c.setAttribute('r', 4 + b.n);
+    c.setAttribute('fill', '#115740'); cal.appendChild(c);
+    const t = document.createElementNS(NS,'text');
+    t.setAttribute('x', X(b.p)); t.setAttribute('y', Y(b.o) + 3); t.setAttribute('text-anchor','middle');
+    t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','8'); t.setAttribute('font-weight','700'); t.setAttribute('fill','#fff');
+    t.textContent = b.n; cal.appendChild(t);
+  });
+</script>
+</body>
+</html>

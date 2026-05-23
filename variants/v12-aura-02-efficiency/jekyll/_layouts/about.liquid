@@ -1,0 +1,98 @@
+---
+# AURA Lab — v12-aura-02-efficiency · Telemetry Frame
+# Layout for the homepage (about). Hard-inherits v02 brutalist terminal chrome.
+layout: default
+---
+
+{% assign pub_count = site.publications | size | default: 6 %}
+{% assign member_count = 8 %}
+{% assign avenue_count = 5 %}
+{% assign collab_count = 5 %}
+
+<main class="shell v12-telemetry">
+  <section class="win" aria-label="AURA Lab terminal — vmstat telemetry">
+
+    <header class="win__bar">
+      <span class="win__dots" aria-hidden="true">[ x ][ - ][ + ]</span>
+      <span class="win__title">aura-se-lab.github.io / tty2 / vmstat</span>
+      <span class="win__meta">William &amp; Mary &middot; Dept. of Computer Science</span>
+    </header>
+
+    <div class="win__body">
+
+      <div class="prompt">
+        <span class="ps1">aura-se-lab:~/$</span>
+        <span class="cmd">vmstat</span>
+        <span class="arg">--frame=lab</span>
+      </div>
+
+      <pre class="logo" aria-label="AURA Lab" role="img">
+<span class="logo__glow"> █████  ██    ██ ██████   █████
+██   ██ ██    ██ ██   ██ ██   ██
+███████ ██    ██ ██████  ███████
+██   ██ ██    ██ ██   ██ ██   ██
+██   ██  ██████  ██   ██ ██   ██</span>
+<span class="logo__rule">────────────────────────────────────────────</span>
+<span class="logo__sub">// LAB · WILLIAM &amp; MARY · SINCE 2024 · v12 TELEMETRY FRAME</span></pre>
+
+      <h1 class="h1">
+        The <span class="acro">A</span><span>URA</span> Lab<span class="cursor" aria-hidden="true">&nbsp;</span>
+      </h1>
+
+      <p class="tagline">
+        <span class="acro">(A)</span>I for
+        <span class="acro">(U)</span>nderstandable and
+        <span class="acro">(R)</span>esponsible
+        <span class="acro">(A)</span>utomation in Software Engineering.
+      </p>
+
+      {% comment %} Telemetry strip — derived counts {% endcomment %}
+      <div class="telemetry" role="region" aria-label="Lab telemetry summary">
+        <span class="telemetry__pill">PUB {{ pub_count | prepend: "0" | slice: -2, 2 }}</span>
+        <span class="telemetry__sep">·</span>
+        <span class="telemetry__pill">MEM {{ member_count | prepend: "0" | slice: -2, 2 }}</span>
+        <span class="telemetry__sep">·</span>
+        <span class="telemetry__pill">AV {{ avenue_count | prepend: "0" | slice: -2, 2 }}</span>
+        <span class="telemetry__sep">·</span>
+        <span class="telemetry__pill">COLLAB {{ collab_count | prepend: "0" | slice: -2, 2 }}</span>
+        <span class="telemetry__sep">·</span>
+        <span class="telemetry__pill">2024-Q3 → 2025</span>
+      </div>
+
+      {% comment %} Byte-budget stacked bar — proportions are pre-computed honestly. {% endcomment %}
+      <div class="byte-budget" aria-label="Page byte budget: word-share per section">
+        <div class="byte-budget__caption">
+          <span class="ps1">&gt; aura_lab ::</span>
+          <span class="cmd">du -sh</span>
+          <span class="arg">homepage/*</span>
+          <span class="byte-budget__hint">// word-share of rendered content</span>
+        </div>
+        <div class="byte-budget__bar" role="img">
+          <span class="bb-seg bb-seg--mission"   style="width:17.5%"></span>
+          <span class="bb-seg bb-seg--research"  style="width:27.7%"></span>
+          <span class="bb-seg bb-seg--pubs"      style="width:34.2%"></span>
+          <span class="bb-seg bb-seg--people"    style="width:11.1%"></span>
+          <span class="bb-seg bb-seg--news"      style="width:9.5%"></span>
+        </div>
+        <ul class="byte-budget__labels">
+          <li style="width:17.5%"><span class="sw sw--mission"></span>mission 17.5%</li>
+          <li style="width:27.7%"><span class="sw sw--research"></span>research 27.7%</li>
+          <li style="width:34.2%"><span class="sw sw--pubs"></span>pubs 34.2%</li>
+          <li style="width:11.1%"><span class="sw sw--people"></span>people 11.1%</li>
+          <li style="width:9.5%"><span class="sw sw--news"></span>news 9.5%</li>
+        </ul>
+      </div>
+
+      <dl class="facts">
+        <dt>Director</dt>     <dd>Dr. Antonio Mastropaolo &middot; Assistant Professor</dd>
+        <dt>Institution</dt>  <dd>William &amp; Mary &middot; Department of Computer Science</dd>
+        <dt>Founded</dt>      <dd>Fall 2024</dd>
+        <dt>Contact</dt>      <dd>amastropaolo at wm dot edu</dd>
+        <dt>Director site</dt><dd><a href="https://antoniomastropaolo.com">antoniomastropaolo.com</a></dd>
+      </dl>
+
+      {{ content }}
+
+    </div>
+  </section>
+</main>

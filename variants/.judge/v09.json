@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "generated_at": "2026-05-18T20:25:28",
+  "panel_size": 3,
+  "judge_runs_total": 3,
+  "quality_rubric": true,
+  "calibration_runs": 1,
+  "calibration_threshold": 0.15,
+  "temperature_step": 0.15,
+  "active_checks": [
+    "faithfulness",
+    "coverage",
+    "hallucination"
+  ],
+  "pool": [
+    {
+      "provider": "huggingface",
+      "model": "deepseek-ai/DeepSeek-V4-Pro"
+    },
+    {
+      "provider": "huggingface",
+      "model": "deepseek-ai/DeepSeek-V4-Flash"
+    },
+    {
+      "provider": "huggingface",
+      "model": "deepseek-ai/DeepSeek-V3.1"
+    }
+  ],
+  "judges_valid": 3,
+  "system_prompt": "You are a judge in a cross-vendor LLM panel. Your job is to score how far an OPTIMIZED candidate diverges from a TARGET (when one is provided), and to surface specific, actionable findings.\n\n## Hard rules\n\n1. **Output STRICT JSON only.** No prose, no markdown fences, no commentary outside the JSON object. Your entire response must parse with `json.loads`.\n2. **Distance is a number in [0, 1].** `0` = candidate is fully aligned with target. `1` = candidate is unrelated or fully fabricated. Pick numbers, not adjectives.\n3. **Flags are short, specific, one-fabrication-per-flag.** \"Fabricated stat: '87% improvement' not in target\" \u2014 not \"the candidate has some issues.\"\n4. **Do not invent ground truth.** If you suspect a citation is fabricated, flag it; do not assert it is fake without verification \u2014 the operator's web tools will check.\n5. **No tie-breaking by hedging.** Pick a verdict: `accept` (score < 0.15), `reject` (score > 0.6), or `review` (anything in between). The panel aggregates; your job is to vote, not abstain.\n6. **Stay independent.** You do not see other judges' verdicts. Disagreement across the panel is the signal we want \u2014 don't pre-emptively converge to a \"safe\" middle.\n\n## Output schema\n\n```json\n{\n  \"distance\": 0.0,\n  \"verdict\": \"accept\",\n  \"checks\": {\n    \"<check_id>\": { \"score\": 0.0, \"flags\": [\"...\"] }\n  },\n  \"dimensions\": {\n    \"<dimension_id>\": {\n      \"score\": 0.0,\n      \"anchor\": \"0.00\",\n      \"flags\": [\"...\"],\n      \"rationale\": \"one short sentence\"\n    }\n  },\n  \"summary\": \"one sentence, plain English, what you actually found\"\n}\n```\n\n- The `checks` object MUST contain exactly the check ids the user turn asked you to run \u2014 no more, no less.\n- Include `dimensions` only when quality rubric mode is requested. When included, it MUST contain exactly the four requested quality dimensions \u2014 no more, no less.\n- `distance` should reflect the worst-of / weighted-mean of the per-check scores; do not average to make the panel look agreeable.\n- `summary` is one sentence the operator reads first. Lead with the worst finding.\n\n## Style\n\n- Skeptical by default. Plausible-sounding \u2260 true.\n- Concrete over abstract. Quote the exact phrase you're flagging.\n- Brief. The aggregator concatenates all judge summaries \u2014 keep yours sharp.\n\n## Active checks for this run\n\n- faithfulness: stricter than hallucination. For each load-bearing sentence in the candidate, check whether it can be traced to a span of the target. Flag the ones that cannot. Additions, even truthful-sounding ones, count.\n- coverage: flag the headline points in the target that the candidate dropped. A faithful summary can still fail by missing the lead.\n- hallucination: flag any claim, stat, name, date, or quotation in the candidate that is not supported by the target. Quote the exact phrase. Score = rough fraction of candidate sentences carrying an unsupported claim.\n\n## Quality rubric mode\n\nIn addition to `checks`, return a `dimensions` object with exactly these four keys:\n\n- `functional_correctness`: Does the artifact do the intended job? For code, reason about observable behavior, edge cases, regressions, and test implications. For prose or decisions, reason about answer correctness and task fitness.\n- `security_posture`: Does the artifact avoid introducing security, privacy, safety, credential, injection, authorization, data exposure, or misuse risk?\n- `structural_integrity`: Is the artifact internally coherent, well-formed, maintainable, parsable, and free of invented APIs, broken references, malformed schema, or brittle organization?\n- `prompt_fidelity`: Did the artifact follow the original prompt, target, constraints, scope, and requested format without drifting, omitting load-bearing requirements, or adding unsupported claims?\n\nScore every dimension using these anchors:\n\n- `0.00`: no meaningful issue; ready to accept.\n- `0.25`: minor issue; acceptable with low-risk cleanup.\n- `0.50`: material issue; human review or revision recommended.\n- `0.75`: severe issue; likely reject unless a human overrides.\n- `1.00`: blocker; wrong, unsafe, structurally unusable, or prompt-misaligned.\n\nEach dimension value must be an object:\n\n```json\n{\n  \"score\": 0.0,\n  \"anchor\": \"0.00\",\n  \"flags\": [\"short actionable issue, if any\"],\n  \"rationale\": \"one short sentence\"\n}\n```\n\nUse the existing active checks as sub-signals, but do not simply copy check\nscores. The four dimensions are the operator-facing quality model.\n\nReturn the `checks` object with EXACTLY these ids as keys: faithfulness, coverage, hallucination\nReturn the `dimensions` object with EXACTLY these ids as keys: functional_correctness, security_posture, structural_integrity, prompt_fidelity",
+  "user_turn": "<original_prompt>\n# Judge brief \u2014 AURA Lab homepage redesign\n\nYou are judging one of ten redesign variants of the AURA Lab homepage.\nThe **target** file is the canonical content fixture all variants must\nrender faithfully (`variants/_content.md`). The **candidate** file is a\nsingle variant's static `preview.html` (the rendered output a peer would\nsee in a browser). The candidate is HTML \u2014 read it as you would the\nrendered page; you are judging the visible result, not the markup style.\n\n## Who the page is for\n\nPeer / academic credibility. Audience = fellow software-engineering /\nAI-for-SE researchers, ICSE / FSE / ASE / TOSEM program-committee\nmembers, and tenure reviewers. Not undergraduate recruitment. Not VC\npitch. Score what a senior peer would think on a 5-second skim and a\n2-minute read.\n\n## What to score (in addition to the standard checks)\n\nWhen the quality-rubric dimensions are evaluated, interpret them as\nfollows for this artifact:\n\n- **functional_correctness** \u2192 **target fidelity**. Does the candidate\n  render ALL the canonical content from the target file \u2014 the lab\n  identity, the five research avenues, at least four real publications\n  (with correct venues + years), the director + at least four named\n  PhD students, and at least three news items? Penalize: invented\n  papers, invented people, paraphrased away research avenues, missing\n  sections.\n\n- **security_posture** \u2192 **citation / hallucination integrity**. Are\n  the publication citations exactly the six listed in the target?\n  Are author names, venues (TOSEM, ICPC, FORGE, ICSME, FSE), and years\n  preserved? Flag any year/venue substitution or fabricated co-author.\n\n- **structural_integrity** \u2192 **finish quality**. Typography hierarchy,\n  responsive integrity (the page should work at 1440 / 1024 / 375px),\n  layout coherence, code structure. Flag: broken grids at narrow\n  widths, missing fallbacks, inconsistent spacing, accidental lorem\n  ipsum, half-styled sections.\n\n- **prompt_fidelity** \u2192 **distinctness + peer credibility**. Two\n  sub-questions: (a) does this variant diverge meaningfully from a\n  generic academic-lab template (al-folio default = centered avatar\n  + serif body + news list), or is it a recolor? (b) would a peer\n  take this lab seriously on sight \u2014 does the typographic discipline,\n  hierarchy, and tone read as a serious research operation rather\n  than as a marketing landing page or a startup site? Flag: emoji,\n  gradient hero, glassmorphism, AI-template aesthetic.\n\n## Hard \"do not accept\" rules\n\n- Any fabricated publication, person, or news item beyond what's in\n  the target file. (You may verify by checking that every author name\n  and paper title in the candidate appears in the target.)\n- Any obviously broken responsive behavior (only judgeable from CSS;\n  flag suspicious patterns like `width: 100vw` without a min-width\n  fallback, or grid templates that have no breakpoint).\n- Any lorem ipsum, TODO, FIXME, or placeholder text in the rendered\n  body.\n- Marketing language (\"transform your codebase,\" \"unlock the power\n  of AI,\" etc.) is grounds for REJECT \u2014 the audience is academic.\n\n## Output\n\nStandard judge.py JSON contract. Be terse in `flags` \u2014 one sentence\neach, prefixed with the dimension. Examples of useful flags:\n\n- `[target fidelity] missing 4th publication (Velasco et al., ICPC 2025)`\n- `[citation integrity] author \"Smith\" appears in candidate but not in target \u2014 likely fabricated`\n- `[finish quality] team grid uses fixed 4-column at all breakpoints; will overflow at 375px`\n- `[distinctness] essentially al-folio default + palette swap; minimal divergence`\n\n</original_prompt>\n\n<target>\n# Canonical Content \u2014 AURA Lab homepage\n\nAll variants render this content. Do not invent additional people, papers,\nor news items. Do not paraphrase the research agenda into different topics.\n\n## Lab identity\n\n- **Name:** The AURA Lab\n- **Expansion of the acronym:** **A**I for **U**nderstandable and\n  **R**esponsible **A**utomation in Software Engineering\n- **Institution:** William & Mary, Department of Computer Science\n- **Founded:** Fall 2024\n- **Director:** Dr. Antonio Mastropaolo (Assistant Professor)\n- **Contact:** amastropaolo at wm dot edu\n- **Website:** https://aura-se-lab.github.io\n- **Director site:** https://antoniomastropaolo.com\n\n## Lab statement (use verbatim or lightly trimmed; do not rewrite)\n\n> The AURA Lab, founded in Fall 2024, advances research at the intersection\n> of efficiency, automation, and explainability in software engineering. Our\n> mission is to design innovative and responsible AI-driven solutions that\n> improve developer productivity while addressing key challenges of\n> transparency and resource efficiency. Through rigorous methods, open\n> collaboration, and a commitment to impactful work, the AURA Lab contributes\n> practical advances in AI-supported software engineering for academia,\n> industry, and society.\n\n## Research avenues (four)\n\n1. **Explainability & Interpretability** \u2014 methods that reveal how code\n   models reason (rationales, traces, tests) so developers can inspect,\n   trust, and debug automation.\n2. **Efficiency & Resource-Aware Automation** \u2014 quantization, distillation,\n   and PEFT to deliver low-latency, memory-light, cost-aware automation\n   measured on real workloads with reproducible metrics.\n3. **Multi-Agent LLMs for SE** \u2014 role-aligned agents that plan, code, test,\n   and review, coordinated to produce coherent, end-to-end developer\n   assistance.\n4. **Neurosymbolic AI for SE** \u2014 hybrid pipelines pairing LLMs with program\n   analysis and constraints to produce interpretable, checkable fixes,\n   tests, and designs.\n5. **Task-Aware Code Automation** \u2014 from issues, diffs, and traces to\n   concise summaries, TODOs, and plans; models that reduce developer toil\n   with actionable, repo-aware guidance.\n\n(Yes, five \u2014 the site lists four primary projects and one supporting\ndirection. If your variant has slots for exactly four, drop \"Task-Aware\nCode Automation\" and surface it under a secondary heading.)\n\n## Selected publications (use these; do not invent more)\n\nRender at least four of the following on the homepage. Cite venue + year.\nFor longer renderings, include the BibTeX-style key in small caps.\n\n1. **Mastropaolo, A.; Escobar-Vel\u00e1squez, C.; Linares-V\u00e1squez, M.**\n   *From Triumph to Uncertainty: The Journey of Software Engineering in the\n   AI Era.* ACM Trans. Softw. Eng. Methodol. (TOSEM), 2024.\n\n2. **Vitale, A.; Mastropaolo, A.; Oliveto, R.; Di Penta, M.; Scalabrino, S.**\n   *Optimizing Datasets for Code Summarization: Is Code-Comment Coherence\n   Enough?* ICPC, 2025.\n\n3. **Afrin, S.; Call, J.; Nguyen, K.-N.; Chaparro, O.; Mastropaolo, A.**\n   *Resource-Efficient & Effective Code Summarization.* FORGE, 2025.\n\n4. **Velasco, A.; Garryyeva, A.; Palacio, D. N.; Mastropaolo, A.;\n   Poshyvanyk, D.** *Toward Neurosymbolic Program Comprehension.* ICPC ERA,\n   2025.\n\n5. **Afrin, S.; Xu, B.; Mastropaolo, A.** *Is Quantization a Deal-breaker?\n   Empirical Insights from Large Code Models.* ICSME, 2025.\n\n6. **Mastropaolo, A.; Poshyvanyk, D.** *A Path Less Traveled: Reimagining\n   Software Engineering Automation via a Neurosymbolic Paradigm.* FSE\n   Ideas, 2025.\n\n## People\n\n### Director\n- **Antonio Mastropaolo** \u2014 Assistant Professor, William & Mary CS.\n  Ph.D., Universit\u00e0 della Svizzera Italiana (2024). M.Sc. / B.Sc.,\n  University of Molise.\n\n### Ph.D. students\n- **Saima Afrin** \u2014 joined Sep 2024.\n- **Aya Garryyeva** \u2014 joined Jan 2025.\n- **Joseph Call** \u2014 joined Jan 2025.\n- **Khai-Nguyen Nguyen** \u2014 student.\n- **Alvi** \u2014 student.\n- **Ben** \u2014 student.\n- **Chris** \u2014 student.\n\n### Collaborators (frequent co-authors)\n- Denys Poshyvanyk (W&M)\n- David Nader Palacio\n- Alejandro Velasco\n- Oscar Chaparro\n- Bowen Xu\n\n## News (selected; in reverse chronological order)\n\n- **2024-12** \u2014 \"From Triumph to Uncertainty: The Journey of Software\n  Engineering in the AI Era\" accepted to TOSEM.\n- **2025-01** \u2014 Welcome to Aya Garryyeva and Joseph Call, joining the\n  ...",
+  "verdicts": [
+    {
+      "distance": 0.52,
+      "verdict": "review",
+      "checks": {
+        "faithfulness": {
+          "score": 0.6,
+          "flags": [
+            "Many added sentences not traceable to target, e.g. \u201cThe work is deliberately slow where it must be slow \u2026\u201d, \u201cWe treat automation as a craft.\u201d, \u201cThe director reads his own mail.\u201d, \u201cThe lab\u2019s work is sustained by a circle of frequent collaborators \u2026 These collaborations shape the lab\u2019s emphasis on rigorous empirical method \u2026\u201d",
+            "Research avenue descriptions expand with untraceable material, e.g. \u201cThe lab studies what makes a model\u2019s behavior legible to a working engineer.\u201d",
+            "Publication notes (e.g. \u201cA reflective survey \u2026\u201d) are not in target and constitute new, unverifiable editorial content."
+          ]
+        },
+        "coverage": {
+          "score": 0.1,
+          "flags": [
+            "Missing BibTeX\u2011style keys for publications \u2014 target specifies inclusion for longer renderings."
+          ]
+        },
+        "hallucination": {
+          "score": 0.4,
+          "flags": [
+            "Unsourced details about student research: \u201cher work centers on resource\u2011efficient code automation and the empirical study of quantization for large code models\u201d (Saima Afrin); \u201cAya contributes to neurosymbolic program comprehension, and Joseph to summarization and code\u2011aware language modeling.\u201d Not in target, possibly fabricated.",
+            "Descriptive notes for each publication (e.g. \u201cA reflective survey of how AI\u2011assisted tooling has reshaped \u2014 and unsettled \u2014 the discipline of software engineering.\u201d) are unsupported and not verifiable from the target."
+          ]
+        }
+      },
+      "dimensions": {
+        "functional_correctness": {
+          "score": 0.15,
+          "anchor": "0.25",
+          "flags": [
+            "[target fidelity] All canonical content rendered \u2014 identity, five avenues, six correct publications, director, all PhD students, four news items. No invented papers or people. Extra prose adds volume but no missing required elements."
+          ],
+          "rationale": "Canonical content fully present; no fabrications or omissions, only well\u2011intentioned expansion."
+        },
+        "security_posture": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "All six citations match target exactly in authors, venue, and year; no substitution or fabricated co\u2011author."
+        },
+        "structural_integrity": {
+          "score": 0.1,
+          "anchor": "0.00",
+          "flags": [
+            "[finish quality] Structure appears robust: semantic HTML5, sticky nav, reveal animations, smooth scroll offset. No suspicious inline widths; external stylesheet not inspectable, but no red flags for responsive breakage."
+          ],
+          "rationale": "Coherent, well\u2011formed structure with no obvious finish or responsiveness defects."
+        },
+        "prompt_fidelity": {
+          "score": 0.1,
+          "anchor": "0.00",
+          "flags": [
+            "[distinctness] Strong divergence from generic template: long\u2011form article with numbered sections, serif body/Inter nav, dropcap, pullquote. No gradient, glassmorphism, or marketing tone.",
+            "[peer credibility] Typographic discipline and academic tone read as a serious research operation; no emoji, no startup language."
+          ],
+          "rationale": "Distinct and credible; meets both sub\u2011prompts without drifting."
+        }
+      },
+      "summary": "Heavy unsupported expansions in research descriptions, student biographies, and publication commentary undermine faithfulness and add unverifiable claims, though all canonical content is present and the page maintains high academic integrity in design and tone.",
+      "judge_id": "huggingface/deepseek-ai/DeepSeek-V4-Pro#0",
+      "slot_id": "huggingface/deepseek-ai/DeepSeek-V4-Pro#0",
+      "calibration_repeat": 0,
+      "temperature": null,
+      "latency_ms": 69258
+    },
+    {
+      "distance": 0.25,
+      "verdict": "review",
+      "checks": {
+        "faithfulness": {
+          "score": 0.3,
+          "flags": [
+            "Added two paragraphs in Statement section not present in target: 'The work is deliberately slow where it must be slow \u2014 careful empirical evaluation, reproducible benchmarks, instrumented studies \u2014 and fast where the field is fast \u2014 new models, new tooling, new questions every quarter.' and 'We treat automation as a craft. Every claim has a workload behind it; every artifact has a release. We publish what we build, and we build what we can explain.'",
+            "Each research avenue includes an extra sentence of elaboration not in target (e.g., 'The lab studies what makes a model's behavior legible to a working engineer.' for Explainability & Interpretability)"
+          ]
+        },
+        "coverage": {
+          "score": 0.0,
+          "flags": []
+        },
+        "hallucination": {
+          "score": 0.0,
+          "flags": []
+        }
+      },
+      "dimensions": {
+        "functional_correctness": {
+          "score": 0.25,
+          "anchor": "0.25",
+          "flags": [
+            "Added extra prose in Statement and Research sections beyond target; target required verbatim or lightly trimmed use"
+          ],
+          "rationale": "Renders all required content but adds unsupported elaborations that drift from target specification."
+        },
+        "security_posture": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "All six publications correct with no fabricated citations."
+        },
+        "structural_integrity": {
+          "score": 0.25,
+          "anchor": "0.25",
+          "flags": [
+            "CSS not provided; responsive behavior unverifiable from HTML alone"
+          ],
+          "rationale": "Page structure appears coherent but lacks inline styles to confirm responsive breakpoints."
+        },
+        "prompt_fidelity": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "Distinct design from al-folio template; academic tone with no marketing or AI-template aesthetic."
+        }
+      },
+      "summary": "Candidate renders all required content but adds unsupported prose in Statement and Research sections, and responsive layout is unverifiable due to missing CSS.",
+      "judge_id": "huggingface/deepseek-ai/DeepSeek-V4-Flash#1",
+      "slot_id": "huggingface/deepseek-ai/DeepSeek-V4-Flash#1",
+      "calibration_repeat": 0,
+      "temperature": null,
+      "latency_ms": 39450
+    },
+    {
+      "distance": 0.05,
+      "verdict": "accept",
+      "checks": {
+        "faithfulness": {
+          "score": 0.05,
+          "flags": [
+            "Faithfulness: Added explanatory commentary to publication entries (e.g., 'A reflective survey...', 'Examines whether...') not present in target.",
+            "Faithfulness: Added narrative expansions in people section about research focuses and collaboration impact not in target content."
+          ]
+        },
+        "coverage": {
+          "score": 0.0,
+          "flags": []
+        },
+        "hallucination": {
+          "score": 0.05,
+          "flags": [
+            "Hallucination: Added claim about 'The director reads his own mail' not in target.",
+            "Hallucination: Added claim about lab's work being 'deliberately slow' and 'fast where the field is fast' not in target."
+          ]
+        }
+      },
+      "dimensions": {
+        "functional_correctness": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "Candidate renders all required canonical content, sections, and items correctly."
+        },
+        "security_posture": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "All publications, authors, venues, and years match the target exactly."
+        },
+        "structural_integrity": {
+          "score": 0.0,
+          "anchor": "0.00",
+          "flags": [],
+          "rationale": "HTML is well-structured with responsive considerations, no placeholder text, and coherent layout."
+        },
+        "prompt_fidelity": {
+          "score": 0.1,
+          "anchor": "0.25",
+          "flags": [
+            "[distinctness] Variant is a modern, minimal interpretation of academic content, not a simple template recolor."
+          ],
+          "rationale": "Design diverges from generic templates with a distinct typographic system and serious academic tone."
+        }
+      },
+      "summary": "Faithful and complete rendering of target content with minor stylistic expansions and no major issues.",
+      "judge_id": "huggingface/deepseek-ai/DeepSeek-V3.1#2",
+      "slot_id": "huggingface/deepseek-ai/DeepSeek-V3.1#2",
+      "calibration_repeat": 0,
+      "temperature": null,
+      "latency_ms": 19679
+    }
+  ],
+  "aggregate": {
+    "verdict": "REVIEW",
+    "consensus_distance": 0.273,
+    "dissent": 0.47,
+    "flag_consensus": [],
+    "flag_dissent": [
+      "[coverage] Missing BibTeX\u2011style keys for publications \u2014 target specifies inclusion for longer renderings.",
+      "[dimension:functional_correctness] Added extra prose in Statement and Research sections beyond target; target required verbatim or lightly trimmed use",
+      "[dimension:functional_correctness] [target fidelity] All canonical content rendered \u2014 identity, five avenues, six correct publications, director, all PhD students, four news items. No invented papers or people. Extra prose adds volume but no missing required elements.",
+      "[dimension:prompt_fidelity] [distinctness] Strong divergence from generic template: long\u2011form article with numbered sections, serif body/Inter nav, dropcap, pullquote. No gradient, glassmorphism, or marketing tone.",
+      "[dimension:prompt_fidelity] [distinctness] Variant is a modern, minimal interpretation of academic content, not a simple template recolor.",
+      "[dimension:prompt_fidelity] [peer credibility] Typographic discipline and academic tone read as a serious research operation; no emoji, no startup language.",
+      "[dimension:structural_integrity] CSS not provided; responsive behavior unverifiable from HTML alone",
+      "[dimension:structural_integrity] [finish quality] Structure appears robust: semantic HTML5, sticky nav, reveal animations, smooth scroll offset. No suspicious inline widths; external stylesheet not inspectable, but no red flags for responsive breakage.",
+      "[faithfulness] Added two paragraphs in Statement section not present in target: 'The work is deliberately slow where it must be slow \u2014 careful empirical evaluation, reproducible benchmarks, instrumented studies \u2014 and fast where the field is fast \u2014 new models, new tooling, new questions every quarter.' and 'We treat automation as a craft. Every claim has a workload behind it; every artifact has a release. We publish what we build, and we build what we can explain.'",
+      "[faithfulness] Each research avenue includes an extra sentence of elaboration not in target (e.g., 'The lab studies what makes a model's behavior legible to a working engineer.' for Explainability & Interpretability)",
+      "[faithfulness] Faithfulness: Added explanatory commentary to publication entries (e.g., 'A reflective survey...', 'Examines whether...') not present in target.",
+      "[faithfulness] Faithfulness: Added narrative expansions in people section about research focuses and collaboration impact not in target content.",
+      "[faithfulness] Many added sentences not traceable to target, e.g. \u201cThe work is deliberately slow where it must be slow \u2026\u201d, \u201cWe treat automation as a craft.\u201d, \u201cThe director reads his own mail.\u201d, \u201cThe lab\u2019s work is sustained by a circle of frequent collaborators \u2026 These collaborations shape the lab\u2019s emphasis on rigorous empirical method \u2026\u201d",
+      "[faithfulness] Publication notes (e.g. \u201cA reflective survey \u2026\u201d) are not in target and constitute new, unverifiable editorial content.",
+      "[faithfulness] Research avenue descriptions expand with untraceable material, e.g. \u201cThe lab studies what makes a model\u2019s behavior legible to a working engineer.\u201d",
+      "[hallucination] Descriptive notes for each publication (e.g. \u201cA reflective survey of how AI\u2011assisted tooling has reshaped \u2014 and unsettled \u2014 the discipline of software engineering.\u201d) are unsupported and not verifiable from the target.",
+      "[hallucination] Hallucination: Added claim about 'The director reads his own mail' not in target.",
+      "[hallucination] Hallucination: Added claim about lab's work being 'deliberately slow' and 'fast where the field is fast' not in target.",
+      "[hallucination] Unsourced details about student research: \u201cher work centers on resource\u2011efficient code automation and the empirical study of quantization for large code models\u201d (Saima Afrin); \u201cAya contributes to neurosymbolic program comprehension, and Joseph to summarization and code\u2011aware language modeling.\u201d Not in target, possibly fabricated."
+    ],
+    "judges_total": 3,
+    "judges_valid": 3,
+    "dimension_summary": {
+      "scores": {
+        "functional_correctness": {
+          "mean": 0.133,
+          "min": 0.0,
+          "max": 0.25,
+          "range": 0.25
+        },
+        "prompt_fidelity": {
+          "mean": 0.067,
+          "min": 0.0,
+          "max": 0.1,
+          "range": 0.1
+        },
+        "security_posture": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "range": 0.0
+        },
+        "structural_integrity": {
+          "mean": 0.117,
+          "min": 0.0,
+          "max": 0.25,
+          "range": 0.25
+        }
+      },
+      "flag_consensus": [],
+      "flag_dissent": [
+        "[dimension:functional_correctness] Added extra prose in Statement and Research sections beyond target; target required verbatim or lightly trimmed use",
+        "[dimension:functional_correctness] [target fidelity] All canonical content rendered \u2014 identity, five avenues, six correct publications, director, all PhD students, four news items. No invented papers or people. Extra prose adds volume but no missing required elements.",
+        "[dimension:prompt_fidelity] [distinctness] Strong divergence from generic template: long\u2011form article with numbered sections, serif body/Inter nav, dropcap, pullquote. No gradient, glassmorphism, or marketing tone.",
+        "[dimension:prompt_fidelity] [distinctness] Variant is a modern, minimal interpretation of academic content, not a simple template recolor.",
+        "[dimension:prompt_fidelity] [peer credibility] Typographic discipline and academic tone read as a serious research operation; no emoji, no startup language.",
+        "[dimension:structural_integrity] CSS not provided; responsive behavior unverifiable from HTML alone",
+        "[dimension:structural_integrity] [finish quality] Structure appears robust: semantic HTML5, sticky nav, reveal animations, smooth scroll offset. No suspicious inline widths; external stylesheet not inspectable, but no red flags for responsive breakage."
+      ]
+    },
+    "calibration": null,
+    "errors": []
+  },
+  "report_path": "/Users/amastro/Academia/W&M/aura-se-lab.github.io/variants/.judge/v09.json"
+}
