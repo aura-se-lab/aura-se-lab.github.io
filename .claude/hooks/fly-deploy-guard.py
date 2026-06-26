@@ -36,12 +36,16 @@ APP_RE = re.compile(r"(?:-a|--app)[=\s]+([A-Za-z0-9][A-Za-z0-9-]*)")
 # Only fire when a COMMAND SEGMENT actually invokes a deploy — not when the string
 # "fly deploy" merely appears inside an echo/grep/commit-message argument. Split on
 # shell separators and require a segment to START with (optional env=) fly|flyctl deploy.
-_SEGMENTS = re.compile(r"(?:&&|\|\||[;\n|()])")
+_SEPARATORS = re.compile(r"&&|\|\||;|\n")
 _DEPLOY_START = re.compile(r"^(?:\w+=\S*\s+)*(?:fly|flyctl)\s+deploy\b")
 
 
 def _is_deploy_command(command: str) -> bool:
-    return any(_DEPLOY_START.match(seg.strip()) for seg in _SEGMENTS.split(command))
+    # A heredoc body is arbitrary text — e.g. committing this skill's own docs,
+    # which mention `fly deploy`. Never scan those; bias hard to NOT firing.
+    if "<<" in command:
+        return False
+    return any(_DEPLOY_START.match(s.strip()) for s in _SEPARATORS.split(command))
 
 
 def main() -> int:
