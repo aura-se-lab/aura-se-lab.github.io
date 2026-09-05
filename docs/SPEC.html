@@ -438,20 +438,24 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
       <p class="cap">The whole step runs in <code>scripts/pubs/</code> alongside the weekly sync, so a new
         paper arrives with its preview already made. Nothing here is hand-placed.</p>
 
-      <h4>PAGINATION — TWO ROWS, NEVER MORE</h4>
-      <p>A wall of paper first pages is impressive once and tiring thereafter. The grid is therefore
-        <b>capped at two rows on every screen</b>, and the page size follows the column count rather than
-        being a fixed number: the script reads the resolved <code>grid-template-columns</code> and sets
-        the page to <code>columns × 2</code>.</p>
+      <h4>PAGINATION — THE PAGE IS WHAT THE SCREEN HOLDS</h4>
+      <p>A wall of paper first pages is impressive once and tiring thereafter, so the grid never runs past
+        what the viewport can show. Page size is not a fixed number: <b>width picks the columns, height
+        picks the rows</b>, both declared in CSS, and the script multiplies them. It reads the resolved
+        <code>grid-template-columns</code> for the column count and a <code>--rows</code> custom property
+        for the row count, so every breakpoint decision stays in the stylesheet.</p>
+      <p>Two rows is the norm. A <b>tall, narrow window</b> — a portrait monitor, a half-screen browser —
+        gets a third row and a much taller page image, because the vertical space is there and a 2:1
+        masthead sliver would waste it. A wide desktop keeps two rows and simply shows more columns.</p>
       <div class="tw"><table>
-        <thead><tr><th>Viewport</th><th>Columns</th><th>Per page</th><th>Pages (24 papers)</th></tr></thead>
+        <thead><tr><th>Viewport</th><th>Grid</th><th>Per page</th><th>Pages (24 papers)</th></tr></thead>
         <tbody>
-          <tr><td>≥ 2200 px</td><td class="n">6</td><td class="n">12</td><td class="n">2</td></tr>
-          <tr><td>≥ 1620 px</td><td class="n">5</td><td class="n">10</td><td class="n">3</td></tr>
-          <tr><td>≥ 1100 px</td><td class="n">4</td><td class="n">8</td><td class="n">3</td></tr>
-          <tr><td>≥ 760 px</td><td class="n">3</td><td class="n">6</td><td class="n">4</td></tr>
-          <tr><td>≥ 430 px</td><td class="n">2</td><td class="n">4</td><td class="n">6</td></tr>
-          <tr><td>&lt; 430 px</td><td class="n">1</td><td class="n">2</td><td class="n">12</td></tr>
+          <tr><td>2560 × 1300 · 5K</td><td class="n">6 × 2</td><td class="n">12</td><td class="n">2</td></tr>
+          <tr><td>1680 × 956 · external</td><td class="n">5 × 2</td><td class="n">10</td><td class="n">3</td></tr>
+          <tr><td>1512 × 870 · MBP 14"</td><td class="n">4 × 2</td><td class="n">8</td><td class="n">3</td></tr>
+          <tr><td>1080 × 1920 · portrait monitor</td><td class="n">3 × 3</td><td class="n">9</td><td class="n">3</td></tr>
+          <tr><td>740 × 1800 · half-screen</td><td class="n">3 × 3</td><td class="n">9</td><td class="n">3</td></tr>
+          <tr><td>390 × 844 · phone</td><td class="n">1 × 2</td><td class="n">2</td><td class="n">12</td></tr>
         </tbody>
       </table></div>
       <ul class="b">
@@ -467,6 +471,36 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
         <li>Without JavaScript no card is hidden and no pager is shown — the full grid renders, which is
           also what a crawler sees.</li>
       </ul>
+
+      <h4>SIZED FOR A LAPTOP, NOT A DESK</h4>
+      <p>Two rows only matters if the two rows are actually on screen. The card is therefore sized so the
+        whole section — heading, filter bar, both rows and the pager — clears a 14-inch MacBook viewport
+        (1512&nbsp;×&nbsp;~870 after browser chrome) without scrolling. Three things make that work:</p>
+      <ul class="b">
+        <li><b>The preview is a masthead crop, not a whole page.</b> A 2:1 band off the top of page 1 —
+          title, authors, affiliations — which is the part that identifies a paper. A full 17:22 page
+          reproduced at 260&nbsp;px is unreadable anyway, so the height was being spent on nothing.</li>
+        <li><b>Title clamps to two lines, authors to two.</b> The full title stays in the element's
+          <code>title</code> attribute and in the reader, so nothing is lost — but a four-line title no
+          longer sets the height of its whole band.</li>
+        <li><b>Height-based breakpoints, not just width.</b> Under 920&nbsp;px of viewport height the crop
+          tightens to 2.35:1 and the type drops a step; under 845&nbsp;px it goes to 2.9:1, authors clamp to
+          one line and the section lead is dropped.</li>
+      </ul>
+      <div class="tw"><table>
+        <thead><tr><th>Viewport</th><th>Card</th><th>Preview</th><th>Section height</th><th>Fits</th></tr></thead>
+        <tbody>
+          <tr><td>1512 × 900 · MBP 14"</td><td class="n">277px</td><td class="n">137px</td><td class="n">760px</td><td class="st done">YES · 833 usable</td></tr>
+          <tr><td>1512 × 870 · MBP 14"</td><td class="n">277px</td><td class="n">137px</td><td class="n">760px</td><td class="st done">YES · 803 usable</td></tr>
+          <tr><td>1512 × 820 · with bookmarks</td><td class="n">236px</td><td class="n">111px</td><td class="n">649px</td><td class="st done">YES · 753 usable</td></tr>
+          <tr><td>1440 × 800 · 13-inch</td><td class="n">236px</td><td class="n">111px</td><td class="n">648px</td><td class="st done">YES · 733 usable</td></tr>
+          <tr><td>1680 × 956 · external</td><td class="n">276px</td><td class="n">133px</td><td class="n">765px</td><td class="st done">YES · 889 usable</td></tr>
+          <tr><td>2560 × 1300 · 5K</td><td class="n">350px</td><td class="n">185px</td><td class="n">915px</td><td class="st done">YES · 1233 usable</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">Measured from the section's top rule to the bottom of the pager, against the viewport
+        height minus the 66&nbsp;px sticky bar. Phones are the deliberate exception — a phone scrolls, and
+        two full-width cards are the right size there.</p>
 
       <h4>THE READER</h4>
       <p>Activating a preview opens the full PDF <b>in place</b>, so a visitor reads the paper without
@@ -548,7 +582,7 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
         <tr><td><code>PaperCard.astro</code></td><td>home, publications, people, research</td><td>First-page preview + metadata; opens the reader</td><td class="st todo">NEW</td></tr>
         <tr><td><code>PdfReader.astro</code></td><td>anywhere a paper is listed</td><td>Modal iframe reader; Esc, focus trap, 8 s fallback</td><td class="st todo">NEW</td></tr>
         <tr><td><code>PubFilters.astro</code></td><td>home, publications</td><td>Chip toggles over <code>data-*</code>; works without JS</td><td class="st todo">NEW</td></tr>
-        <tr><td><code>PubPager.astro</code></td><td>home, publications</td><td>Two-row cap; page size = columns × 2</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>PubPager.astro</code></td><td>home, publications</td><td>Page size = columns × <code>--rows</code>, both from CSS</td><td class="st todo">NEW</td></tr>
         <tr><td><code>PubRow.astro</code> / <code>PubList.astro</code></td><td>publications, threads, people</td><td>Existing list rendering; keep</td><td class="st done">BUILT</td></tr>
         <tr><td><code>FigOutput.astro</code></td><td>home, publications</td><td>Fig. 2 — stacked bars from <code>metrics.by_year</code></td><td class="st todo">NEW</td></tr>
         <tr><td><code>FigUptake.astro</code></td><td>home</td><td>Fig. 3 — unlabelled-axis trend curve; § 08</td><td class="st todo">NEW</td></tr>
@@ -662,31 +696,27 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
         cats. That is an asset, not a problem: it reads as a real group rather than a stock faculty page. It
         just has to be handled consistently.</p>
       <ol class="n">
-        <li><b>Face-detect and crop.</b> Every portrait is cropped to a 26:34 frame with the face at ~28.5 %
-          of the frame height, sitting 42 % from the top. Detection is YuNet
-          (<code>opencv_zoo</code>) — deterministic, so re-running gives the same frame.</li>
-        <li><b>Normalise exposure, don't flatten it.</b> A 1–99 percentile luminance stretch blended 55 % with
-          the original (a full stretch blows out a plain wall), a soft filmic S-curve, blacks lifted to
-          0.015 and whites held off 1.0, then a per-image gamma that pulls every portrait to a mean
-          luminance of 0.485. The nine faces then match in brightness without any of them going grey.</li>
-        <li><b>Separate subject from background.</b> An elliptical head-and-shoulders mask, feathered by
-          0.62 × face width, keeps the subject at <em>full colour and full sharpness</em>; outside it the
-          background drops to 0.30 saturation, 0.82 brightness and a 3.4 px blur. That is what makes eight
-          photographs taken in eight different places — a hedge, autumn trees, a dock, a fence — read as one
-          contact sheet, without desaturating anybody's face.</li>
-        <li><b>Finish.</b> Vibrance ×1.08, contrast ×1.04, unsharp mask (r 1.3, 48 %, threshold 3), and a
-          wide corner vignette at 0.88 brightness so the grid holds together as a sheet.</li>
-        <li><b>Serve at 2×.</b> 560×730 source, displayed at 260×340, through Astro's image pipeline as AVIF
-          with a WebP fallback. Never inline base64 in production — that is a mockup-only device.</li>
+        <li><b>Face-detect and crop. Nothing else.</b> Each portrait is cropped to a 26:34 frame with the
+          face at ~28.5&nbsp;% of the frame height, sitting 42&nbsp;% from the top. Detection is YuNet
+          (<code>opencv_zoo</code>), so the crop is deterministic and re-running gives the same frame.
+          Then a resize to 560&nbsp;×&nbsp;730 and that is the whole pipeline.</li>
+        <li><b>No processing of any kind.</b> No exposure normalisation, no background separation, no
+          vignette, no sharpening, no saturation change. The photographs go out as they were taken.</li>
+        <li><b>Serve at 2×.</b> 560&nbsp;×&nbsp;730 source displayed at 260&nbsp;×&nbsp;340, through
+          Astro's image pipeline as AVIF with a WebP fallback. Never inline base64 in production — that is
+          a mockup-only device.</li>
         <li><b>Fall back to the mark.</b> A member without a photograph gets a <code>--surface</code> tile
-          carrying their initials over the four AURA arcs at 16 % opacity. It reads as designed rather than
-          missing, and it removes the pressure to use a bad photograph.</li>
+          carrying their initials over the four AURA arcs at 16&nbsp;% opacity.</li>
       </ol>
       <div class="note warn"><b>OPEN — NEEDS ANTONIO</b>There is no group photograph of the lab. One real
         one — nine people, one room, one afternoon — would outperform every diagram on the homepage for the
         prospective-student audience, and it is the single highest-return asset that cannot be generated.
         Until it exists, the contact sheet stands in for it.</div>
-      <p class="cap"><b>Do not desaturate the subjects.</b> An early pass ran the whole frame at 0.42 saturation to unify the set; it unified them into grey. Saturation loss belongs to the background only.<br><br>The 12 images inherited from the al-folio theme (<code>assets/img/1–12.jpg</code>:
+      <p class="cap"><b>Do not grade these photographs.</b> Two earlier passes tried: one desaturated the
+        whole frame to unify the set and turned everyone grey; the next kept faces in colour but pushed the
+        backgrounds back with blur and a vignette, which made real people look retouched. Both were wrong.
+        The lab's candid photographs are the point — crop to the face and leave them alone.<br><br>The 12
+        images inherited from the al-folio theme (<code>assets/img/1–12.jpg</code>:
         mountains, coffee, a lake) are stock and must not ship. They are the reason the old site felt
         generic.</p>
     </div>
