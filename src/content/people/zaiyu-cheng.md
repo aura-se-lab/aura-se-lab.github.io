@@ -4,7 +4,7 @@ role: phd
 title: Ph.D. Student
 status: current
 order: 15
-photo: ../../assets/people/zaiyu-cheng.jpg
+photo: ../../assets/people/cropped/zaiyu-cheng.jpg
 joined: "2025"
 interests: [Data Integration, Pre-training for Code, Cost-Efficient Fine-Tuning]
 threads: [efficient-models]

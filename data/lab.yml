@@ -91,6 +91,7 @@ funding:
 nav:
   - { label: Research, href: /research/ }
   - { label: Publications, href: /publications/ }
+  - { label: Software, href: /software/ }
   - { label: People, href: /people/ }
   - { label: News, href: /news/ }
   - { label: Join, href: /join/ }

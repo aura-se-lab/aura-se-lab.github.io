@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import Base from "@/layouts/Base.astro";
 import PubRow from "@/components/PubRow.astro";
 import PubList from "@/components/PubList.astro";
-import { publications, pubLinks, displayName, isReviewed, pubDateLabel, bucketOf } from "@/lib/pubs";
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { publications, pubLinks, displayName, isReviewed, pubDateLabel, bucketOf, venueLabel } from "@/lib/pubs";
 import { fmtDate } from "@/lib/dates";
 import { lab } from "@/lib/lab";
 import { ArrowLeft, ExternalLink, FileText, CodeXml, Database, Presentation, Video, Copy, Quote } from "@lucide/astro";
@@ -12,6 +14,9 @@ export async function getStaticPaths() {
   return publications.map((p) => ({ params: { key: p.key }, props: { pub: p } }));
 }
 const { pub: p } = Astro.props;
+const coverMods = import.meta.glob<{ default: ImageMetadata }>("../../assets/papers/*.jpg", { eager: true });
+const cover = coverMods[`../../assets/papers/${p.key}.jpg`]?.default;
+const readable = p.arxiv ? `https://arxiv.org/pdf/${p.arxiv}` : null;
 const links = pubLinks(p);
 const icon: Record<string, any> = { doi: ExternalLink, arxiv: FileText, pdf: FileText, code: CodeXml, data: Database, slides: Presentation, video: Video, url: ExternalLink };
 const threads = (await getCollection("research")).filter((t) => p.threads?.includes(t.id)).sort((a, b) => a.data.order - b.data.order);
@@ -65,7 +70,7 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
 <Base title={p.title} description={desc} image={`/og/publications-${p.key}.png`} type="article" meta={meta} jsonLd={jsonLd} publishedTime={p.date}>
   <section class="page-hero">
     <div class="shell">
-      <p class="caption"><a href="/publications/">Publications</a> · <span class="caption-num">{p.venue ?? p.venue_info.key}</span> · {pubDateLabel(p)}</p>
+      <p class="caption"><a href="/publications/">Publications</a> · <span class="caption-num">{venueLabel(p)}</span> · {pubDateLabel(p)}</p>
       <h1 class="paper-title mt-2">{p.title}</h1>
       <p class="paper-authors mt-3">
         {p.authors.map((a, i) => (
@@ -76,7 +81,7 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
         ))}
       </p>
       <p class="paper-venue mt-2">
-        <span class:list={["venue-badge", { "venue-badge--preprint": bucketOf(p) === "preprint", "venue-badge--muted": bucketOf(p) === "magazine" }]}>{p.venue ?? p.venue_info.key}</span>
+        <span class:list={["venue-badge", { "venue-badge--preprint": bucketOf(p) === "preprint", "venue-badge--muted": bucketOf(p) === "magazine" }]}>{venueLabel(p)}</span>
         <span>{p.venue_info?.name ?? p.venue_raw}{p.volume && `, vol. ${p.volume}`}{p.number && ` (${p.number})`}{p.pages && `, pp. ${p.pages}`} · {p.year}</span>
         {p.status === "accepted" && <span class="tag tag--accent">to appear</span>}
         {p.award && <span class="tag tag--accent">{p.award}</span>}
@@ -121,6 +126,18 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
         </div>
       </div>
       <aside class="paper-aside">
+        {cover && (
+          <figure class="firstpage">
+            {readable ? (
+              <a href={readable} target="_blank" rel="noopener" aria-label="Open the PDF">
+                <Image src={cover} alt={`First page of “${p.title}”`} widths={[320, 640]} sizes="320px" loading="eager" />
+              </a>
+            ) : (
+              <Image src={cover} alt={`First page of “${p.title}”`} widths={[320, 640]} sizes="320px" loading="eager" />
+            )}
+            <figcaption class="m">FIRST PAGE</figcaption>
+          </figure>
+        )}
         <dl class="essentials">
           <div class="es-row"><dt class="es-k">Type</dt><dd class="es-v">{p.type}{isReviewed(p) ? " · peer-reviewed" : ""}</dd></div>
           {p.doi && <div class="es-row"><dt class="es-k">DOI</dt><dd class="es-v mono" style="font-size:12.5px;word-break:break-all"><a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">{p.doi}</a></dd></div>}
@@ -149,7 +166,7 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
   {related.length > 0 && (
     <section class="section">
       <div class="shell">
-        <h2 class="h2">Related <b>work</b> from the lab.</h2>
+        <h2 class="h2">Related work</h2>
         <div class="mt-3" style="border-top: var(--hair) solid var(--line)">
           {related.map((r) => <PubRow pub={r} compact />)}
         </div>
@@ -175,6 +192,10 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
   .bib-copy { position: absolute; top: 8px; right: 8px; display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 8px; background: #fff; border: var(--hair) solid var(--line-soft); border-radius: 4px; color: var(--ink-mute); }
   .bib-copy:hover { color: var(--accent); border-color: var(--accent); }
   .bib-copy :global(svg) { width: 11px; height: 11px; }
+  .firstpage { margin: 0; }
+  .firstpage :global(img) { width: 100%; height: auto; border: 1px solid var(--rule); background: #fff; transition: border-color .22s ease, transform .22s cubic-bezier(.2,.8,.25,1); }
+  .firstpage a:hover :global(img) { border-color: var(--rule-3); transform: translateY(-3px); }
+  .firstpage figcaption { margin-top: 8px; font-size: 8px; letter-spacing: .1em; color: var(--ink-5); }
   .news-mini { padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14px; }
   .news-mini a { font-weight: 500; }
 </style>

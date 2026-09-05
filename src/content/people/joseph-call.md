@@ -4,7 +4,7 @@ role: phd
 title: Ph.D. Student
 status: current
 order: 12
-photo: ../../assets/people/joseph-call.jpg
+photo: ../../assets/people/cropped/joseph-call.jpg
 joined: 2025-01
 interests: [Efficient ML, Code Summarization, Code Analysis & Generation]
 threads: [efficient-models, agents-lifecycle]

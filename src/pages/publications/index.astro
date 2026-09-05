@@ -1,187 +1,455 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Base from "@/layouts/Base.astro";
-import PubList from "@/components/PubList.astro";
-import { publications, metrics, bucketOf, isReviewed } from "@/lib/pubs";
+import { publications, metrics, bucketOf, isReviewed, venueLabel, shortName } from "@/lib/pubs";
 import { fmtDate } from "@/lib/dates";
-import { Rss, Download, Activity, Award } from "@lucide/astro";
+
+const covers = import.meta.glob<{ default: ImageMetadata }>("../../assets/papers/*.jpg", { eager: true });
+const coverOf: Record<string, ImageMetadata> = {};
+for (const [path, mod] of Object.entries(covers)) {
+  coverOf[path.split("/").pop()!.replace(/\.jpg$/, "")] = mod.default;
+}
 
 const threads = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
 const members = (await getCollection("people")).sort((a, b) => a.data.order - b.data.order);
-const memberPubCount = (slug: string) => publications.filter((p) => p.authors.some((a) => a.member === slug)).length;
-const membersWithPubs = members.filter((m) => memberPubCount(m.id) > 0);
+const memberCount = (slug: string) => publications.filter((p) => p.authors.some((a) => a.member === slug)).length;
+const withPubs = members.filter((m) => memberCount(m.id) > 0);
 
-const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
-const countBy = (f: (p: (typeof publications)[number]) => boolean) => publications.filter(f).length;
-const reviewed = publications.filter(isReviewed);
-const magazine = publications.filter((p) => bucketOf(p) === "magazine");
-const preprints = publications.filter((p) => bucketOf(p) === "preprint");
-const other = publications.filter((p) => bucketOf(p) === "other");
-const awards = publications.filter((p) => p.award).length;
-const updated = fmtDate(metrics.updated);
+const sorted = [...publications].sort((a, b) => (b.date ?? String(b.year)).localeCompare(a.date ?? String(a.year)));
+const years = [...new Set(sorted.map((p) => p.year))].sort((a, b) => b - a);
+
+const n = {
+  reviewed: sorted.filter(isReviewed).length,
+  preprint: sorted.filter((p) => bucketOf(p) === "preprint").length,
+  magazine: sorted.filter((p) => bucketOf(p) === "magazine").length,
+  other: sorted.filter((p) => bucketOf(p) === "other").length,
+  all: sorted.length,
+};
+
+const kinds = [
+  { v: "reviewed", l: "Peer-reviewed", c: n.reviewed },
+  { v: "preprint", l: "Preprints", c: n.preprint },
+  { v: "magazine", l: "Magazine", c: n.magazine },
+  ...(n.other ? [{ v: "other", l: "Other", c: n.other }] : []),
+  { v: "all", l: "All", c: n.all },
+];
 ---
 
-<Base title="Publications" description={`${metrics.reviewed} peer-reviewed papers, ${preprints.length} preprints and ${magazine.length} magazine columns from the AURA Lab at William & Mary.`} image="/og/publications.png">
-  <section class="page-hero">
+<Base
+  title="Publications"
+  description={`${metrics.reviewed} peer-reviewed papers, ${n.preprint} preprints and ${n.magazine} magazine columns from the AURA Lab at William & Mary.`}
+  image="/og/publications.png"
+>
+  <div class="page">
     <div class="shell">
-      <p class="caption"><span class="caption-num">Publications</span> · index</p>
-      <h1 class="h1 mt-2">Publication <b>index</b>.</h1>
-      <p class="lead mt-3" style="max-width:70ch">Peer-reviewed papers first; magazine columns and preprints have their own tabs. Filter by year, thread or author. Citation counts and links are refreshed automatically from DBLP, Crossref, Semantic Scholar and arXiv.</p>
-      <div class="meta-row mt-3">
-        <span class="stamp"><Activity />{metrics.citations} citations tracked · synced {updated}</span>
-        <a href="/publications.xml" class="stamp-link"><Rss />Subscribe (RSS)</a>
-        <a href="/aura.bib" class="stamp-link" download><Download />BibTeX (all)</a>
-      </div>
-    </div>
-  </section>
+      <header class="page-head">
+        <div class="row">
+          <div>
+            <p class="label">INDEX · {n.all} ITEMS</p>
+            <h1 class="h2" style="margin-top:8px">Publications</h1>
+          </div>
+          <div class="head-links">
+            <a class="tg" href="/aura.bib" download>BIBTEX, ALL PAPERS</a>
+            <a class="tg" href="/publications.xml">RSS</a>
+            <span class="tg tg-a">SYNCED {fmtDate(metrics.updated).toUpperCase()}</span>
+          </div>
+        </div>
+        <p class="lead">Click a cover to read the paper here. Records sync from DBLP, Crossref, Semantic Scholar and arXiv.</p>
+      </header>
 
-  <section class="section section--flush" style="padding-top:28px">
-    <div class="shell">
-      <div class="filters" role="toolbar" aria-label="Publication filters" id="pubfilters">
-        <div class="f-group">
-          <span class="f-label">Kind</span>
-          <button class="f-btn active" data-f="bucket" data-v="reviewed">Peer-reviewed <span class="f-n">{reviewed.length}</span></button>
-          <button class="f-btn f-btn--secondary" data-f="bucket" data-v="preprint">Preprints <span class="f-n">{preprints.length}</span></button>
-          <button class="f-btn f-btn--secondary" data-f="bucket" data-v="magazine">Magazine <span class="f-n">{magazine.length}</span></button>
-          {other.length > 0 && <button class="f-btn f-btn--secondary" data-f="bucket" data-v="other">Other <span class="f-n">{other.length}</span></button>}
-          <button class="f-btn f-btn--secondary" data-f="bucket" data-v="all">All <span class="f-n">{publications.length}</span></button>
-          {awards > 0 && <button class="f-btn f-btn--award" data-f="award" data-v="1"><Award /> Awards <span class="f-n">{awards}</span></button>}
+      <div class="bar" role="toolbar" aria-label="Filters">
+        <div class="grp">
+          {kinds.map((k, i) => (
+            <button class:list={["chip", { on: i === 0 }]} data-f="kind" data-v={k.v}>
+              {k.l}<span class="m">{k.c}</span>
+            </button>
+          ))}
         </div>
-        <span class="f-div" aria-hidden="true"></span>
-        <div class="f-group">
-          <span class="f-label">Year</span>
-          <button class="f-btn active" data-f="year" data-v="all">All</button>
-          {years.map((y) => <button class="f-btn" data-f="year" data-v={String(y)}>{y} <span class="f-n">{countBy((p) => p.year === y)}</span></button>)}
-        </div>
-        <span class="f-div" aria-hidden="true"></span>
-        <div class="f-group">
-          <span class="f-label">Thread</span>
-          <button class="f-btn active" data-f="thread" data-v="all">All</button>
-          {threads.map((t) => <button class="f-btn" data-f="thread" data-v={t.id} title={t.data.title}>{t.data.letter} · {t.data.title.split(/[ &,]/)[0]}</button>)}
-        </div>
-        <span class="f-div" aria-hidden="true"></span>
-        <div class="f-group">
-          <label class="f-label" for="f-member">Author</label>
-          <select id="f-member" class="f-select" data-f="member">
-            <option value="all">Everyone</option>
-            {membersWithPubs.map((m) => <option value={m.id}>{m.data.name} ({memberPubCount(m.id)})</option>)}
+        <div class="grp">
+          <select class="sel" data-f="year" aria-label="Year">
+            <option value="all">All years</option>
+            {years.map((y) => <option value={String(y)}>{y}</option>)}
           </select>
-          <label class="f-label" for="f-q" style="margin-left:8px">Search</label>
-          <input id="f-q" class="f-input" type="search" placeholder="title, author, venue…" autocomplete="off" />
+          <select class="sel" data-f="thread" aria-label="Research direction">
+            <option value="all">All directions</option>
+            {threads.map((t) => <option value={t.id}>{t.data.letter} · {t.data.title}</option>)}
+          </select>
+          <select class="sel" data-f="member" aria-label="Author">
+            <option value="all">Everyone</option>
+            {withPubs.map((m) => <option value={m.id}>{m.data.name} ({memberCount(m.id)})</option>)}
+          </select>
+          <input class="sel inp" type="search" data-f="q" placeholder="Search title, author, venue…" aria-label="Search" />
         </div>
       </div>
-      <p class="small mt-2" id="pubcount" aria-live="polite">Showing <b>{reviewed.length}</b> peer-reviewed publications.</p>
 
-      <div class="mt-3">
-        <PubList pubs={publications} />
+      <div class="shelfwrap">
+        <ul class="shelf" id="shelf">
+          {sorted.map((p) => {
+            const cover = coverOf[p.key];
+            const reviewed = isReviewed(p);
+            const pdf = p.arxiv ? `https://arxiv.org/pdf/${p.arxiv}` : null;
+            return (
+              <li
+                class="card"
+                data-kind={bucketOf(p)}
+                data-year={String(p.year)}
+                data-threads={(p.threads ?? []).join(" ")}
+                data-members={p.authors.map((a) => a.member).filter(Boolean).join(" ")}
+                data-title={p.title}
+                data-authors={p.authors.map((a) => a.name).join(", ")}
+                data-venue={`${venueLabel(p)} ${p.venue_raw ?? ""}`}
+                data-pdf={pdf ?? ""}
+                data-href={`/publications/${p.key}/`}
+              >
+                <button class="cover" type="button" aria-label={`Read: ${p.title}`}>
+                  {cover ? (
+                    <Image src={cover} alt="" widths={[260, 520]} sizes="(max-width: 700px) 45vw, 260px" loading="lazy" />
+                  ) : (
+                    <span class="nocover">
+                      <span class="nc-head">
+                        <span class="nc-v m">{venueLabel(p)}</span>
+                        <span class="nc-y m num">{p.year}</span>
+                      </span>
+                      <span class="nc-rule" aria-hidden="true"></span>
+                      <span class="nc-t">{p.title}</span>
+                      <span class="nc-a">{p.authors.map((a) => shortName(a.name)).join(", ")}</span>
+                      <span class="nc-foot m">{(p.venue_raw ?? p.venue_info?.name ?? p.type).toUpperCase()}</span>
+                    </span>
+                  )}
+                  <span class="scrim" aria-hidden="true"><span class="scrim-in">{pdf ? "Read paper" : "Open record"}</span></span>
+                </button>
+
+                <div class="meta">
+                  <p class="m-1">
+                    <span class:list={["v", { "v-pre": !reviewed }]}>{venueLabel(p)}</span>
+                    <span class="m yr num">{p.year}</span>
+                  </p>
+                  <h3 class="m-t"><a href={`/publications/${p.key}/`}>{p.title}</a></h3>
+                  <p class="m-a">{p.authors.map((a) => shortName(a.name)).join(", ")}</p>
+                  <p class="m-l">
+                    {p.doi && <a class="tg" href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">DOI</a>}
+                    {p.arxiv && <a class="tg" href={`https://arxiv.org/abs/${p.arxiv}`} target="_blank" rel="noopener">ARXIV</a>}
+                    <a class="tg" href={`/publications/${p.key}/`}>DETAILS</a>
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <p class="none" id="none" hidden>Nothing matches those filters.</p>
       </div>
-      <p class="empty small" id="pubempty" hidden>No publications match these filters.</p>
+
+      <div class="pager" id="pager">
+        <span class="count m" id="count" aria-live="polite"></span>
+        <div class="pbtns" id="pbtns"></div>
+      </div>
     </div>
-  </section>
+  </div>
+
+  <div class="reader" id="reader" hidden>
+    <div class="r-back" data-close></div>
+    <div class="r-box" role="dialog" aria-modal="true" aria-labelledby="r-title">
+      <header class="r-head">
+        <div class="r-h-t">
+          <p class="m r-h-v" id="r-venue"></p>
+          <h2 id="r-title"></h2>
+        </div>
+        <div class="r-h-a">
+          <a class="btn-o r-open" id="r-open" target="_blank" rel="noopener">Open original ↗</a>
+          <button class="r-x" type="button" data-close aria-label="Close">✕</button>
+        </div>
+      </header>
+      <div class="r-body">
+        <div class="r-load" id="r-load"><span></span>Loading the PDF…</div>
+        <div class="r-fail" id="r-fail" hidden>
+          <p>This PDF will not display inside the page.</p>
+          <a class="btn" id="r-fail-open" target="_blank" rel="noopener">Open it on arXiv ↗</a>
+        </div>
+        <iframe id="r-frame" title="Paper" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </div>
+  </div>
 </Base>
 
 <style>
-  .meta-row { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 13px; color: var(--ink-mute); align-items: center; }
-  .stamp, .stamp-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
-  .stamp :global(svg), .stamp-link :global(svg) { width: 13px; height: 13px; color: var(--accent); }
-  .stamp-link { color: var(--ink); border-bottom: var(--hair) solid var(--line); }
-  .stamp-link:hover { color: var(--accent); border-color: var(--accent); }
-  .filters { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 14px 16px; border: var(--hair) solid var(--line-soft); border-radius: 10px; background: var(--bg-soft); }
-  .f-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-  .f-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-right: 4px; }
-  .f-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 500; padding: 5px 10px; border: var(--hair) solid var(--line-soft); border-radius: 999px; background: #fff; color: var(--ink-mute); transition: all 0.12s; }
-  .f-btn:hover { border-color: var(--line-mid); color: var(--ink); }
-  .f-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .f-btn--secondary { color: var(--ink-faint); }
-  .f-btn--award :global(svg) { width: 12px; height: 12px; color: var(--gold); }
-  .f-btn.active :global(svg) { color: #fff; }
-  .f-n { font-family: var(--font-mono); font-size: 10px; opacity: 0.7; }
-  .f-div { width: var(--hair); height: 22px; background: var(--line-soft); }
-  .f-select, .f-input { font: inherit; font-size: 12.5px; padding: 5px 10px; border: var(--hair) solid var(--line-soft); border-radius: 999px; background: #fff; color: var(--ink); }
-  .f-input { min-width: 180px; }
-  .empty { padding: 32px 0; }
-  @media (max-width: 720px) { .f-div { display: none; } .filters { padding: 12px; } }
+  .head-links { display: flex; flex-wrap: wrap; gap: 6px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .grp { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; min-width: 0; max-width: 100%; }
+  .sel {
+    font: inherit; font-size: 12.5px; height: 32px; padding: 0 10px; color: var(--ink-2);
+    background: #fff; border: 1px solid var(--rule-2); border-radius: 0;
+    max-width: 100%; min-width: 0; flex-shrink: 1;
+  }
+  .inp { min-width: 210px; }
+  .sel:hover { border-color: var(--rule-3); }
+
+  /* ── shelf ─────────────────────────────────────────────────────────────── */
+  .shelfwrap { min-height: 40vh; }
+  .shelf {
+    display: grid; gap: 26px 22px;
+    grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  }
+  .card { display: grid; grid-template-rows: auto 1fr; gap: 12px; }
+  .card[hidden] { display: none; }
+
+  .cover {
+    display: block; position: relative; width: 100%; aspect-ratio: 17 / 22; container-type: inline-size;
+    background: var(--bg-soft); border: 1px solid var(--rule); overflow: hidden;
+    transition: transform .3s cubic-bezier(.2,.8,.25,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .cover :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .card:hover .cover { transform: translateY(-4px); border-color: var(--rule-3); box-shadow: 0 18px 32px -20px rgba(11,15,13,.5); }
+
+  .nocover {
+    display: flex; flex-direction: column; height: 100%; padding: 8%; text-align: left; overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(0,144,81,.05), transparent 34%),
+      #fdfdfc;
+    box-shadow: inset 0 0 0 1px rgba(11,15,13,.06);
+  }
+  .nc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .nc-v { font-size: max(7px, 3.2cqw); letter-spacing: .09em; color: var(--brand); }
+  .nc-y { font-size: max(7px, 3.2cqw); letter-spacing: .08em; color: var(--ink-5); }
+  .nc-rule { height: 1px; background: var(--rule-3); margin: 4% 0 6%; flex: 0 0 auto; }
+  .nc-t { flex: 0 1 auto; min-height: 0; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; font-size: clamp(11px, 6.1cqw, 16px); font-weight: 700; line-height: 1.28; letter-spacing: -0.018em; color: var(--ink); font-variation-settings: "wdth" 104; }
+  .nc-a { flex: 0 0 auto; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 5%; font-size: clamp(9.5px, 4.5cqw, 12.5px); line-height: 1.4; color: var(--ink-4); }
+  .nc-foot { flex: 0 0 auto; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: auto; padding-top: 5%; border-top: 1px solid var(--rule); font-size: max(6.5px, 2.9cqw); letter-spacing: .07em; color: var(--ink-5); line-height: 1.7; }
+
+  .scrim {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: rgba(11,15,13,.72); opacity: 0; transition: opacity .24s ease;
+  }
+  .scrim-in { color: #fff; font-weight: 700; font-size: 13.5px; border: 1px solid rgba(255,255,255,.5); padding: 8px 15px; }
+  .card:hover .scrim, .cover:focus-visible .scrim { opacity: 1; }
+
+  .meta { display: grid; grid-template-rows: auto auto 1fr auto; gap: 5px; }
+  .m-1 { display: flex; align-items: baseline; gap: 8px; }
+  .v { font-family: var(--mono); font-size: 8px; letter-spacing: .07em; color: #fff; background: var(--ink); padding: 3px 6px; }
+  .v-pre { background: #fff; color: var(--ink-4); border: 1px solid var(--rule-2); }
+  .yr { font-size: 8px; color: var(--ink-5); }
+  .m-t { font-size: 14px; font-weight: 700; line-height: 1.3; letter-spacing: -0.014em; font-variation-settings: "wdth" 104; }
+  .m-t a:hover { color: var(--brand); }
+  .m-a { font-size: 12px; color: var(--ink-4); line-height: 1.4; }
+  .m-l { display: flex; flex-wrap: wrap; gap: 5px; padding-top: 3px; }
+  .none { padding: 60px 0; color: var(--ink-4); }
+
+  /* ── pager ─────────────────────────────────────────────────────────────── */
+  .pager { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--rule); }
+  .count { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); }
+  .pbtns { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pb { min-width: 32px; height: 32px; padding: 0 9px; border: 1px solid var(--rule-2); font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  .pb:hover { border-color: var(--rule-3); color: var(--ink); }
+  .pb.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .pb:disabled { opacity: .3; cursor: default; }
+
+  /* ── reader ────────────────────────────────────────────────────────────── */
+  .reader { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: clamp(10px, 2.4vw, 34px); }
+  .r-back { position: absolute; inset: 0; background: rgba(11,15,13,.72); backdrop-filter: blur(3px); animation: fade .2s ease; }
+  .r-box { position: relative; width: min(1080px, 100%); height: min(94vh, 100%); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
+  @keyframes fade { from { opacity: 0; } }
+  @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.985); } }
+  .r-head { display: flex; align-items: flex-start; gap: 20px; padding: 16px 18px; border-bottom: 1px solid var(--rule); }
+  .r-h-t { min-width: 0; }
+  .r-h-v { font-size: 8px; letter-spacing: .1em; color: var(--brand); }
+  .r-head h2 { margin-top: 5px; font-size: 16.5px; font-weight: 700; line-height: 1.3; letter-spacing: -0.016em; }
+  .r-h-a { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .r-open { height: 34px; padding: 0 14px; font-size: 13px; }
+  .r-x { width: 34px; height: 34px; border: 1px solid var(--rule-2); font-size: 14px; color: var(--ink-3); }
+  .r-x:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .r-body { position: relative; background: var(--bg-soft); }
+  .r-body iframe { width: 100%; height: 100%; border: 0; }
+  .r-load { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 13px; color: var(--ink-4); }
+  .r-fail { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 16px; text-align: center; padding: 24px; }
+  .r-fail p { font-size: 15px; color: var(--ink-3); }
+  .r-load span { width: 13px; height: 13px; border: 2px solid var(--rule-2); border-top-color: var(--brand); border-radius: 50%; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  body.lock { overflow: hidden; }
+
+  @media (max-width: 1080px) { .r-h-a .r-open { display: none; } }
+  @media (max-width: 760px) { .bar { gap: 10px 12px; } .grp { width: 100%; } .sel { flex: 1 1 130px; } .inp { flex: 1 1 100%; min-width: 0; } .m-t { font-size: 13px; } }
 </style>
 
 <script>
-  const state: Record<string, string> = { bucket: "reviewed", year: "all", thread: "all", member: "all", award: "0", q: "" };
-  const rows = [...document.querySelectorAll<HTMLElement>(".pub")];
-  const groups = [...document.querySelectorAll<HTMLElement>(".pub-year-group")];
-  const countEl = document.getElementById("pubcount")!;
-  const emptyEl = document.getElementById("pubempty")!;
-  const labels: Record<string, string> = { reviewed: "peer-reviewed publications", preprint: "preprints", magazine: "magazine columns", other: "other items", all: "publications" };
+  const shelf = document.getElementById("shelf")!;
+  const cards = [...shelf.querySelectorAll<HTMLElement>(".card")];
+  const countEl = document.getElementById("count")!;
+  const pbtns = document.getElementById("pbtns")!;
+  const noneEl = document.getElementById("none")!;
 
-  // restore from URL (?kind=all&year=2025&thread=...&author=...&q=...)
-  const sp = new URLSearchParams(location.search);
-  if (sp.get("kind")) state.bucket = sp.get("kind")!;
-  if (sp.get("year")) state.year = sp.get("year")!;
-  if (sp.get("thread")) state.thread = sp.get("thread")!;
-  if (sp.get("author")) state.member = sp.get("author")!;
-  if (sp.get("award")) state.award = "1";
-  if (sp.get("q")) state.q = sp.get("q")!;
+  const state: Record<string, string> = { kind: "reviewed", year: "all", thread: "all", member: "all", q: "" };
+  let page = 1;
 
-  function apply() {
-    let n = 0;
+  // ── how many cards fit: columns from the grid, rows from the viewport ────
+  function perPage() {
+    const cols = getComputedStyle(shelf).gridTemplateColumns.split(" ").filter(Boolean).length || 4;
+    const rows = window.innerHeight >= 1200 ? 3 : window.innerHeight >= 950 ? 2 : 2;
+    return Math.max(cols, cols * rows);
+  }
+
+  function cols() {
+    const w = window.innerWidth;
+    const c = w >= 2100 ? 7 : w >= 1700 ? 6 : w >= 1360 ? 5 : w >= 1040 ? 4 : w >= 760 ? 3 : 2;
+    shelf.style.setProperty("--cols", String(c));
+    return c;
+  }
+
+  function matches(c: HTMLElement) {
     const q = state.q.trim().toLowerCase();
-    for (const r of rows) {
-      const okBucket = state.bucket === "all" || r.dataset.bucket === state.bucket;
-      const okYear = state.year === "all" || r.dataset.year === state.year;
-      const okThread = state.thread === "all" || (r.dataset.threads ?? "").split(" ").includes(state.thread);
-      const okMember = state.member === "all" || (r.dataset.members ?? "").split(" ").includes(state.member);
-      const okAward = state.award !== "1" || !!r.querySelector(".pub-award");
-      const okQ = !q || (r.textContent ?? "").toLowerCase().includes(q);
-      const show = okBucket && okYear && okThread && okMember && okAward && okQ;
-      r.hidden = !show;
-      if (show) n++;
+    if (state.kind !== "all" && c.dataset.kind !== state.kind) return false;
+    if (state.year !== "all" && c.dataset.year !== state.year) return false;
+    if (state.thread !== "all" && !(c.dataset.threads ?? "").split(" ").includes(state.thread)) return false;
+    if (state.member !== "all" && !(c.dataset.members ?? "").split(" ").includes(state.member)) return false;
+    if (q) {
+      const hay = `${c.dataset.title} ${c.dataset.authors} ${c.dataset.venue} ${c.dataset.year}`.toLowerCase();
+      if (!hay.includes(q)) return false;
     }
-    for (const g of groups) {
-      const vis = [...g.querySelectorAll<HTMLElement>(".pub")].filter((r) => !r.hidden).length;
-      g.hidden = vis === 0;
-      const c = g.querySelector(".pyh-count");
-      if (c) c.textContent = `${vis} ${vis === 1 ? "paper" : "papers"}`;
+    return true;
+  }
+
+  function render() {
+    cols();
+    const hits = cards.filter(matches);
+    const per = perPage();
+    const pages = Math.max(1, Math.ceil(hits.length / per));
+    if (page > pages) page = pages;
+    const start = (page - 1) * per;
+    const slice = new Set(hits.slice(start, start + per));
+    for (const c of cards) c.hidden = !slice.has(c);
+
+    noneEl.hidden = hits.length > 0;
+    countEl.textContent = hits.length
+      ? `${start + 1}–${Math.min(start + per, hits.length)} OF ${hits.length}`
+      : "";
+
+    pbtns.innerHTML = "";
+    if (pages > 1) {
+      const mk = (label: string, to: number, opts: { on?: boolean; off?: boolean } = {}) => {
+        const b = document.createElement("button");
+        b.className = "pb" + (opts.on ? " on" : "");
+        b.textContent = label;
+        b.disabled = !!opts.off;
+        b.addEventListener("click", () => {
+          page = to;
+          render();
+          shelf.scrollIntoView({ block: "start", behavior: "smooth" });
+        });
+        pbtns.appendChild(b);
+      };
+      mk("‹", page - 1, { off: page === 1 });
+      for (let i = 1; i <= pages; i++) mk(String(i), i, { on: i === page });
+      mk("›", page + 1, { off: page === pages });
     }
-    const parts = [`Showing <b>${n}</b> ${labels[state.bucket] ?? "publications"}`];
-    if (state.year !== "all") parts.push(`from ${state.year}`);
-    if (state.thread !== "all") parts.push(`on the “${document.querySelector(`[data-f=thread][data-v="${state.thread}"]`)?.getAttribute("title")}” thread`);
-    if (state.member !== "all") parts.push(`by ${(document.querySelector(`#f-member option[value="${state.member}"]`) as HTMLOptionElement)?.text.replace(/\s\(\d+\)$/, "")}`);
-    if (state.award === "1") parts.push("with awards");
-    if (q) parts.push(`matching “${q}”`);
-    countEl.innerHTML = parts.join(" ") + ".";
-    emptyEl.hidden = n > 0;
-    // reflect in URL (no history spam)
     const u = new URL(location.href);
     u.search = "";
-    if (state.bucket !== "reviewed") u.searchParams.set("kind", state.bucket);
-    if (state.year !== "all") u.searchParams.set("year", state.year);
-    if (state.thread !== "all") u.searchParams.set("thread", state.thread);
-    if (state.member !== "all") u.searchParams.set("author", state.member);
-    if (state.award === "1") u.searchParams.set("award", "1");
-    if (q) u.searchParams.set("q", q);
+    for (const [k, v] of Object.entries(state)) {
+      if (!v) continue;
+      if (k === "kind" ? v !== "reviewed" : v !== "all") u.searchParams.set(k, v);
+    }
+    if (page > 1) u.searchParams.set("p", String(page));
     history.replaceState(null, "", u);
-    // sync button states
-    document.querySelectorAll<HTMLButtonElement>(".f-btn").forEach((b) => {
-      const f = b.dataset.f!;
-      b.classList.toggle("active", f === "award" ? state.award === "1" : state[f] === b.dataset.v);
-    });
-    (document.getElementById("f-member") as HTMLSelectElement).value = state.member;
   }
-  document.querySelectorAll<HTMLButtonElement>(".f-btn").forEach((b) =>
+
+  // ── filters ──────────────────────────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('.chip[data-f="kind"]').forEach((b) =>
     b.addEventListener("click", () => {
-      const f = b.dataset.f!;
-      if (f === "award") state.award = state.award === "1" ? "0" : "1";
-      else state[f] = b.dataset.v!;
-      apply();
+      document.querySelectorAll(".chip[data-f=kind]").forEach((o) => o.classList.remove("on"));
+      b.classList.add("on");
+      state.kind = b.dataset.v!;
+      page = 1;
+      render();
     })
   );
-  document.getElementById("f-member")!.addEventListener("change", (e) => {
-    state.member = (e.target as HTMLSelectElement).value;
-    apply();
-  });
-  const qEl = document.getElementById("f-q") as HTMLInputElement;
-  qEl.value = state.q;
+  document.querySelectorAll<HTMLSelectElement>("select.sel").forEach((s) =>
+    s.addEventListener("change", () => {
+      state[s.dataset.f!] = s.value;
+      page = 1;
+      render();
+    })
+  );
+  const qEl = document.querySelector<HTMLInputElement>('input[data-f="q"]')!;
   qEl.addEventListener("input", () => {
     state.q = qEl.value;
-    apply();
+    page = 1;
+    render();
   });
-  apply();
+
+  const sp = new URLSearchParams(location.search);
+  for (const k of ["kind", "year", "thread", "member", "q"]) if (sp.get(k)) state[k] = sp.get(k)!;
+  if (sp.get("p")) page = Number(sp.get("p")) || 1;
+  document.querySelectorAll<HTMLButtonElement>('.chip[data-f="kind"]').forEach((b) =>
+    b.classList.toggle("on", b.dataset.v === state.kind)
+  );
+  document.querySelectorAll<HTMLSelectElement>("select.sel").forEach((s) => (s.value = state[s.dataset.f!] ?? "all"));
+  qEl.value = state.q;
+
+  let t: number;
+  addEventListener("resize", () => {
+    clearTimeout(t);
+    t = window.setTimeout(render, 140);
+  });
+  render();
+
+  // ── reader ───────────────────────────────────────────────────────────────
+  const reader = document.getElementById("reader")!;
+  const frame = document.getElementById("r-frame") as HTMLIFrameElement;
+  const load = document.getElementById("r-load")!;
+  const fail = document.getElementById("r-fail")!;
+  const failOpen = document.getElementById("r-fail-open") as HTMLAnchorElement;
+  let failTimer = 0;
+  let loaded = false;
+  const rTitle = document.getElementById("r-title")!;
+  const rVenue = document.getElementById("r-venue")!;
+  const rOpen = document.getElementById("r-open") as HTMLAnchorElement;
+  let lastFocus: HTMLElement | null = null;
+
+  function open(card: HTMLElement) {
+    const pdf = card.dataset.pdf;
+    if (!pdf) {
+      location.href = card.dataset.href!;
+      return;
+    }
+    lastFocus = document.activeElement as HTMLElement;
+    rTitle.textContent = card.dataset.title ?? "";
+    rVenue.textContent = (card.dataset.venue ?? "").trim().toUpperCase();
+    rOpen.href = pdf;
+    load.hidden = false;
+    fail.hidden = true;
+    failOpen.href = pdf;
+    frame.src = pdf + "#view=FitH";
+    loaded = false;
+    reader.hidden = false;
+    document.body.classList.add("lock");
+    (reader.querySelector(".r-x") as HTMLElement)?.focus();
+    clearTimeout(failTimer);
+    failTimer = window.setTimeout(() => {
+      load.hidden = true;
+      if (!loaded) fail.hidden = false;
+    }, 8000);
+  }
+  function close() {
+    reader.hidden = true;
+    clearTimeout(failTimer);
+    frame.src = "about:blank";
+    document.body.classList.remove("lock");
+    lastFocus?.focus();
+  }
+  frame.addEventListener("load", () => {
+    if (frame.src === "about:blank") return;
+    loaded = true;
+    load.hidden = true;
+    fail.hidden = true;
+    clearTimeout(failTimer);
+  });
+  shelf.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>(".cover");
+    if (btn) open(btn.closest<HTMLElement>(".card")!);
+  });
+  reader.addEventListener("click", (e) => {
+    if ((e.target as HTMLElement).closest("[data-close]")) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !reader.hidden) close();
+  });
 </script>

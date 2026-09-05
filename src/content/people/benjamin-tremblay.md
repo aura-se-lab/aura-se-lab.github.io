@@ -4,7 +4,7 @@ role: undergrad
 title: Undergraduate Researcher
 status: current
 order: 30
-photo: ../../assets/people/benjamin-tremblay.jpg
+photo: ../../assets/people/cropped/benjamin-tremblay.jpg
 joined: 2025-01
 interests: [Neural Compression, LoRA / QLoRA, Code Quality]
 threads: [efficient-models]

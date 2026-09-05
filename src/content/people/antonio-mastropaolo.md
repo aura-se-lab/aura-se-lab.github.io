@@ -4,7 +4,7 @@ role: director
 title: Assistant Professor of Computer Science · Lab Director
 status: current
 order: 0
-photo: ../../assets/people/antonio-mastropaolo.jpg
+photo: ../../assets/people/cropped/antonio-mastropaolo.jpg
 joined: 2024-08
 email: amastropaolo@wm.edu
 interests: [AI4SE, Large Code Models, Efficiency, Interpretability, Neurosymbolic SE]

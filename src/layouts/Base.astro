@@ -14,8 +14,10 @@ interface Props {
   noindex?: boolean;
   publishedTime?: string;
   class?: string;
+  /** Set false on the single-screen landing page, which carries its own rail. */
+  footer?: boolean;
 }
-const { class: cls, ...seo } = Astro.props;
+const { class: cls, footer = true, ...seo } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,6 +31,6 @@ const { class: cls, ...seo } = Astro.props;
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    {footer && <Footer />}
   </body>
 </html>

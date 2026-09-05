@@ -1,0 +1,163 @@
+---
+import Base from "@/layouts/Base.astro";
+import { lab, tools, artifacts } from "@/lib/lab";
+import { publications } from "@/lib/pubs";
+
+const withCode = publications.filter((p) => p.code || p.data);
+const subject = encodeURIComponent("[AURA Lab] AuraPulse-S access");
+---
+
+<Base
+  title="Software"
+  description="Tools and replication packages from the AURA Lab at William & Mary — including AuraPulse-S, the lab's GPU and SLURM monitor."
+  image="/og/site.png"
+>
+  <div class="page">
+    <div class="shell">
+      <header class="page-head">
+        <div class="row">
+          <div>
+            <p class="label">SOFTWARE</p>
+            <h1 class="h2" style="margin-top:8px">Software</h1>
+          </div>
+          <a class="tg" href={lab.social.github} target="_blank" rel="noopener">GITHUB · AURA-SE-LAB ↗</a>
+        </div>
+        <p class="lead">
+          Tools we build for our own work, and the artefacts that go with our papers. Everything here is used inside the
+          lab before it leaves it.
+        </p>
+      </header>
+
+      {tools.map((t) => (
+        <article class="tool">
+          <div class="t-main">
+            <div class="t-top">
+              <span class:list={["dot", t.status]} aria-hidden="true"></span>
+              <span class="m t-st">{(t.status ?? "active").toUpperCase()}{t.version ? ` · v${t.version}` : ""}</span>
+              {t.kind && <span class="m t-kind">{t.kind.toUpperCase()}</span>}
+            </div>
+            <h2 class="h2 t-name">{t.name}</h2>
+            {t.tagline && <p class="t-tag">{t.tagline}</p>}
+            {t.summary && <p class="lead t-sum">{t.summary}</p>}
+            {t.features && (
+              <ul class="t-feat">
+                {t.features.map((f) => <li>{f}</li>)}
+              </ul>
+            )}
+            <div class="btn-row t-btns">
+              {t.download ? (
+                <a class="btn" href={t.download}>Download {t.name}</a>
+              ) : (
+                <a class="btn" href={`mailto:${lab.contact.email}?subject=${subject}`}>Request access</a>
+              )}
+              {t.repo && <a class="btn-o" href={t.repo} target="_blank" rel="noopener">Source ↗</a>}
+            </div>
+            {!t.download && t.access === "request" && (
+              <p class="t-note m">AVAILABLE TO LAB MEMBERS AND W&amp;M COMPUTER SCIENCE COLLABORATORS.</p>
+            )}
+          </div>
+
+          {t.specs && (
+            <dl class="t-specs">
+              {t.specs.map((s) => (
+                <div class="sp">
+                  <dt class="m">{s.k.toUpperCase()}</dt>
+                  <dd>{s.v}{s.n && <span class="sp-n"> {s.n}</span>}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </article>
+      ))}
+
+      <!-- ── artefacts ────────────────────────────────────────────────── -->
+      <section class="grp">
+        <div class="grp-head">
+          <h2 class="h3">Replication packages</h2>
+          <span class="m grp-n">{artifacts.length || withCode.length || "PER PAPER"}</span>
+        </div>
+
+        {artifacts.length > 0 ? (
+          <ul class="rows">
+            {artifacts.map((a) => (
+              <li class="rw">
+                <a class="rw-n" href={a.url ?? (a.doi ? `https://doi.org/${a.doi}` : "#")} target="_blank" rel="noopener">
+                  {a.title} ↗
+                </a>
+                <span class="rw-m">
+                  {a.doi && <span class="m">{a.doi}</span>}
+                  {a.publication && <a class="tg" href={`/publications/${a.publication}/`}>PAPER</a>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : withCode.length > 0 ? (
+          <ul class="rows">
+            {withCode.map((p) => (
+              <li class="rw">
+                <a class="rw-n" href={`/publications/${p.key}/`}>{p.title}</a>
+                <span class="rw-m">
+                  {p.code && <a class="tg" href={p.code} target="_blank" rel="noopener">CODE</a>}
+                  {p.data && <a class="tg" href={p.data} target="_blank" rel="noopener">DATA</a>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="empty">
+            Code and data for each study are linked from that paper's page, alongside its DOI and BibTeX. Archived
+            packages are listed here as their DOIs are minted.
+            <br />
+            <a class="link-arrow" href="/publications/" style="margin-top:14px">Browse the publications →</a>
+          </p>
+        )}
+
+        <p class="creed m">
+          EVERY EMPIRICAL PAPER SHIPS ITS DATA, SCRIPTS AND MODELS. REPRODUCIBILITY IS A BASELINE, NOT A FEATURE.
+        </p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .tool {
+    display: grid; gap: clamp(22px, 3vw, 46px); align-items: start;
+    padding: clamp(24px, 3vw, 38px); border: 1px solid var(--rule); background: var(--bg-soft);
+  }
+  @media (min-width: 940px) { .tool { grid-template-columns: minmax(0, 1.5fr) minmax(250px, 0.75fr); } }
+  .t-top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand); flex-shrink: 0; animation: beat 2.4s ease-out infinite; }
+  .dot.beta { background: var(--live); }
+  .dot.archived { background: var(--ink-5); animation: none; }
+  @keyframes beat { 0% { box-shadow: 0 0 0 0 rgba(194,65,12,.5); } 70% { box-shadow: 0 0 0 8px rgba(194,65,12,0); } 100% { box-shadow: 0 0 0 0 rgba(194,65,12,0); } }
+  .t-st { font-size: 8px; letter-spacing: .1em; color: var(--live); }
+  .t-kind { font-size: 8px; letter-spacing: .1em; color: var(--ink-5); border-left: 1px solid var(--rule-2); padding-left: 9px; }
+  .t-name { margin-top: 10px; font-size: clamp(28px, 3vw, 44px); }
+  .t-tag { margin-top: 6px; font-size: 16px; font-weight: 600; color: var(--ink-2); }
+  .t-sum { margin-top: 14px; }
+  .t-feat { margin-top: 18px; display: grid; gap: 8px; }
+  .t-feat li { position: relative; padding-left: 18px; font-size: 14.5px; color: var(--ink-2); }
+  .t-feat li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1px; background: var(--brand); }
+  .t-btns { margin-top: 24px; }
+  .t-note { margin-top: 12px; font-size: 8px; letter-spacing: .09em; color: var(--ink-5); }
+
+  .t-specs { display: grid; background: #fff; border: 1px solid var(--rule); }
+  .sp { padding: 13px 16px; border-bottom: 1px solid var(--rule); }
+  .sp:last-child { border-bottom: 0; }
+  .sp dt { font-size: 8px; letter-spacing: .1em; color: var(--ink-5); }
+  .sp dd { margin: 5px 0 0; font-size: 15px; font-weight: 600; letter-spacing: -0.012em; }
+  .sp-n { font-weight: 400; color: var(--ink-4); font-size: 13px; }
+
+  .grp { margin-top: clamp(38px, 4.4vw, 64px); }
+  .grp-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 1.5px solid var(--rule-3); }
+  .grp-n { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); margin-left: auto; }
+  .rows { margin-top: 6px; }
+  .rw { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; padding: 13px 0; border-bottom: 1px solid var(--rule); }
+  .rw-n { font-size: 15px; font-weight: 600; flex: 1; min-width: 240px; }
+  a.rw-n:hover { color: var(--brand); }
+  .rw-m { display: flex; align-items: center; gap: 7px; font-size: 8px; color: var(--ink-5); }
+
+  .empty { margin-top: 20px; max-width: 62ch; color: var(--ink-3); font-size: 15px; line-height: 1.6; }
+  .creed { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 8px; letter-spacing: .1em; color: var(--ink-5); line-height: 2; }
+</style>

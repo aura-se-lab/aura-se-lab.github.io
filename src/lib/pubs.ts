@@ -142,7 +142,7 @@ export function pubLinks(p: Publication): { label: string; href: string; kind: s
 }
 
 export function venueLabel(p: Publication): string {
-  return p.venue ?? p.venue_info?.key ?? (p.type === "preprint" ? "arXiv" : "—");
+  return p.venue || p.venue_info?.key || (p.type === "preprint" ? "arXiv" : p.type === "magazine" ? "COLUMN" : "—");
 }
 
 export const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

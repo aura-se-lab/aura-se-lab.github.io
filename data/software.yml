@@ -1,0 +1,33 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Software the lab ships. Rendered by src/pages/software/index.astro.
+# Add a tool here and it appears on the site — no code changes needed.
+# ─────────────────────────────────────────────────────────────────────────────
+tools:
+  - id: aurapulse-s
+    name: AuraPulse-S
+    kind: Desktop application
+    tagline: The lab's compute, visible from the menu bar.
+    status: beta                # beta | active | archived
+    version: "0.1.0"
+    summary: >-
+      A native macOS client for the lab's GPU cluster. It keeps utilisation,
+      memory and temperature for the four NVIDIA L40S cards on screen, submits and
+      watches SLURM jobs without leaving the app, and carries a built-in SSH
+      terminal for the times a shell is faster. Credentials live in the macOS
+      Keychain and never touch disk.
+    features:
+      - Live telemetry for four NVIDIA L40S cards — utilisation, memory, temperature.
+      - SLURM job submission, queue monitoring and cancellation.
+      - Built-in SSH terminal against the lab's head node.
+      - Credentials stored in the macOS Keychain, never written to disk.
+    specs:
+      - { k: Platform, v: macOS 14 or later, n: Apple Silicon }
+      - { k: Download, v: 6.9 MB, n: signed disk image }
+      - { k: Watches, v: 4 × NVIDIA L40S, n: lab cluster }
+      - { k: Access, v: W&M CS account, n: on request }
+    access: request             # request | public
+    # download: https://…       # ← set this and the button goes live
+
+# Replication packages. One entry per archived artefact; `publication` links the
+# row back to the paper page. Left empty until the DOIs are minted.
+artifacts: []

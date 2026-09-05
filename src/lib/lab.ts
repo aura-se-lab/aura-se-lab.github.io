@@ -2,6 +2,7 @@ import { parse } from "yaml";
 // YAML is inlined at build time by Vite (`?raw`), so this works in the prerender bundle too.
 import labRaw from "../../data/lab.yml?raw";
 import collabRaw from "../../data/collaborators.yml?raw";
+import softwareRaw from "../../data/software.yml?raw";
 
 export interface Funding {
   id: string;
@@ -42,6 +43,30 @@ export interface Lab {
   flagship_venues: string[];
 }
 
+export interface Tool {
+  id: string;
+  name: string;
+  kind?: string;
+  tagline?: string;
+  status?: "beta" | "active" | "archived";
+  version?: string;
+  summary?: string;
+  features?: string[];
+  specs?: { k: string; v: string; n?: string }[];
+  access?: "request" | "public";
+  download?: string;
+  repo?: string;
+}
+
+export interface Artifact {
+  title: string;
+  doi?: string;
+  url?: string;
+  publication?: string;
+  year?: number;
+  note?: string;
+}
+
 export interface Collaborator {
   name: string;
   affiliation?: string;
@@ -51,6 +76,10 @@ export interface Collaborator {
 
 export const lab: Lab = parse(labRaw);
 export const collaborators: Collaborator[] = parse(collabRaw) ?? [];
+
+const softwareDoc = (parse(softwareRaw) ?? {}) as { tools?: Tool[]; artifacts?: Artifact[] };
+export const tools: Tool[] = softwareDoc.tools ?? [];
+export const artifacts: Artifact[] = softwareDoc.artifacts ?? [];
 
 export const foundedLabel = (() => {
   const [y, m] = lab.founded.split("-").map(Number);

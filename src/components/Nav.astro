@@ -1,89 +1,131 @@
 ---
+import { Image } from "astro:assets";
 import { lab } from "@/lib/lab";
-import auraGlyph from "@/assets/img/aura-glyph.svg?raw";
-import wmLogo from "@/assets/img/wm-logo.svg?raw";
-import { FlaskConical, BookOpen, Users, Newspaper, DoorOpen, Menu, X } from "@lucide/astro";
+import mark from "@/assets/brand/aura-mark.png";
 
-const icons: Record<string, any> = { Research: FlaskConical, Publications: BookOpen, People: Users, News: Newspaper, Join: DoorOpen };
 const path = Astro.url.pathname;
 const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 ---
 
-<header class="nav" id="top">
-  <div class="shell">
-    <div class="nav-row">
-      <a href="/" class="nav-brand" aria-label={`${lab.name} — home`}>
-        <span class="nav-glyph" set:html={auraGlyph} />
-        <span class="nb-text">
-          <span class="nb-name">AURA <span class="nb-lab">Lab</span></span>
-          <span class="nb-sub">Computer Science · <span class="nb-wm" set:html={wmLogo} /></span>
-        </span>
-      </a>
-      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navmenu">
-        <Menu class="ico-open" />
-        <X class="ico-close" />
-      </button>
-      <nav class="nav-links" id="navmenu" aria-label="Primary">
-        {lab.nav.map((item) => {
-          const Icon = icons[item.label];
-          return (
-            <a href={item.href} class:list={[{ active: isActive(item.href) }]} aria-current={isActive(item.href) ? "page" : undefined}>
-              {Icon && <Icon />}
-              {item.label}
-            </a>
-          );
-        })}
-        <a href={lab.director.site} class="nav-ext" target="_blank" rel="noopener">Director ↗</a>
-      </nav>
-    </div>
+<header class="bar" id="top" data-open="false">
+  <div class="shell bar-in">
+    <a href="/" class="brand" aria-label={`${lab.name} — home`} aria-current={path === "/" ? "page" : undefined}>
+      <span class="plate"><Image src={mark} alt="" width={72} height={62} loading="eager" /></span>
+      <span class="bw">
+        <span class="bw-1">AURA<span class="bw-thin">LAB</span></span>
+        <span class="bw-2 m">WILLIAM &amp; MARY · COMPUTER SCIENCE</span>
+      </span>
+    </a>
+
+    <nav class="tabs" id="tabs" aria-label="Primary">
+      {lab.nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={["tab", { on: isActive(item.href) }]}
+          aria-current={isActive(item.href) ? "page" : undefined}
+        >
+          <span>{item.label}</span>
+        </a>
+      ))}
+      <a class="tab tab-x" href={lab.director.site} target="_blank" rel="noopener"><span>Director ↗</span></a>
+    </nav>
+
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="tabs">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
 <style>
-  .nav { position: sticky; top: 0; z-index: 100; background: var(--bg-ink); color: #fff; border-bottom: var(--hair) solid var(--accent); }
-  .nav-row { display: flex; align-items: center; gap: 24px; min-height: var(--nav-h); padding: 10px 0; }
-  .nav-brand { display: flex; align-items: center; gap: 12px; color: #fff; flex-shrink: 0; }
-  .nav-brand:hover { color: #fff; }
-  .nav-glyph { width: 46px; height: 46px; border-radius: 50%; background: #fff; padding: 3px; box-shadow: 0 4px 14px rgba(0,0,0,0.35); flex-shrink: 0; }
-  .nav-glyph :global(svg) { width: 100%; height: 100%; }
-  .nb-text { display: flex; flex-direction: column; line-height: 1.15; }
-  .nb-name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
-  .nb-lab { font-weight: 300; color: rgba(255,255,255,0.75); }
-  .nb-sub { display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 500; color: rgba(255,255,255,0.6); letter-spacing: 0.02em; margin-top: 2px; }
-  .nb-wm { display: inline-block; height: 10px; }
-  .nb-wm :global(svg) { height: 10px; width: auto; }
-  .nav-links { margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 14.5px; font-weight: 500; }
-  .nav-links a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px; color: rgba(255,255,255,0.82); position: relative; border-radius: 6px; }
-  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.06); }
-  .nav-links a :global(svg) { width: 14px; height: 14px; stroke-width: 1.9; opacity: 0.8; }
-  .nav-links a.active { color: #fff; }
-  .nav-links a.active::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 2px; height: 2px; background: var(--accent-bright); border-radius: 2px; }
-  .nav-ext { margin-left: 8px; font-size: 12.5px; color: rgba(255,255,255,0.55) !important; border-left: var(--hair) solid rgba(255,255,255,0.18); border-radius: 0 !important; padding-left: 16px !important; }
-  .nav-toggle { display: none; margin-left: auto; width: 40px; height: 40px; align-items: center; justify-content: center; color: #fff; border-radius: 8px; }
-  .nav-toggle :global(svg) { width: 22px; height: 22px; }
-  .nav-toggle .ico-close { display: none; }
-  .nav[data-open="true"] .nav-toggle .ico-open { display: none; }
-  .nav[data-open="true"] .nav-toggle .ico-close { display: block; }
-  @media (max-width: 860px) {
-    .nav-toggle { display: inline-flex; }
-    .nav-links { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--bg-ink); flex-direction: column; align-items: stretch; padding: 8px var(--pad) 18px; gap: 2px; border-bottom: var(--hair) solid var(--accent); box-shadow: 0 30px 40px -20px rgba(0,0,0,0.6); }
-    .nav[data-open="true"] .nav-links { display: flex; }
-    .nav-links a { padding: 12px 8px; font-size: 16px; border-radius: 6px; }
-    .nav-links a.active::after { left: 8px; right: auto; width: 24px; bottom: 6px; }
-    .nav-ext { border-left: 0; padding-left: 8px !important; margin-left: 0; margin-top: 6px; }
+  .bar {
+    position: sticky; top: 0; z-index: 200;
+    background: var(--chrome); color: var(--on-chrome);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
+  .bar-in { display: flex; align-items: center; gap: 20px; height: var(--nav-h); }
+
+  /* ── brand ─────────────────────────────────────────────────────────────── */
+  .brand { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
+  .plate {
+    width: 38px; height: 38px; border-radius: 50%; background: #fff;
+    display: grid; place-items: center; flex-shrink: 0;
+    transition: transform .3s cubic-bezier(.2,.8,.25,1), box-shadow .3s ease;
+  }
+  .plate :global(img) { width: 27px; height: auto; }
+  .brand:hover .plate { transform: rotate(-6deg) scale(1.06); box-shadow: 0 0 0 4px rgba(0,144,81,.28); }
+  .bw { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
+  .bw-1 {
+    font-variation-settings: "wdth" 118; font-weight: 800; font-size: 17px;
+    letter-spacing: -0.012em; color: #fff;
+  }
+  .bw-thin { font-weight: 400; color: var(--on-chrome-2); margin-left: 2px; }
+  .bw-2 { font-size: 7.5px; letter-spacing: 0.11em; color: var(--on-chrome-3); }
+
+  /* ── tabs ──────────────────────────────────────────────────────────────── */
+  .tabs { margin-left: auto; display: flex; align-items: stretch; height: 100%; }
+  .tab {
+    position: relative; display: inline-flex; align-items: center; padding: 0 15px;
+    font-size: 14px; font-weight: 500; color: var(--on-chrome-2);
+    transition: color .18s ease;
+  }
+  .tab span { position: relative; z-index: 1; }
+  .tab::before {
+    content: ""; position: absolute; inset: auto 8px 0 8px; height: 2px;
+    background: var(--brand); transform: scaleX(0); transform-origin: left;
+    transition: transform .28s cubic-bezier(.2,.8,.25,1);
+  }
+  .tab:hover { color: #fff; }
+  .tab:hover::before { transform: scaleX(1); }
+  .tab.on { color: #fff; font-weight: 700; font-variation-settings: "wdth" 106; }
+  .tab.on::before { transform: scaleX(1); height: 3px; }
+  .tab-x {
+    margin-left: 10px; padding-left: 20px; font-size: 12.5px; color: var(--on-chrome-3);
+    border-left: 1px solid rgba(255,255,255,.14);
+  }
+  .tab-x::before { display: none; }
+
+  /* ── burger ────────────────────────────────────────────────────────────── */
+  .burger { display: none; margin-left: auto; width: 40px; height: 40px; position: relative; }
+  .burger span {
+    position: absolute; left: 9px; right: 9px; height: 2px; background: #fff;
+    transition: transform .28s cubic-bezier(.2,.8,.25,1), opacity .18s ease;
+  }
+  .burger span:nth-child(1) { top: 13px; }
+  .burger span:nth-child(2) { top: 19px; }
+  .burger span:nth-child(3) { top: 25px; }
+  .bar[data-open="true"] .burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .bar[data-open="true"] .burger span:nth-child(2) { opacity: 0; }
+  .bar[data-open="true"] .burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  @media (max-width: 1000px) {
+    .burger { display: block; }
+    .tabs {
+      display: none; position: absolute; left: 0; right: 0; top: 100%;
+      background: var(--chrome); flex-direction: column; align-items: stretch; height: auto;
+      padding: 6px var(--pad) 20px; border-bottom: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 26px 40px -22px rgba(0,0,0,.7);
+    }
+    .bar[data-open="true"] .tabs { display: flex; }
+    .tab { padding: 14px 0; font-size: 19px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .tab::before { inset: auto auto 10px 0; width: 22px; }
+    .tab-x { border-left: 0; padding-left: 0; margin-left: 0; font-size: 14px; border-bottom: 0; }
+  }
+  @media (max-width: 460px) { .bw-2 { display: none; } }
 </style>
 
 <script>
-  const nav = document.querySelector<HTMLElement>(".nav");
-  const btn = nav?.querySelector<HTMLButtonElement>(".nav-toggle");
-  btn?.addEventListener("click", () => {
-    const open = nav!.dataset.open === "true";
-    nav!.dataset.open = String(!open);
-    btn.setAttribute("aria-expanded", String(!open));
-    btn.setAttribute("aria-label", open ? "Open menu" : "Close menu");
-  });
+  const bar = document.querySelector<HTMLElement>(".bar")!;
+  const burger = bar.querySelector<HTMLButtonElement>(".burger")!;
+  const set = (open: boolean) => {
+    bar.dataset.open = String(open);
+    burger.setAttribute("aria-expanded", String(open));
+  };
+  burger.addEventListener("click", () => set(bar.dataset.open !== "true"));
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && nav?.dataset.open === "true") btn?.click();
+    if (e.key === "Escape" && bar.dataset.open === "true") set(false);
+  });
+  bar.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => set(false)));
+  addEventListener("resize", () => {
+    if (innerWidth > 1000 && bar.dataset.open === "true") set(false);
   });
 </script>

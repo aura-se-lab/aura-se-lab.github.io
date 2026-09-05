@@ -1,154 +1,188 @@
 ---
-import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
 import Base from "@/layouts/Base.astro";
-import SectionHead from "@/components/SectionHead.astro";
-import PersonCard from "@/components/PersonCard.astro";
 import { lab, collaborators } from "@/lib/lab";
 import { pubsByMember } from "@/lib/pubs";
-import { ArrowUpRight, Globe, Mail, GraduationCap, Code, Briefcase } from "@lucide/astro";
 
 const all = (await getCollection("people")).sort((a, b) => a.data.order - b.data.order);
 const director = all.find((p) => p.data.role === "director")!;
-const { Content: DirectorBio } = await render(director);
+const { Content: Bio } = await render(director);
 const current = all.filter((p) => p.data.status === "current" && p.data.role !== "director");
-const phd = current.filter((p) => p.data.role === "phd");
-const msc = current.filter((p) => p.data.role === "msc" || p.data.role === "postdoc" || p.data.role === "visitor");
-const ug = current.filter((p) => p.data.role === "undergrad");
 const alumni = all.filter((p) => p.data.status === "alumni");
-const numberWord = (n: number) => ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"][n] ?? String(n);
+
+const groups = [
+  { k: "Doctoral researchers", list: current.filter((p) => p.data.role === "phd") },
+  { k: "Postdocs, master's and visitors", list: current.filter((p) => ["postdoc", "msc", "visitor"].includes(p.data.role)) },
+  { k: "Undergraduate researchers", list: current.filter((p) => p.data.role === "undergrad") },
+].filter((g) => g.list.length);
+
+const linkLabels: Record<string, string> = {
+  website: "SITE",
+  scholar: "SCHOLAR",
+  github: "GITHUB",
+  linkedin: "LINKEDIN",
+  x: "X",
+  bluesky: "BLUESKY",
+  orcid: "ORCID",
+  dblp: "DBLP",
+};
 const d = director.data;
 ---
 
-<Base title="People" description={`The people of the AURA Lab at William & Mary: director ${d.name}, ${phd.length} Ph.D. students, ${ug.length} undergraduate researchers, alumni and collaborators.`} image="/og/people.png">
-  <section class="page-hero">
+<Base
+  title="People"
+  description={`The people of the AURA Lab at William & Mary — ${d.name} and ${current.length} researchers.`}
+  image="/og/people.png"
+>
+  <div class="page">
     <div class="shell">
-      <p class="caption"><span class="caption-num">People</span> · {lab.short_name}</p>
-      <h1 class="h1 mt-2">Lab <b>members</b>.</h1>
-      <p class="lead mt-3" style="max-width:66ch">A growing group of Ph.D. students and undergraduates working at the intersection of AI and software engineering — advised by {d.name} at William & Mary.</p>
-    </div>
-  </section>
-
-  <section class="section section--flush">
-    <div class="shell">
-      <article class="director">
-        <div class="dir-photo">
-          {d.photo && <Image src={d.photo} alt={d.name} width={720} height={720} class="avatar" />}
-          <div class="caption mt-2">ID / DIR-00</div>
+      <header class="page-head">
+        <div class="row">
+          <div>
+            <p class="label">PEOPLE</p>
+            <h1 class="h2" style="margin-top:8px">People</h1>
+          </div>
+          <p class="head-n m">{current.length + 1} CURRENT · {alumni.length} ALUMNI · {collaborators.length} COLLABORATORS</p>
         </div>
-        <div>
-          <p class="caption">// Personnel record · Lab director</p>
-          <h2 class="h2 mt-1"><a href={`/people/${director.id}/`}>{d.name}</a></h2>
-          <p class="dir-role mt-1">{d.title}</p>
-          <div class="prose mt-3 dir-bio"><DirectorBio /></div>
-          <div class="dir-links mt-3">
-            {d.links.website && <a href={d.links.website} target="_blank" rel="noopener"><Globe />Website</a>}
-            {d.email && <a href={`mailto:${d.email}`}><Mail />Email</a>}
-            {d.links.scholar && <a href={d.links.scholar} target="_blank" rel="noopener"><GraduationCap />Scholar</a>}
-            {d.links.github && <a href={d.links.github} target="_blank" rel="noopener"><Code />GitHub</a>}
-            {d.links.linkedin && <a href={d.links.linkedin} target="_blank" rel="noopener"><Briefcase />LinkedIn</a>}
-            <a href={`/people/${director.id}/`} class="link-arrow">{pubsByMember(director.id).length} publications <ArrowUpRight /></a>
+      </header>
+
+      <!-- ── director ─────────────────────────────────────────────────── -->
+      <article class="dir">
+        <div class="dir-shot">
+          {d.photo && (
+            <Image src={d.photo} alt={d.name} widths={[380, 760]} sizes="(max-width: 900px) 90vw, 380px" loading="eager" />
+          )}
+        </div>
+        <div class="dir-body">
+          <p class="label">LAB DIRECTOR</p>
+          <h2 class="h2 dir-name">{d.name}</h2>
+          <p class="dir-role">{d.title} · {lab.institution.department}, {lab.institution.name}</p>
+          <div class="prose dir-bio"><Bio /></div>
+          <div class="tag-row" style="margin-top:18px">
+            {d.interests.map((i) => <span class="tag">{i}</span>)}
+          </div>
+          <div class="btn-row" style="margin-top:20px">
+            <a class="btn" href={`/people/${director.id}/`}>Profile</a>
+            {d.links.website && <a class="btn-o" href={d.links.website} target="_blank" rel="noopener">Personal site ↗</a>}
+            {d.email && <a class="btn-o" href={`mailto:${d.email}`}>Email</a>}
           </div>
         </div>
       </article>
+
+      <!-- ── members ──────────────────────────────────────────────────── -->
+      {groups.map((g) => (
+        <section class="grp">
+          <div class="grp-head">
+            <h2 class="h3">{g.k}</h2>
+            <span class="m grp-n">{g.list.length}</span>
+          </div>
+          <ul class="people">
+            {g.list.map((p) => {
+              const shot = p.data.photo;
+              const np = pubsByMember(p.id).length;
+              return (
+                <li class="pc">
+                  <a class="pc-shot" href={`/people/${p.id}/`}>
+                    {shot ? (
+                      <Image src={shot} alt={p.data.name} widths={[240, 480]} sizes="(max-width: 700px) 45vw, 240px" loading="lazy" />
+                    ) : (
+                      <span class="pc-blank exp">{p.data.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
+                    )}
+                  </a>
+                  <div class="pc-b">
+                    <h3 class="pc-n"><a href={`/people/${p.id}/`}>{p.data.name}</a></h3>
+                    <p class="pc-r">{p.data.title ?? p.data.role}</p>
+                    {p.data.interests.length > 0 && <p class="pc-i">{p.data.interests.slice(0, 3).join(" · ")}</p>}
+                    <p class="pc-l">
+                      {np > 0 && <a class="tg tg-a" href={`/publications/?member=${p.id}&kind=all`}>{np} PAPERS</a>}
+                      {Object.entries(p.data.links)
+                        .filter(([, v]) => v)
+                        .slice(0, 3)
+                        .map(([k, v]) => (
+                          <a class="tg" href={v as string} target="_blank" rel="noopener">{linkLabels[k] ?? k.toUpperCase()}</a>
+                        ))}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ))}
+
+      {alumni.length > 0 && (
+        <section class="grp">
+          <div class="grp-head"><h2 class="h3">Alumni</h2><span class="m grp-n">{alumni.length}</span></div>
+          <ul class="rows">
+            {alumni.map((p) => (
+              <li class="rw">
+                <a class="rw-n" href={`/people/${p.id}/`}>{p.data.name}</a>
+                <span class="rw-m">{p.data.title ?? p.data.role}{p.data.next ? ` — now at ${p.data.next}` : ""}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {collaborators.length > 0 && (
+        <section class="grp">
+          <div class="grp-head">
+            <h2 class="h3">External collaborators</h2>
+            <span class="m grp-n">{collaborators.length}</span>
+          </div>
+          <ul class="rows">
+            {collaborators.map((c) => (
+              <li class="rw">
+                {c.url ? (
+                  <a class="rw-n" href={c.url} target="_blank" rel="noopener">{c.name} ↗</a>
+                ) : (
+                  <span class="rw-n">{c.name}</span>
+                )}
+                <span class="rw-m">{c.affiliation}{c.note ? ` · ${c.note}` : ""}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
-  </section>
-
-  <section class="section" id="phd">
-    <div class="shell">
-      <div class="divider">
-        <span class="caption"><span class="caption-num">01</span> · Ph.D. students</span>
-        <h2 class="h3">Doctoral researchers</h2>
-        <span class="caption">N = {numberWord(phd.length)}</span>
-      </div>
-      <div class="grid-4 mt-3">{phd.map((p, i) => <PersonCard person={p} idx={`ID / PHD-${String(i + 1).padStart(2, "0")}`} />)}</div>
-    </div>
-  </section>
-
-  {msc.length > 0 && (
-    <section class="section" id="others">
-      <div class="shell">
-        <div class="divider">
-          <span class="caption"><span class="caption-num">02</span> · Researchers & visitors</span>
-          <h2 class="h3">Postdocs, M.Sc. students & visitors</h2>
-          <span class="caption">N = {numberWord(msc.length)}</span>
-        </div>
-        <div class="grid-4 mt-3">{msc.map((p, i) => <PersonCard person={p} idx={`ID / ${p.data.role.toUpperCase()}-${String(i + 1).padStart(2, "0")}`} />)}</div>
-      </div>
-    </section>
-  )}
-
-  <section class="section" id="undergrad">
-    <div class="shell">
-      <div class="divider">
-        <span class="caption"><span class="caption-num">{msc.length ? "03" : "02"}</span> · Undergraduates</span>
-        <h2 class="h3">Undergraduate researchers</h2>
-        <span class="caption">N = {numberWord(ug.length)}</span>
-      </div>
-      <div class="grid-4 mt-3">{ug.map((p, i) => <PersonCard person={p} idx={`ID / UG-${String(i + 1).padStart(2, "0")}`} />)}</div>
-    </div>
-  </section>
-
-  {alumni.length > 0 && (
-    <section class="section" id="alumni">
-      <div class="shell">
-        <div class="divider">
-          <span class="caption"><span class="caption-num">{msc.length ? "04" : "03"}</span> · Alumni</span>
-          <h2 class="h3">Alumni</h2>
-          <span class="caption">N = {numberWord(alumni.length)}</span>
-        </div>
-        <ul class="alumni mt-3">
-          {alumni.map((p) => (
-            <li>
-              <a href={`/people/${p.id}/`} class="al-name">{p.data.name}</a>
-              <span class="al-role">{p.data.title ?? p.data.role}</span>
-              <span class="al-when mono">{p.data.joined?.slice(0, 4)}{p.data.left ? `–${p.data.left.slice(0, 4)}` : ""}</span>
-              {p.data.next && <span class="al-next">→ {p.data.next}</span>}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )}
-
-  <section class="section" id="collaborators">
-    <div class="shell">
-      <div class="divider">
-        <span class="caption"><span class="caption-num">{msc.length ? "05" : "04"}</span> · Collaborators</span>
-        <h2 class="h3">Frequent collaborators</h2>
-        <span class="caption">N = {numberWord(collaborators.length)}</span>
-      </div>
-      <ul class="collab mt-3">
-        {collaborators.map((c) => (
-          <li>
-            {c.url ? <a href={c.url} target="_blank" rel="noopener" class="cb-name">{c.name} <ArrowUpRight /></a> : <span class="cb-name">{c.name}</span>}
-            <span class="cb-aff">{c.affiliation}</span>
-            {c.note && <span class="cb-note mono">// {c.note}</span>}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  </div>
 </Base>
 
 <style>
-  .director { display: grid; grid-template-columns: 1fr; gap: 28px; }
-  @media (min-width: 800px) { .director { grid-template-columns: 260px 1fr; gap: 48px; } }
-  .dir-photo :global(.avatar) { border-radius: 10px; }
-  .dir-role { font-size: 15px; color: var(--ink-mute); }
-  .dir-bio { font-size: 16px; }
-  .dir-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13.5px; align-items: center; }
-  .dir-links a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-mute); }
-  .dir-links a:hover { color: var(--accent); }
-  .dir-links :global(svg) { width: 14px; height: 14px; }
-  .divider { display: grid; grid-template-columns: 1fr auto; gap: 6px 24px; align-items: baseline; padding-bottom: 12px; border-bottom: var(--hair) solid var(--line); }
-  .divider .h3 { grid-column: 1; }
-  .divider .caption:last-child { grid-column: 2; grid-row: 1 / span 2; align-self: end; }
-  .alumni li, .collab li { display: grid; grid-template-columns: 1fr; gap: 2px 20px; padding: 12px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14.5px; }
-  @media (min-width: 720px) { .alumni li { grid-template-columns: 240px 1fr 90px 1fr; align-items: baseline; } .collab li { grid-template-columns: 260px 1fr 1fr; align-items: baseline; } }
-  .al-name, .cb-name { font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
-  .cb-name :global(svg) { width: 12px; height: 12px; color: var(--ink-faint); }
-  .al-role, .cb-aff { color: var(--ink-mute); }
-  .al-when { font-size: 11.5px; color: var(--ink-faint); letter-spacing: 0.04em; }
-  .al-next, .cb-note { color: var(--ink-faint); font-size: 12.5px; }
+  .head-n { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); }
+
+  /* ── director ──────────────────────────────────────────────────────────── */
+  .dir { display: grid; gap: clamp(22px, 3vw, 46px); align-items: start; }
+  @media (min-width: 900px) { .dir { grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); } }
+  .dir-shot { border: 1px solid var(--rule); background: var(--bg-soft); }
+  .dir-shot :global(img) { width: 100%; height: auto; aspect-ratio: 56 / 73; object-fit: cover; }
+  .dir-name { font-size: clamp(26px, 2.6vw, 38px); margin-top: 8px; }
+  .dir-role { margin-top: 6px; font-size: 14.5px; color: var(--ink-3); }
+  .dir-bio { margin-top: 16px; font-size: 15px; }
+
+  /* ── groups ────────────────────────────────────────────────────────────── */
+  .grp { margin-top: clamp(38px, 4.4vw, 64px); }
+  .grp-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 1.5px solid var(--rule-3); }
+  .grp-n { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); margin-left: auto; }
+
+  .people { margin-top: 22px; display: grid; gap: 26px 22px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+  .pc { display: grid; gap: 12px; }
+  .pc-shot { display: block; border: 1px solid var(--rule); background: var(--bg-soft); overflow: hidden; transition: border-color .24s ease, transform .24s cubic-bezier(.2,.8,.25,1); }
+  .pc-shot :global(img) { width: 100%; height: auto; aspect-ratio: 56 / 73; object-fit: cover; transition: transform .5s cubic-bezier(.2,.8,.25,1); }
+  .pc:hover .pc-shot { border-color: var(--rule-3); transform: translateY(-3px); }
+  .pc:hover .pc-shot :global(img) { transform: scale(1.035); }
+  .pc-blank { display: grid; place-items: center; aspect-ratio: 56 / 73; font-size: 36px; font-weight: 800; color: var(--ink-5); }
+  .pc-n { font-size: 15px; font-weight: 700; letter-spacing: -0.014em; font-variation-settings: "wdth" 106; }
+  .pc-n a:hover { color: var(--brand); }
+  .pc-r { margin-top: 3px; font-size: 12.5px; color: var(--ink-3); }
+  .pc-i { margin-top: 5px; font-size: 12px; color: var(--ink-5); line-height: 1.4; }
+  .pc-l { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── rows ──────────────────────────────────────────────────────────────── */
+  .rows { margin-top: 6px; }
+  .rw { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  .rw-n { font-size: 15px; font-weight: 600; }
+  a.rw-n:hover { color: var(--brand); }
+  .rw-m { font-size: 13px; color: var(--ink-4); }
 </style>

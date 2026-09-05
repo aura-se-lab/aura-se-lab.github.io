@@ -19,7 +19,7 @@ const objectives = [
   <section class="page-hero">
     <div class="shell">
       <p class="caption"><span class="caption-num">Research</span> · {lab.short_name}</p>
-      <h1 class="h1 mt-2">Building <b>trustworthy</b>, resource-efficient AI for the next generation of <span class="acc">software</span>.</h1>
+      <h1 class="h1 mt-2">Research</h1>
       <p class="lead mt-3" style="max-width:70ch">
         The AURA Lab investigates how foundation models can be made measurably more <b>efficient</b>, <b>interpretable</b>, and <b>trustworthy</b> for software engineering — from quantization and parameter-efficient fine-tuning to neurosymbolic reasoning, honest evaluation, and agents that act across the software lifecycle.
       </p>
@@ -28,7 +28,7 @@ const objectives = [
 
   <section class="section">
     <div class="shell">
-      <SectionHead num="01" cap="Mission">Our <b>mission</b>.</SectionHead>
+      <SectionHead num="01" cap="Mission">Mission</SectionHead>
       <div class="brief">
         <div>
           <p class="caption">// Abstract</p>
@@ -58,7 +58,7 @@ const objectives = [
   <section class="section" id="threads">
     <div class="shell">
       <SectionHead num="02" cap="Threads" sub="A·U·R·A — AI for code · Understanding what models do · Reliable evaluation of their behavior · Automation practitioners can trust. The threads cross-pollinate.">
-        Research <b>threads</b>.
+        Research threads
       </SectionHead>
       <div class="grid-2">
         {threads.map((t, i) => <ThreadTile thread={t} index={i + 1} total={threads.length} count={pubsByThread(t.id).length} />)}
@@ -69,7 +69,7 @@ const objectives = [
   <section class="section" id="funding">
     <div class="shell">
       <SectionHead num="03" cap="Funding" sub="Funded research lines and the programs that support our students.">
-        Projects & <b>funding</b>.
+        Projects and funding
       </SectionHead>
       <div class="fund-table">
         <div class="fund-head caption"><span>Program</span><span>Title & description</span><span>Metadata</span></div>
@@ -96,10 +96,6 @@ const objectives = [
   </section>
 </Base>
 
-<style is:global>
-  .page-hero { padding: clamp(44px, 6vw, 88px) 0 clamp(36px, 5vw, 64px); border-bottom: var(--hair) solid var(--line); }
-  .page-hero .h1 { max-width: 22ch; }
-</style>
 <style>
   .brief { display: grid; grid-template-columns: 1fr; gap: 40px; }
   @media (min-width: 900px) { .brief { grid-template-columns: 1.1fr 1fr; gap: 64px; } }

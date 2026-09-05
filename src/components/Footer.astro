@@ -1,67 +1,78 @@
 ---
+import { Image } from "astro:assets";
 import { lab } from "@/lib/lab";
 import { metrics } from "@/lib/pubs";
 import { fmtDate } from "@/lib/dates";
-import wmLogo from "@/assets/img/wm-logo.svg?raw";
+import lockup from "@/assets/brand/aura-lockup.png";
+
 const year = new Date().getFullYear();
 const updated = fmtDate(metrics.updated);
+const a = lab.institution.address;
 ---
 
 <footer class="coda">
   <div class="shell">
-    <div class="coda-grid">
-      <div class="c-brand">
-        <div class="c-name">{lab.name}</div>
-        <div class="c-sub">{lab.acronym.expansion}</div>
-        <div class="c-wm" set:html={wmLogo} />
+    <div class="coda-top">
+      <div class="c-id">
+        <span class="c-plate"><Image src={lockup} alt={lab.name} width={420} height={130} loading="eager" /></span>
+        <p class="c-addr">
+          {lab.institution.department} · {lab.institution.name}<br />
+          {a.building}, {a.street}, {a.city}, {a.region} {a.postal}
+        </p>
       </div>
-      <div class="c-col">
-        <h4>Lab</h4>
-        {lab.nav.map((n) => <a href={n.href}>{n.label}</a>)}
-      </div>
-      <div class="c-col">
-        <h4>Reach</h4>
-        <a href={`mailto:${lab.contact.email}`}>{lab.contact.email}</a>
-        {lab.social.github && <a href={lab.social.github} target="_blank" rel="noopener">GitHub</a>}
-        {lab.social.x && <a href={lab.social.x} target="_blank" rel="noopener">X · Twitter</a>}
-        {lab.social.bluesky && <a href={lab.social.bluesky} target="_blank" rel="noopener">Bluesky</a>}
-        {lab.social.scholar && <a href={lab.social.scholar} target="_blank" rel="noopener">Google Scholar</a>}
-      </div>
-      <div class="c-col">
-        <h4>Data</h4>
-        <a href="/aura.bib">BibTeX (all papers)</a>
-        <a href="/publications.xml">Publications feed</a>
-        <a href="/rss.xml">News feed</a>
-        <a href="https://github.com/aura-se-lab/aura-se-lab.github.io" target="_blank" rel="noopener">Site source</a>
-      </div>
-      <div class="c-col">
-        <h4>Where</h4>
-        <span>{lab.institution.department}</span>
-        <span>{lab.institution.name}</span>
-        <span>{lab.institution.address.building}</span>
-        <span>{lab.institution.address.city}, {lab.institution.address.region} {lab.institution.address.postal}</span>
-      </div>
+
+      <nav class="c-cols" aria-label="Footer">
+        <div class="c-col">
+          <h4 class="m">PAGES</h4>
+          {lab.nav.map((n) => <a href={n.href}>{n.label}</a>)}
+        </div>
+        <div class="c-col">
+          <h4 class="m">CONTACT</h4>
+          <a href={`mailto:${lab.contact.email}`}>{lab.contact.email}</a>
+          {lab.social.github && <a href={lab.social.github} target="_blank" rel="noopener">GitHub</a>}
+          {lab.social.x && <a href={lab.social.x} target="_blank" rel="noopener">X</a>}
+          {lab.social.scholar && <a href={lab.social.scholar} target="_blank" rel="noopener">Scholar</a>}
+        </div>
+        <div class="c-col">
+          <h4 class="m">DATA</h4>
+          <a href="/aura.bib">BibTeX, all papers</a>
+          <a href="/publications.xml">Publications feed</a>
+          <a href="/rss.xml">News feed</a>
+        </div>
+      </nav>
     </div>
+
     <div class="c-bot">
-      <span>© {year} {lab.name} · {lab.institution.name} · Set in Inter Tight</span>
-      <span class="c-bot-r"><span class="dot" aria-hidden="true"></span>Publications synced {updated}</span>
+      <span>© {year} {lab.name}, {lab.institution.name}.</span>
+      <span class="c-sync m"><i aria-hidden="true"></i>PUBLICATIONS SYNCED {updated.toUpperCase()}</span>
     </div>
   </div>
 </footer>
 
 <style>
-  .coda { background: var(--bg-ink); color: rgba(255,255,255,0.78); margin-top: clamp(56px, 8vw, 104px); padding: clamp(40px, 5vw, 64px) 0 28px; font-size: 13.5px; line-height: 1.6; }
-  .coda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px var(--gutter); }
-  @media (min-width: 900px) { .coda-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr; } }
-  .c-name { font-size: 18px; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
-  .c-sub { font-size: 12.5px; color: rgba(255,255,255,0.55); margin-top: 4px; max-width: 32ch; }
-  .c-wm { margin-top: 18px; width: 150px; opacity: 0.85; }
-  .c-wm :global(svg) { width: 100%; height: auto; }
-  .c-col { display: flex; flex-direction: column; gap: 5px; }
-  .c-col h4 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-bright); margin-bottom: 6px; font-weight: 600; }
-  .c-col a { color: rgba(255,255,255,0.78); }
-  .c-col a:hover { color: #fff; }
-  .c-bot { margin-top: 44px; padding-top: 18px; border-top: var(--hair) solid rgba(255,255,255,0.14); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 12px; color: rgba(255,255,255,0.5); }
-  .c-bot-r { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; display: inline-flex; align-items: center; }
-  .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-bright); margin-right: 8px; box-shadow: 0 0 0 3px rgba(22,163,74,0.2); }
+  .coda {
+    background: var(--chrome); color: var(--on-chrome-2);
+    padding: clamp(34px, 4vw, 52px) 0 22px; font-size: 13.5px; line-height: 1.55;
+  }
+  .coda-top {
+    display: flex; flex-wrap: wrap; gap: 34px 60px; justify-content: space-between;
+    padding-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  .c-plate { display: inline-block; background: #fff; padding: 12px 16px; }
+  .c-plate :global(img) { width: 210px; height: auto; }
+  .c-addr { margin-top: 14px; font-size: 12.5px; color: var(--on-chrome-3); line-height: 1.6; }
+
+  .c-cols { display: flex; flex-wrap: wrap; gap: 26px 56px; }
+  .c-col { display: flex; flex-direction: column; gap: 6px; min-width: 130px; }
+  .c-col h4 { font-size: 8px; letter-spacing: .12em; color: var(--brand); margin-bottom: 5px; font-weight: 600; }
+  .c-col a { color: var(--on-chrome-2); width: fit-content; border-bottom: 1px solid transparent; }
+  .c-col a:hover { color: #fff; border-color: var(--brand); }
+
+  .c-bot {
+    margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 24px;
+    justify-content: space-between; font-size: 12px; color: var(--on-chrome-3);
+  }
+  .c-sync { font-size: 8px; letter-spacing: .1em; display: inline-flex; align-items: center; }
+  .c-sync i { width: 5px; height: 5px; border-radius: 50%; background: var(--brand); margin-right: 8px; }
+  @media (max-width: 700px) { .c-cols { gap: 22px 40px; } .c-plate :global(img) { width: 170px; } }
 </style>

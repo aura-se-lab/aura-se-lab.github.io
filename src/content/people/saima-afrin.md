@@ -4,7 +4,7 @@ role: phd
 title: Ph.D. Candidate
 status: current
 order: 10
-photo: ../../assets/people/saima-afrin.jpg
+photo: ../../assets/people/cropped/saima-afrin.jpg
 joined: 2024-09
 interests: [Green AI, Quantization, PEFT, Code Summarization]
 threads: [efficient-models]

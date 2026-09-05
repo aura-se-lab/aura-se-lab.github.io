@@ -4,7 +4,7 @@ role: alumni
 title: Former Ph.D. Student · now external collaborator
 status: alumni
 order: 50
-photo: ../../assets/people/khai-nguyen-nguyen.jpg
+photo: ../../assets/people/cropped/khai-nguyen-nguyen.jpg
 joined: 2024-09
 interests: [Explainability, Feature-level Explanations, Large Code Models]
 threads: [neurosymbolic-interpretability]

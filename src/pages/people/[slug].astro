@@ -42,7 +42,7 @@ const desc = `${d.name} — ${d.title ?? roleLabel[d.role]} at the AURA Lab, Wil
   <section class="page-hero">
     <div class="shell person-hero">
       <div class="ph-photo">
-        {d.photo ? <Image src={d.photo} alt={d.name} width={640} height={640} class="avatar" /> : <div class="avatar-placeholder">{d.name.split(" ").map((s) => s[0]).slice(0, 2).join("")}</div>}
+        {d.photo ? <Image src={d.photo} alt={d.name} widths={[320, 640]} sizes="320px" loading="eager" class="avatar" /> : <div class="avatar-placeholder">{d.name.split(" ").map((s) => s[0]).slice(0, 2).join("")}</div>}
       </div>
       <div>
         <p class="caption"><a href="/people/">People</a> · <span class="caption-num">{roleLabel[d.role] ?? d.role}</span>{d.status === "alumni" && " · alumni"}</p>
@@ -106,7 +106,7 @@ const desc = `${d.name} — ${d.title ?? roleLabel[d.role]} at the AURA Lab, Wil
   {pubs.length > 0 && (
     <section class="section" id="publications">
       <div class="shell">
-        <h2 class="h2">Publications with the <b>lab</b>.</h2>
+        <h2 class="h2">Publications</h2>
         <p class="small mt-2">{d.role === "director" ? "Lab output since Fall 2024 — the director's complete list is on " : "For the full list see "}<a href={d.links.scholar ?? d.links.website ?? "/publications/"} class="link-arrow" target="_blank" rel="noopener">{d.role === "director" ? "antoniomastropaolo.io" : d.links.scholar ? "Google Scholar" : d.links.website ? "their website" : "the publications index"}</a>.</p>
         <div class="mt-4"><PubList pubs={pubs} highlight={person.id} /></div>
       </div>
@@ -121,7 +121,7 @@ const desc = `${d.name} — ${d.title ?? roleLabel[d.role]} at the AURA Lab, Wil
 <style>
   .person-hero { display: grid; grid-template-columns: 1fr; gap: 24px; }
   @media (min-width: 760px) { .person-hero { grid-template-columns: 220px 1fr; gap: 48px; align-items: start; } }
-  .ph-photo :global(.avatar) { border-radius: 12px; }
+  .ph-photo :global(.avatar) { aspect-ratio: 56 / 73; }
   .ph-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13.5px; }
   .ph-links a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-mute); }
   .ph-links a:hover { color: var(--accent); }

@@ -4,7 +4,7 @@ role: phd
 title: Ph.D. Student
 status: current
 order: 11
-photo: ../../assets/people/aya-garryyeva.jpg
+photo: ../../assets/people/cropped/aya-garryyeva.jpg
 joined: 2025-01
 coadvised: Denys Poshyvanyk
 interests: [Neurosymbolic AI, Interpretability, Trustworthy AI4SE]
