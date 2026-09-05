@@ -17,3 +17,6 @@ __pycache__/
 
 # single-file preview bundles
 preview/
+
+# local design preview dropped in by the cowork session
+public/v2.html
