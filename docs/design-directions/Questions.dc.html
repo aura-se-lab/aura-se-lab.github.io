@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Familjen+Grotesk:wght@400;500;600;700&family=Azeret+Mono:wght@300;400;500&display=swap">
+  <style>
+    body { margin: 0; background: #fcfcfa; }
+    a { color: #0c5a3a; text-decoration: none; } a:hover { color: #c2410c; }
+    .q { font-family: 'Gloock', 'Times New Roman', serif; font-weight: 400; }
+    .g { font-family: 'Familjen Grotesk', 'Helvetica Neue', Arial, sans-serif; }
+    .m { font-family: 'Azeret Mono', ui-monospace, monospace; }
+    .num { font-variant-numeric: tabular-nums; }
+    .row:hover { background: #f4f4f0; }
+    .chip { display: inline-flex; align-items: center; gap: 7px; font-family: 'Azeret Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.06em; padding: 5px 9px; border-radius: 2px; white-space: nowrap; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  </style>
+</helmet>
+<div class="g" style="width: 100%; max-width: 1440px; min-width: 1180px; margin: 0 auto; min-height: 100vh; background: #fcfcfa; color: #14110e;">
+
+  <!-- ── nav ─────────────────────────────────────────────────────────── -->
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 26px 56px 0;">
+    <div style="display: flex; align-items: center; gap: 13px;">
+      <svg width="30" height="30" viewBox="0 0 110 110" aria-hidden="true"><g transform="translate(55,55)" fill="none" stroke-width="8" stroke-linecap="round"><path d="M -20.6 -36.4 A 42 42 0 0 1 20.6 -36.4" stroke="#0c5a3a"/><path d="M 36.4 -20.6 A 42 42 0 0 1 36.4 20.6" stroke="#178a5a"/><path d="M 20.6 36.4 A 42 42 0 0 1 -20.6 36.4" stroke="#46a97c"/><path d="M -36.4 20.6 A 42 42 0 0 1 -36.4 -20.6" stroke="#a3812f"/></g></svg>
+      <span class="q" style="font-size: 25px; letter-spacing: 0.005em;">AURA Lab</span>
+      <span class="m" style="font-size: 9.5px; font-weight: 300; color: #8a847c; padding-left: 5px;">WILLIAM &amp; MARY · COMPUTER SCIENCE</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+      <span>Research</span><span>Publications</span><span>People</span><span>News</span>
+      <span style="background: #14110e; color: #fcfcfa; padding: 10px 17px; font-weight: 600; font-size: 14px;">Join the lab</span>
+    </div>
+  </div>
+
+  <!-- ── hero ────────────────────────────────────────────────────────── -->
+  <div style="padding: 74px 56px 0; display: grid; grid-template-columns: minmax(0,7fr) minmax(0,4fr); gap: 64px; align-items: start;">
+    <div style="display: flex; flex-direction: column; gap: 26px;">
+      <span class="m" style="font-size: 10px; font-weight: 500; letter-spacing: 0.1em; color: #c2410c;">A RESEARCH LAB IS A LIST OF QUESTIONS</span>
+      <h1 class="q" style="margin: 0; font-size: 78px; line-height: 1.0; letter-spacing: -0.022em; text-wrap: balance;">So here is ours — with the ones we have answered, and the ones we have not.</h1>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 34px;">
+      <p style="margin: 0; font-size: 17.5px; line-height: 1.55; color: #45403a;">The AURA Lab studies AI that writes software: how to make it cheap enough to run, clear enough to inspect, and honest about what it does not know. Founded Fall 2024 at William &amp; Mary.</p>
+      <div style="display: flex; gap: 22px; border-top: 1px solid rgba(20,17,14,.16); padding-top: 14px;">
+        <div><div class="num q" style="font-size: 30px; line-height: 1;">19</div><div class="m" style="font-size: 8.5px; color: #8a847c; margin-top: 5px;">ANSWERED IN PEER REVIEW</div></div>
+        <div><div class="num q" style="font-size: 30px; line-height: 1;">12</div><div class="m" style="font-size: 8.5px; color: #8a847c; margin-top: 5px;">STILL UNDER REVIEW</div></div>
+        <div><div class="num q" style="font-size: 30px; line-height: 1; color: #c2410c;">∞</div><div class="m" style="font-size: 8.5px; color: #8a847c; margin-top: 5px;">STILL OPEN</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── the questions ───────────────────────────────────────────────── -->
+  <div style="padding: 68px 56px 0;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #14110e; padding-bottom: 10px;">
+      <span class="m" style="font-size: 10px; font-weight: 500; letter-spacing: 0.08em;">THE QUESTIONS</span>
+      <span class="m" style="font-size: 9.5px; font-weight: 300; color: #8a847c;">EACH ONE LINKS TO THE PAPER THAT ANSWERS IT, OR TO NOTHING YET</span>
+    </div>
+
+    <!-- Q1 -->
+    <div class="row" style="display: grid; grid-template-columns: 6px minmax(0,1fr) 210px; gap: 0 26px; padding: 26px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: start;">
+      <span style="background: #0c5a3a; align-self: stretch;"></span>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <h2 class="q" style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.018em;">Is quantization a deal-breaker for code models?</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.5; color: #45403a; max-width: 74ch;"><b style="font-weight: 600;">No.</b> Under activation-aware quantization, CodeLlama and DeepSeek-Coder kept passing tests — and kept the maintainability and structural simplicity developers look for.</p>
+        <span class="m" style="font-size: 10px; color: #8a847c;">S. AFRIN · B. XU · A. MASTROPAOLO — <span style="color: #14110e;">ICSME 2025</span> · 13 CITATIONS</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 9px;">
+        <span class="chip" style="background: #e6efe9; color: #0c5a3a;"><span class="dot" style="background: #0c5a3a;"></span>ANSWERED</span>
+        <span class="m" style="font-size: 9px; color: #8a847c; text-align: right;">THREAD A<br>EFFICIENCY</span>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="row" style="display: grid; grid-template-columns: 6px minmax(0,1fr) 210px; gap: 0 26px; padding: 26px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: start;">
+      <span style="background: #46a97c; align-self: stretch;"></span>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <h2 class="q" style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.018em;">Is code-comment coherence enough to clean a training set?</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.5; color: #45403a; max-width: 74ch;"><b style="font-weight: 600;">Not on its own.</b> Halving the training data barely moved summarization quality — and selecting by coherence did no better than selecting at random. Today's datasets are mostly filler; the right quality attribute is still open.</p>
+        <span class="m" style="font-size: 10px; color: #8a847c;">A. VITALE · A. MASTROPAOLO · R. OLIVETO · M. DI PENTA · S. SCALABRINO — <span style="color: #14110e;">ICPC 2025</span></span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 9px;">
+        <span class="chip" style="background: #e6efe9; color: #0c5a3a;"><span class="dot" style="background: #0c5a3a;"></span>ANSWERED</span>
+        <span class="m" style="font-size: 9px; color: #8a847c; text-align: right;">THREAD R<br>EVALUATION</span>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="row" style="display: grid; grid-template-columns: 6px minmax(0,1fr) 210px; gap: 0 26px; padding: 26px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: start;">
+      <span style="background: #46a97c; align-self: stretch;"></span>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <h2 class="q" style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.018em;">Can one language model be trusted to judge another's code?</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.5; color: #45403a; max-width: 74ch;">Our most-cited study to date puts LLM-as-a-judge under scrutiny for code generation and summarization — where its verdicts track human ones, and where they do not.</p>
+        <span class="m" style="font-size: 10px; color: #8a847c;">G. CRUPI · R. TUFANO · A. VELASCO · A. MASTROPAOLO · D. POSHYVANYK · G. BAVOTA — <span style="color: #14110e;">IEEE TSE 2025</span> · 53 CITATIONS</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 9px;">
+        <span class="chip" style="background: #e6efe9; color: #0c5a3a;"><span class="dot" style="background: #0c5a3a;"></span>ANSWERED</span>
+        <span class="m" style="font-size: 9px; color: #8a847c; text-align: right;">THREAD R<br>EVALUATION</span>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="row" style="display: grid; grid-template-columns: 6px minmax(0,1fr) 210px; gap: 0 26px; padding: 26px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: start;">
+      <span style="background: #0c5a3a; align-self: stretch;"></span>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <h2 class="q" style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.018em;">Do all tokens matter when you train a model to explain code?</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.5; color: #45403a; max-width: 74ch;">A data-centric account of what can be thrown away before a code summarizer degrades. Under review — we will publish the answer here either way.</p>
+        <span class="m" style="font-size: 10px; color: #8a847c;">S. AFRIN ET AL. — <span style="color: #14110e;">PREPRINT, IN REVIEW</span></span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 9px;">
+        <span class="chip" style="background: #f6efdd; color: #7d6122;"><span class="dot" style="background: #a3812f;"></span>IN REVIEW</span>
+        <span class="m" style="font-size: 9px; color: #8a847c; text-align: right;">THREAD A<br>EFFICIENCY</span>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="row" style="display: grid; grid-template-columns: 6px minmax(0,1fr) 210px; gap: 0 26px; padding: 26px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: start;">
+      <span style="background: #178a5a; align-self: stretch;"></span>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <h2 class="q" style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.018em;">Can a code model explain itself at the level a developer thinks?</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.5; color: #45403a; max-width: 74ch;">Token-level attributions are not how engineers reason. We are after feature-level explanations, and a neurosymbolic layer that can be checked rather than trusted. First results are in; the question is not closed.</p>
+        <span class="m" style="font-size: 10px; color: #8a847c;">TOSEM 2026 · ICPC 2025 · FSE AI-SDLC 2025 — <span style="color: #14110e;">ONGOING</span></span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 9px;">
+        <span class="chip" style="background: #fbeade; color: #a63a08;"><span class="dot" style="background: #c2410c;"></span>OPEN</span>
+        <span class="m" style="font-size: 9px; color: #8a847c; text-align: right;">THREAD U<br>INTERPRETABILITY</span>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="row" style="display: grid; grid-template-columns: 6px minmax(0,1fr) 210px; gap: 0 26px; padding: 26px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: start;">
+      <span style="background: #a3812f; align-self: stretch;"></span>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <h2 class="q" style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.018em;">What does an agent that ships software actually have to be measured on?</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.5; color: #45403a; max-width: 74ch;">Snippet benchmarks do not tell you whether an agent can carry an issue to a reviewed change. We are building the end-to-end measurements — and expect them to be unflattering.</p>
+        <span class="m" style="font-size: 10px; color: #8a847c;">IN PROGRESS — <span style="color: #14110e;">NO PAPER YET</span></span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 9px;">
+        <span class="chip" style="background: #fbeade; color: #a63a08;"><span class="dot" style="background: #c2410c;"></span>OPEN</span>
+        <span class="m" style="font-size: 9px; color: #8a847c; text-align: right;">THREAD A<br>AGENTS</span>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 20px;">
+      <span class="g" style="font-size: 15.5px; font-weight: 600; border-bottom: 2px solid #14110e; padding-bottom: 1px;">All 52 publications, by thread, year and author →</span>
+      <span class="m" style="font-size: 9px; color: #8a847c;">RECORD SYNCED 2026-09-05 FROM DBLP · CROSSREF · SEMANTIC SCHOLAR · ARXIV</span>
+    </div>
+  </div>
+
+  <!-- ── who is asking ───────────────────────────────────────────────── -->
+  <div style="padding: 74px 56px 0;">
+    <div style="display: grid; grid-template-columns: minmax(0,5fr) minmax(0,7fr); gap: 64px; align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <span class="m" style="font-size: 10px; font-weight: 500; letter-spacing: 0.08em; color: #c2410c;">WHO IS ASKING</span>
+        <h2 class="q" style="margin: 0; font-size: 46px; line-height: 1.05; letter-spacing: -0.02em;">Six doctoral students, two undergraduates, one professor who keeps asking why.</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.55; color: #45403a;">Directed by <b style="font-weight: 600;">Antonio Mastropaolo</b>, Assistant Professor of Computer Science at William &amp; Mary. Supported by NSF CRII award 2451058 on energy-efficient large language models for code.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 40px;">
+        <div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; padding: 10px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: baseline; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Saima Afrin</span><span class="m" style="font-size: 9px; color: #8a847c;">QUANTIZATION · PEFT</span></div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; padding: 10px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: baseline; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Aya Garryyeva</span><span class="m" style="font-size: 9px; color: #8a847c;">INTERPRETABILITY</span></div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; padding: 10px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: baseline; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Joseph Call</span><span class="m" style="font-size: 9px; color: #8a847c;">EFFICIENT ML</span></div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; padding: 10px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: baseline; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Afia Farjana</span><span class="m" style="font-size: 9px; color: #8a847c;">PROMPTING</span></div>
+        </div>
+        <div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; padding: 10px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: baseline; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Md Zahidul Haque Alvi</span><span class="m" style="font-size: 9px; color: #8a847c;">PEFT</span></div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; padding: 10px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: baseline; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Zaiyu (Chris) Cheng</span><span class="m" style="font-size: 9px; color: #8a847c;">PRE-TRAINING</span></div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; padding: 10px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: baseline; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Benjamin Tremblay</span><span class="m" style="font-size: 9px; color: #8a847c;">UG · COMPRESSION</span></div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; padding: 10px 0; border-bottom: 1px solid rgba(20,17,14,.14); align-items: baseline; gap: 12px;"><span style="font-size: 16px; font-weight: 600;">Leon Huang</span><span class="m" style="font-size: 9px; color: #8a847c;">UG · EFFICIENCY</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── join ────────────────────────────────────────────────────────── -->
+  <div style="margin: 74px 56px 0; border-top: 2px solid #14110e; padding-top: 34px; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 48px; align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <h2 class="q" style="margin: 0; font-size: 48px; line-height: 1.05; letter-spacing: -0.02em;">Bring us a question we cannot answer.</h2>
+      <p style="margin: 0; font-size: 16.5px; line-height: 1.55; color: #45403a; max-width: 68ch;">[Recruiting line — e.g. Ph.D. openings for Fall 2027.] Write to amastropaolo@wm.edu. A paragraph engaging with one of our results tells us far more than a list of skills.</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <span class="g" style="background: #14110e; color: #fcfcfa; padding: 14px 24px; font-weight: 600; font-size: 15px;">How to join →</span>
+      <span class="g" style="border: 1.5px solid #14110e; padding: 12.5px 22px; font-weight: 600; font-size: 15px;">amastropaolo@wm.edu</span>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; padding: 40px 56px; margin-top: 34px;">
+    <span class="m" style="font-size: 9px; font-weight: 300; color: #8a847c;">AURALAB.SH · AI FOR UNDERSTANDABLE AND RESPONSIBLE AUTOMATION · WILLIAM &amp; MARY</span>
+    <span class="m" style="font-size: 9px; font-weight: 300; color: #8a847c;">RSS · BIBTEX · SET IN GLOOCK &amp; FAMILJEN GROTESK</span>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,10 +1,26 @@
 {
   "artboards": [
     {
+      "file": "Frontier.dc.html",
+      "title": "D \u00b7 Frontier",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 2340
+    },
+    {
+      "file": "Questions.dc.html",
+      "title": "E \u00b7 The Questions",
+      "x": 1560,
+      "y": 0,
+      "w": 1440,
+      "h": 2470
+    },
+    {
       "file": "Main.dc.html",
       "title": "A \u00b7 Halo",
       "x": 0,
-      "y": 0,
+      "y": 2620,
       "w": 1440,
       "h": 2260
     },
@@ -12,7 +28,7 @@
       "file": "FieldNotes.dc.html",
       "title": "B \u00b7 Field Notes",
       "x": 1560,
-      "y": 0,
+      "y": 2620,
       "w": 1440,
       "h": 1960
     },
@@ -20,7 +36,7 @@
       "file": "Monograph.dc.html",
       "title": "C \u00b7 Monograph",
       "x": 3120,
-      "y": 0,
+      "y": 2620,
       "w": 1440,
       "h": 2080
     }
@@ -29,9 +45,16 @@
     {
       "id": "brief",
       "x": 0,
-      "y": -330,
-      "w": 620,
-      "text": "Three identities for auralab.sh \u2014 same content, three voices. Pick one (or mix) and I port it onto the live build.\n\nA \u00b7 Halo \u2014 the aura as light. Dark green-black, phosphor mint, Instrument Serif. Memorable, cinematic; reading-heavy inner pages would switch to light paper. Risk: a few senior peers read dark sites as 'startup'.\n\nB \u00b7 Field Notes \u2014 the lab notebook. Dot-grid paper, Bricolage Grotesque, highlighter marks, real figures and a ledger. Says 'we measure things' loudest. Risk: busiest of the three; must stay disciplined.\n\nC \u00b7 Monograph \u2014 the lab as a journal. Stone paper, Newsreader + small caps, gold foil rules, footnoted claims. Most peer-credible and timeless. Risk: quietest; students may find it formal."
+      "y": -300,
+      "w": 700,
+      "text": "Round 2. A/B/C put a TEXTURE on the lab (glow, notebook, journal) \u2014 that is why they felt generic. D and E give it a POSITION instead.\n\nD \u00b7 FRONTIER \u2014 the lab as an instrument. Its thesis drawn as Fig. 1: every gain in AI for code is paid for in compute, energy or opacity, and the lab's job is to move that curve. Archivo Expanded + Martian Mono on technical sage paper. Publications become a data table with citation bars. Confident, peer-facing, zero decoration.\n\nE \u00b7 THE QUESTIONS \u2014 the lab as a list of open questions, answered and not. Straight from Antonio's own paper titles (\"Is quantization a deal-breaker?\"). Gloock display serif, huge, on white; status chips ANSWERED / IN REVIEW / OPEN. Nobody in SE does this. It recruits, and it is honest about what is unfinished.\n\nBoth carry the same real data as the live build. Recruiting lines are bracketed placeholders."
+    },
+    {
+      "id": "round1",
+      "x": 0,
+      "y": 2400,
+      "w": 560,
+      "text": "Round 1 (kept for comparison) \u2014 A Halo, B Field Notes, C Monograph."
     }
   ],
   "launch": {

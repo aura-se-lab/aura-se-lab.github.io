@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@300;400;600&display=swap">
+  <style>
+    body { margin: 0; background: #e8ebe6; }
+    a { color: #0c5a3a; text-decoration: none; } a:hover { color: #c2410c; }
+    .exp { font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-variation-settings: 'wdth' 118; }
+    .num { font-variant-numeric: tabular-nums; }
+    .blip { animation: blip 3s ease-in-out infinite; }
+    @keyframes blip { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+    @media (prefers-reduced-motion: reduce) { .blip { animation: none; } }
+  </style>
+</helmet>
+<div style="width: 100%; max-width: 1440px; min-width: 1180px; margin: 0 auto; min-height: 100vh; background: #e8ebe6; color: #0e1512; font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif;">
+
+  <!-- ── instrument rail ─────────────────────────────────────────────── -->
+  <div style="display: grid; grid-template-columns: 300px minmax(0,1fr) auto; align-items: center; gap: 28px; padding: 0 44px; height: 62px; background: #0e1512; color: #e8ebe6;">
+    <div style="display: flex; align-items: center; gap: 11px;">
+      <svg width="26" height="26" viewBox="0 0 110 110" aria-hidden="true"><g transform="translate(55,55)" fill="none" stroke-width="9" stroke-linecap="round"><path d="M -20.6 -36.4 A 42 42 0 0 1 20.6 -36.4" stroke="#0c5a3a"/><path d="M 36.4 -20.6 A 42 42 0 0 1 36.4 20.6" stroke="#178a5a"/><path d="M 20.6 36.4 A 42 42 0 0 1 -20.6 36.4" stroke="#5bbf91"/><path d="M -36.4 20.6 A 42 42 0 0 1 -36.4 -20.6" stroke="#b9975b"/></g></svg>
+      <span class="exp" style="font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">AURA LAB</span>
+      <span style="font-family: 'Martian Mono', monospace; font-size: 9px; font-weight: 300; letter-spacing: 0.02em; color: #8e9a92; padding-left: 4px;">W&amp;M · CS</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 500; justify-self: start;">
+      <span>Research</span><span>Publications</span><span>People</span><span>News</span><span>Join</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-family: 'Martian Mono', monospace; font-size: 9.5px; font-weight: 300; color: #8e9a92;">
+      <span class="blip" style="width: 5px; height: 5px; border-radius: 50%; background: #5bbf91; display: inline-block;"></span>
+      <span>RECORD SYNCED 2026-09-05 · 52 ENTRIES · DBLP·CROSSREF·S2·ARXIV</span>
+    </div>
+  </div>
+
+  <!-- ── hero: claim + figure ────────────────────────────────────────── -->
+  <div style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: 26px; padding: 76px 44px 60px;">
+    <div style="grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 26px;">
+      <div style="font-family: 'Martian Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; color: #c2410c;">THE PROBLEM WE WORK ON</div>
+      <h1 class="exp" style="margin: 0; font-weight: 800; font-size: 76px; line-height: 0.94; letter-spacing: -0.035em; text-wrap: balance;">Every gain in AI for code is paid for somewhere.</h1>
+      <p style="margin: 0; max-width: 500px; font-size: 19px; line-height: 1.5; color: #363f39;">In compute, in energy, in the ability to see why the model did what it did. The AURA Lab measures that price — and then works to lower it. Everything on this site carries the number it was measured at.</p>
+      <div style="display: flex; gap: 10px; padding-top: 4px;">
+        <span class="exp" style="background: #0e1512; color: #e8ebe6; padding: 13px 20px; font-weight: 600; font-size: 14.5px; letter-spacing: -0.005em;">The publication record →</span>
+        <span class="exp" style="border: 1.5px solid #0e1512; padding: 11.5px 18px; font-weight: 600; font-size: 14.5px; letter-spacing: -0.005em;">Four research threads</span>
+      </div>
+      <!-- real counts, small -->
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border-top: 1px solid rgba(14,21,18,.28); margin-top: 14px;">
+        <div style="padding: 14px 14px 0 0;"><div class="num exp" style="font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1;">19</div><div style="font-family: 'Martian Mono', monospace; font-size: 8.5px; font-weight: 400; color: #6d766f; margin-top: 7px; line-height: 1.4;">PEER-REVIEWED<br>PAPERS</div></div>
+        <div style="padding: 14px 14px 0 0;"><div class="num exp" style="font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1;">157</div><div style="font-family: 'Martian Mono', monospace; font-size: 8.5px; font-weight: 400; color: #6d766f; margin-top: 7px; line-height: 1.4;">CITATIONS<br>TRACKED</div></div>
+        <div style="padding: 14px 14px 0 0;"><div class="num exp" style="font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1;">8</div><div style="font-family: 'Martian Mono', monospace; font-size: 8.5px; font-weight: 400; color: #6d766f; margin-top: 7px; line-height: 1.4;">STUDENTS<br>ADVISED</div></div>
+        <div style="padding: 14px 0 0 0;"><div class="num exp" style="font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: #c2410c;">1</div><div style="font-family: 'Martian Mono', monospace; font-size: 8.5px; font-weight: 400; color: #6d766f; margin-top: 7px; line-height: 1.4;">NSF AWARD<br>ACTIVE</div></div>
+      </div>
+    </div>
+
+    <!-- FIG. 1 — the thesis, drawn -->
+    <figure style="grid-column: 8 / span 5; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+      <div style="background: #f7f8f5; border: 1px solid rgba(14,21,18,.28); padding: 22px 22px 16px;">
+        <div style="display: flex; justify-content: space-between; font-family: 'Martian Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: 0.02em; color: #6d766f; margin-bottom: 8px;"><span style="color: #0e1512;">FIG. 1</span><span>THE FRONTIER WE PUSH ON</span></div>
+        <svg viewBox="0 0 480 330" width="100%" role="img" aria-label="A diagram: capability against compute cost. Today's frontier curve, and the lab's target curve shifted left — the same capability for less compute." style="display: block; overflow: visible;">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/></marker>
+            <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#5bbf91" stroke-width="2.4" opacity=".28"/></pattern>
+          </defs>
+          <!-- grid -->
+          <g stroke="rgba(14,21,18,.10)" stroke-width="1">
+            <line x1="56" y1="40" x2="452" y2="40"/><line x1="56" y1="105" x2="452" y2="105"/><line x1="56" y1="170" x2="452" y2="170"/><line x1="56" y1="235" x2="452" y2="235"/>
+            <line x1="155" y1="26" x2="155" y2="272"/><line x1="254" y1="26" x2="254" y2="272"/><line x1="353" y1="26" x2="353" y2="272"/>
+          </g>
+          <!-- axes -->
+          <g stroke="#0e1512" stroke-width="1.5"><line x1="56" y1="272" x2="452" y2="272"/><line x1="56" y1="26" x2="56" y2="272"/></g>
+          <!-- region gained -->
+          <path d="M 78 250 C 150 250 150 96 236 84 C 300 76 330 66 452 60 L 452 46 C 330 52 300 60 236 68 C 138 82 138 236 78 236 Z" fill="url(#hatch)"/>
+          <!-- today's frontier -->
+          <path d="M 78 250 C 150 250 150 96 236 84 C 300 76 330 66 452 60" fill="none" stroke="#0e1512" stroke-width="2" stroke-dasharray="5 4"/>
+          <!-- our target -->
+          <path d="M 78 236 C 138 236 138 82 236 68 C 300 60 330 52 452 46" fill="none" stroke="#0c5a3a" stroke-width="2.6"/>
+          <!-- shift arrow -->
+          <line x1="272" y1="128" x2="200" y2="92" stroke="#c2410c" stroke-width="1.8" marker-end="url(#ar)"/>
+          <!-- point markers -->
+          <circle cx="236" cy="84" r="4" fill="#0e1512"/><circle cx="236" cy="68" r="4.5" fill="#0c5a3a"/>
+          <!-- labels -->
+          <g font-family="Martian Mono, monospace" font-size="9" fill="#4d564f">
+            <text x="286" y="140">same answers,</text><text x="286" y="152">less compute</text>
+            <text x="300" y="108" fill="#0e1512">today's frontier</text>
+            <text x="330" y="34" fill="#0c5a3a">where we push</text>
+          </g>
+          <g font-family="Martian Mono, monospace" font-size="9.5" font-weight="600" fill="#0e1512">
+            <text x="56" y="308">COMPUTE · ENERGY · MEMORY  →</text>
+            <text transform="translate(40,272) rotate(-90)">CAPABILITY  →</text>
+          </g>
+          <g font-family="Martian Mono, monospace" font-size="8" fill="#838b84">
+            <text x="128" y="288">small</text><text x="386" y="288">frontier-scale</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption style="font-family: 'Martian Mono', monospace; font-size: 9px; font-weight: 300; line-height: 1.65; color: #6d766f;">FIG. 1 — Schematic of the lab's thesis, not measured data. Quantization, parameter-efficient fine-tuning and distillation move the curve left; interpretability and honest evaluation tell us whether the move was real.</figcaption>
+    </figure>
+  </div>
+
+  <!-- ── threads on an axis ──────────────────────────────────────────── -->
+  <div style="padding: 34px 44px 0;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; border-top: 1.5px solid #0e1512; padding-top: 18px;">
+      <h2 class="exp" style="margin: 0; font-weight: 700; font-size: 34px; letter-spacing: -0.028em;">Four threads, one instrument.</h2>
+      <span style="font-family: 'Martian Mono', monospace; font-size: 9px; font-weight: 400; color: #6d766f;">§ 01 · RESEARCH</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-family: 'Martian Mono', monospace; font-size: 9px; color: #838b84; margin-top: 26px; padding-bottom: 7px; border-bottom: 1px solid rgba(14,21,18,.28);">
+      <span>← MODEL-CENTRIC · what the model is</span><span>what the model produces · OUTPUT-CENTRIC →</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 26px;">
+      <div style="border-top: 5px solid #0c5a3a; padding: 18px 0 0; display: flex; flex-direction: column; gap: 9px;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between;"><span class="exp" style="font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: #0c5a3a;">A</span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 9px; color: #838b84;">11 PAPERS</span></div>
+        <h3 class="exp" style="margin: 0; font-size: 19px; font-weight: 700; line-height: 1.16; letter-spacing: -0.018em;">Resource-efficient models for code</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4d564f;">Quantization, PEFT and distillation — and the measurements that show whether code quality survived the squeeze.</p>
+        <span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #c2410c; margin-top: 2px;">NSF CRII 2451058</span>
+      </div>
+      <div style="border-top: 5px solid #178a5a; padding: 18px 0 0; display: flex; flex-direction: column; gap: 9px;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between;"><span class="exp" style="font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: #178a5a;">U</span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 9px; color: #838b84;">10 PAPERS</span></div>
+        <h3 class="exp" style="margin: 0; font-size: 19px; font-weight: 700; line-height: 1.16; letter-spacing: -0.018em;">Neurosymbolic reasoning &amp; interpretability</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4d564f;">Neural models joined to grammars, types and program analysis, with explanations pitched at what a developer actually reads.</p>
+      </div>
+      <div style="border-top: 5px solid #46a97c; padding: 18px 0 0; display: flex; flex-direction: column; gap: 9px;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between;"><span class="exp" style="font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: #46a97c;">R</span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 9px; color: #838b84;">18 PAPERS</span></div>
+        <h3 class="exp" style="margin: 0; font-size: 19px; font-weight: 700; line-height: 1.16; letter-spacing: -0.018em;">Reliability &amp; honest evaluation</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4d564f;">Causal and counterfactual analysis, and the study of automated judges — where they hold up and where they mislead.</p>
+      </div>
+      <div style="border-top: 5px solid #a3812f; padding: 18px 0 0; display: flex; flex-direction: column; gap: 9px;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between;"><span class="exp" style="font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: #a3812f;">A</span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 9px; color: #838b84;">12 PAPERS</span></div>
+        <h3 class="exp" style="margin: 0; font-size: 19px; font-weight: 700; line-height: 1.16; letter-spacing: -0.018em;">Agents across the software lifecycle</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4d564f;">Task-aware and multi-agent automation, from issue triage to review, measured end to end rather than per snippet.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── the record ──────────────────────────────────────────────────── -->
+  <div style="padding: 66px 44px 0;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; border-top: 1.5px solid #0e1512; padding-top: 18px;">
+      <h2 class="exp" style="margin: 0; font-weight: 700; font-size: 34px; letter-spacing: -0.028em;">The record, with its numbers.</h2>
+      <span style="font-family: 'Martian Mono', monospace; font-size: 9px; font-weight: 400; color: #6d766f;">§ 02 · PUBLICATIONS · 52 ENTRIES</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 62px 92px minmax(0,1fr) 190px; gap: 22px; font-family: 'Martian Mono', monospace; font-size: 8.5px; font-weight: 600; color: #838b84; padding: 20px 0 8px; border-bottom: 1px solid rgba(14,21,18,.28);">
+      <span>YEAR</span><span>VENUE</span><span>TITLE &amp; AUTHORS</span><span>CITATIONS</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 62px 92px minmax(0,1fr) 190px; gap: 22px; padding: 15px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: center;">
+      <span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">2025</span>
+      <span class="exp" style="font-size: 12px; font-weight: 800; color: #46a97c; letter-spacing: 0.01em;">TSE</span>
+      <div><div class="exp" style="font-size: 17px; font-weight: 600; line-height: 1.25; letter-spacing: -0.014em;">On the Effectiveness of LLM-as-a-Judge for Code Generation and Summarization</div><div style="font-size: 13px; color: #6d766f; margin-top: 3px;">G. Crupi, R. Tufano, A. Velasco, <b style="color:#0e1512;font-weight:600;">A. Mastropaolo</b>, D. Poshyvanyk, G. Bavota</div></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span style="height: 8px; width: 140px; background: #46a97c;"></span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">53</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 62px 92px minmax(0,1fr) 190px; gap: 22px; padding: 15px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: center;">
+      <span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">2025</span>
+      <span class="exp" style="font-size: 12px; font-weight: 800; color: #0c5a3a; letter-spacing: 0.01em;">TOSEM</span>
+      <div><div class="exp" style="font-size: 17px; font-weight: 600; line-height: 1.25; letter-spacing: -0.014em;">A Systematic Literature Review of Parameter-Efficient Fine-Tuning for Large Code Models</div><div style="font-size: 13px; color: #6d766f; margin-top: 3px;"><b style="color:#0e1512;font-weight:600;">S. Afrin</b>, <b style="color:#0e1512;font-weight:600;">M. Z. Haque</b>, <b style="color:#0e1512;font-weight:600;">A. Mastropaolo</b></div></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span style="height: 8px; width: 37px; background: #0c5a3a;"></span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">14</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 62px 92px minmax(0,1fr) 190px; gap: 22px; padding: 15px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: center;">
+      <span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">2025</span>
+      <span class="exp" style="font-size: 12px; font-weight: 800; color: #0c5a3a; letter-spacing: 0.01em;">ICSME</span>
+      <div><div class="exp" style="font-size: 17px; font-weight: 600; line-height: 1.25; letter-spacing: -0.014em;">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models</div><div style="font-size: 13px; color: #6d766f; margin-top: 3px;"><b style="color:#0e1512;font-weight:600;">S. Afrin</b>, B. Xu, <b style="color:#0e1512;font-weight:600;">A. Mastropaolo</b></div></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span style="height: 8px; width: 34px; background: #0c5a3a;"></span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">13</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 62px 92px minmax(0,1fr) 190px; gap: 22px; padding: 15px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: center;">
+      <span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">2025</span>
+      <span class="exp" style="font-size: 12px; font-weight: 800; color: #46a97c; letter-spacing: 0.01em;">ICPC</span>
+      <div><div class="exp" style="font-size: 17px; font-weight: 600; line-height: 1.25; letter-spacing: -0.014em;">Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?</div><div style="font-size: 13px; color: #6d766f; margin-top: 3px;">A. Vitale, <b style="color:#0e1512;font-weight:600;">A. Mastropaolo</b>, R. Oliveto, M. Di Penta, S. Scalabrino</div></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span style="height: 8px; width: 24px; background: #46a97c;"></span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">9</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 62px 92px minmax(0,1fr) 190px; gap: 22px; padding: 15px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: center;">
+      <span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">2024</span>
+      <span class="exp" style="font-size: 12px; font-weight: 800; color: #a3812f; letter-spacing: 0.01em;">TOSEM</span>
+      <div><div class="exp" style="font-size: 17px; font-weight: 600; line-height: 1.25; letter-spacing: -0.014em;">From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era</div><div style="font-size: 13px; color: #6d766f; margin-top: 3px;"><b style="color:#0e1512;font-weight:600;">A. Mastropaolo</b>, C. Escobar-Velásquez, M. Linares-Vásquez</div></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span style="height: 8px; width: 32px; background: #a3812f;"></span><span class="num" style="font-family: 'Martian Mono', monospace; font-size: 12px;">12</span></div>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px;">
+      <span class="exp" style="font-size: 14.5px; font-weight: 600; border-bottom: 1.5px solid #0e1512; padding-bottom: 1px;">All 52 entries, filterable by thread and author →</span>
+      <span style="font-family: 'Martian Mono', monospace; font-size: 9px; color: #6d766f;">BIBTEX · RSS · CITATION COUNTS REFRESHED WEEKLY</span>
+    </div>
+  </div>
+
+  <!-- ── people ──────────────────────────────────────────────────────── -->
+  <div style="padding: 66px 44px 0;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; border-top: 1.5px solid #0e1512; padding-top: 18px;">
+      <h2 class="exp" style="margin: 0; font-weight: 700; font-size: 34px; letter-spacing: -0.028em;">Who takes the measurements.</h2>
+      <span style="font-family: 'Martian Mono', monospace; font-size: 9px; font-weight: 400; color: #6d766f;">§ 03 · PEOPLE</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0 40px; margin-top: 20px;">
+      <div style="display: flex; flex-direction: column;">
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span class="exp" style="font-size: 16px; font-weight: 700; letter-spacing: -0.012em;">Antonio Mastropaolo</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #c2410c;">DIRECTOR</span></div>
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span style="font-size: 15px;">Saima Afrin</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #838b84;">PHD · 2024</span></div>
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span style="font-size: 15px;">Aya Garryyeva</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #838b84;">PHD · 2025</span></div>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span style="font-size: 15px;">Joseph Call</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #838b84;">PHD · 2025</span></div>
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span style="font-size: 15px;">Afia Farjana</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #838b84;">PHD</span></div>
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span style="font-size: 15px;">Md Zahidul Haque Alvi</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #838b84;">PHD</span></div>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span style="font-size: 15px;">Zaiyu (Chris) Cheng</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #838b84;">PHD</span></div>
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span style="font-size: 15px;">Benjamin Tremblay</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #838b84;">UNDERGRAD</span></div>
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(14,21,18,.12); align-items: baseline;"><span style="font-size: 15px;">Leon Huang</span><span style="font-family: 'Martian Mono', monospace; font-size: 8.5px; color: #838b84;">UNDERGRAD</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── join ────────────────────────────────────────────────────────── -->
+  <div style="margin: 66px 44px 0; background: #0e1512; color: #e8ebe6; padding: 40px 44px; display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: 48px; align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <span style="font-family: 'Martian Mono', monospace; font-size: 9px; font-weight: 600; color: #5bbf91;">§ 04 · JOIN</span>
+      <h2 class="exp" style="margin: 0; font-weight: 800; font-size: 40px; line-height: 1.02; letter-spacing: -0.032em;">If you would rather measure it than assume it.</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #b3bdb6; max-width: 56ch;">[Recruiting line — e.g. Ph.D. openings for Fall 2027.] We read every message that engages with an actual result of ours; write to amastropaolo@wm.edu.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; justify-self: end;">
+      <span class="exp" style="background: #e8ebe6; color: #0e1512; padding: 13px 22px; font-weight: 700; font-size: 15px; text-align: center;">How to join →</span>
+      <span class="exp" style="border: 1.5px solid rgba(232,235,230,.35); color: #e8ebe6; padding: 11.5px 20px; font-weight: 600; font-size: 15px; text-align: center;">Read the research first</span>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; padding: 22px 44px 40px; font-family: 'Martian Mono', monospace; font-size: 8.5px; font-weight: 300; color: #838b84;">
+    <span>AURALAB.SH · DEPT. OF COMPUTER SCIENCE · WILLIAM &amp; MARY · ISC4, WILLIAMSBURG VA</span>
+    <span>SET IN ARCHIVO &amp; MARTIAN MONO</span>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
