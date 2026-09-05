@@ -1,6 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "@/layouts/Base.astro";
+import Reach from "@/components/Reach.astro";
+import { Image } from "astro:assets";
+import mark from "@/assets/brand/aura-mark.png";
 import { lab, foundedLabel } from "@/lib/lab";
 import { publications, metrics } from "@/lib/pubs";
 import { fmtDate } from "@/lib/dates";
@@ -12,9 +15,10 @@ const current = people.filter((p) => p.data.status === "current");
 const news = (await getCollection("news"))
   .filter((n) => !n.data.draft)
   .sort((a, b) => +b.data.date - +a.data.date);
-const latest = news[0];
+const recent = news.slice(0, 6);
 
 const arxivCount = publications.filter((p) => p.arxiv).length;
+const director = people.find((p) => p.data.role === "director")!;
 
 const stats = [
   { n: String(metrics.total), l: "PUBLICATIONS", href: "/publications/" },
@@ -82,20 +86,88 @@ const stats = [
 
     <div class="rail">
       <div class="shell rail-in">
-        {latest && (
-          <a class="rail-news" href={latest.data.link ?? `/news/${latest.id}/`}>
-            <span class="rail-tag m">LATEST</span>
-            <span class="rail-d m">{fmtDate(latest.data.date).toUpperCase()}</span>
-            <span class="rail-t">{latest.data.title}</span>
-          </a>
-        )}
+        <a class="rail-cue" href="#news">
+          <span class="rail-tag m">NEWS</span>
+          <span class="rail-t">What the lab has been up to, and how to reach us</span>
+          <span class="rail-ar" aria-hidden="true">↓</span>
+        </a>
         <div class="rail-r">
-          <span class="rail-meta m">{arxivCount} PREPRINTS ON ARXIV · SYNCED {fmtDate(metrics.updated).toUpperCase()}</span>
-          <a class="rail-link" href="/news/">All news →</a>
+          <span class="rail-meta m">
+            {metrics.total} PUBLICATIONS · {arxivCount} PREPRINTS ON ARXIV · SYNCED {fmtDate(metrics.updated).toUpperCase()}
+          </span>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- ── news ───────────────────────────────────────────────────────────── -->
+  <section class="news" id="news">
+    <div class="shell">
+      <header class="news-head">
+        <div>
+          <p class="label">NEWS</p>
+          <h2 class="h2" style="margin-top:8px">Recent news</h2>
+        </div>
+        <a class="news-all" href="/news/">All news →</a>
+      </header>
+
+      <ul class="nlist">
+        {recent.map((n, i) => (
+          <li class="nitem" style={`--i:${i}`}>
+            <a href={n.data.link ?? `/news/${n.id}/`} target={n.data.link ? "_blank" : undefined} rel={n.data.link ? "noopener" : undefined}>
+              <span class="n-meta">
+                <span class="m n-d">{fmtDate(n.data.date).toUpperCase()}</span>
+                <span class="m n-k">{n.data.kind.toUpperCase()}</span>
+              </span>
+              <span class="n-t">{n.data.title}</span>
+              <span class="n-go" aria-hidden="true">{n.data.link ? "↗" : "→"}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── about the lab ──────────────────────────────────────────────────── -->
+  <section class="about">
+    <div class="shell">
+      <article class="badge">
+        <div class="b-seal">
+          <span class="b-plate"><Image src={mark} alt="" width={180} height={155} loading="eager" /></span>
+          <span class="b-est m">EST.<br />{foundedLabel.split(" ")[0].toUpperCase()}<br />{foundedLabel.split(" ")[1]}</span>
+        </div>
+
+        <div class="b-body">
+          <p class="b-kick m">ABOUT THE LAB</p>
+          <h2 class="b-h">{lab.name}</h2>
+          <p class="b-lead">
+            Founded in {foundedLabel} by <a href={`/people/${director.id}/`}>{director.data.name}</a>, Assistant Professor
+            in the {lab.institution.department} at {lab.institution.name}. <b>AURA</b> stands for
+            <b> AI for Understandable and Responsible Automation</b> in Software Engineering — the four words are the
+            four directions the lab works in.
+          </p>
+          <p class="b-p">{lab.statement}</p>
+          <div class="b-links">
+            <a class="ulink" href="/research/">Research directions</a>
+            <a class="ulink" href="/people/">The people</a>
+            <a class="ulink" href={lab.director.site} target="_blank" rel="noopener">Director's site ↗</a>
+          </div>
+        </div>
+
+        <dl class="b-facts">
+          <div><dt class="m">FOUNDED</dt><dd>{foundedLabel}</dd></div>
+          <div><dt class="m">DIRECTOR</dt><dd><a href={`/people/${director.id}/`}>{director.data.name}</a></dd></div>
+          <div><dt class="m">DEPARTMENT</dt><dd>{lab.institution.department}</dd></div>
+          <div><dt class="m">INSTITUTION</dt><dd><a href={lab.institution.url} target="_blank" rel="noopener">{lab.institution.name} ↗</a></dd></div>
+          <div><dt class="m">LOCATION</dt><dd>{lab.institution.address.city}, {lab.institution.address.region}</dd></div>
+          <div><dt class="m">DIRECTIONS</dt><dd>{threads.length} research threads</dd></div>
+          <div><dt class="m">MEMBERS</dt><dd>{current.length} current</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <Reach />
 </Base>
 
 <style>
@@ -174,15 +246,88 @@ const stats = [
   /* ── bottom rail ───────────────────────────────────────────────────────── */
   .rail { position: relative; z-index: 2; border-top: 1px solid var(--rule); background: rgba(255,255,255,.8); backdrop-filter: blur(8px); }
   .rail-in { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; min-height: clamp(52px, 4vh, 72px); padding-top: 8px; padding-bottom: 8px; flex-wrap: wrap; }
-  .rail-news { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .rail-cue { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .rail-ar { color: var(--ink-5); transition: transform .3s cubic-bezier(.2,.8,.25,1), color .2s ease; }
+  .rail-cue:hover .rail-ar { transform: translateY(3px); color: var(--brand); }
+  .rail-cue:hover .rail-t { color: var(--brand); }
   .rail-tag { font-size: 8px; letter-spacing: .1em; color: #fff; background: var(--ink); padding: 4px 7px; flex-shrink: 0; }
-  .rail-d { font-size: 8px; letter-spacing: .08em; color: var(--ink-5); flex-shrink: 0; }
   .rail-t { font-size: clamp(14px, 0.72vw, 19px); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .rail-news:hover .rail-t { color: var(--brand); }
   .rail-r { display: flex; align-items: center; gap: 22px; margin-left: auto; }
   .rail-meta { font-size: 8px; letter-spacing: .09em; color: var(--ink-5); }
-  .rail-link { font-size: clamp(13px, 0.66vw, 17px); font-weight: 600; }
-  .rail-link:hover { color: var(--brand); }
+
+  /* ── news ──────────────────────────────────────────────────────────────── */
+  .news { padding: clamp(46px, 5.5vw, 88px) 0 clamp(40px, 5vw, 76px); }
+  .news-head {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 14px 26px; flex-wrap: wrap;
+    padding-bottom: 18px; border-bottom: 1.5px solid var(--rule-3);
+  }
+  .news-all { font-size: 15px; font-weight: 600; border-bottom: 1px solid var(--rule-2); padding-bottom: 2px; }
+  .news-all:hover { color: var(--brand); border-color: var(--brand); }
+
+  .nlist { margin-top: 4px; }
+  .nitem a {
+    display: grid; grid-template-columns: minmax(0, 1fr) 22px; align-items: baseline; gap: 9px 20px;
+    padding: 18px 0; border-bottom: 1px solid var(--rule);
+    transition: padding-left .28s cubic-bezier(.2,.8,.25,1);
+  }
+  .n-meta { grid-column: 1 / -1; }
+  .n-t { grid-column: 1; }
+  .n-go { grid-column: 2; align-self: center; }
+  @media (min-width: 820px) {
+    .nitem a { grid-template-columns: 190px minmax(0, 1fr) 22px; gap: 6px 20px; }
+    .n-meta { grid-column: 1; }
+    .n-t { grid-column: 2; }
+    .n-go { grid-column: 3; align-self: baseline; }
+  }
+  .nitem a:hover { padding-left: 10px; }
+  .n-meta { display: flex; align-items: baseline; gap: 10px; }
+  .n-d { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); }
+  .n-k { font-size: 7.5px; letter-spacing: .09em; color: var(--brand); border: 1px solid rgba(0,144,81,.34); padding: 3px 6px; }
+  .n-t {
+    font-size: clamp(16px, 1.05vw, 22px); font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.018em; font-variation-settings: "wdth" 106; color: var(--ink);
+  }
+  .nitem a:hover .n-t { color: var(--brand); }
+  .n-go { color: var(--ink-5); transition: transform .24s ease, color .24s ease; justify-self: end; }
+  .nitem a:hover .n-go { color: var(--brand); transform: translateX(3px); }
+
+  /* ── about badge ───────────────────────────────────────────────────────── */
+  .about { padding: 0 0 clamp(46px, 5.5vw, 88px); }
+  .badge {
+    display: grid; gap: clamp(24px, 3vw, 52px); align-items: start;
+    padding: clamp(26px, 3vw, 44px); border: 1.5px solid var(--rule-3); background: var(--bg-soft);
+  }
+  @media (min-width: 820px) { .badge { grid-template-columns: auto minmax(0, 1fr); } }
+  @media (min-width: 1180px) { .badge { grid-template-columns: auto minmax(0, 1fr) minmax(230px, 0.42fr); } }
+
+  .b-seal { display: flex; align-items: center; gap: 16px; }
+  @media (min-width: 820px) { .b-seal { flex-direction: column; align-items: center; gap: 14px; } }
+  .b-plate {
+    width: clamp(84px, 7vw, 128px); aspect-ratio: 1; border-radius: 50%; background: #fff;
+    display: grid; place-items: center; box-shadow: 0 0 0 1px var(--rule-2), 0 0 0 7px var(--bg-soft), 0 0 0 8px var(--rule);
+    flex-shrink: 0;
+  }
+  .b-plate :global(img) { width: 68%; height: auto; }
+  .b-est { font-size: 8px; letter-spacing: .12em; color: var(--ink-4); line-height: 1.9; text-align: center; }
+
+  .b-kick { font-size: 8.5px; letter-spacing: .11em; color: var(--live); }
+  .b-h {
+    margin-top: 10px; font-variation-settings: "wdth" 118; font-weight: 800;
+    font-size: clamp(26px, 2.4vw, 42px); letter-spacing: -0.03em; line-height: 1.05;
+  }
+  .b-lead { margin-top: 14px; font-size: clamp(15.5px, 1vw, 19px); line-height: 1.55; color: var(--ink-2); max-width: 70ch; }
+  .b-lead a { border-bottom: 1px solid var(--rule-2); padding-bottom: 1px; }
+  .b-lead a:hover { color: var(--brand); border-color: var(--brand); }
+  .b-lead b { font-weight: 700; }
+  .b-p { margin-top: 14px; font-size: 14.5px; line-height: 1.65; color: var(--ink-4); max-width: 72ch; }
+  .b-links { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 14px; font-weight: 600; }
+
+  .b-facts { margin: 0; display: grid; align-content: start; border-top: 1px solid var(--rule-3); }
+  .b-facts > div { padding: 9px 0; border-bottom: 1px solid var(--rule); }
+  .b-facts dt { font-size: 8px; letter-spacing: .11em; color: var(--ink-5); }
+  .b-facts dd { margin: 4px 0 0; font-size: 14px; color: var(--ink-2); }
+  .b-facts dd a { border-bottom: 1px solid var(--rule-2); padding-bottom: 1px; }
+  .b-facts dd a:hover { color: var(--brand); border-color: var(--brand); }
 
   /* ── entrance ──────────────────────────────────────────────────────────── */
   .rv { animation: rise .8s cubic-bezier(.19,.86,.28,1) backwards; animation-delay: calc(var(--i) * 90ms + 60ms); }
@@ -194,9 +339,13 @@ const stats = [
   }
   @media (max-width: 900px) {
     .screen { min-height: 0; }
+    .aura { inset: -10% 0; filter: blur(52px); }
     .screen-in { padding-top: 34px; padding-bottom: 40px; }
     .stat { padding-right: 22px; margin-right: 22px; }
     .rail-r { width: 100%; }
+    .rail-in { align-items: flex-start; }
+    .rail-cue { align-items: flex-start; }
+    .rail-t { white-space: normal; overflow: visible; }
   }
   @media (prefers-reduced-motion: reduce) { .rv { animation: none; } .aura i { animation: none; } }
 </style>

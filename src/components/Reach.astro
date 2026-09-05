@@ -1,0 +1,143 @@
+---
+/**
+ * The black closing band: contact, links and the lab's coordinates.
+ * Used at the foot of the landing page in place of the standard footer.
+ */
+import { Image } from "astro:assets";
+import { lab } from "@/lib/lab";
+import { metrics } from "@/lib/pubs";
+import { fmtDate } from "@/lib/dates";
+import lockup from "@/assets/brand/aura-lockup.png";
+
+const year = new Date().getFullYear();
+const a = lab.institution.address;
+const subject = encodeURIComponent("[AURA Lab] Hello");
+
+const channels = [
+  { k: "EMAIL", v: lab.contact.email, href: `mailto:${lab.contact.email}?subject=${subject}` },
+  ...(lab.social.github ? [{ k: "GITHUB", v: "aura-se-lab", href: lab.social.github }] : []),
+  ...(lab.social.x ? [{ k: "X", v: "@" + lab.social.x.split("/").pop(), href: lab.social.x }] : []),
+  ...(lab.social.scholar ? [{ k: "SCHOLAR", v: "Publication record", href: lab.social.scholar }] : []),
+];
+---
+
+<section class="reach" id="reach">
+  <div class="shell">
+    <div class="r-top">
+      <div class="r-say">
+        <p class="r-kick m">CONTACT</p>
+        <h2 class="r-h">Reach out</h2>
+        <p class="r-p">
+          We read every message that engages with the work. Prospective Ph.D. students, W&amp;M undergraduates
+          looking for a project, and researchers who want to collaborate are all welcome to write.
+        </p>
+        <div class="r-btns">
+          <a class="r-btn" href={`mailto:${lab.contact.email}?subject=${subject}`}>Email the lab</a>
+          <a class="r-btn r-btn-o" href="/join/">How to join →</a>
+        </div>
+      </div>
+
+      <div class="r-cols">
+        <dl class="r-ch">
+          {channels.map((c) => (
+            <div class="r-row">
+              <dt class="m">{c.k}</dt>
+              <dd><a href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener">{c.v}</a></dd>
+            </div>
+          ))}
+        </dl>
+
+        <div class="r-where">
+          <p class="m r-lab">WHERE WE ARE</p>
+          <address>
+            {lab.institution.department}<br />
+            {lab.institution.name}<br />
+            {a.building}<br />
+            {a.street}<br />
+            {a.city}, {a.region} {a.postal}
+          </address>
+        </div>
+      </div>
+    </div>
+
+    <div class="r-mid">
+      <a href="/" class="r-plate" aria-label={`${lab.name} — home`}>
+        <Image src={lockup} alt={lab.name} width={420} height={130} loading="eager" />
+      </a>
+      <nav class="r-nav" aria-label="Footer">
+        {lab.nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <div class="r-data">
+        <a href="/aura.bib">BibTeX</a>
+        <a href="/publications.xml">Publications feed</a>
+        <a href="/rss.xml">News feed</a>
+      </div>
+    </div>
+
+    <div class="r-bot">
+      <span>© {year} {lab.name}, {lab.institution.name}.</span>
+      <span class="m r-sync"><i aria-hidden="true"></i>PUBLICATIONS SYNCED {fmtDate(metrics.updated).toUpperCase()}</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reach { background: var(--chrome); color: var(--on-chrome-2); padding: clamp(44px, 5.5vw, 88px) 0 24px; }
+
+  .r-top { display: grid; gap: clamp(30px, 4vw, 80px); align-items: start; }
+  @media (min-width: 960px) { .r-top { grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr); } }
+
+  .r-kick { font-size: 8.5px; letter-spacing: .11em; color: var(--brand); }
+  .r-h {
+    margin-top: 14px; color: #fff; font-variation-settings: "wdth" 118; font-weight: 800;
+    font-size: clamp(30px, 3.4vw, 62px); line-height: 1.04; letter-spacing: -0.03em;
+  }
+  .r-p { margin-top: 18px; max-width: 52ch; font-size: clamp(15px, 0.95vw, 18px); line-height: 1.6; color: var(--on-chrome-2); }
+  .r-btns { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .r-btn {
+    display: inline-flex; align-items: center; height: 46px; padding: 0 22px;
+    font-variation-settings: "wdth" 112; font-weight: 700; font-size: 15px;
+    background: #fff; color: var(--chrome);
+    transition: transform .25s cubic-bezier(.2,.8,.25,1), background .2s ease, color .2s ease;
+  }
+  .r-btn:hover { transform: translateY(-2px); background: var(--brand); color: #fff; }
+  .r-btn-o { background: none; color: #fff; border: 1px solid rgba(255,255,255,.28); }
+  .r-btn-o:hover { background: #fff; color: var(--chrome); border-color: #fff; }
+
+  .r-cols { display: grid; gap: 30px; }
+  @media (min-width: 620px) { .r-cols { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 30px 40px; } }
+
+  .r-ch { margin: 0; border-top: 1px solid rgba(255,255,255,.16); }
+  .r-row { padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .r-row dt { font-size: 8px; letter-spacing: .11em; color: var(--on-chrome-3); }
+  .r-row dd { margin: 5px 0 0; font-size: 15.5px; }
+  .r-row dd a { color: #fff; border-bottom: 1px solid rgba(255,255,255,.24); padding-bottom: 2px; }
+  .r-row dd a:hover { color: var(--brand); border-color: var(--brand); }
+
+  .r-lab { font-size: 8px; letter-spacing: .11em; color: var(--on-chrome-3); }
+  .r-where address { margin-top: 12px; font-style: normal; font-size: 14px; line-height: 1.75; color: var(--on-chrome-2); }
+
+  .r-mid {
+    margin-top: clamp(36px, 4vw, 60px); padding-top: 26px; border-top: 1px solid rgba(255,255,255,.14);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 22px 44px;
+  }
+  .r-plate { display: inline-block; background: #fff; padding: 12px 16px; }
+  .r-plate :global(img) { width: 200px; height: auto; }
+  .r-nav, .r-data { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; }
+  .r-data { margin-left: auto; font-size: 13px; color: var(--on-chrome-3); }
+  .r-nav a, .r-data a { color: var(--on-chrome-2); border-bottom: 1px solid transparent; }
+  .r-nav a:hover, .r-data a:hover { color: #fff; border-color: var(--brand); }
+
+  .r-bot {
+    margin-top: 26px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.1);
+    display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
+    font-size: 12px; color: var(--on-chrome-3);
+  }
+  .r-sync { font-size: 8px; letter-spacing: .1em; display: inline-flex; align-items: center; }
+  .r-sync i { width: 5px; height: 5px; border-radius: 50%; background: var(--brand); margin-right: 8px; }
+
+  @media (max-width: 720px) {
+    .r-data { margin-left: 0; }
+    .r-plate :global(img) { width: 170px; }
+  }
+</style>
