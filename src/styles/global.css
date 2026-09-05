@@ -39,14 +39,14 @@
   --a4: #17485a;
 
   /* dark chrome */
-  --chrome:    #0b0f0d;
+  --chrome:    #050505;
   --on-chrome: #f4f6f4;
   --on-chrome-2: #b6bdb8;
   --on-chrome-3: #848c86;
 
   --pad:   40px;
   --shell: 1400px;
-  --nav-h: 64px;
+  --nav-h: 88px;
 
   --sans: "Archivo Variable", "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --mono: "Martian Mono Variable", "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -56,7 +56,7 @@
 @media (min-width: 1700px) { :root { --pad: 60px; --shell: 1660px; } }
 @media (min-width: 2100px) { :root { --pad: 76px; --shell: 2080px; } }
 @media (min-width: 2400px) { :root { --pad: 84px; --shell: 2320px; } }
-@media (max-width: 700px)  { :root { --pad: 20px; --nav-h: 56px; } }
+@media (max-width: 700px)  { :root { --pad: 20px; --nav-h: 68px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
