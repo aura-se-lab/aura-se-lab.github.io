@@ -1,0 +1,923 @@
+<title>auralab.sh Site Specification</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@300;400;600&display=swap">
+<style>
+:root{
+  --paper:#e8ebe6; --surface:#f7f8f5; --surface-2:#fdfdfc;
+  --ink:#0e1512; --ink-2:#363f39; --ink-3:#4d564f; --ink-4:#6d766f; --ink-5:#9aa39c;
+  --rule:rgba(14,21,18,.13); --rule-2:rgba(14,21,18,.28); --rule-3:#0e1512;
+  --t1:#0c5a3a; --t2:#178a5a; --t3:#46a97c; --t4:#a3812f; --live:#c2410c;
+  --code-bg:#0e1512; --code-fg:#dfe6e0;
+  --shell:1180px; --pad:40px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0e1512; --surface:#141c18; --surface-2:#18211c;
+    --ink:#e4e9e4; --ink-2:#c1cac3; --ink-3:#a4ada6; --ink-4:#89928b; --ink-5:#6d766f;
+    --rule:rgba(228,233,228,.14); --rule-2:rgba(228,233,228,.30); --rule-3:#e4e9e4;
+    --t1:#3f9f70; --t2:#4fb586; --t3:#79cba6; --t4:#c9a352; --live:#f0763c;
+    --code-bg:#060a08; --code-fg:#dfe6e0;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0e1512; --surface:#141c18; --surface-2:#18211c;
+  --ink:#e4e9e4; --ink-2:#c1cac3; --ink-3:#a4ada6; --ink-4:#89928b; --ink-5:#6d766f;
+  --rule:rgba(228,233,228,.14); --rule-2:rgba(228,233,228,.30); --rule-3:#e4e9e4;
+  --t1:#3f9f70; --t2:#4fb586; --t3:#79cba6; --t4:#c9a352; --live:#f0763c;
+  --code-bg:#060a08; --code-fg:#dfe6e0;
+}
+
+*{box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:15.5px;line-height:1.62}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
+p,ul,ol,table,pre,figure{margin:0}
+ul,ol{padding:0}
+:focus-visible{outline:2px solid var(--live);outline-offset:3px}
+::selection{background:var(--t3);color:var(--ink)}
+
+.m{font-family:'Martian Mono',ui-monospace,SFMono-Regular,monospace}
+.exp{font-variation-settings:'wdth' 118}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 var(--pad)}
+
+/* ── masthead ─────────────────────────────────────────── */
+.mast{background:var(--ink);color:var(--paper);padding:56px 0 44px}
+:root[data-theme="dark"] .mast,
+:root:not([data-theme="light"]) .mast{}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mast{background:#060a08}}
+:root[data-theme="dark"] .mast{background:#060a08}
+.mast .shell{display:grid;gap:26px}
+.mast-k{font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:.09em;color:var(--t3);
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.mast h1{font-variation-settings:'wdth' 118;font-weight:800;letter-spacing:-.032em;
+  font-size:clamp(38px,6.2vw,68px);line-height:1.02;max-width:16ch;color:var(--paper)}
+.mast-d{color:#b3bdb6;max-width:62ch;font-size:16.5px}
+.mast-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:rgba(232,235,230,.16);border:1px solid rgba(232,235,230,.16);margin-top:6px}
+.mast-meta div{background:#0e1512;padding:13px 15px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mast-meta div{background:#060a08}}
+:root[data-theme="dark"] .mast-meta div{background:#060a08}
+.mast-meta b{display:block;font-family:'Martian Mono',monospace;font-size:8.5px;font-weight:400;
+  color:#8e9a92;letter-spacing:.06em;margin-bottom:5px}
+.mast-meta span{font-size:14px;color:var(--paper);font-variation-settings:'wdth' 112}
+
+/* ── layout ───────────────────────────────────────────── */
+.doc{padding:0 0 90px}
+.doc .shell{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:1040px){
+  .doc .shell{grid-template-columns:190px minmax(0,1fr);gap:56px;align-items:start}
+  .toc{position:sticky;top:0;padding:44px 0;max-height:100vh;overflow-y:auto}
+}
+.toc{padding:30px 0 0}
+.toc-k{font-family:'Martian Mono',monospace;font-size:8.5px;color:var(--ink-5);letter-spacing:.09em;
+  padding-bottom:9px;border-bottom:1px solid var(--rule-2);margin-bottom:4px}
+.toc a{display:grid;grid-template-columns:26px 1fr;gap:8px;padding:6px 0;font-size:12.5px;
+  color:var(--ink-3);text-decoration:none;line-height:1.35}
+.toc a:hover{color:var(--ink)}
+.toc a i{font-family:'Martian Mono',monospace;font-style:normal;font-size:9px;color:var(--ink-5)}
+
+/* ── sections ─────────────────────────────────────────── */
+section{padding:44px 0 4px;border-top:1.5px solid var(--rule-3);margin-top:44px}
+section:first-of-type{margin-top:34px}
+.s-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px 22px;flex-wrap:wrap;margin-bottom:18px}
+.s-h h2{font-variation-settings:'wdth' 118;font-weight:700;font-size:clamp(25px,3.4vw,33px);
+  letter-spacing:-.028em;line-height:1.08}
+.s-n{font-family:'Martian Mono',monospace;font-size:9px;color:var(--ink-4);white-space:nowrap}
+.body{max-width:74ch}
+.body p+p,.body p+ul,.body ul+p,.body p+ol,.body ol+p{margin-top:14px}
+.body p{color:var(--ink-2)}
+h3{font-variation-settings:'wdth' 112;font-weight:700;font-size:17px;letter-spacing:-.014em;
+  margin:32px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+h4{font-family:'Martian Mono',monospace;font-size:9.5px;color:var(--ink-4);letter-spacing:.07em;margin:24px 0 8px}
+.lede{font-size:17.5px;line-height:1.55;color:var(--ink-2);max-width:70ch}
+ul.b{list-style:none;display:grid;gap:8px}
+ul.b>li{display:grid;grid-template-columns:16px 1fr;gap:8px;color:var(--ink-2)}
+ul.b>li::before{content:'—';color:var(--ink-5);font-family:'Martian Mono',monospace;font-size:10px;line-height:1.9}
+ol.n{list-style:none;counter-reset:n;display:grid;gap:9px}
+ol.n>li{counter-increment:n;display:grid;grid-template-columns:26px 1fr;gap:10px;color:var(--ink-2)}
+ol.n>li::before{content:counter(n,decimal-leading-zero);font-family:'Martian Mono',monospace;
+  font-size:9.5px;color:var(--t2);line-height:2.05}
+code{font-family:'Martian Mono',monospace;font-size:.83em;background:var(--surface);
+  border:1px solid var(--rule);padding:1px 5px;border-radius:2px;white-space:nowrap}
+b,strong{font-weight:700}
+.k{font-family:'Martian Mono',monospace;font-size:9px;color:var(--live);letter-spacing:.07em}
+
+/* ── tables ───────────────────────────────────────────── */
+.tw{overflow-x:auto;border:1px solid var(--rule-2);background:var(--surface-2);margin:16px 0 6px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px}
+th{font-family:'Martian Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:.06em;
+  color:var(--ink-4);text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule-2);
+  background:var(--surface);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td code{background:transparent;border:0;padding:0;color:var(--ink);white-space:nowrap}
+td.n{font-family:'Martian Mono',monospace;font-size:11px;font-variant-numeric:tabular-nums;
+  color:var(--ink-3);white-space:nowrap}
+.cap{font-family:'Martian Mono',monospace;font-size:9px;color:var(--ink-5);line-height:1.6;margin-top:7px}
+
+pre{background:var(--code-bg);color:var(--code-fg);padding:16px 18px;overflow-x:auto;
+  font-family:'Martian Mono',monospace;font-size:11.5px;line-height:1.72;margin:16px 0 6px;
+  border:1px solid var(--rule-2)}
+pre b{color:#79cba6;font-weight:400}
+pre i{color:#89928b;font-style:normal}
+
+/* ── callouts ─────────────────────────────────────────── */
+.note{border-left:2px solid var(--t2);background:var(--surface);padding:14px 16px;margin:18px 0 6px;
+  font-size:14px;color:var(--ink-2)}
+.note.warn{border-left-color:var(--live)}
+.note b{display:block;font-family:'Martian Mono',monospace;font-size:8.5px;letter-spacing:.07em;
+  color:var(--ink-4);margin-bottom:5px;font-weight:600}
+
+/* ── swatches ─────────────────────────────────────────── */
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(124px,1fr));gap:1px;
+  background:var(--rule-2);border:1px solid var(--rule-2);margin:16px 0 6px}
+.sw div{background:var(--surface-2);padding:0}
+.sw i{display:block;height:46px}
+.sw span{display:block;font-family:'Martian Mono',monospace;font-size:8.5px;padding:8px 10px;color:var(--ink-3);line-height:1.5}
+.sw span b{display:block;color:var(--ink);font-weight:400;font-size:9px}
+
+/* ── page cards ───────────────────────────────────────── */
+.pg{border:1px solid var(--rule-2);background:var(--surface-2);margin:16px 0 6px}
+.pg-h{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:13px 16px;border-bottom:1px solid var(--rule-2);background:var(--surface)}
+.pg-h b{font-variation-settings:'wdth' 112;font-weight:700;font-size:15px}
+.pg-h span{font-family:'Martian Mono',monospace;font-size:9px;color:var(--ink-4)}
+.pg-b{padding:14px 16px;display:grid;gap:11px}
+.pg-r{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;font-size:13.5px;color:var(--ink-2)}
+.pg-r>b{font-family:'Martian Mono',monospace;font-size:8.5px;font-weight:400;color:var(--ink-5);
+  letter-spacing:.06em;line-height:1.9}
+@media(max-width:560px){.pg-r{grid-template-columns:1fr;gap:3px}}
+
+.done{color:var(--t2)}
+.todo{color:var(--live)}
+.st{font-family:'Martian Mono',monospace;font-size:8.5px;letter-spacing:.05em;white-space:nowrap}
+
+footer.f{background:var(--ink);color:#b3bdb6;padding:34px 0 40px;font-family:'Martian Mono',monospace;
+  font-size:9px;line-height:1.8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) footer.f{background:#060a08}}
+:root[data-theme="dark"] footer.f{background:#060a08}
+footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+</style>
+
+<header class="mast">
+  <div class="shell">
+    <p class="mast-k"><span>AURALAB.SH</span><span>·</span><span>BUILD SPECIFICATION v2.0</span><span>·</span><span>DIRECTION: FRONTIER</span></p>
+    <h1>The specification for auralab.sh.</h1>
+    <p class="mast-d">Everything the site is made of: its pages, its header and footer, its components, its
+      tokens, the data it reads, the jobs that keep it current, and the numbers it is allowed to claim.
+      Normative — where this document and the code disagree, this document is the intent.</p>
+    <div class="mast-meta">
+      <div><b>OWNER</b><span>Antonio Mastropaolo</span></div>
+      <div><b>STACK</b><span>Astro 7 · Cloudflare</span></div>
+      <div><b>SOURCE</b><span>aura-se-lab/aura-site</span></div>
+      <div><b>REVISED</b><span>5 September 2026</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="doc">
+<div class="shell">
+
+  <nav class="toc" aria-label="Contents">
+    <p class="toc-k">CONTENTS</p>
+    <a href="#s0"><i>00</i>Position &amp; principles</a>
+    <a href="#s1"><i>01</i>Information architecture</a>
+    <a href="#s2"><i>02</i>Header</a>
+    <a href="#s3"><i>03</i>Footer</a>
+    <a href="#s4"><i>04</i>Page specifications</a>
+    <a href="#s5"><i>05</i>Component inventory</a>
+    <a href="#s6"><i>06</i>Design tokens</a>
+    <a href="#s7"><i>07</i>Photography</a>
+    <a href="#s8"><i>08</i>Evidence policy</a>
+    <a href="#s9"><i>09</i>Data model</a>
+    <a href="#s10"><i>10</i>Automation</a>
+    <a href="#s11"><i>11</i>SEO &amp; discovery</a>
+    <a href="#s12"><i>12</i>Accessibility &amp; performance</a>
+    <a href="#s13"><i>13</i>Content operations</a>
+    <a href="#s14"><i>14</i>Rollout &amp; open items</a>
+  </nav>
+
+  <main>
+
+  <!-- ══ 00 ══════════════════════════════════════════ -->
+  <section id="s0">
+    <div class="s-h"><h2>Position &amp; principles.</h2><span class="s-n">§ 00</span></div>
+    <div class="body">
+      <p class="lede">Most academic lab sites are a list of papers with a photo on top. This one argues a
+        position and then shows its work. The position is the lab's thesis: <b>every gain in AI for code is
+        paid for somewhere</b> — in compute, in energy, in the ability to see why the model did what it
+        did — and the AURA Lab measures that price before claiming the gain.</p>
+
+      <h3>Five rules the whole site obeys</h3>
+      <ol class="n">
+        <li><b>Every figure names its source.</b> No number appears without a caption saying where it came
+          from and when it was collected. Figures the lab cannot source are not drawn.</li>
+        <li><b>The record is machine-maintained.</b> Publications, counts and artifact links are produced by
+          the sync pipeline (<span class="k">§ 10</span>), never typed by hand. Hand-typed numbers rot.</li>
+        <li><b>Shape over score.</b> The site shows trends and composition — output per year, venue mix,
+          uptake direction — and does not headline a citation index (<span class="k">§ 08</span>).</li>
+        <li><b>Artifacts are first class.</b> A replication package is displayed with the same weight as the
+          paper it belongs to. Reproducibility is presented as a baseline, not a feature.</li>
+        <li><b>People are named, not tiled.</b> Every person on the site links to a profile with their own
+          papers and threads. Nobody is a decorative headshot.</li>
+      </ol>
+
+      <h3>Audience, in priority order</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Audience</th><th>Arrives from</th><th>What must be true within 10 seconds</th></tr></thead>
+        <tbody>
+          <tr><td><b>Prospective PhD students</b></td><td>Google, an advisor, a paper</td><td>What the lab works on, who is in it, that it is funded and hiring</td></tr>
+          <tr><td><b>Reviewers &amp; PC chairs</b></td><td>A submission, a bio link</td><td>The publication record, venues, service, artifacts</td></tr>
+          <tr><td><b>Collaborators</b></td><td>A talk, a colleague</td><td>The four threads, current directions, contact</td></tr>
+          <tr><td><b>Funding panels</b></td><td>A proposal, a bio sketch</td><td>NSF CRII 2451058, output growth, students advised</td></tr>
+          <tr><td><b>Practitioners</b></td><td>Hacker News, X, a tool search</td><td>AuraPulse-S, the Zenodo packages, the code</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">Prospective students are ranked first deliberately. The homepage's closing section
+        (§ 08 · Join) exists for them, and the People band sits above the publication record, not below it.</p>
+    </div>
+  </section>
+
+  <!-- ══ 01 ══════════════════════════════════════════ -->
+  <section id="s1">
+    <div class="s-h"><h2>Information architecture.</h2><span class="s-n">§ 01 · SITEMAP</span></div>
+    <div class="body">
+      <p>Fourteen route patterns, all statically generated. <code>trailingSlash: "always"</code>; every URL
+        below is canonical and ends in a slash except the feeds.</p>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>URL</th><th>Source</th><th>Pages</th><th>Purpose</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><code>/</code></td><td><code>pages/index.astro</code></td><td class="n">1</td><td>The argument, in eight sections</td><td class="st done">SPEC'D · § 04.1</td></tr>
+        <tr><td><code>/research/</code></td><td><code>research/index.astro</code></td><td class="n">1</td><td>The four threads, side by side</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/research/[slug]/</code></td><td><code>content/research/*.md</code></td><td class="n">4</td><td>One thread: essay + its papers + its people</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/publications/</code></td><td><code>publications/index.astro</code></td><td class="n">1</td><td>All 52 entries, filterable</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/publications/[key]/</code></td><td><code>data/publications.json</code></td><td class="n">52</td><td>One paper: abstract, links, BibTeX, artifact</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/people/</code></td><td><code>people/index.astro</code></td><td class="n">1</td><td>Current members, then alumni &amp; collaborators</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/people/[slug]/</code></td><td><code>content/people/*.md</code></td><td class="n">10</td><td>One person: bio, threads, their papers</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/software/</code></td><td><em>new</em></td><td class="n">1</td><td>AuraPulse-S + the 10 Zenodo packages</td><td class="st todo">TO BUILD · § 04.4</td></tr>
+        <tr><td><code>/news/</code></td><td><code>news/index.astro</code></td><td class="n">1</td><td>Reverse-chronological feed</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/news/[slug]/</code></td><td><code>content/news/*.md</code></td><td class="n">~20</td><td>One item, with its paper linked</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/join/</code></td><td><code>pages/join.astro</code></td><td class="n">1</td><td>How to apply, what the lab expects</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/funding/</code></td><td><em>new</em></td><td class="n">1</td><td>NSF CRII 2451058, Charles Center, acknowledgements</td><td class="st todo">TO BUILD</td></tr>
+        <tr><td><code>/rss.xml</code>, <code>/publications.xml</code></td><td><code>*.xml.ts</code></td><td class="n">2</td><td>News feed; publications feed</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>/og/[...slug].png</code></td><td><code>og/[...slug].png.ts</code></td><td class="n">~70</td><td>Build-time social cards (satori + resvg)</td><td class="st done">BUILT</td></tr>
+      </tbody>
+    </table></div>
+    <p class="cap">≈ 96 HTML pages + 70 OG images. <code>/og/</code> and <code>/drafts/</code> are excluded
+      from the sitemap by the integration filter in <code>astro.config.mjs</code>.</p>
+
+    <div class="body">
+      <h3>Legacy URL contract</h3>
+      <p>The old al-folio site at <code>aura-se-lab.github.io</code> keeps serving, but every page becomes a
+        301 to its <code>auralab.sh</code> equivalent, published by the
+        <code>legacy-redirect.yml</code> workflow. The mapping is in <code>scripts/legacy-redirect/</code>.
+        Inbound links from DBLP, Google Scholar and old CVs must not break.</p>
+    </div>
+  </section>
+
+  <!-- ══ 02 ══════════════════════════════════════════ -->
+  <section id="s2">
+    <div class="s-h"><h2>Header.</h2><span class="s-n">§ 02 · GLOBAL CHROME</span></div>
+    <div class="body">
+      <p class="lede">Two tiers on a dark ground. The upper tier is a live status strip — it says when the
+        record was last synced, which is the site's whole argument compressed into one line. The lower tier
+        is the navigation.</p>
+
+      <h3>Tier 1 — the utility strip</h3>
+      <p>30&nbsp;px, ink ground, Martian Mono 9&nbsp;px. Left: a slowly pulsing dot in <code>--t3</code>
+        followed by <span class="k">PUBLICATION RECORD SYNCED <em>&lt;ISO timestamp&gt;</em> · <em>N</em>
+        ENTRIES · DBLP · CROSSREF · SEMANTIC SCHOLAR · ARXIV</span>. Right: RSS, BIBTEX, GITHUB, WILLIAM &amp;
+        MARY&nbsp;CS&nbsp;↗. Values come from <code>metrics.json</code>, never hardcoded. The pulse respects
+        <code>prefers-reduced-motion</code>.</p>
+
+      <h3>Tier 2 — the bar</h3>
+      <p><code>position:sticky; top:0; z-index:60</code>, 66&nbsp;px, ink ground, 1&nbsp;px paper-alpha rule
+        beneath. Only tier 2 sticks; tier 1 scrolls away.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Slot</th><th>Content</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td><b>Brand</b></td><td>28&nbsp;px four-arc mark in the thread hues + <code>AURA LAB</code> (Archivo 800, wdth 118) over the expansion in 8.5&nbsp;px mono</td><td>Links to <code>/</code>. Expansion hidden below 760&nbsp;px.</td></tr>
+          <tr><td><b>Research</b></td><td>Mega panel, 2×2: hue letter, thread title, one-line summary. Foot: <code>FOUR THREADS · N OF M ENTRIES CLASSIFIED · NSF CRII 2451058</code> + “Research overview →”</td><td>Opens on <code>:hover</code> and <code>:focus-within</code>. 640&nbsp;px min width.</td></tr>
+          <tr><td><b>Publications</b></td><td>Narrow panel, 5 rows with live counts: All (52) · Peer-reviewed (19) · Preprints (12) · IEEE Computer columns (21) · Replication packages (10 on Zenodo). Foot: “Download BibTeX ↓”</td><td>Same. Counts from <code>metrics.json</code>.</td></tr>
+          <tr><td><b>People / Software / News</b></td><td>Plain links</td><td>No panel.</td></tr>
+          <tr><td><b>Search</b></td><td>Bordered field, magnifier, label “Search papers”, <code>⌘K</code> kbd</td><td>Opens the client-side index (§ 05). Collapses to an icon below 760&nbsp;px.</td></tr>
+          <tr><td><b>Join the lab</b></td><td>Solid <code>--t3</code> button, ink text</td><td>Hidden below 760&nbsp;px — it lives in the drawer instead.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">Current-page state is a 2&nbsp;px <code>--t3</code> inset underline on the active nav
+        link, plus <code>aria-current="page"</code>. The homepage marks nothing active.</p>
+
+      <h3>Below 1180 px — the drawer</h3>
+      <p>Nav and search collapse into a burger that toggles a full-width drawer beneath the bar. The drawer
+        carries two labelled groups — <b>RESEARCH</b> (four threads with their hue letters) and <b>THE
+        SITE</b> (All publications · People · Software &amp; artifacts · News · Join the lab, each with its
+        count) — then a mono row of RSS / BIBTEX / GITHUB / W&amp;M CS. The burger animates to an ×; state is
+        carried on <code>aria-expanded</code> and a <code>hidden</code> attribute, so it works with CSS
+        disabled and never traps focus.</p>
+
+      <div class="note"><b>WHY A STATUS STRIP</b>Every other lab site asks you to trust that the publication
+        list is current. This one shows the timestamp, the entry count and the four databases it was built
+        from, on every page. It is the cheapest credibility signal on the site and it costs 30&nbsp;px.</div>
+    </div>
+  </section>
+
+  <!-- ══ 03 ══════════════════════════════════════════ -->
+  <section id="s3">
+    <div class="s-h"><h2>Footer.</h2><span class="s-n">§ 03 · GLOBAL CHROME</span></div>
+    <div class="body">
+      <p>Three bands on the ink ground, each doing a different job.</p>
+
+      <h4>BAND 1 — COLOPHON + SITEMAP</h4>
+      <p>Five columns at ≥1180&nbsp;px, two at ≥640, one below. Column&nbsp;1 is the identity block: mark,
+        <b>The AURA Lab</b>, the expansion, the two-sentence mission, then the postal address in mono —
+        Department of Computer Science, William &amp; Mary, Integrated Science Center 4 · Office 2333, 540
+        Landrum Dr, Williamsburg VA 23185 — and the contact address. Columns 2–5 are
+        <b>RESEARCH</b> (overview + the four threads + funding), <b>PUBLICATIONS</b> (all / peer-reviewed /
+        preprints / columns / replication packages / <code>aura.bib</code>), <b>LAB</b> (people, alumni &amp;
+        collaborators, software, news, join, director ↗), <b>DATA &amp; FEEDS</b> (news RSS, publications
+        feed, sitemap, site source ↗, accessibility, licence).</p>
+
+      <h4>BAND 2 — PROVENANCE STRIP</h4>
+      <p>Four mono cells, rules between: <span class="k">RECORD LAST SYNCED</span> · <span class="k">SOURCES</span>
+        · <span class="k">ENTRIES · ARTIFACTS</span> · <span class="k">NEXT SCHEDULED SYNC</span>. All four
+        are read from <code>metrics.json</code> at build time. This band is the footer's reason to exist:
+        it is the machine-readable version of rule&nbsp;1.</p>
+
+      <h4>BAND 3 — BASELINE</h4>
+      <p>Left: <code>© 2026 The AURA Lab · William &amp; Mary. Content CC BY 4.0 · Site code MIT.</code>
+        Centre: <code>Every figure on this site names its source. If one does not, <u>tell us</u>.</code>
+        — the underlined phrase is a <code>mailto:</code>. Right: <code>Set in Archivo &amp; Martian
+        Mono.</code></p>
+
+      <div class="note"><b>THE CENTRE LINE IS NOT DECORATION</b>It is an invitation to audit, and it must
+        stay true. If a figure ships without a caption naming its source, the line becomes a liability —
+        which is exactly the pressure it is there to apply.</div>
+    </div>
+  </section>
+
+  <!-- ══ 04 ══════════════════════════════════════════ -->
+  <section id="s4">
+    <div class="s-h"><h2>Page specifications.</h2><span class="s-n">§ 04</span></div>
+    <div class="body">
+      <p>Each page below lists its sections in render order. Section numbers shown in mono
+        (<span class="k">§ 01</span>…) are printed on the page itself, in the right-hand slot of every
+        section header — they are part of the design, and they encode reading order for a document that is
+        genuinely meant to be read top to bottom.</p>
+    </div>
+
+    <h3>04.1 — Home <code>/</code></h3>
+    <div class="pg">
+      <div class="pg-h"><b>Homepage</b><span>8 SECTIONS · ~4,850 px AT 1440</span></div>
+      <div class="pg-b">
+        <div class="pg-r"><b>HERO</b><span>Two columns. Left: eyebrow <span class="k">THE PROBLEM WE WORK ON</span> in <code>--live</code>, then the thesis at <code>clamp(44px, 6vw, 84px)</code> Archivo 800 / wdth 118, a four-line stand-first, and two buttons (solid “The publication record →”, outlined “Four research threads”). Right: <b>Fig. 1</b>, a hand-drawn capability-vs-cost schematic with the frontier curve, the lab's shifted curve, and an annotated arrow reading “same answers, less compute”. Caption states plainly that it is a schematic, not measured data.</span></div>
+        <div class="pg-r"><b>KPI ROW</b><span>Four figures under a hairline: <b>19</b> peer-reviewed papers · <b>10</b> replication packages · <b>8</b> students advised · <b>1</b> NSF award active (the last in <code>--live</code>). No citation count. See § 08.</span></div>
+        <div class="pg-r"><b>§ 01 RESEARCH</b><span>“Four threads, one instrument.” A 4-up grid under a single axis labelled <span class="k">← MODEL-CENTRIC · what the model is</span> at one end and <span class="k">what the model produces · OUTPUT-CENTRIC →</span> at the other. Each column: a full-width hue rule, the A/U/R/A letter, a live paper count, title, two-line summary. The efficiency thread also carries <span class="k">NSF CRII 2451058</span>.</span></div>
+        <div class="pg-r"><b>§ 02 PEOPLE</b><span>“Who takes the measurements.” A 9-up contact sheet of face-cropped portraits, each with a mono role tag burnt into the corner (<code>DIR-00</code>, <code>PHD-01</code>…<code>UG-02</code>), name and role beneath. Members without a photo get an initials tile. Footer rule: “<span class="k">THE LAB · WILLIAMSBURG, VIRGINIA · &lt;month year&gt;</span>” and “<span class="k">EVERY NAME LINKS TO A PROFILE, THEIR PAPERS AND THEIR THREADS →</span>”. Grid: 9 → 5 → 3 → 2 columns.</span></div>
+        <div class="pg-r"><b>§ 03 RECORD</b><span>“The record.” A dense table: year · venue badge in its thread hue · title + author line with lab members bolded · artifact tags (PDF / DOI / ARXIV / ARTIFACT). Five rows, then “All 52 entries, filterable by thread, year and author →”. Below 700 px the row becomes a block: year and venue inline, then title, then authors; tags drop.</span></div>
+        <div class="pg-r"><b>§ 04 IMPACT</b><span>Three cards. <b>Fig. 2</b> — output per year as stacked bars (reviewed / preprints / columns), gridlines at 0·15·30, totals above each bar. <b>Fig. 3</b> — uptake, an area curve labelled <span class="k">TREND ONLY</span> with an axis that carries <em>no numbers at all</em>, only <code>FALL 2024</code> → <code>SEP 2026</code>. <b>Fig. 4</b> — venue mix as a horizontal bar list, hue-coded by tier. Every card carries a source caption.</span></div>
+        <div class="pg-r"><b>§ 05 SOFTWARE</b><span>“What we ship.” Left: a dark card for <b>AuraPulse-S</b> — pulsing ACTIVE·BETA·v0.1.0 badge, description, a 2×2 spec grid (macOS 14+ · Apple Silicon / 6.9 MB DMG / 4 × NVIDIA L40S / W&amp;M CS account) and two buttons. Right: the replication packages as rows of title + Zenodo DOI, capped with “<span class="k">EVERY EMPIRICAL PAPER SHIPS ITS DATA, SCRIPTS AND MODELS. REPRODUCIBILITY IS A BASELINE, NOT A FEATURE.</span>”</span></div>
+        <div class="pg-r"><b>§ 06 SERVICE</b><span>“In the community.” Four figures on hue rules: <b>26</b> program committees · <b>2</b> editorial roles · <b>8</b> chair &amp; organizing roles · <b>6</b> awards &amp; distinctions, each with a one-line expansion naming the actual venues.</span></div>
+        <div class="pg-r"><b>§ 07 NEWS</b><span>“Recently.” Five rows: mono date · headline · mono kind tag, right-aligned. Then “News archive →” and “<span class="k">NEW PAPERS ARE DRAFTED HERE AUTOMATICALLY, THEN REVIEWED BY A HUMAN</span>”.</span></div>
+        <div class="pg-r"><b>§ 08 JOIN</b><span>Full-bleed ink panel. “If you would rather measure it than assume it.” Recruiting line, then the honest ask — read a result before writing; undergraduates come to a reading group first. Two stacked buttons: “How to join →” and the director's address.</span></div>
+      </div>
+    </div>
+
+    <h3>04.2 — Research index &amp; thread pages</h3>
+    <div class="body">
+      <p>The index repeats the homepage's single axis at full width, then gives each thread a half-page
+        block: letter, title, the <code>short</code> line, its tag row, its paper count, and its two most
+        recent papers. A thread page is: hero (letter at 180 px, title, short, tags), then a two-column body
+        — the essay from the Markdown file on the left, an aside on the right carrying the people on this
+        thread and an “In numbers” list (papers / reviewed / preprints) — then every paper in the thread with
+        the <code>featured</code> keys first, then prev/next thread links that wrap around.</p>
+      <p>Thread membership is assigned automatically by the classifier in
+        <code>scripts/pubs/areas.py</code> from the <code>keywords</code> array in each thread's frontmatter,
+        matched against title, abstract and keywords. The page states this in one line so nobody mistakes it
+        for a curated claim. 39 of 52 entries currently classify; the rest are IEEE Computer columns and are
+        correctly left unassigned.</p>
+    </div>
+
+    <h3>04.3 — Publications index &amp; paper pages</h3>
+    <div class="body">
+      <p>The index is the full record, grouped by year, with three filter axes — thread, year, author — as
+        client-side chip toggles operating on <code>data-*</code> attributes, so the page works with
+        JavaScript off and filters with it on. Bucket counts sit in the header. <code>aura.bib</code>
+        downloads the whole record.</p>
+      <p>A paper page carries: venue badge and date, title, full author line (lab members linked to their
+        profiles), abstract, a link row (PDF · DOI · arXiv · Code · Data · Slides · Video, each rendered only
+        if present), a copyable BibTeX block, the replication package if there is one, the threads it belongs
+        to, and its per-paper citation count with the source named — which is where citation numbers are
+        allowed to live (§ 08).</p>
+    </div>
+
+    <h3>04.4 — Software <code>/software/</code> <span class="st todo">TO BUILD</span></h3>
+    <div class="body">
+      <p>The one genuinely new page. Structure:</p>
+      <ul class="b">
+        <li><b>AuraPulse-S</b> — full treatment: what it is, the four L40S cards it watches, SLURM
+          submission and queue monitoring, the built-in SSH terminal, Keychain credential storage, platform
+          and download facts, release notes, and who may install it.</li>
+        <li><b>Replication packages</b> — all ten, each as: paper title → Zenodo DOI → the paper page.
+          Generated from <code>publications.json</code>, so the list can never drift from the record.</li>
+        <li><b>Code</b> — the lab's GitHub organisation, with per-repo one-liners.</li>
+        <li><b>Policy</b> — one paragraph stating that every empirical paper ships data, scripts and models,
+          and what to do if a package is incomplete.</li>
+      </ul>
+    </div>
+
+    <h3>04.5 — People, News, Join, Funding, 404</h3>
+    <div class="body">
+      <p><b>People</b> — current members as portrait cards in role order (director, PhD, MSc, undergrad),
+        then alumni with a “now at” line, then external collaborators as a compact list. <b>Person page</b> —
+        portrait, title, interests, threads, links (site, Scholar, GitHub, DBLP, ORCID), awards, and every
+        paper they authored, drawn from <code>pubsByMember()</code>. <b>News</b> — reverse-chronological, kind
+        tag per item, pinned items first; drafts hidden. <b>Join</b> — what the lab looks for, how to write
+        the email, what happens next, and the current openings line. <b>Funding</b> — NSF CRII 2451058 in
+        full (title, period, role, amount, award link) plus the two Charles Center grants and the standard
+        acknowledgement text collaborators can copy. <b>404</b> — the record's search field and the four
+        threads, not a joke.</p>
+    </div>
+  </section>
+
+  <!-- ══ 05 ══════════════════════════════════════════ -->
+  <section id="s5">
+    <div class="s-h"><h2>Component inventory.</h2><span class="s-n">§ 05</span></div>
+    <div class="tw"><table>
+      <thead><tr><th>Component</th><th>Used on</th><th>Notes</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><code>Nav.astro</code></td><td>every page</td><td>Two tiers, two mega panels, drawer; § 02</td><td class="st todo">REWRITE</td></tr>
+        <tr><td><code>Footer.astro</code></td><td>every page</td><td>Three bands; § 03</td><td class="st todo">REWRITE</td></tr>
+        <tr><td><code>Seo.astro</code></td><td>every page</td><td>Meta, OG, JSON-LD, <code>citation_*</code>; § 11</td><td class="st done">EXTEND</td></tr>
+        <tr><td><code>SectionHead.astro</code></td><td>all sections</td><td>Title + right-aligned <code>§ NN · LABEL</code></td><td class="st done">BUILT</td></tr>
+        <tr><td><code>ThreadTile.astro</code></td><td>home, research</td><td>Hue rule, letter, count, title, summary</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>PersonCard.astro</code></td><td>people, threads</td><td>Card variant of the band cell</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>PortraitBand.astro</code></td><td>home</td><td>9-up contact sheet, role tags, initials fallback</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>RecordTable.astro</code></td><td>home, publications</td><td>Dense rows; block layout &lt; 700 px</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>PubRow.astro</code> / <code>PubList.astro</code></td><td>publications, threads, people</td><td>Existing list rendering; keep</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>FigOutput.astro</code></td><td>home, publications</td><td>Fig. 2 — stacked bars from <code>metrics.by_year</code></td><td class="st todo">NEW</td></tr>
+        <tr><td><code>FigUptake.astro</code></td><td>home</td><td>Fig. 3 — unlabelled-axis trend curve; § 08</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>FigVenues.astro</code></td><td>home, publications</td><td>Fig. 4 — venue bar list, hue by tier</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>SoftwareCard.astro</code></td><td>home, software</td><td>Dark card, live badge, 2×2 spec grid</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>ArtifactRows.astro</code></td><td>home, software, paper</td><td>Zenodo DOI rows from the record</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>NewsItem.astro</code></td><td>home, news</td><td>Date · headline · kind tag</td><td class="st done">BUILT</td></tr>
+        <tr><td><code>JoinPanel.astro</code></td><td>home, join</td><td>Full-bleed ink panel</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>Search.astro</code></td><td>nav</td><td>⌘K over a build-time JSON index of title, authors, venue, year, abstract</td><td class="st todo">NEW</td></tr>
+      </tbody>
+    </table></div>
+    <p class="cap">Every figure component takes its numbers as props from <code>metrics.json</code> or
+      <code>publications.json</code>. None of them accept a hardcoded array.</p>
+  </section>
+
+  <!-- ══ 06 ══════════════════════════════════════════ -->
+  <section id="s6">
+    <div class="s-h"><h2>Design tokens.</h2><span class="s-n">§ 06</span></div>
+    <div class="body">
+      <p>The palette is a cool green-grey paper with four thread hues that step down in weight, plus one warm
+        signal colour used only for things that are live or urgent. It is not neutral by accident: the paper
+        is biased toward the thread greens so the hues read as belonging to it.</p>
+    </div>
+    <div class="sw">
+      <div><i style="background:#e8ebe6"></i><span><b>--paper</b>#e8ebe6</span></div>
+      <div><i style="background:#f7f8f5"></i><span><b>--surface</b>#f7f8f5</span></div>
+      <div><i style="background:#0e1512"></i><span><b>--ink</b>#0e1512</span></div>
+      <div><i style="background:#4d564f"></i><span><b>--ink-3</b>#4d564f</span></div>
+      <div><i style="background:#9aa39c"></i><span><b>--ink-5</b>#9aa39c</span></div>
+      <div><i style="background:#0c5a3a"></i><span><b>--t1</b>#0c5a3a</span></div>
+      <div><i style="background:#178a5a"></i><span><b>--t2</b>#178a5a</span></div>
+      <div><i style="background:#46a97c"></i><span><b>--t3</b>#46a97c</span></div>
+      <div><i style="background:#a3812f"></i><span><b>--t4</b>#a3812f</span></div>
+      <div><i style="background:#c2410c"></i><span><b>--live</b>#c2410c</span></div>
+    </div>
+    <div class="body">
+      <p class="cap">t1–t4 map to the threads in order: efficiency, neurosymbolic, reliability, agents.
+        A hue is never used decoratively — if something is <code>--t4</code>, it is about agents.
+        <code>--live</code> is reserved for: the hero eyebrow, the active-award KPI, the AuraPulse status dot,
+        the focus ring, and nothing else.</p>
+
+      <h3>Type</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Role</th><th>Face</th><th>Setting</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>Display</td><td>Archivo</td><td>800 · <code>wdth 118</code> · <code>-0.032em</code> · lh 1.02</td><td>Hero, section titles, brand</td></tr>
+          <tr><td>Sub-display</td><td>Archivo</td><td>700 · <code>wdth 112</code> · <code>-0.014em</code></td><td>Card titles, paper titles</td></tr>
+          <tr><td>Body</td><td>Archivo</td><td>400 · default width · lh 1.55</td><td>All running prose</td></tr>
+          <tr><td>Data &amp; labels</td><td>Martian Mono</td><td>300/400/600 · 8.5–12 px · <code>+0.06em</code></td><td>§ numbers, captions, DOIs, timestamps, tags, axes</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">Two families, one variable axis actually used. Archivo's <code>wdth</code> axis is what
+        gives the headlines their compression — this is the single typographic decision the design rests on,
+        so <code>font-variation-settings</code> must survive minification and the variable font must be
+        subset, not swapped for a static cut.</p>
+
+      <h3>The mark</h3>
+      <p>The site uses the lab's existing logo, not a redrawn one:
+        <code>assets/img/wm/aura-logo.svg</code> (lockup) and <code>aura-glyph.svg</code> (glyph only).
+        Four arcs — A · U · R · A — each on its own gradient stepping through
+        <code>#0c5a3a → #178a5a → #1c8a5a → #5bbf91 → #B9975B</code>, a gold dotted compliance ring at
+        r&nbsp;48, and a serif <em>A</em> at the centre. The arc gradients are the origin of the thread
+        palette, which is why the hues and the mark agree.</p>
+      <ul class="b">
+        <li><b>Header</b> — glyph at 36 px, serif A in mint <code>#a4ecc4</code> for the dark bar. Below
+          36 px the dotted ring stops resolving, so that is the floor.</li>
+        <li><b>Footer</b> — glyph at 38 px beside “The AURA Lab”.</li>
+        <li><b>Initials tiles</b> — the four arcs alone at 16 % opacity (§ 07).</li>
+        <li>Gradient <code>id</code>s must be unique per instance (<code>hg*</code>, <code>fg*</code>) —
+          duplicated ids make the second mark inherit the first one's gradients.</li>
+      </ul>
+
+      <h3>Motion</h3>
+      <p>Motion is a load sequence plus scroll reveals, and it is skipped entirely when JavaScript is off or
+        <code>prefers-reduced-motion</code> is set — the classes that hide anything are applied by script,
+        never by the stylesheet, so the page's resting state is always the finished one. A 3-second timeout
+        force-reveals anything the observer missed.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Moment</th><th>Motion</th><th>Timing</th></tr></thead>
+        <tbody>
+          <tr><td>Load — the mark</td><td>Four arcs draw clockwise, the gold ring rotates in from −40°, the serif A fades</td><td>0.85 s, 90 ms stagger</td></tr>
+          <tr><td>Load — the thesis</td><td>Headline words rise from behind a mask, word by word</td><td>0.78 s, 32 ms stagger</td></tr>
+          <tr><td>Load — hero</td><td>Eyebrow, stand-first, buttons, KPIs fade up in sequence; KPI figures count from zero</td><td>0.66 s / 1.0 s count</td></tr>
+          <tr><td>Fig. 1</td><td>Dashed frontier fades, the lab's curve draws over it, then arrow and dots</td><td>1.35 s draw</td></tr>
+          <tr><td>Threads</td><td>Hue rule wipes left-to-right, card fades up</td><td>0.8 s, 90 ms stagger</td></tr>
+          <tr><td>Portraits</td><td>Fade up, 48 ms apart, left to right</td><td>0.66 s</td></tr>
+          <tr><td>Fig. 2 / Fig. 4</td><td>Bars grow from the baseline / from zero width</td><td>0.82–0.9 s, staggered</td></tr>
+          <tr><td>Fig. 3</td><td>Curve draws, area fades under it</td><td>1.35 s</td></tr>
+          <tr><td>Reading position</td><td>A 2 px gradient hairline under the sticky bar tracks scroll depth</td><td>continuous</td></tr>
+          <tr><td>Hover</td><td>Nav underline wipes from the left; portraits scale 1.055 and the name takes the thread hue; record and news rows tint and inset 10 px while artifact tags slide; cards lift 3 px; the mark's ring spins slowly</td><td>0.28–0.55 s</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">The reading hairline is the one piece of motion that is not decoration — it reports
+        where you are in a long document, which is the same job the § numbers do.</p>
+
+      <h3>Space, rules and motion</h3>
+      <ul class="b">
+        <li><b>Shell</b> — <code>max-width 1440px</code>, <code>--pad</code> 44 px → 20 px at ≤640.</li>
+        <li><b>Section rhythm</b> — 66 px top margin, 1.5 px <code>--rule-3</code> top rule, 18 px to the first content row. Rules are structural: hairline <code>--rule</code> separates rows, 1 px <code>--rule-2</code> bounds cards, 1.5 px solid ink opens a section. Nothing has a border-radius above 2 px, and there are no shadows except the mega panel's.</li>
+        <li><b>Breakpoints</b> — 1180 (nav collapses, grids halve), 760 (bar simplifies, CTA moves to drawer), 700 (record rows go block), 640 (single column, pad drops), 440 (portrait band → 2-up).</li>
+        <li><b>Motion</b> — the sequence above, plus the 3 s status-dot pulse and the 0.18 s burger morph. Nothing is parked invisible waiting on an observer; the resting state is the finished state.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ 07 ══════════════════════════════════════════ -->
+  <section id="s7">
+    <div class="s-h"><h2>Photography.</h2><span class="s-n">§ 07</span></div>
+    <div class="body">
+      <p>The lab's real photographs are candid and environmental — people outdoors, in doorways, holding
+        cats. That is an asset, not a problem: it reads as a real group rather than a stock faculty page. It
+        just has to be handled consistently.</p>
+      <ol class="n">
+        <li><b>Face-detect and crop.</b> Every portrait is cropped to a 26:34 frame with the face at ~28.5 %
+          of the frame height, sitting 42 % from the top. Detection is YuNet
+          (<code>opencv_zoo</code>) — deterministic, so re-running gives the same frame.</li>
+        <li><b>Normalise exposure, don't flatten it.</b> A 1–99 percentile luminance stretch blended 55 % with
+          the original (a full stretch blows out a plain wall), a soft filmic S-curve, blacks lifted to
+          0.015 and whites held off 1.0, then a per-image gamma that pulls every portrait to a mean
+          luminance of 0.485. The nine faces then match in brightness without any of them going grey.</li>
+        <li><b>Separate subject from background.</b> An elliptical head-and-shoulders mask, feathered by
+          0.62 × face width, keeps the subject at <em>full colour and full sharpness</em>; outside it the
+          background drops to 0.30 saturation, 0.82 brightness and a 3.4 px blur. That is what makes eight
+          photographs taken in eight different places — a hedge, autumn trees, a dock, a fence — read as one
+          contact sheet, without desaturating anybody's face.</li>
+        <li><b>Finish.</b> Vibrance ×1.08, contrast ×1.04, unsharp mask (r 1.3, 48 %, threshold 3), and a
+          wide corner vignette at 0.88 brightness so the grid holds together as a sheet.</li>
+        <li><b>Serve at 2×.</b> 560×730 source, displayed at 260×340, through Astro's image pipeline as AVIF
+          with a WebP fallback. Never inline base64 in production — that is a mockup-only device.</li>
+        <li><b>Fall back to the mark.</b> A member without a photograph gets a <code>--surface</code> tile
+          carrying their initials over the four AURA arcs at 16 % opacity. It reads as designed rather than
+          missing, and it removes the pressure to use a bad photograph.</li>
+      </ol>
+      <div class="note warn"><b>OPEN — NEEDS ANTONIO</b>There is no group photograph of the lab. One real
+        one — nine people, one room, one afternoon — would outperform every diagram on the homepage for the
+        prospective-student audience, and it is the single highest-return asset that cannot be generated.
+        Until it exists, the contact sheet stands in for it.</div>
+      <p class="cap"><b>Do not desaturate the subjects.</b> An early pass ran the whole frame at 0.42 saturation to unify the set; it unified them into grey. Saturation loss belongs to the background only.<br><br>The 12 images inherited from the al-folio theme (<code>assets/img/1–12.jpg</code>:
+        mountains, coffee, a lake) are stock and must not ship. They are the reason the old site felt
+        generic.</p>
+    </div>
+  </section>
+
+  <!-- ══ 08 ══════════════════════════════════════════ -->
+  <section id="s8">
+    <div class="s-h"><h2>Evidence policy.</h2><span class="s-n">§ 08 · WHAT WE CLAIM</span></div>
+    <div class="body">
+      <p class="lede">A lab whose thesis is honest measurement cannot headline a vanity metric. This section
+        is the rule that keeps the site from contradicting itself.</p>
+
+      <h3>Not shown, anywhere</h3>
+      <ul class="b">
+        <li>Total citation count as a headline figure.</li>
+        <li>h-index, i10-index, or any composite score.</li>
+        <li>Journal impact factors or CORE ranks as a badge. (Ranks stay in <code>venues.yml</code> as a
+          tooltip; they are metadata, not a claim.)</li>
+        <li>Any number on the uptake curve's axes — <b>Fig. 3</b> shows direction only, and says so in its
+          own label.</li>
+      </ul>
+
+      <h3>Shown, with a source caption</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Claim</th><th>Value today</th><th>Derived from</th></tr></thead>
+        <tbody>
+          <tr><td>Peer-reviewed papers</td><td class="n">19</td><td><code>type ∈ {journal, conference, workshop}</code></td></tr>
+          <tr><td>Preprints</td><td class="n">12</td><td><code>type = preprint</code></td></tr>
+          <tr><td>IEEE Computer columns</td><td class="n">21</td><td><code>type = magazine</code></td></tr>
+          <tr><td>Total entries</td><td class="n">52</td><td>the record</td></tr>
+          <tr><td>Output per year</td><td class="n">3 · 18 · 30</td><td><code>metrics.by_year</code>, split by bucket</td></tr>
+          <tr><td>Venue mix</td><td class="n">9 venues</td><td>TOSEM 4 · ICPC 4 · EMSE 3 · FORGE 2 · ICSME 2 · TSE 1 · JSS 1 · AI-SDLC 1 · NL4AI 1</td></tr>
+          <tr><td>Replication packages</td><td class="n">10</td><td>Zenodo DOIs mined from the DBLP records</td></tr>
+          <tr><td>Students advised</td><td class="n">8</td><td>People collection, <code>status = current</code>, minus the director</td></tr>
+          <tr><td>Program committees</td><td class="n">26</td><td><code>lab.yml</code> service list</td></tr>
+          <tr><td>Per-paper citations</td><td class="n">varies</td><td>Semantic Scholar + OpenAlex, on the paper's own page only</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">Sums must reconcile: 19 + 12 + 21 = 52, and the venue mix must total 19. A change to one
+        without the other is a bug the CI link-check should eventually catch.</p>
+
+      <h3>What replaces the citation index</h3>
+      <p>Six things, and together they are a stronger argument than one number: the venue mix (where the work
+        lands), the output growth (whether the lab is accelerating), the artifact count (whether the work can
+        be checked), the software (whether anyone uses what it builds), the service record (whether the field
+        asks it to judge), and the awards. Four Distinguished Paper–class recognitions in two years say more
+        than a citation total for a lab founded in 2024, because a young lab's citation total is
+        structurally low and says nothing about quality.</p>
+    </div>
+  </section>
+
+  <!-- ══ 09 ══════════════════════════════════════════ -->
+  <section id="s9">
+    <div class="s-h"><h2>Data model.</h2><span class="s-n">§ 09</span></div>
+    <div class="body">
+      <p>Four inputs, two generated outputs. Nothing on the site reads anything else.</p>
+    </div>
+    <pre><i>INPUTS — hand-edited, version-controlled</i>
+data/lab.yml                 <b>identity, institution, contact, social, funding, service</b>
+data/venues.yml              <b>venue normalisation: key → name, type, match[], url, rank</b>
+data/collaborators.yml       <b>external co-authors</b>
+data/publications.local.bib  <b>papers no database knows about yet</b>
+data/publications.overrides.yml <b>per-key corrections; defaults.since: 2024-09</b>
+src/content/people/*.md      <b>one file per member — and the author IDs the pipeline reads</b>
+src/content/research/*.md    <b>one file per thread — essay + classifier keywords</b>
+src/content/news/*.md        <b>one file per item; draft: true hides it</b>
+
+<i>OUTPUTS — generated, committed by the bot, never hand-edited</i>
+src/data/publications.json   <b>the record: 52 entries, merged and de-duplicated</b>
+src/data/metrics.json        <b>totals, by_year, by_type, venues, member counts</b>
+data/sync-report.md          <b>what changed, what needs a human</b></pre>
+
+    <div class="body">
+      <h3>Author identity</h3>
+      <p>The pipeline finds a member's papers through the <code>ids</code> block in their Markdown
+        frontmatter — DBLP pid, Google Scholar id, one or more Semantic Scholar ids, OpenAlex id, ORCID, an
+        <code>arxiv: true</code> flag, and free-text <code>aliases</code> for name spellings. A member with
+        no ids can still be matched inside a paper's author list, but their solo papers are invisible to the
+        pipeline. That is the single most common cause of a missing paper.</p>
+      <div class="note warn"><b>OPEN — SIX MEMBERS HAVE NO DBLP ID</b>The sync report names them and gives
+        the exact pid to paste: Saima Afrin <code>367/9210</code>, Aya Garryyeva <code>399/3436</code>,
+        Joseph Call <code>399/7150</code>, Afia Farjana <code>341/6665</code>, Md Zahidul Haque Alvi
+        <code>362/1508</code>, Zaiyu Cheng <code>386/5272</code>. Six one-line edits, and their independent
+        work starts appearing.</div>
+
+      <h3>Merge rules</h3>
+      <ul class="b">
+        <li>Records cluster by DOI, then arXiv id, then normalised title, using union-find.</li>
+        <li>Within a cluster, each field is taken from the highest-priority source that has it
+          (<code>PRIORITY</code> in <code>merge.py</code>); type is resolved separately by
+          <code>TYPE_PRIORITY</code>, so a paper indexed as a preprint on arXiv and as a journal article on
+          Crossref resolves to <b>journal</b>.</li>
+        <li>A previously-stored record is dropped when any live source has the paper, so corrections
+          upstream propagate instead of persisting.</li>
+        <li><code>volume</code> is nulled for preprints — CoRR's <code>abs/2507.09665</code> is not a volume
+          number, and it leaked into reviewed records before this rule existed.</li>
+        <li><code>overrides.yml</code> wins over everything, and every override should carry a comment
+          saying why.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ 10 ══════════════════════════════════════════ -->
+  <section id="s10">
+    <div class="s-h"><h2>Automation.</h2><span class="s-n">§ 10</span></div>
+    <div class="body">
+      <p class="lede">The site's premise is that it maintains itself. Five workflows do that, and each one
+        opens a pull request rather than pushing to <code>main</code> — a human still says yes.</p>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>Workflow</th><th>Trigger</th><th>Does</th></tr></thead>
+      <tbody>
+        <tr><td><code>pubs-sync.yml</code></td><td>Mondays 06:17 UTC + manual</td><td>Runs the six-source pipeline, rewrites <code>publications.json</code> / <code>metrics.json</code>, drafts news items for new papers, writes <code>sync-report.md</code>, opens a PR</td></tr>
+        <tr><td><code>ci.yml</code></td><td>every PR</td><td><code>astro check</code>, build, link check</td></tr>
+        <tr><td><code>deploy.yml</code></td><td>push to <code>main</code> + manual</td><td>Build, <code>wrangler deploy</code> to Cloudflare Workers static assets</td></tr>
+        <tr><td><code>social-post.yml</code></td><td>news item with <code>social: true</code> lands on <code>main</code></td><td>Posts the item to X / Bluesky</td></tr>
+        <tr><td><code>legacy-redirect.yml</code></td><td>push to <code>main</code></td><td>Republishes the GitHub Pages site as 301s to <code>auralab.sh</code></td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="body">
+      <h3>The publications pipeline</h3>
+      <p>Six sources, queried in this order, each with its own failure mode already handled:
+        <b>DBLP</b> (pid XML, with mirror fallback and a search-API path for when every record endpoint
+        503s), <b>Crossref</b>, <b>Semantic Scholar</b> (author and batch endpoints have different allowed
+        field sets), <b>OpenAlex</b>, <b>arXiv</b> Atom (author queries need the full given name —
+        <code>au:Mastropaolo_Antonio</code>, not <code>au:Mastropaolo_A</code>), and the <b>local BibTeX</b>
+        file. Google Scholar via <code>scholarly</code> is opt-in behind <code>--scholar</code> and is not
+        run in CI, because it is rate-limited and unreliable — it is a manual top-up, not a dependency.</p>
+      <pre>npm run sync:pubs -- <i>--sources dblp,crossref,s2,openalex,arxiv,local</i>
+                    <i>--scholar</i>      <b>opt-in Google Scholar pass</b>
+                    <i>--offline</i>      <b>rebuild from cache only</b>
+                    <i>--max-age 7</i>    <b>cache TTL in days</b>
+                    <i>--dry-run</i>      <b>report, write nothing</b>
+                    <i>--no-news</i>      <b>skip news drafting</b>
+                    <i>--discover</i>     <b>suggest author IDs for members who lack them</b></pre>
+      <p class="cap">The module is <code>scripts/pubs/web.py</code>, not <code>http.py</code> — the latter
+        shadows the standard library's <code>http</code> package and breaks <code>requests</code>. Do not
+        rename it back.</p>
+
+      <h3>News drafting</h3>
+      <p>A new peer-reviewed paper produces a Markdown file in <code>src/content/news/</code> with
+        <code>draft: true</code>, the paper key, the member slugs, and a one-line headline. It is invisible
+        until a human sets <code>draft: false</code>, and it only posts to social if they also set
+        <code>social: true</code>. Two switches, both defaulting to silence — the pipeline can be wrong, and
+        being wrong quietly is much better than being wrong publicly.</p>
+
+      <h3>Build-time generation</h3>
+      <ul class="b">
+        <li><b>OG cards</b> — one per page, rendered by satori and <code>@resvg/resvg-js</code>, carrying the
+          page title, the lab mark and the section label. Nodes with empty children must pass
+          <code>undefined</code>, not <code>[]</code>, or satori throws on missing <code>display</code>.</li>
+        <li><b>Feeds</b> — <code>/rss.xml</code> (news) and <code>/publications.xml</code> (the record).</li>
+        <li><b>Sitemap</b> — <code>@astrojs/sitemap</code>, filtered to exclude <code>/og/</code> and
+          <code>/drafts/</code>.</li>
+        <li><b>Search index</b> — a JSON blob of title, authors, venue, year and abstract, built alongside
+          the record.</li>
+      </ul>
+      <div class="note"><b>ONE ASTRO 7 CONSTRAINT WORTH REMEMBERING</b>YAML and SVG assets must be pulled in
+        with Vite raw imports (<code>import raw from "../../data/lab.yml?raw"</code>), not
+        <code>readFileSync</code>. The prerender bundle does not carry <code>data/</code>, and
+        <code>readFileSync</code> fails at build with <code>ENOENT</code>.</div>
+    </div>
+  </section>
+
+  <!-- ══ 11 ══════════════════════════════════════════ -->
+  <section id="s11">
+    <div class="s-h"><h2>SEO &amp; discovery.</h2><span class="s-n">§ 11</span></div>
+    <div class="body">
+      <p>The goal Antonio actually asked for — augmenting the lab's presence in the research community — is
+        mostly won here, not in the visual design. Three mechanisms:</p>
+
+      <h4>1 · GOOGLE SCHOLAR INDEXING</h4>
+      <p>Every paper page emits the <code>citation_*</code> meta tags Scholar's crawler requires:
+        <code>citation_title</code>, one <code>citation_author</code> per author in order,
+        <code>citation_publication_date</code>, <code>citation_journal_title</code> or
+        <code>citation_conference_title</code>, <code>citation_volume</code>, <code>citation_firstpage</code>,
+        <code>citation_doi</code>, <code>citation_arxiv_id</code>, and <code>citation_pdf_url</code> pointing
+        at a directly-downloadable PDF. This is what makes the lab's own pages a Scholar source rather than a
+        dead end, and it is the highest-leverage item on this page.</p>
+
+      <h4>2 · STRUCTURED DATA</h4>
+      <div class="tw"><table>
+        <thead><tr><th>Page</th><th>JSON-LD type</th><th>Key fields</th></tr></thead>
+        <tbody>
+          <tr><td><code>/</code></td><td><code>ResearchOrganization</code></td><td>name, alternateName, url, logo, parentOrganization (W&amp;M), address, founder, foundingDate, sameAs[]</td></tr>
+          <tr><td><code>/publications/[key]/</code></td><td><code>ScholarlyArticle</code></td><td>headline, author[], datePublished, isPartOf, identifier (DOI), citation, sameAs</td></tr>
+          <tr><td><code>/people/[slug]/</code></td><td><code>Person</code></td><td>name, jobTitle, affiliation, sameAs[] (ORCID, Scholar, DBLP, GitHub)</td></tr>
+          <tr><td><code>/news/[slug]/</code></td><td><code>NewsArticle</code></td><td>headline, datePublished, about</td></tr>
+          <tr><td><code>/software/</code></td><td><code>SoftwareApplication</code></td><td>name, operatingSystem, applicationCategory, softwareVersion</td></tr>
+        </tbody>
+      </table></div>
+
+      <h4>3 · CANONICAL IDENTITY</h4>
+      <ul class="b">
+        <li>Self-referential <code>&lt;link rel="canonical"&gt;</code> on every page.</li>
+        <li>301s from every legacy GitHub Pages URL (§ 01), so accumulated authority transfers rather than
+          splitting.</li>
+        <li>ORCID, DBLP, Scholar and GitHub cross-linked in both directions — the lab site points at them,
+          and each profile should point back at <code>auralab.sh</code>.</li>
+        <li>Per-page OG and Twitter cards so a shared paper link renders as a card, not a bare URL.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ 12 ══════════════════════════════════════════ -->
+  <section id="s12">
+    <div class="s-h"><h2>Accessibility &amp; performance.</h2><span class="s-n">§ 12 · BUDGETS</span></div>
+    <div class="body">
+      <h4>ACCESSIBILITY — NON-NEGOTIABLE</h4>
+      <ul class="b">
+        <li>Contrast ≥ 4.5:1 for body text, ≥ 3:1 for large text and UI borders, in both themes. The pairing
+          to watch is <code>--ink-5</code> on <code>--surface</code> — it is caption-only and must not carry
+          meaning alone.</li>
+        <li>Every figure is an <code>&lt;svg role="img"&gt;</code> with an <code>aria-label</code> that
+          states the actual numbers, so the data survives without sight. Fig. 3's label says explicitly that
+          it shows direction only.</li>
+        <li>Colour never carries meaning alone: thread hues are always paired with the letter, venue tiers
+          with the count, status with a word.</li>
+        <li>Visible focus ring — 2 px <code>--live</code>, 3 px offset — on every interactive element. The
+          mega panels open on <code>:focus-within</code>, so they are reachable by keyboard.</li>
+        <li>Skip link to <code>#main</code>; one <code>h1</code> per page; headings never skip a level.</li>
+        <li><code>prefers-reduced-motion</code> disables both animations.</li>
+      </ul>
+
+      <h4>PERFORMANCE BUDGETS</h4>
+      <div class="tw"><table>
+        <thead><tr><th>Metric</th><th>Budget</th><th>How it is met</th></tr></thead>
+        <tbody>
+          <tr><td>HTML, gzipped</td><td class="n">≤ 45 KB</td><td>Static Astro output; no framework runtime</td></tr>
+          <tr><td>CSS, gzipped</td><td class="n">≤ 18 KB</td><td>One global sheet + scoped component styles</td></tr>
+          <tr><td>JS, gzipped</td><td class="n">≤ 12 KB</td><td>Only the drawer, the filters and ⌘K search</td></tr>
+          <tr><td>Fonts</td><td class="n">≤ 95 KB</td><td>Two self-hosted subset variable faces, <code>font-display:swap</code>, latin only</td></tr>
+          <tr><td>Homepage images</td><td class="n">≤ 220 KB</td><td>9 AVIF portraits at 2×; figures are inline SVG</td></tr>
+          <tr><td>LCP · CLS</td><td class="n">&lt; 1.2 s · &lt; 0.02</td><td>Text LCP, explicit image dimensions, no late-injected content</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">Fonts are self-hosted, not loaded from Google — one fewer origin, no third-party
+        request from a research site, and a stable render. The homepage's target is a full render on a cold
+        cache in under 1.5 s on a mid-range phone.</p>
+    </div>
+  </section>
+
+  <!-- ══ 13 ══════════════════════════════════════════ -->
+  <section id="s13">
+    <div class="s-h"><h2>Content operations.</h2><span class="s-n">§ 13</span></div>
+    <div class="body">
+      <p>Who touches what, and how often. The point of the table is that almost nothing needs a person.</p>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>Task</th><th>Who</th><th>Cadence</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td>Publications, counts, artifact links</td><td>bot</td><td>weekly</td><td>PR from <code>pubs-sync</code></td></tr>
+        <tr><td>Approve the weekly PR</td><td>Antonio</td><td>weekly, ~2 min</td><td>GitHub</td></tr>
+        <tr><td>Release a drafted news item</td><td>Antonio</td><td>as papers land</td><td><code>draft: false</code></td></tr>
+        <tr><td>Add a new member</td><td>Antonio</td><td>as they join</td><td>New <code>people/*.md</code> + portrait + author IDs</td></tr>
+        <tr><td>Move a member to alumni</td><td>Antonio</td><td>as they leave</td><td><code>status: alumni</code>, <code>left:</code>, <code>next:</code></td></tr>
+        <tr><td>Add a venue the sync flagged</td><td>Antonio</td><td>when the report says so</td><td><code>data/venues.yml</code></td></tr>
+        <tr><td>Service, awards, funding</td><td>Antonio</td><td>per semester</td><td><code>data/lab.yml</code></td></tr>
+        <tr><td>Thread essays</td><td>Antonio</td><td>per year</td><td><code>content/research/*.md</code></td></tr>
+        <tr><td>Recruiting line</td><td>Antonio</td><td>per cycle</td><td><code>lab.yml</code> → homepage § 08</td></tr>
+      </tbody>
+    </table></div>
+    <div class="body">
+      <p class="cap">Everything a student needs to add themselves — their profile, their photo, their author
+        IDs — is one Markdown file and one image. That is deliberate: a site only stays current if adding to
+        it is a five-minute pull request.</p>
+    </div>
+  </section>
+
+  <!-- ══ 14 ══════════════════════════════════════════ -->
+  <section id="s14">
+    <div class="s-h"><h2>Rollout &amp; open items.</h2><span class="s-n">§ 14</span></div>
+    <div class="body">
+      <h3>Sequence</h3>
+      <ol class="n">
+        <li><b>Push the branch.</b> <code>astro-rebuild</code> has four commits that this session cannot push
+          — the proxy refuses the repository. Antonio runs <code>git push -u origin astro-rebuild</code>, or
+          adds <code>aura-se-lab/aura-site</code> to the session's authorised set.</li>
+        <li><b>Build the v2 chrome and sections</b> as Astro components (§ 05), replacing the current
+          <code>Nav</code>, <code>Footer</code> and homepage.</li>
+        <li><b>Add <code>/software/</code> and <code>/funding/</code></b> (§ 04.4, § 04.5).</li>
+        <li><b>Add the six DBLP ids</b> (§ 09) and re-run the sync — the record should grow.</li>
+        <li><b>Cloudflare secrets</b> — <code>CLOUDFLARE_API_TOKEN</code> and
+          <code>CLOUDFLARE_ACCOUNT_ID</code> as repository secrets.</li>
+        <li><b>Delete the existing DNS records</b> for <code>auralab.sh</code> and <code>www</code> before
+          the first deploy. A Workers custom domain cannot be created on a hostname that already has a
+          CNAME or A record, and the deploy fails with a misleading error if they are still there. This is
+          the one step that will waste an hour if it is missed.</li>
+        <li><b>Deploy</b>, verify the 301s from the legacy site, submit the sitemap, and confirm Scholar
+          picks up a paper page.</li>
+        <li><b>Then</b> the group photograph (§ 07), and the recruiting line for the next cycle.</li>
+      </ol>
+
+      <h3>Open, needs Antonio</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Item</th><th>Blocks</th><th>Effort</th></tr></thead>
+        <tbody>
+          <tr><td>Push <code>astro-rebuild</code></td><td>everything downstream</td><td class="n">1 min</td></tr>
+          <tr><td>Delete the two DNS records</td><td>first deploy</td><td class="n">2 min</td></tr>
+          <tr><td>Cloudflare API token + account id</td><td>first deploy</td><td class="n">5 min</td></tr>
+          <tr><td>Six DBLP author ids</td><td>completeness of the record</td><td class="n">10 min</td></tr>
+          <tr><td>Group photograph of the lab</td><td>§ 02 People, the OG card, recruiting</td><td class="n">one afternoon</td></tr>
+          <tr><td>Recruiting line — the real one</td><td>homepage § 08</td><td class="n">1 sentence</td></tr>
+          <tr><td>AuraPulse-S download URL &amp; release notes</td><td><code>/software/</code></td><td class="n">15 min</td></tr>
+          <tr><td>Confirm the service counts (26 / 2 / 8 / 6)</td><td>homepage § 06</td><td class="n">5 min</td></tr>
+          <tr><td>Delete <code>_to_delete/</code> on the local clone</td><td>tidiness</td><td class="n">1 min</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="note"><b>WHAT THIS SPECIFICATION IS FOR</b>It is the contract between the design and the
+        code. When a section of the site starts to feel arbitrary — a number without a caption, a hue used
+        because it looked nice, a metric that flatters — this document says what the intent was, and the
+        site is wrong, not the document.</div>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<footer class="f">
+  <div class="shell">
+    <span>AURALAB.SH · BUILD SPECIFICATION v2.0 · REVISED 5 SEPTEMBER 2026</span>
+    <span>THE AURA LAB · WILLIAM &amp; MARY</span>
+  </div>
+</footer>
