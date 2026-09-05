@@ -2,7 +2,7 @@
   "name": "auralab-site",
   "version": "2.0.0",
   "private": true,
-  "description": "The AURA Lab — AI for Understandable and Responsible Automation in Software Engineering (William & Mary). Source for auralab.sh.",
+  "description": "The AURA Lab \u2014 AI for Understandable and Responsible Automation in Software Engineering (William & Mary). Source for auralab.sh.",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -15,7 +15,8 @@
     "sync:pubs": "python3 scripts/pubs/sync.py",
     "deploy": "npm run build && wrangler deploy",
     "deploy:preview": "npm run build && wrangler versions upload",
-    "links": "node scripts/check-links.mjs"
+    "links": "node scripts/check-links.mjs",
+    "preview:bundle": "npm run build && node scripts/preview-bundle.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

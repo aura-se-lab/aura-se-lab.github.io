@@ -14,3 +14,6 @@ __pycache__/
 *.pyc
 # screenshots from local verification
 .screens/
+
+# single-file preview bundles
+preview/
