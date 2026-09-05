@@ -438,6 +438,36 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
       <p class="cap">The whole step runs in <code>scripts/pubs/</code> alongside the weekly sync, so a new
         paper arrives with its preview already made. Nothing here is hand-placed.</p>
 
+      <h4>PAGINATION — TWO ROWS, NEVER MORE</h4>
+      <p>A wall of paper first pages is impressive once and tiring thereafter. The grid is therefore
+        <b>capped at two rows on every screen</b>, and the page size follows the column count rather than
+        being a fixed number: the script reads the resolved <code>grid-template-columns</code> and sets
+        the page to <code>columns × 2</code>.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Viewport</th><th>Columns</th><th>Per page</th><th>Pages (24 papers)</th></tr></thead>
+        <tbody>
+          <tr><td>≥ 2200 px</td><td class="n">6</td><td class="n">12</td><td class="n">2</td></tr>
+          <tr><td>≥ 1620 px</td><td class="n">5</td><td class="n">10</td><td class="n">3</td></tr>
+          <tr><td>≥ 1100 px</td><td class="n">4</td><td class="n">8</td><td class="n">3</td></tr>
+          <tr><td>≥ 760 px</td><td class="n">3</td><td class="n">6</td><td class="n">4</td></tr>
+          <tr><td>≥ 430 px</td><td class="n">2</td><td class="n">4</td><td class="n">6</td></tr>
+          <tr><td>&lt; 430 px</td><td class="n">1</td><td class="n">2</td><td class="n">12</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="b">
+        <li>The pager reads <code>SHOWING 1–8 OF 24</code> on the left and <code>← 1 2 3 →</code> on the
+          right; the current page carries <code>aria-current="page"</code> and the end arrows disable at
+          the ends. Beyond seven pages the run collapses to <code>1 … 4 5 6 … 12</code>.</li>
+        <li>Changing a filter resets to page 1 and repaginates; a filter that returns one page hides the
+          pager entirely rather than showing a dead control.</li>
+        <li>Resizing across a breakpoint repaginates on a 160&nbsp;ms debounce, and only when the column
+          count actually changed.</li>
+        <li>Changing page scrolls the section header back into view, honouring
+          <code>prefers-reduced-motion</code>.</li>
+        <li>Without JavaScript no card is hidden and no pager is shown — the full grid renders, which is
+          also what a crawler sees.</li>
+      </ul>
+
       <h4>THE READER</h4>
       <p>Activating a preview opens the full PDF <b>in place</b>, so a visitor reads the paper without
         being handed off to Scholar or a publisher. It is a <code>role="dialog" aria-modal="true"</code>
@@ -518,6 +548,7 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
         <tr><td><code>PaperCard.astro</code></td><td>home, publications, people, research</td><td>First-page preview + metadata; opens the reader</td><td class="st todo">NEW</td></tr>
         <tr><td><code>PdfReader.astro</code></td><td>anywhere a paper is listed</td><td>Modal iframe reader; Esc, focus trap, 8 s fallback</td><td class="st todo">NEW</td></tr>
         <tr><td><code>PubFilters.astro</code></td><td>home, publications</td><td>Chip toggles over <code>data-*</code>; works without JS</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>PubPager.astro</code></td><td>home, publications</td><td>Two-row cap; page size = columns × 2</td><td class="st todo">NEW</td></tr>
         <tr><td><code>PubRow.astro</code> / <code>PubList.astro</code></td><td>publications, threads, people</td><td>Existing list rendering; keep</td><td class="st done">BUILT</td></tr>
         <tr><td><code>FigOutput.astro</code></td><td>home, publications</td><td>Fig. 2 — stacked bars from <code>metrics.by_year</code></td><td class="st todo">NEW</td></tr>
         <tr><td><code>FigUptake.astro</code></td><td>home</td><td>Fig. 3 — unlabelled-axis trend curve; § 08</td><td class="st todo">NEW</td></tr>

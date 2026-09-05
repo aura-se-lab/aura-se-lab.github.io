@@ -5,6 +5,7 @@ title: Ph.D. Student
 status: current
 order: 14
 photo: ../../assets/people/md-zahidul-haque-alvi.jpg
+joined: "2025"
 interests: [Parameter-Efficient Fine-Tuning, Large Code Models, Efficient Adaptation]
 threads: [efficient-models]
 links:

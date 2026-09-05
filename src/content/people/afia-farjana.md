@@ -5,6 +5,7 @@ title: Ph.D. Student
 status: current
 order: 13
 photo: ../../assets/people/afia-farjana.jpg
+joined: "2025"
 interests: [Prompt Engineering, LLMs for SE, Code Understanding & Generation]
 threads: [agents-lifecycle, reliable-evaluation]
 links:
