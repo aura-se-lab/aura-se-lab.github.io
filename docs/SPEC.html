@@ -402,19 +402,30 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
 
     <h3>04.3 — Publications <code>/publications/</code> &amp; paper pages</h3>
     <div class="body">
-      <p><b>The homepage section and the index share one design.</b> Publications and what used to be a
-        separate “research output” section are now one thing: the figures are context printed above the
-        list, not a competing section with its own number. Order on the page is: header, a three-panel
-        figures strip (output per year · uptake direction · venue mix, each at about a third the visual
-        weight they had as standalone cards), a filter bar, then the papers themselves.</p>
+      <p><b>The homepage section and the index share one design, and it is only the papers.</b> The
+        separate “research output” section is gone, and so are the three figures that stood in for it —
+        volume, uptake and venue mix. They were an abstraction of the list sitting on top of the list.
+        The venue is now carried where it belongs, on each paper. Order on the page is: header, filter
+        bar, papers.</p>
 
       <h4>THE PAPER CARD</h4>
-      <p>Each paper is led by <b>the first page of its PDF</b>, rendered at build time and cropped to a
-        17:22 frame, top-aligned so the title block and author list are what you see. Beneath it: venue in
-        its thread hue · year · kind, then title, authors with lab members in bold, then the artifact tags.
-        The preview is a <code>&lt;button&gt;</code>, not a link — activating it opens the reader (below)
+      <p>Each paper is led by <b>the first page of its PDF</b>, rendered at build time and normalised to a
+        17:22 frame, top-aligned so the title block and author list are what you see. Then five things in
+        a fixed order: the <b>venue of acceptance</b> as a chip in that venue's hue with the year
+        (<code>ICPC&nbsp;2026</code>, <code>TOSEM&nbsp;2026</code>, <code>arXiv&nbsp;2026</code>) and the
+        kind beside it; the title; the authors with lab members in bold; and the link row —
+        PDF · DOI · ARXIV · BIBTEX · ARTIFACT, always in that order so the eye can find one without
+        reading. The preview is a <code>&lt;button&gt;</code>, not a link: activating it opens the reader
         rather than navigating away. A paper with no open full text gets a typographic tile instead of a
         preview, so the grid stays even.</p>
+
+      <h4>ALIGNMENT IS STRUCTURAL, NOT COSMETIC</h4>
+      <p>Titles are different lengths, so left to themselves every card's author line and link row sit at a
+        different height and the band reads as noise. The card is therefore <b>five rows of a CSS
+        subgrid</b> — preview, venue, title, authors, links — sharing the grid's row tracks with every
+        other card in its band. Every venue chip in a row sits on one baseline, every title block starts on
+        one baseline, every link row lands on one baseline, and nothing is truncated to achieve it. There
+        is a flex fallback under <code>@supports not (grid-template-rows: subgrid)</code>.</p>
       <div class="tw"><table>
         <thead><tr><th>Step</th><th>Tool</th><th>Output</th></tr></thead>
         <tbody>
