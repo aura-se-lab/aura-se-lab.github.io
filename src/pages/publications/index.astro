@@ -19,6 +19,12 @@ const withPubs = members.filter((m) => memberCount(m.id) > 0);
 
 const sorted = [...publications].sort((a, b) => (b.date ?? String(b.year)).localeCompare(a.date ?? String(a.year)));
 const years = [...new Set(sorted.map((p) => p.year))].sort((a, b) => b - a);
+const yearCount = (y: number) => sorted.filter((p) => p.year === y).length;
+
+/** Venues that actually appear, most-published first, for the venue filter. */
+const venueTally = new Map<string, number>();
+for (const p of sorted) venueTally.set(venueLabel(p), (venueTally.get(venueLabel(p)) ?? 0) + 1);
+const venues = [...venueTally.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
 const n = {
   reviewed: sorted.filter(isReviewed).length,
@@ -47,7 +53,7 @@ const kinds = [
       <header class="page-head">
         <div class="row">
           <div>
-            <p class="label">INDEX · {n.all} ITEMS</p>
+            <p class="label">{n.all} ITEMS</p>
             <h1 class="h2" style="margin-top:8px">Publications</h1>
           </div>
           <div class="head-links">
@@ -59,6 +65,14 @@ const kinds = [
         <p class="lead">Click a cover to read the paper here. Records sync from DBLP, Crossref, Semantic Scholar and arXiv.</p>
       </header>
 
+      <nav class="index" aria-label="Jump to a year">
+        <span class="ix-l m">YEAR</span>
+        <button class="ix on" data-f="year" data-v="all">All<span class="m">{n.all}</span></button>
+        {years.map((y) => (
+          <button class="ix" data-f="year" data-v={String(y)}>{y}<span class="m">{yearCount(y)}</span></button>
+        ))}
+      </nav>
+
       <div class="bar" role="toolbar" aria-label="Filters">
         <div class="grp">
           {kinds.map((k, i) => (
@@ -68,9 +82,9 @@ const kinds = [
           ))}
         </div>
         <div class="grp">
-          <select class="sel" data-f="year" aria-label="Year">
-            <option value="all">All years</option>
-            {years.map((y) => <option value={String(y)}>{y}</option>)}
+          <select class="sel" data-f="venue" aria-label="Venue">
+            <option value="all">All venues</option>
+            {venues.map(([v, c]) => <option value={v}>{v} ({c})</option>)}
           </select>
           <select class="sel" data-f="thread" aria-label="Research direction">
             <option value="all">All directions</option>
@@ -100,6 +114,7 @@ const kinds = [
                 data-title={p.title}
                 data-authors={p.authors.map((a) => a.name).join(", ")}
                 data-venue={`${venueLabel(p)} ${p.venue_raw ?? ""}`}
+                data-venuekey={venueLabel(p)}
                 data-pdf={pdf ?? ""}
                 data-href={`/publications/${p.key}/`}
               >
@@ -175,6 +190,24 @@ const kinds = [
 
 <style>
   .head-links { display: flex; flex-wrap: wrap; gap: 6px; }
+  .index {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--rule);
+  }
+  .ix-l { font-size: 8px; letter-spacing: .11em; color: var(--ink-5); margin-right: 8px; }
+  .ix {
+    display: inline-flex; align-items: baseline; gap: 6px; padding: 5px 11px;
+    font-size: 14px; font-weight: 600; font-variation-settings: "wdth" 104;
+    color: var(--ink-3); border: 1px solid transparent;
+    transition: color .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .ix .m { font-size: 8px; color: var(--ink-5); }
+  .ix:hover { color: var(--ink); border-color: var(--rule-2); }
+  .ix.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .ix.on .m { color: var(--on-chrome-3); }
+  .ix.empty { opacity: .34; }
+  .ix.empty:hover { color: var(--ink-3); border-color: transparent; }
+
   .bar { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
   .grp { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; min-width: 0; max-width: 100%; }
   .sel {
@@ -278,13 +311,17 @@ const kinds = [
   const pbtns = document.getElementById("pbtns")!;
   const noneEl = document.getElementById("none")!;
 
-  const state: Record<string, string> = { kind: "reviewed", year: "all", thread: "all", member: "all", q: "" };
+  const ixButtons = [...document.querySelectorAll<HTMLButtonElement>(".ix")];
+  const syncIndex = () => ixButtons.forEach((b) => b.classList.toggle("on", b.dataset.v === state.year));
+
+  const state: Record<string, string> = { kind: "reviewed", year: "all", venue: "all", thread: "all", member: "all", q: "" };
   let page = 1;
 
   // ── how many cards fit: columns from the grid, rows from the viewport ────
+  // Three rows is the target: on a 14" laptop that is 5 x 3 = 15 papers per page.
   function perPage() {
-    const cols = getComputedStyle(shelf).gridTemplateColumns.split(" ").filter(Boolean).length || 4;
-    const rows = window.innerHeight >= 1200 ? 3 : window.innerHeight >= 950 ? 2 : 2;
+    const cols = getComputedStyle(shelf).gridTemplateColumns.split(" ").filter(Boolean).length || 5;
+    const rows = window.innerHeight >= 1500 ? 4 : window.innerHeight >= 620 ? 3 : 2;
     return Math.max(cols, cols * rows);
   }
 
@@ -295,10 +332,11 @@ const kinds = [
     return c;
   }
 
-  function matches(c: HTMLElement) {
+  function matches(c: HTMLElement, skip?: string) {
     const q = state.q.trim().toLowerCase();
     if (state.kind !== "all" && c.dataset.kind !== state.kind) return false;
-    if (state.year !== "all" && c.dataset.year !== state.year) return false;
+    if (skip !== "year" && state.year !== "all" && c.dataset.year !== state.year) return false;
+    if (state.venue !== "all" && c.dataset.venuekey !== state.venue) return false;
     if (state.thread !== "all" && !(c.dataset.threads ?? "").split(" ").includes(state.thread)) return false;
     if (state.member !== "all" && !(c.dataset.members ?? "").split(" ").includes(state.member)) return false;
     if (q) {
@@ -310,7 +348,18 @@ const kinds = [
 
   function render() {
     cols();
-    const hits = cards.filter(matches);
+    // The index counts what each year would show under the other active filters,
+    // so "2026 · 12" never promises papers the kind filter is hiding.
+    const forYear = cards.filter((c) => matches(c, "year"));
+    for (const b of ixButtons) {
+      const v = b.dataset.v!;
+      const nn = v === "all" ? forYear.length : forYear.filter((c) => c.dataset.year === v).length;
+      const tag = b.querySelector(".m");
+      if (tag) tag.textContent = String(nn);
+      b.classList.toggle("empty", nn === 0);
+    }
+
+    const hits = cards.filter((c) => matches(c));
     const per = perPage();
     const pages = Math.max(1, Math.ceil(hits.length / per));
     if (page > pages) page = pages;
@@ -361,6 +410,14 @@ const kinds = [
       render();
     })
   );
+  ixButtons.forEach((b) =>
+    b.addEventListener("click", () => {
+      state.year = b.dataset.v!;
+      page = 1;
+      syncIndex();
+      render();
+    })
+  );
   document.querySelectorAll<HTMLSelectElement>("select.sel").forEach((s) =>
     s.addEventListener("change", () => {
       state[s.dataset.f!] = s.value;
@@ -376,12 +433,13 @@ const kinds = [
   });
 
   const sp = new URLSearchParams(location.search);
-  for (const k of ["kind", "year", "thread", "member", "q"]) if (sp.get(k)) state[k] = sp.get(k)!;
+  for (const k of ["kind", "year", "venue", "thread", "member", "q"]) if (sp.get(k)) state[k] = sp.get(k)!;
   if (sp.get("p")) page = Number(sp.get("p")) || 1;
   document.querySelectorAll<HTMLButtonElement>('.chip[data-f="kind"]').forEach((b) =>
     b.classList.toggle("on", b.dataset.v === state.kind)
   );
   document.querySelectorAll<HTMLSelectElement>("select.sel").forEach((s) => (s.value = state[s.dataset.f!] ?? "all"));
+  syncIndex();
   qEl.value = state.q;
 
   let t: number;
