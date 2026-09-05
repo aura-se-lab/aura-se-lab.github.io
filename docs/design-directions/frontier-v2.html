@@ -1229,47 +1229,38 @@ body.locked{overflow:hidden}
 </style>
 
 <style id="fit">
-/* How many rows fit, and how tall the preview is, are decided here and read
-   by the pager. Width picks the columns; height picks the rows. */
-.pgrid{--rows:2}
+/* The preview is the whole first page — never cropped. Width picks the
+   columns, height picks how many rows of full pages the screen can hold. */
+.pgrid{--rows:1}
+.pc-fig{--pa:17/22}
+.pc-fig img{object-fit:contain;object-position:top center;background:#fff}
 #publications{padding-top:12px}
 #publications .sec-h h2{font-size:clamp(30px,2.3vw,40px)}
-.pgrid{row-gap:6px}
-.pc .tags{padding:6px 0 10px}
-.pager{padding:11px 0 0}
+.pgrid{row-gap:26px}
+.pc .tags{padding:7px 0 0}
+.pager{padding:16px 0 0}
 
 /* ── columns ─────────────────────────────────────────────────────────── */
+@media(min-width:1900px){.pgrid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(min-width:2200px){.pgrid{grid-template-columns:repeat(7,minmax(0,1fr))}}
 @media(max-width:1100px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:560px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px}}
+@media(max-width:620px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px}}
 @media(max-width:400px){.pgrid{grid-template-columns:1fr}}
 
-/* ── short windows: tighten so two rows still clear the fold ─────────── */
-@media(max-height:920px){
-  .pc-fig{--pa:2.35/1}
-  .pc-t{font-size:13px}
-  .pc-a{font-size:11px}
-  #publications .lead{font-size:14.5px}
+/* ── rows: a second row of full pages needs real height ──────────────── */
+@media(min-height:1350px){
+  .pgrid{--rows:2;row-gap:20px}
+  #publications .lead{display:none}      /* the row is worth more than the line */
 }
-@media(max-height:845px){
-  .pc-fig{--pa:2.9/1}
-  .pc-a{-webkit-line-clamp:1;line-clamp:1}
-  #publications .lead{display:none}
-}
+@media(min-height:2000px){.pgrid{--rows:3}}
+@media(max-width:620px){.pgrid{--rows:2}}   /* a phone scrolls either way */
 
-/* ── tall, narrow windows: a third row and a much taller page image ─── */
-@media(min-height:1080px) and (max-width:1400px){
-  .pgrid{--rows:3;row-gap:10px}
-  .pc-fig{--pa:16/11}
-  .pc-t{-webkit-line-clamp:3;line-clamp:3}
-}
-@media(min-height:1500px) and (max-width:1400px){
-  .pc-fig{--pa:1/1}
-  .pc-a{-webkit-line-clamp:3;line-clamp:3}
-}
-/* wide and tall: keep two rows, but let the image breathe */
-@media(min-height:1150px) and (min-width:1401px){
-  .pc-fig{--pa:16/11}
-  .pc-t{-webkit-line-clamp:3;line-clamp:3}
+/* ── short windows: trim the text, never the page image ──────────────── */
+@media(max-height:800px){
+  .pc-t{font-size:13px;-webkit-line-clamp:2;line-clamp:2}
+  .pc-a{font-size:11px;-webkit-line-clamp:1;line-clamp:1}
+  #publications .lead{display:none}
+  .pgrid{row-gap:20px}
 }
 </style>
 

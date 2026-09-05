@@ -472,35 +472,35 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
           also what a crawler sees.</li>
       </ul>
 
-      <h4>SIZED FOR A LAPTOP, NOT A DESK</h4>
-      <p>Two rows only matters if the two rows are actually on screen. The card is therefore sized so the
-        whole section — heading, filter bar, both rows and the pager — clears a 14-inch MacBook viewport
-        (1512&nbsp;×&nbsp;~870 after browser chrome) without scrolling. Three things make that work:</p>
-      <ul class="b">
-        <li><b>The preview is a masthead crop, not a whole page.</b> A 2:1 band off the top of page 1 —
-          title, authors, affiliations — which is the part that identifies a paper. A full 17:22 page
-          reproduced at 260&nbsp;px is unreadable anyway, so the height was being spent on nothing.</li>
-        <li><b>Title clamps to two lines, authors to two.</b> The full title stays in the element's
-          <code>title</code> attribute and in the reader, so nothing is lost — but a four-line title no
-          longer sets the height of its whole band.</li>
-        <li><b>Height-based breakpoints, not just width.</b> Under 920&nbsp;px of viewport height the crop
-          tightens to 2.35:1 and the type drops a step; under 845&nbsp;px it goes to 2.9:1, authors clamp to
-          one line and the section lead is dropped.</li>
-      </ul>
+      <h4>THE WHOLE PAGE, NEVER A CROP</h4>
+      <p>The preview is the <b>entire first page</b> — title block, authors, abstract, the start of the
+        introduction, the arXiv stamp down the spine. Not a masthead band, not a top slice. A reader
+        recognises a paper by the shape of its first page, and a cropped strip throws that away.
+        <code>aspect-ratio: 17/22</code> with <code>object-fit: contain</code>, so the page is never
+        clipped at any column width.</p>
+      <p>That is a tall card, so the <b>row count</b> absorbs the cost instead of the image: width picks
+        the columns, height picks how many rows of full pages the screen can actually hold, both declared
+        in CSS and read by the pager as <code>columns × --rows</code>. A laptop gets one row of four; a 5K
+        gets two rows of seven; a portrait monitor two rows of three. Nobody gets a cropped page.</p>
       <div class="tw"><table>
-        <thead><tr><th>Viewport</th><th>Card</th><th>Preview</th><th>Section height</th><th>Fits</th></tr></thead>
+        <thead><tr><th>Viewport</th><th>Grid</th><th>Per page</th><th>Page image</th><th>Section</th></tr></thead>
         <tbody>
-          <tr><td>1512 × 900 · MBP 14"</td><td class="n">277px</td><td class="n">137px</td><td class="n">760px</td><td class="st done">YES · 833 usable</td></tr>
-          <tr><td>1512 × 870 · MBP 14"</td><td class="n">277px</td><td class="n">137px</td><td class="n">760px</td><td class="st done">YES · 803 usable</td></tr>
-          <tr><td>1512 × 820 · with bookmarks</td><td class="n">236px</td><td class="n">111px</td><td class="n">649px</td><td class="st done">YES · 753 usable</td></tr>
-          <tr><td>1440 × 800 · 13-inch</td><td class="n">236px</td><td class="n">111px</td><td class="n">648px</td><td class="st done">YES · 733 usable</td></tr>
-          <tr><td>1680 × 956 · external</td><td class="n">276px</td><td class="n">133px</td><td class="n">765px</td><td class="st done">YES · 889 usable</td></tr>
-          <tr><td>2560 × 1300 · 5K</td><td class="n">350px</td><td class="n">185px</td><td class="n">915px</td><td class="st done">YES · 1233 usable</td></tr>
+          <tr><td>2560 × 1440 · 5K</td><td class="n">7 × 2</td><td class="n">14</td><td class="n">278 × 359</td><td class="st done">1235 / 1374</td></tr>
+          <tr><td>1680 × 956 · external</td><td class="n">5 × 1</td><td class="n">5</td><td class="n">266 × 344</td><td class="st done">698 / 890</td></tr>
+          <tr><td>1512 × 870 · MBP 14"</td><td class="n">4 × 1</td><td class="n">4</td><td class="n">322 × 416</td><td class="st done">764 / 804</td></tr>
+          <tr><td>1440 × 800 · 13-inch</td><td class="n">4 × 1</td><td class="n">4</td><td class="n">322 × 416</td><td class="st done">708 / 734</td></tr>
+          <tr><td>1080 × 1920 · portrait</td><td class="n">3 × 2</td><td class="n">6</td><td class="n">316 × 409</td><td class="st done">1310 / 1854</td></tr>
+          <tr><td>740 × 1800 · half-screen</td><td class="n">3 × 2</td><td class="n">6</td><td class="n">207 × 267</td><td class="st done">1061 / 1734</td></tr>
         </tbody>
       </table></div>
-      <p class="cap">Measured from the section's top rule to the bottom of the pager, against the viewport
-        height minus the 66&nbsp;px sticky bar. Phones are the deliberate exception — a phone scrolls, and
-        two full-width cards are the right size there.</p>
+      <p class="cap">Section height measured from the top rule to the bottom of the pager, against the
+        viewport minus the 66&nbsp;px sticky bar. Every desktop and laptop size clears the fold. Phones are
+        the deliberate exception — a full page plus its metadata is taller than a phone, and a phone
+        scrolls.</p>
+      <div class="note warn"><b>DO NOT CROP THE PREVIEW TO MAKE IT FIT</b>Two earlier attempts traded the
+        page away for height — a 16:9 band, then a 2:1 sliver of the masthead. Both were rejected. If the
+        section needs to be shorter, take a row, take a column, trim the metadata, hide the lead — the page
+        image is the one thing that stays whole.</div>
 
       <h4>THE READER</h4>
       <p>Activating a preview opens the full PDF <b>in place</b>, so a visitor reads the paper without
