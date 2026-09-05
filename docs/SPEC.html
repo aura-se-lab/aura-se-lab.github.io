@@ -250,7 +250,7 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
     <div class="tw"><table>
       <thead><tr><th>URL</th><th>Source</th><th>Pages</th><th>Purpose</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td><code>/</code></td><td><code>pages/index.astro</code></td><td class="n">1</td><td>The argument, in eight sections</td><td class="st done">SPEC'D · § 04.1</td></tr>
+        <tr><td><code>/</code></td><td><code>pages/index.astro</code></td><td class="n">1</td><td>The lab in seven sections</td><td class="st done">SPEC'D · § 04.1</td></tr>
         <tr><td><code>/research/</code></td><td><code>research/index.astro</code></td><td class="n">1</td><td>The four threads, side by side</td><td class="st done">BUILT</td></tr>
         <tr><td><code>/research/[slug]/</code></td><td><code>content/research/*.md</code></td><td class="n">4</td><td>One thread: essay + its papers + its people</td><td class="st done">BUILT</td></tr>
         <tr><td><code>/publications/</code></td><td><code>publications/index.astro</code></td><td class="n">1</td><td>All 52 entries, filterable</td><td class="st done">BUILT</td></tr>
@@ -400,17 +400,66 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
         correctly left unassigned.</p>
     </div>
 
-    <h3>04.3 — Publications index &amp; paper pages</h3>
+    <h3>04.3 — Publications <code>/publications/</code> &amp; paper pages</h3>
     <div class="body">
-      <p>The index is the full record, grouped by year, with three filter axes — thread, year, author — as
-        client-side chip toggles operating on <code>data-*</code> attributes, so the page works with
-        JavaScript off and filters with it on. Bucket counts sit in the header. <code>aura.bib</code>
-        downloads the whole record.</p>
-      <p>A paper page carries: venue badge and date, title, full author line (lab members linked to their
-        profiles), abstract, a link row (PDF · DOI · arXiv · Code · Data · Slides · Video, each rendered only
-        if present), a copyable BibTeX block, the replication package if there is one, the threads it belongs
-        to, and its per-paper citation count with the source named — which is where citation numbers are
-        allowed to live (§ 08).</p>
+      <p><b>The homepage section and the index share one design.</b> Publications and what used to be a
+        separate “research output” section are now one thing: the figures are context printed above the
+        list, not a competing section with its own number. Order on the page is: header, a three-panel
+        figures strip (output per year · uptake direction · venue mix, each at about a third the visual
+        weight they had as standalone cards), a filter bar, then the papers themselves.</p>
+
+      <h4>THE PAPER CARD</h4>
+      <p>Each paper is led by <b>the first page of its PDF</b>, rendered at build time and cropped to a
+        17:22 frame, top-aligned so the title block and author list are what you see. Beneath it: venue in
+        its thread hue · year · kind, then title, authors with lab members in bold, then the artifact tags.
+        The preview is a <code>&lt;button&gt;</code>, not a link — activating it opens the reader (below)
+        rather than navigating away. A paper with no open full text gets a typographic tile instead of a
+        preview, so the grid stays even.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Step</th><th>Tool</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>Fetch</td><td><code>curl</code> against <code>arxiv.org/pdf/&lt;id&gt;</code></td><td>One PDF per paper with an arXiv id (24 of 52 today)</td></tr>
+          <tr><td>Render page 1</td><td><code>pdftoppm -f 1 -l 1 -r 150 -jpeg</code></td><td>~1275 × 1650 raster</td></tr>
+          <tr><td>Normalise</td><td>Pillow</td><td>Padded to 17:22 so every card matches, resized to 520 × 673 (2× of 260 × 337)</td></tr>
+          <tr><td>Serve</td><td>Astro image pipeline</td><td>AVIF with WebP fallback, <code>loading="lazy"</code></td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">The whole step runs in <code>scripts/pubs/</code> alongside the weekly sync, so a new
+        paper arrives with its preview already made. Nothing here is hand-placed.</p>
+
+      <h4>THE READER</h4>
+      <p>Activating a preview opens the full PDF <b>in place</b>, so a visitor reads the paper without
+        being handed off to Scholar or a publisher. It is a <code>role="dialog" aria-modal="true"</code>
+        overlay: ink backdrop at 0.86 with a 4&nbsp;px blur, a panel at most 1180&nbsp;px wide and 94&nbsp;vh
+        tall, and an <code>&lt;iframe&gt;</code> loading <code>&lt;pdf&gt;#view=FitH</code>. The header
+        carries venue · year · kind, the title, and three controls — arXiv&nbsp;↗, PDF&nbsp;↗, close.</p>
+      <ul class="b">
+        <li>Escape closes it, so does clicking the backdrop, so does the close button.</li>
+        <li>Focus moves into the dialog on open, Tab is trapped inside it, and focus returns to the
+          originating preview on close.</li>
+        <li><code>body.locked</code> stops the page behind from scrolling; the iframe is destroyed on close
+          so nothing keeps streaming.</li>
+        <li>If the frame has not loaded in 8&nbsp;s the panel replaces the spinner with a plain
+          “open in a new tab” link — no permanent spinner, ever.</li>
+      </ul>
+      <div class="note warn"><b>WHY ONLY 24 OF 52</b>Only papers with an open full text can be embedded.
+        arXiv sends no <code>X-Frame-Options</code> and no <code>frame-ancestors</code>, so its PDFs frame
+        cleanly; ACM DL and IEEE Xplore are paywalled and frame-blocked, and always will be. The durable
+        fix is green open access: post the author's accepted manuscript — which ACM and IEEE author
+        agreements both permit — to <code>/papers/&lt;key&gt;.pdf</code> on this site. Then every paper is
+        same-origin, always framable, always fast, and the lab is not depending on a third party to stay
+        readable. That is a per-paper upload, not an engineering problem.</div>
+
+      <h4>THE INDEX PAGE</h4>
+      <p><code>/publications/</code> is the same grid without the homepage's five-card ceiling, grouped by
+        year, with three filter axes — bucket, year and research area — as client-side chip toggles
+        operating on <code>data-*</code> attributes, so the page works with JavaScript off and filters with
+        it on. <code>aura.bib</code> downloads the whole record.</p>
+      <p>A single paper page carries: venue badge and date, title, full author line (lab members linked to
+        their profiles), abstract, a link row (PDF · DOI · arXiv · Code · Data · Slides · Video, each
+        rendered only if present), a copyable BibTeX block, the replication package if there is one, the
+        research areas it belongs to, and its per-paper citation count with the source named — which is
+        where citation numbers are allowed to live (§ 08).</p>
     </div>
 
     <h3>04.4 — Software <code>/software/</code> <span class="st todo">TO BUILD</span></h3>
@@ -455,7 +504,9 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
         <tr><td><code>ThreadTile.astro</code></td><td>home, research</td><td>Hue rule, letter, count, title, summary</td><td class="st done">BUILT</td></tr>
         <tr><td><code>PersonCard.astro</code></td><td>people, threads</td><td>Card variant of the band cell</td><td class="st done">BUILT</td></tr>
         <tr><td><code>PortraitBand.astro</code></td><td>home</td><td>9-up contact sheet, role tags, initials fallback</td><td class="st todo">NEW</td></tr>
-        <tr><td><code>RecordTable.astro</code></td><td>home, publications</td><td>Dense rows; block layout &lt; 700 px</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>PaperCard.astro</code></td><td>home, publications, people, research</td><td>First-page preview + metadata; opens the reader</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>PdfReader.astro</code></td><td>anywhere a paper is listed</td><td>Modal iframe reader; Esc, focus trap, 8 s fallback</td><td class="st todo">NEW</td></tr>
+        <tr><td><code>PubFilters.astro</code></td><td>home, publications</td><td>Chip toggles over <code>data-*</code>; works without JS</td><td class="st todo">NEW</td></tr>
         <tr><td><code>PubRow.astro</code> / <code>PubList.astro</code></td><td>publications, threads, people</td><td>Existing list rendering; keep</td><td class="st done">BUILT</td></tr>
         <tr><td><code>FigOutput.astro</code></td><td>home, publications</td><td>Fig. 2 — stacked bars from <code>metrics.by_year</code></td><td class="st todo">NEW</td></tr>
         <tr><td><code>FigUptake.astro</code></td><td>home</td><td>Fig. 3 — unlabelled-axis trend curve; § 08</td><td class="st todo">NEW</td></tr>
