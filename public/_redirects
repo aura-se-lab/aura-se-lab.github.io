@@ -1,6 +1,9 @@
 # Workers static-assets redirects (https://developers.cloudflare.com/workers/static-assets/redirects/)
-# www → apex
-https://www.auralab.sh/* https://auralab.sh/:splat 301
+# NOTE: www → apex cannot live here. Workers static assets accept only relative
+# source paths in _redirects, so a host-based rule is rejected at deploy time.
+# Both hostnames are served as custom domains and every page carries a
+# <link rel="canonical"> to the apex, so search engines index one origin.
+# To make www a real 301, add a Cloudflare Redirect Rule on the zone.
 
 # legacy al-folio routes from aura-se-lab.github.io
 /projects/ /research/ 301
