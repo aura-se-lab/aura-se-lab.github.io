@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; background: #07110c; }
+    a { color: #9fe7bf; text-decoration: none; } a:hover { color: #ecf1ea; }
+    .halo-ring { animation: halo-spin 80s linear infinite; transform-origin: 50% 50%; }
+    .halo-breathe { animation: halo-breathe 7s ease-in-out infinite; transform-origin: 50% 50%; }
+    @keyframes halo-spin { to { transform: rotate(360deg); } }
+    @keyframes halo-breathe { 0%,100% { opacity: .55; transform: scale(1); } 50% { opacity: .9; transform: scale(1.04); } }
+    .pulse { animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+    @media (prefers-reduced-motion: reduce) { .halo-ring, .halo-breathe, .pulse { animation: none; } }
+  </style>
+</helmet>
+<div style="width: 1440px; min-height: 1900px; background: #07110c; color: #ecf1ea; font-family: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; overflow: hidden;">
+
+  <!-- nav -->
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 26px 56px; border-bottom: 1px solid rgba(159,231,191,0.14);">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <svg width="38" height="38" viewBox="0 0 110 110" aria-hidden="true"><g transform="translate(55,55)" fill="none" stroke-width="7" stroke-linecap="round"><path d="M -20.6 -36.4 A 42 42 0 0 1 20.6 -36.4" stroke="#9fe7bf"/><path d="M 36.4 -20.6 A 42 42 0 0 1 36.4 20.6" stroke="#6fd2a0"/><path d="M 20.6 36.4 A 42 42 0 0 1 -20.6 36.4" stroke="#3fae7c"/><path d="M -36.4 20.6 A 42 42 0 0 1 -36.4 -20.6" stroke="#c9a962"/></g></svg>
+      <div style="display: flex; flex-direction: column; line-height: 1;">
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 30px; letter-spacing: 0.02em;">AURA</span>
+        <span style="font-family: 'DM Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #9fb3a6; margin-top: 4px;">Lab · William &amp; Mary</span>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 34px; font-size: 15px; color: #c8d3cb;">
+      <span>Research</span><span>Publications</span><span>People</span><span>News</span>
+      <span style="border: 1px solid rgba(159,231,191,0.5); color: #9fe7bf; border-radius: 999px; padding: 9px 16px; font-weight: 500;">Join the lab</span>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; padding: 96px 56px 72px; align-items: center;">
+    <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 30px;">
+      <div style="font-family: 'DM Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #9fe7bf;">AI for Understandable and Responsible Automation — in Software Engineering</div>
+      <h1 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 104px; line-height: 0.96; letter-spacing: -0.02em; text-wrap: balance; color: #ecf1ea;">Machine-written software, <em style="font-style: italic; color: #9fe7bf;">held to account</em>.</h1>
+      <p style="margin: 0; max-width: 620px; font-size: 20px; line-height: 1.5; color: #b7c5bb;">We build AI for software engineering that is cheap enough to run anywhere, transparent enough to inspect, and honest about what it does not know — then we measure it, publicly.</p>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <span style="background: #9fe7bf; color: #07110c; border-radius: 999px; padding: 15px 24px; font-weight: 600; font-size: 15px;">Read the research →</span>
+        <span style="border: 1px solid rgba(236,241,234,0.25); color: #ecf1ea; border-radius: 999px; padding: 14px 22px; font-size: 15px;">52 publications</span>
+      </div>
+    </div>
+    <div style="grid-column: span 5; position: relative; height: 560px; display: flex; align-items: center; justify-content: center;">
+      <div class="halo-breathe" style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(159,231,191,0.28) 0%, rgba(159,231,191,0.08) 32%, rgba(7,17,12,0) 62%);"></div>
+      <svg class="halo-ring" width="520" height="520" viewBox="0 0 110 110" aria-hidden="true" style="position: absolute;"><g transform="translate(55,55)"><circle r="50" fill="none" stroke="#c9a962" stroke-width="0.35" stroke-dasharray="0.5 1.6" opacity=".8"/><circle r="30" fill="none" stroke="#9fe7bf" stroke-width="0.25" stroke-dasharray="0.4 2.2" opacity=".6"/></g></svg>
+      <svg width="440" height="440" viewBox="0 0 110 110" aria-hidden="true" style="position: absolute; filter: drop-shadow(0 0 18px rgba(159,231,191,0.55));"><g transform="translate(55,55)" fill="none" stroke-width="5" stroke-linecap="round"><path d="M -20.6 -36.4 A 42 42 0 0 1 20.6 -36.4" stroke="#c9f5df"/><path d="M 36.4 -20.6 A 42 42 0 0 1 36.4 20.6" stroke="#9fe7bf"/><path d="M 20.6 36.4 A 42 42 0 0 1 -20.6 36.4" stroke="#4fbf8d"/><path d="M -36.4 20.6 A 42 42 0 0 1 -36.4 -20.6" stroke="#c9a962"/></g></svg>
+      <div style="position: relative; font-family: 'Instrument Serif', Georgia, serif; font-size: 190px; line-height: 1; color: #ecf1ea; letter-spacing: -0.04em; text-shadow: 0 0 40px rgba(159,231,191,0.35);">A</div>
+      <!-- instrument readout -->
+      <div style="position: absolute; left: 24px; right: 24px; bottom: -14px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(159,231,191,0.2); border-bottom: 1px solid rgba(159,231,191,0.2); background: rgba(7,17,12,0.7); backdrop-filter: blur(6px);">
+        <div style="padding: 12px 14px; border-right: 1px solid rgba(159,231,191,0.14); display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; color: #9fb3a6;">PEER-REVIEWED</span><span style="font-family: 'DM Mono', monospace; font-size: 22px; color: #ecf1ea;">19</span></div>
+        <div style="padding: 12px 14px; border-right: 1px solid rgba(159,231,191,0.14); display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; color: #9fb3a6;">PREPRINTS</span><span style="font-family: 'DM Mono', monospace; font-size: 22px; color: #ecf1ea;">12</span></div>
+        <div style="padding: 12px 14px; border-right: 1px solid rgba(159,231,191,0.14); display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; color: #9fb3a6;">CITATIONS</span><span style="font-family: 'DM Mono', monospace; font-size: 22px; color: #ecf1ea;">157</span></div>
+        <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; color: #9fb3a6;"><span class="pulse" style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #9fe7bf; margin-right: 6px; vertical-align: 1px;"></span>SYNCED</span><span style="font-family: 'DM Mono', monospace; font-size: 13px; color: #ecf1ea; padding-top: 5px;">2026-09-05 · DBLP · S2</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- threads -->
+  <div style="padding: 56px 56px 0; display: flex; flex-direction: column; gap: 28px;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+      <h2 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 44px; letter-spacing: -0.015em;">Four threads, one <em style="color: #9fe7bf;">aura</em>.</h2>
+      <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #9fb3a6;">A · U · R · A</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;">
+      <div style="border-top: 1px solid rgba(159,231,191,0.35); padding-top: 22px; display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 112px; line-height: 0.85; color: #9fe7bf; letter-spacing: -0.04em;">A</span>
+        <span style="font-size: 19px; font-weight: 600; line-height: 1.25;">Resource-efficient models for code</span>
+        <span style="font-size: 14px; line-height: 1.5; color: #9fb3a6;">Quantization, PEFT and distillation that keep code models cheap without losing code quality.</span>
+      </div>
+      <div style="border-top: 1px solid rgba(159,231,191,0.35); padding-top: 22px; display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 112px; line-height: 0.85; color: #9fe7bf; letter-spacing: -0.04em;">U</span>
+        <span style="font-size: 19px; font-weight: 600; line-height: 1.25;">Neurosymbolic reasoning &amp; interpretability</span>
+        <span style="font-size: 14px; line-height: 1.5; color: #9fb3a6;">Language models paired with program analysis, and explanations developers can actually read.</span>
+      </div>
+      <div style="border-top: 1px solid rgba(159,231,191,0.35); padding-top: 22px; display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 112px; line-height: 0.85; color: #9fe7bf; letter-spacing: -0.04em;">R</span>
+        <span style="font-size: 19px; font-weight: 600; line-height: 1.25;">Reliability &amp; honest evaluation</span>
+        <span style="font-size: 14px; line-height: 1.5; color: #9fb3a6;">Causal analysis and LLM-as-a-judge methods that measure what matters, not what is easy.</span>
+      </div>
+      <div style="border-top: 1px solid rgba(201,169,98,0.6); padding-top: 22px; display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 112px; line-height: 0.85; color: #c9a962; letter-spacing: -0.04em;">A</span>
+        <span style="font-size: 19px; font-weight: 600; line-height: 1.25;">Agents for the software lifecycle</span>
+        <span style="font-size: 14px; line-height: 1.5; color: #9fb3a6;">Task-aware, multi-agent automation measured end-to-end — from issue to review.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- recent papers -->
+  <div style="padding: 88px 56px 0; display: flex; flex-direction: column; gap: 22px;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+      <h2 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 44px; letter-spacing: -0.015em;">Recent, <em style="color: #9fe7bf;">peer-reviewed</em>.</h2>
+      <span style="font-size: 14px; color: #9fe7bf; border-bottom: 1px solid rgba(159,231,191,0.5); padding-bottom: 2px;">All publications →</span>
+    </div>
+    <div style="display: flex; flex-direction: column; border-top: 1px solid rgba(159,231,191,0.2);">
+      <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr) 90px; gap: 24px; padding: 22px 0; border-bottom: 1px solid rgba(159,231,191,0.12); align-items: baseline;">
+        <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #9fe7bf; border: 1px solid rgba(159,231,191,0.4); border-radius: 3px; padding: 4px 8px; justify-self: start;">TOSEM</span>
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 25px; line-height: 1.2;">Toward Explaining Large Language Models in Software Engineering Tasks</span><span style="font-size: 14px; color: #9fb3a6;">A. Vitale, <b style="color: #ecf1ea; font-weight: 500;">K.-N. Nguyen</b>, D. Poshyvanyk, R. Oliveto, S. Scalabrino, <b style="color: #ecf1ea; font-weight: 500;">A. Mastropaolo</b></span></div>
+        <span style="font-family: 'DM Mono', monospace; font-size: 13px; color: #9fb3a6; text-align: right;">2026</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr) 90px; gap: 24px; padding: 22px 0; border-bottom: 1px solid rgba(159,231,191,0.12); align-items: baseline;">
+        <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #9fe7bf; border: 1px solid rgba(159,231,191,0.4); border-radius: 3px; padding: 4px 8px; justify-self: start;">TOSEM</span>
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 25px; line-height: 1.2;">A Systematic Literature Review of Parameter-Efficient Fine-Tuning for Large Code Models</span><span style="font-size: 14px; color: #9fb3a6;"><b style="color: #ecf1ea; font-weight: 500;">S. Afrin</b>, <b style="color: #ecf1ea; font-weight: 500;">M. Z. Haque</b>, <b style="color: #ecf1ea; font-weight: 500;">A. Mastropaolo</b></span></div>
+        <span style="font-family: 'DM Mono', monospace; font-size: 13px; color: #9fb3a6; text-align: right;">2025</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr) 90px; gap: 24px; padding: 22px 0; border-bottom: 1px solid rgba(159,231,191,0.12); align-items: baseline;">
+        <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #9fe7bf; border: 1px solid rgba(159,231,191,0.4); border-radius: 3px; padding: 4px 8px; justify-self: start;">TSE</span>
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 25px; line-height: 1.2;">On the Effectiveness of LLM-as-a-Judge for Code Generation and Summarization</span><span style="font-size: 14px; color: #9fb3a6;">G. Crupi, R. Tufano, A. Velasco, <b style="color: #ecf1ea; font-weight: 500;">A. Mastropaolo</b>, D. Poshyvanyk, G. Bavota</span></div>
+        <span style="font-family: 'DM Mono', monospace; font-size: 13px; color: #9fb3a6; text-align: right;">2025</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr) 90px; gap: 24px; padding: 22px 0; border-bottom: 1px solid rgba(159,231,191,0.12); align-items: baseline;">
+        <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #9fe7bf; border: 1px solid rgba(159,231,191,0.4); border-radius: 3px; padding: 4px 8px; justify-self: start;">ICSME</span>
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 25px; line-height: 1.2;">Is Quantization a Deal-breaker? Empirical Insights from Large Code Models</span><span style="font-size: 14px; color: #9fb3a6;"><b style="color: #ecf1ea; font-weight: 500;">S. Afrin</b>, B. Xu, <b style="color: #ecf1ea; font-weight: 500;">A. Mastropaolo</b></span></div>
+        <span style="font-family: 'DM Mono', monospace; font-size: 13px; color: #9fb3a6; text-align: right;">2025</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- people + join -->
+  <div style="margin: 88px 56px 0; padding: 40px 0 0; border-top: 1px solid rgba(159,231,191,0.2); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: start;">
+    <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 16px;">
+      <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #9fb3a6;">The lab · Fall 2024 →</span>
+      <p style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-size: 30px; line-height: 1.25; color: #ecf1ea;">Antonio Mastropaolo, Saima Afrin, Aya Garryyeva, Joseph Call, Afia Farjana, Md Zahidul Haque Alvi, Zaiyu Cheng, Ben Tremblay, Leon Huang.</p>
+      <span style="font-size: 14px; color: #9fb3a6;">Six Ph.D. students, two undergraduates, one NSF CRII award — and a standing invitation for people who want to make AI for code cheaper, clearer and more honest.</span>
+    </div>
+    <div style="grid-column: 9 / span 4; display: flex; flex-direction: column; gap: 14px; padding: 24px; border: 1px solid rgba(201,169,98,0.45); background: rgba(201,169,98,0.06);">
+      <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #c9a962;">Join</span>
+      <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; line-height: 1.15;">[Recruiting line — e.g. Ph.D. openings for Fall 2027]</span>
+      <span style="background: #c9a962; color: #07110c; border-radius: 999px; padding: 12px 18px; font-weight: 600; font-size: 14px; align-self: flex-start;">How to apply →</span>
+    </div>
+  </div>
+
+  <div style="margin: 72px 56px 0; padding: 22px 0 40px; border-top: 1px solid rgba(159,231,191,0.14); display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #6f8577;">
+    <span>AURALAB.SH · DEPARTMENT OF COMPUTER SCIENCE · WILLIAM &amp; MARY</span>
+    <span>RSS · BIBTEX · SET IN INSTRUMENT SERIF</span>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

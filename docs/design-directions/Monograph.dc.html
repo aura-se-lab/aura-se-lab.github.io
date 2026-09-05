@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=Spectral+SC:wght@400;500;600&display=swap">
+  <style>
+    body { margin: 0; background: #f2f1ed; }
+    a { color: #1f4d3c; text-decoration: none; border-bottom: 1px solid rgba(31,77,60,0.35); } a:hover { color: #a3833a; border-color: #a3833a; }
+    sup { font-size: 0.62em; vertical-align: super; line-height: 0; color: #a3833a; font-weight: 500; }
+  </style>
+</helmet>
+<div style="width: 1440px; min-height: 1900px; background: #f2f1ed; color: #1b1a17; font-family: 'Newsreader', Georgia, 'Times New Roman', serif; position: relative;">
+
+  <!-- masthead -->
+  <div style="padding: 34px 96px 0; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+    <div style="width: 100%; display: flex; justify-content: space-between; font-family: 'Spectral SC', 'Newsreader', serif; font-size: 12px; letter-spacing: 0.18em; color: #5d5a52;">
+      <span>research · publications · people · news</span>
+      <span>the aura lab · william &amp; mary</span>
+      <span>join · rss · bibtex</span>
+    </div>
+    <div style="width: 100%; height: 1px; background: #1b1a17;"></div>
+    <div style="width: 100%; height: 1px; background: #1b1a17; margin-top: -9px;"></div>
+    <div style="display: flex; align-items: center; gap: 22px; margin-top: 26px;">
+      <svg width="46" height="46" viewBox="0 0 110 110" aria-hidden="true"><g transform="translate(55,55)"><circle r="48" fill="none" stroke="#a3833a" stroke-width="0.8" stroke-dasharray="0.6 1.8"/><g fill="none" stroke="#1b1a17" stroke-width="6" stroke-linecap="round"><path d="M -20.6 -36.4 A 42 42 0 0 1 20.6 -36.4"/><path d="M 36.4 -20.6 A 42 42 0 0 1 36.4 20.6"/><path d="M 20.6 36.4 A 42 42 0 0 1 -20.6 36.4"/><path d="M -36.4 20.6 A 42 42 0 0 1 -36.4 -20.6" stroke="#a3833a"/></g><text x="0" y="12" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-weight="500" font-size="44" fill="#1b1a17">A</text></g></svg>
+      <span style="font-family: 'Newsreader', serif; font-weight: 500; font-size: 84px; letter-spacing: 0.12em; line-height: 1; text-transform: uppercase;">Aura</span>
+    </div>
+    <div style="font-family: 'Spectral SC', serif; font-size: 14px; letter-spacing: 0.22em; color: #5d5a52; margin-top: 8px;">ai for understandable and responsible automation</div>
+    <div style="font-family: 'Spectral SC', serif; font-size: 11.5px; letter-spacing: 0.18em; color: #a3833a; margin-top: 2px;">in software engineering · founded mmxxiv · williamsburg, virginia</div>
+    <div style="width: 240px; height: 1px; background: #a3833a; margin-top: 22px;"></div>
+  </div>
+
+  <!-- opening statement with drop cap and footnotes -->
+  <div style="padding: 48px 96px 0; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 56px; align-items: start;">
+    <div style="display: flex; flex-direction: column; gap: 22px; font-size: 15.5px; line-height: 1.5; color: #5d5a52; font-style: italic;">
+      <span style="font-family: 'Spectral SC', serif; font-style: normal; font-size: 12px; letter-spacing: 0.18em; color: #1b1a17;">on this page</span>
+      <span>A short account of what the laboratory studies, the four lines of inquiry it pursues, and the papers by which it would like to be judged.</span>
+      <span style="font-style: normal; font-size: 14px; line-height: 1.7;">
+        <span style="display: block; border-top: 1px solid rgba(27,26,23,0.25); padding-top: 12px;"><span style="font-family: 'Spectral SC', serif; letter-spacing: 0.14em; font-size: 11px; color: #a3833a;">director</span><br>Antonio Mastropaolo, Assistant Professor</span>
+        <span style="display: block; border-top: 1px solid rgba(27,26,23,0.25); padding-top: 12px; margin-top: 12px;"><span style="font-family: 'Spectral SC', serif; letter-spacing: 0.14em; font-size: 11px; color: #a3833a;">members</span><br>six doctoral students, two undergraduates</span>
+        <span style="display: block; border-top: 1px solid rgba(27,26,23,0.25); padding-top: 12px; margin-top: 12px;"><span style="font-family: 'Spectral SC', serif; letter-spacing: 0.14em; font-size: 11px; color: #a3833a;">support</span><br>National Science Foundation, CRII 2451058</span>
+        <span style="display: block; border-top: 1px solid rgba(27,26,23,0.25); padding-top: 12px; margin-top: 12px;"><span style="font-family: 'Spectral SC', serif; letter-spacing: 0.14em; font-size: 11px; color: #a3833a;">record</span><br>19 peer-reviewed papers, 157 citations, kept current weekly</span>
+      </span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 22px; max-width: 760px;">
+      <h1 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: 62px; line-height: 1.08; letter-spacing: -0.015em; text-wrap: balance;">Software written by machines should be <em>cheap to run</em>, <em>plain to inspect</em>, and <em>honest</em> about what it does not know.</h1>
+      <p style="margin: 0; font-size: 21px; line-height: 1.55; color: #2a2823;"><span style="float: left; font-size: 78px; line-height: 0.8; padding: 8px 10px 0 0; font-weight: 400; color: #a3833a;">T</span>he AURA Lab, founded in Fall 2024, advances research at the intersection of efficiency, automation, and explainability in software engineering. We shrink the foundation models that write code until they run inside a developer's own tools<sup>1</sup>; we pair them with program analysis so that their reasoning can be read, checked and corrected<sup>2</sup>; and we build the evaluations — human and automated — that tell a model that is right from one that is merely fluent<sup>3</sup>. Through rigorous methods, open collaboration, and a commitment to impactful work, the lab contributes practical advances in AI-supported software engineering for academia, industry, and society.</p>
+      <div style="font-size: 14px; line-height: 1.6; color: #5d5a52; border-top: 1px solid rgba(27,26,23,0.25); padding-top: 12px; display: flex; flex-direction: column; gap: 4px;">
+        <span><sup>1</sup> Afrin, Haque &amp; Mastropaolo, <em>ACM TOSEM</em>, 2025 · Afrin, Xu &amp; Mastropaolo, <em>ICSME</em>, 2025.</span>
+        <span><sup>2</sup> Mastropaolo &amp; Poshyvanyk, <em>AI-SDLC @ FSE</em>, 2025 · Velasco et al., <em>ICPC</em>, 2025.</span>
+        <span><sup>3</sup> Crupi et al., <em>IEEE TSE</em>, 2025 · Vitale et al., <em>ICPC</em>, 2025.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chapters -->
+  <div style="padding: 72px 96px 0; display: flex; flex-direction: column; gap: 26px;">
+    <div style="display: flex; align-items: center; gap: 18px;">
+      <span style="font-family: 'Spectral SC', serif; font-size: 12px; letter-spacing: 0.2em; color: #a3833a; white-space: nowrap;">four lines of inquiry</span>
+      <span style="flex: 1; height: 1px; background: rgba(27,26,23,0.25);"></span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Newsreader', serif; font-size: 40px; font-weight: 300; color: #a3833a; line-height: 1;">I.</span>
+        <span style="font-size: 23px; font-weight: 500; line-height: 1.2;">Resource-efficient foundation models for code</span>
+        <span style="font-size: 15.5px; line-height: 1.55; color: #5d5a52;">Quantization, parameter-efficient fine-tuning and distillation, measured on code quality as well as correctness.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Newsreader', serif; font-size: 40px; font-weight: 300; color: #a3833a; line-height: 1;">II.</span>
+        <span style="font-size: 23px; font-weight: 500; line-height: 1.2;">Neurosymbolic reasoning and interpretability</span>
+        <span style="font-size: 15.5px; line-height: 1.55; color: #5d5a52;">Neural models joined to grammars, types and analysis; explanations at the level developers think.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Newsreader', serif; font-size: 40px; font-weight: 300; color: #a3833a; line-height: 1;">III.</span>
+        <span style="font-size: 23px; font-weight: 500; line-height: 1.2;">Reliability, causality and honest evaluation</span>
+        <span style="font-size: 15.5px; line-height: 1.55; color: #5d5a52;">Counterfactual analysis and the study of automated judges — where they work, where they mislead.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Newsreader', serif; font-size: 40px; font-weight: 300; color: #a3833a; line-height: 1;">IV.</span>
+        <span style="font-size: 23px; font-weight: 500; line-height: 1.2;">Agents across the software lifecycle</span>
+        <span style="font-size: 15.5px; line-height: 1.55; color: #5d5a52;">Task-aware and multi-agent automation, from issue to review, measured end to end.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- bibliography -->
+  <div style="padding: 72px 96px 0; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 56px;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <span style="font-family: 'Spectral SC', serif; font-size: 12px; letter-spacing: 0.2em; color: #a3833a;">selected bibliography</span>
+      <span style="font-size: 15.5px; line-height: 1.5; color: #5d5a52; font-style: italic;">Six of fifty-two entries. The full list, with BibTeX and citation counts, is refreshed each week from DBLP, Crossref, Semantic Scholar and arXiv.</span>
+      <a href="#" style="align-self: flex-start; font-size: 15px; margin-top: 6px;">The complete list →</a>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 18px; font-size: 17.5px; line-height: 1.5;">
+      <p style="margin: 0; padding-left: 34px; text-indent: -34px;">Vitale, A., <b style="font-weight: 500;">Nguyen, K.-N.</b>, Poshyvanyk, D., Oliveto, R., Scalabrino, S. &amp; <b style="font-weight: 500;">Mastropaolo, A.</b> Toward Explaining Large Language Models in Software Engineering Tasks. <em>ACM Transactions on Software Engineering and Methodology</em>, 2026.</p>
+      <p style="margin: 0; padding-left: 34px; text-indent: -34px;"><b style="font-weight: 500;">Afrin, S.</b>, <b style="font-weight: 500;">Haque, M. Z.</b> &amp; <b style="font-weight: 500;">Mastropaolo, A.</b> A Systematic Literature Review of Parameter-Efficient Fine-Tuning for Large Code Models. <em>ACM Transactions on Software Engineering and Methodology</em>, 2025. <span style="font-family: 'Spectral SC', serif; font-size: 12px; letter-spacing: 0.1em; color: #a3833a;">14 citations</span></p>
+      <p style="margin: 0; padding-left: 34px; text-indent: -34px;">Crupi, G., Tufano, R., Velasco, A., <b style="font-weight: 500;">Mastropaolo, A.</b>, Poshyvanyk, D. &amp; Bavota, G. On the Effectiveness of LLM-as-a-Judge for Code Generation and Summarization. <em>IEEE Transactions on Software Engineering</em>, 2025. <span style="font-family: 'Spectral SC', serif; font-size: 12px; letter-spacing: 0.1em; color: #a3833a;">53 citations</span></p>
+      <p style="margin: 0; padding-left: 34px; text-indent: -34px;"><b style="font-weight: 500;">Afrin, S.</b>, Xu, B. &amp; <b style="font-weight: 500;">Mastropaolo, A.</b> Is Quantization a Deal-breaker? Empirical Insights from Large Code Models. <em>IEEE International Conference on Software Maintenance and Evolution</em>, 2025.</p>
+      <p style="margin: 0; padding-left: 34px; text-indent: -34px;"><b style="font-weight: 500;">Mastropaolo, A.</b> &amp; Poshyvanyk, D. A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm. <em>AI-SDLC Workshop, ACM FSE</em>, 2025.</p>
+      <p style="margin: 0; padding-left: 34px; text-indent: -34px;"><b style="font-weight: 500;">Mastropaolo, A.</b>, Escobar-Velásquez, C. &amp; Linares-Vásquez, M. From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era. <em>ACM Transactions on Software Engineering and Methodology</em>, 2024.</p>
+    </div>
+  </div>
+
+  <!-- colophon -->
+  <div style="margin: 80px 96px 0; padding: 26px 0 48px; border-top: 1px solid #1b1a17; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; font-size: 14.5px; line-height: 1.6; color: #5d5a52;">
+    <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Spectral SC', serif; font-size: 11px; letter-spacing: 0.18em; color: #1b1a17;">people</span><span>Antonio Mastropaolo, Saima Afrin, Aya Garryyeva, Joseph Call, Afia Farjana, Md Zahidul Haque Alvi, Zaiyu Cheng, Ben Tremblay, Leon Huang.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Spectral SC', serif; font-size: 11px; letter-spacing: 0.18em; color: #1b1a17;">to join</span><span>[Recruiting line — e.g. doctoral openings for Fall 2027.] Write to amastropaolo@wm.edu with the subject <em>Prospective student</em>.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Spectral SC', serif; font-size: 11px; letter-spacing: 0.18em; color: #1b1a17;">colophon</span><span>Set in Newsreader and Spectral. Integrated Science Center 4, William &amp; Mary, Williamsburg, Virginia. Publications synchronised 5 September 2026.</span></div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

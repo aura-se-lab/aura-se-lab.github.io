@@ -1,0 +1,40 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "title": "A \u00b7 Halo",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 2260
+    },
+    {
+      "file": "FieldNotes.dc.html",
+      "title": "B \u00b7 Field Notes",
+      "x": 1560,
+      "y": 0,
+      "w": 1440,
+      "h": 1960
+    },
+    {
+      "file": "Monograph.dc.html",
+      "title": "C \u00b7 Monograph",
+      "x": 3120,
+      "y": 0,
+      "w": 1440,
+      "h": 2080
+    }
+  ],
+  "annotations": [
+    {
+      "id": "brief",
+      "x": 0,
+      "y": -330,
+      "w": 620,
+      "text": "Three identities for auralab.sh \u2014 same content, three voices. Pick one (or mix) and I port it onto the live build.\n\nA \u00b7 Halo \u2014 the aura as light. Dark green-black, phosphor mint, Instrument Serif. Memorable, cinematic; reading-heavy inner pages would switch to light paper. Risk: a few senior peers read dark sites as 'startup'.\n\nB \u00b7 Field Notes \u2014 the lab notebook. Dot-grid paper, Bricolage Grotesque, highlighter marks, real figures and a ledger. Says 'we measure things' loudest. Risk: busiest of the three; must stay disciplined.\n\nC \u00b7 Monograph \u2014 the lab as a journal. Stone paper, Newsreader + small caps, gold foil rules, footnoted claims. Most peer-credible and timeless. Risk: quietest; students may find it formal."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}
