@@ -1,0 +1,99 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Lab identity — the single place to edit names, contacts and links.
+# Read by the site at build time (src/lib/lab.ts) and by scripts/pubs.
+# ─────────────────────────────────────────────────────────────────────────────
+name: The AURA Lab
+short_name: AURA Lab
+acronym:
+  letters: [A, U, R, A]
+  expansion: "AI for Understandable and Responsible Automation in Software Engineering"
+  # Rendered as: (A)I for (U)nderstandable and (R)esponsible (A)utomation
+  words: ["AI", "Understandable", "Responsible", "Automation"]
+tagline: "Trustworthy, resource-efficient AI for the next generation of software."
+founded: "2024-09"
+url: https://auralab.sh
+legacy_url: https://aura-se-lab.github.io
+
+institution:
+  name: William & Mary
+  short: W&M
+  department: Department of Computer Science
+  url: https://www.wm.edu/as/computerscience/
+  address:
+    building: Integrated Science Center 4 (ISC4)
+    street: 540 Landrum Dr
+    city: Williamsburg
+    region: VA
+    postal: "23185"
+    country: United States
+
+director:
+  slug: antonio-mastropaolo
+  name: Antonio Mastropaolo
+  site: https://antoniomastropaolo.io
+
+contact:
+  email: amastropaolo@wm.edu
+  # Generic lab mailbox (used for RSS/feeds and the bot's commits)
+  lab_email: aura.se.lab@gmail.com
+
+social:
+  github: https://github.com/aura-se-lab
+  x: https://x.com/AuraLabSe
+  scholar: https://scholar.google.com/citations?user=A6E30JkAAAAJ&hl=en
+  # bluesky: https://bsky.app/profile/auralab.sh   # ← uncomment once the account exists
+  # linkedin: https://www.linkedin.com/company/aura-lab
+
+# Statement shown on the homepage (kept verbatim from the original site)
+statement: >-
+  The AURA Lab, founded in Fall 2024, advances research at the intersection of
+  efficiency, automation, and explainability in software engineering. Our mission
+  is to design innovative and responsible AI-driven solutions that improve
+  developer productivity while addressing key challenges of transparency and
+  resource efficiency. Through rigorous methods, open collaboration, and a
+  commitment to impactful work, the AURA Lab contributes practical advances in
+  AI-supported software engineering for academia, industry, and society.
+
+# The three-line "abstract" used in hero/OG cards
+brief:
+  - "AI systems that write our software should be cheap enough to deploy, honest about what they do not know, and accountable when they fail."
+
+funding:
+  - id: nsf-crii-2451058
+    program: "NSF CISE Research Initiation Initiative (CRII)"
+    agency: NSF / CISE
+    award: "2451058"
+    title: "CRII: SHF: Advancing Sustainable Software Engineering Practices with Energy-Efficient Large Language Models for Code"
+    amount: "$175,000"
+    period: "06/2025 – 05/2027"
+    role: "Sole PI"
+    status: active
+    url: https://www.nsf.gov/awardsearch/showAward?AWD_ID=2451058
+    summary: >-
+      A two-year initiation award supporting research on reducing the compute,
+      energy, and carbon cost of training and deploying Large Language Models for
+      Code — through task-aware training-data optimization and model compression
+      (quantization) for software engineering.
+  - id: charles-center
+    program: "W&M Charles Center Summer Research Grants"
+    agency: William & Mary
+    title: "Undergraduate research on AI optimization & resource-efficient code intelligence"
+    amount: "2 × $4,000"
+    period: "2025 · 2026"
+    role: "Faculty mentor"
+    status: awarded
+    url: https://www.wm.edu/as/charlescenter/
+    summary: >-
+      Two summers of Charles Center funding supporting undergraduate research on
+      neural compression, LoRA-style fine-tuning, and code-quality evaluation
+      under model-topology changes.
+
+nav:
+  - { label: Research, href: /research/ }
+  - { label: Publications, href: /publications/ }
+  - { label: People, href: /people/ }
+  - { label: News, href: /news/ }
+  - { label: Join, href: /join/ }
+
+# Venues we highlight in the hero strip (must exist in data/venues.yml)
+flagship_venues: [ICSE, FSE, ASE, TOSEM, TSE, EMSE, ICSME, ICPC]

@@ -1,0 +1,57 @@
+name: Social posts
+
+# When a news item with `social: true` (and `draft: false`) lands on main,
+# post it to Bluesky and/or X. Each network is skipped unless its secrets exist.
+# A log (data/social-log.json) guarantees every item is posted at most once.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/content/news/**"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print what would be posted, post nothing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scripts/social/requirements.txt
+
+      - name: Post new items
+        env:
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python3 scripts/social/post.py --dry-run
+          else
+            python3 scripts/social/post.py
+          fi
+
+      - name: Commit the posting log
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          git config user.name "AURA Lab bot"
+          git config user.email "aura.se.lab@gmail.com"
+          git add data/social-log.json
+          git diff --cached --quiet || git commit -m "chore(social): record posted items [skip ci]"
+          git push

@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { fmtDate } from "@/lib/dates";
+import { pubByKey } from "@/lib/pubs";
+import { ArrowUpRight } from "@lucide/astro";
+
+interface Props {
+  item: CollectionEntry<"news">;
+  /** full = render body inline; teaser = title + first paragraph link */
+  mode?: "full" | "teaser";
+}
+const { item, mode = "full" } = Astro.props;
+const { Content } = await render(item);
+const d = item.data;
+const pub = d.publication ? pubByKey(d.publication) : undefined;
+const kindLabel: Record<string, string> = { paper: "Paper", award: "Award", grant: "Funding", people: "People", talk: "Talk", service: "Service", event: "Event", misc: "News" };
+---
+
+<article class:list={["news-item", `news-item--${mode}`]} id={item.id}>
+  <div class="ni-meta">
+    <time datetime={d.date.toISOString()} class="mono">{fmtDate(d.date)}</time>
+    <span class:list={["tag", { "tag--accent": d.kind === "paper" || d.kind === "grant" }]}>{kindLabel[d.kind] ?? d.kind}</span>
+  </div>
+  <div class="ni-body">
+    <h3 class="ni-title"><a href={`/news/${item.id}/`}>{d.title}</a></h3>
+    {mode === "full" && (
+      <div class="prose ni-content">
+        <Content />
+      </div>
+    )}
+    {(pub || d.link) && (
+      <div class="ni-links">
+        {pub && (
+          <a href={`/publications/${pub.key}/`} class="link-arrow">
+            Paper page <ArrowUpRight />
+          </a>
+        )}
+        {d.link && (
+          <a href={d.link} class="link-arrow" target="_blank" rel="noopener">
+            Details <ArrowUpRight />
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+</article>
+
+<style>
+  .news-item { display: grid; grid-template-columns: 150px 1fr; gap: 12px 24px; padding: 22px 0; border-bottom: var(--hair) solid var(--line-soft); }
+  .ni-meta { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; font-size: 12px; color: var(--ink-mute); letter-spacing: 0.04em; padding-top: 3px; }
+  .ni-title { font-size: 18px; font-weight: 500; letter-spacing: -0.012em; line-height: 1.35; color: var(--ink); }
+  .ni-title a:hover { color: var(--accent); }
+  .ni-content { margin-top: 8px; font-size: 15.5px; }
+  .ni-links { margin-top: 10px; display: flex; gap: 18px; font-size: 13.5px; }
+  .news-item--teaser { padding: 14px 0; }
+  .news-item--teaser .ni-title { font-size: 16px; }
+  @media (max-width: 640px) {
+    .news-item { grid-template-columns: 1fr; gap: 6px; }
+    .ni-meta { flex-direction: row; align-items: center; }
+  }
+</style>

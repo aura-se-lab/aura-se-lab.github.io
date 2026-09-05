@@ -1,0 +1,34 @@
+---
+import "@/styles/global.css";
+import Seo from "@/components/Seo.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article" | "profile";
+  meta?: { name: string; content: string }[];
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+  publishedTime?: string;
+  class?: string;
+}
+const { class: cls, ...seo } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Seo {...seo} />
+  </head>
+  <body class={cls}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,192 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import PubRow from "@/components/PubRow.astro";
+import PubList from "@/components/PubList.astro";
+import { publications, pubLinks, displayName, isReviewed, pubDateLabel, bucketOf } from "@/lib/pubs";
+import { fmtDate } from "@/lib/dates";
+import { lab } from "@/lib/lab";
+import { ArrowLeft, ExternalLink, FileText, CodeXml, Database, Presentation, Video, Copy, Quote } from "@lucide/astro";
+
+export async function getStaticPaths() {
+  return publications.map((p) => ({ params: { key: p.key }, props: { pub: p } }));
+}
+const { pub: p } = Astro.props;
+const links = pubLinks(p);
+const icon: Record<string, any> = { doi: ExternalLink, arxiv: FileText, pdf: FileText, code: CodeXml, data: Database, slides: Presentation, video: Video, url: ExternalLink };
+const threads = (await getCollection("research")).filter((t) => p.threads?.includes(t.id)).sort((a, b) => a.data.order - b.data.order);
+const news = (await getCollection("news", ({ data }) => !data.draft && data.publication === p.key)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const related = publications
+  .filter((q) => q.key !== p.key && q.threads?.some((t) => p.threads?.includes(t)))
+  .sort((a, b) => (b.citations?.count ?? 0) - (a.citations?.count ?? 0))
+  .slice(0, 4);
+const tldr = p.sources?.tldr;
+const site = (Astro.site ?? new URL("https://auralab.sh")).origin;
+
+// Google Scholar indexing tags (https://scholar.google.com/intl/en/scholar/inclusion.html#indexing)
+const meta: { name: string; content: string }[] = [
+  { name: "citation_title", content: p.title },
+  ...p.authors.map((a) => ({ name: "citation_author", content: displayName(a.name) })),
+  { name: "citation_publication_date", content: p.date && p.date.length >= 7 ? p.date.slice(0, 7).replace("-", "/") : String(p.year) },
+];
+if (p.type === "journal" || p.type === "magazine") meta.push({ name: "citation_journal_title", content: p.venue_info?.name ?? p.venue_raw ?? "" });
+if (p.type === "conference" || p.type === "workshop") meta.push({ name: "citation_conference_title", content: p.venue_raw || p.venue_info?.name || "" });
+if (p.volume) meta.push({ name: "citation_volume", content: p.volume });
+if (p.number) meta.push({ name: "citation_issue", content: p.number });
+if (p.pages) {
+  const [f, l] = p.pages.split(/[-–]+/);
+  if (f) meta.push({ name: "citation_firstpage", content: f });
+  if (l) meta.push({ name: "citation_lastpage", content: l });
+}
+if (p.doi) meta.push({ name: "citation_doi", content: p.doi });
+if (p.arxiv) meta.push({ name: "citation_arxiv_id", content: p.arxiv });
+const pdf = links.find((l) => l.kind === "pdf")?.href;
+if (pdf) meta.push({ name: "citation_pdf_url", content: pdf });
+if (p.publisher) meta.push({ name: "citation_publisher", content: p.publisher });
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  headline: p.title,
+  name: p.title,
+  author: p.authors.map((a) => ({ "@type": "Person", name: displayName(a.name), ...(a.member ? { url: `${site}/people/${a.member}/` } : {}) })),
+  datePublished: p.date ?? String(p.year),
+  isPartOf: { "@type": p.type === "journal" || p.type === "magazine" ? "Periodical" : "PublicationEvent", name: p.venue_info?.name ?? p.venue_raw },
+  ...(p.doi ? { sameAs: `https://doi.org/${p.doi}`, identifier: { "@type": "PropertyValue", propertyID: "DOI", value: p.doi } } : {}),
+  ...(p.abstract ? { abstract: p.abstract } : {}),
+  ...(p.keywords?.length ? { keywords: p.keywords.join(", ") } : {}),
+  url: `${site}/publications/${p.key}/`,
+  publisher: { "@type": "Organization", name: p.publisher ?? p.venue_info?.name ?? "" },
+  sourceOrganization: { "@id": `${site}/#org` },
+};
+const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.venue_raw} (${p.year}).`).slice(0, 300);
+---
+
+<Base title={p.title} description={desc} image={`/og/publications-${p.key}.png`} type="article" meta={meta} jsonLd={jsonLd} publishedTime={p.date}>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="caption"><a href="/publications/">Publications</a> · <span class="caption-num">{p.venue ?? p.venue_info.key}</span> · {pubDateLabel(p)}</p>
+      <h1 class="paper-title mt-2">{p.title}</h1>
+      <p class="paper-authors mt-3">
+        {p.authors.map((a, i) => (
+          <>
+            {a.member ? <a href={`/people/${a.member}/`} class="au au--member">{displayName(a.name)}</a> : <span class="au">{displayName(a.name)}</span>}
+            {i < p.authors.length - 1 ? <span class="faint">, </span> : ""}
+          </>
+        ))}
+      </p>
+      <p class="paper-venue mt-2">
+        <span class:list={["venue-badge", { "venue-badge--preprint": bucketOf(p) === "preprint", "venue-badge--muted": bucketOf(p) === "magazine" }]}>{p.venue ?? p.venue_info.key}</span>
+        <span>{p.venue_info?.name ?? p.venue_raw}{p.volume && `, vol. ${p.volume}`}{p.number && ` (${p.number})`}{p.pages && `, pp. ${p.pages}`} · {p.year}</span>
+        {p.status === "accepted" && <span class="tag tag--accent">to appear</span>}
+        {p.award && <span class="tag tag--accent">{p.award}</span>}
+        {p.venue_info?.rank && <span class="tag">{p.venue_info.rank}</span>}
+      </p>
+      <div class="btn-row mt-3">
+        {links.map((l, i) => {
+          const I = icon[l.kind] ?? ExternalLink;
+          return (
+            <a class:list={["btn", { "btn--accent": i === 0 }]} href={l.href} target="_blank" rel="noopener">
+              <I />
+              {l.label}
+            </a>
+          );
+        })}
+        <a class="btn btn--ghost" href="#bibtex"><Quote />BibTeX</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--flush">
+    <div class="shell paper-grid">
+      <div>
+        {tldr && (
+          <div class="tldr">
+            <p class="caption">// TL;DR <span class="faint" style="text-transform:none;letter-spacing:0">— auto-generated by Semantic Scholar</span></p>
+            <p class="tldr-text">{tldr}</p>
+          </div>
+        )}
+        {p.abstract && (
+          <>
+            <p class="caption mt-4">// Abstract</p>
+            <div class="prose mt-2"><p>{p.abstract}</p></div>
+          </>
+        )}
+        {!p.abstract && !tldr && <p class="muted">No abstract available yet — follow the links above for the full text.</p>}
+
+        <p class="caption mt-6" id="bibtex">// BibTeX</p>
+        <div class="bib mt-2">
+          <pre class="mono"><code>{p.bibtex}</code></pre>
+          <button type="button" class="bib-copy" data-copy={p.bibtex}><Copy />Copy</button>
+        </div>
+      </div>
+      <aside class="paper-aside">
+        <dl class="essentials">
+          <div class="es-row"><dt class="es-k">Type</dt><dd class="es-v">{p.type}{isReviewed(p) ? " · peer-reviewed" : ""}</dd></div>
+          {p.doi && <div class="es-row"><dt class="es-k">DOI</dt><dd class="es-v mono" style="font-size:12.5px;word-break:break-all"><a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">{p.doi}</a></dd></div>}
+          {p.arxiv && <div class="es-row"><dt class="es-k">arXiv</dt><dd class="es-v mono" style="font-size:12.5px"><a href={`https://arxiv.org/abs/${p.arxiv}`} target="_blank" rel="noopener">{p.arxiv}</a></dd></div>}
+          {(p.citations?.count ?? 0) > 0 && <div class="es-row"><dt class="es-k">Citations</dt><dd class="es-v"><b>{p.citations!.count}</b> <span class="es-faint">· {Object.keys(p.citations!.by_source ?? {}).join(" / ").replace("s2", "Semantic Scholar").replace("openalex", "OpenAlex").replace("scholar", "Google Scholar")}</span></dd></div>}
+          {threads.length > 0 && (
+            <div class="es-row"><dt class="es-k">Threads</dt><dd class="es-v">{threads.map((t, i) => <><a href={`/research/${t.id}/`}>{t.data.letter} · {t.data.title}</a>{i < threads.length - 1 ? <br /> : ""}</>)}</dd></div>
+          )}
+          {p.keywords && p.keywords.length > 0 && <div class="es-row"><dt class="es-k">Keywords</dt><dd class="es-v"><div class="tag-row">{p.keywords.slice(0, 8).map((k) => <span class="tag">{k}</span>)}</div></dd></div>}
+          <div class="es-row"><dt class="es-k">Cite as</dt><dd class="es-v" style="font-size:13px">{p.authors.map((a) => displayName(a.name)).join(", ")}. {p.title}. <i>{p.venue_info?.name ?? p.venue_raw}</i>, {p.year}.</dd></div>
+        </dl>
+        {news.length > 0 && (
+          <>
+            <p class="caption mt-4">// In the news</p>
+            <ul class="mt-2">
+              {news.map((n) => (
+                <li class="news-mini"><a href={`/news/${n.id}/`}>{n.data.title}</a><span class="faint mono"> · {fmtDate(n.data.date)}</span></li>
+              ))}
+            </ul>
+          </>
+        )}
+      </aside>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section">
+      <div class="shell">
+        <h2 class="h2">Related <b>work</b> from the lab.</h2>
+        <div class="mt-3" style="border-top: var(--hair) solid var(--line)">
+          {related.map((r) => <PubRow pub={r} compact />)}
+        </div>
+      </div>
+    </section>
+  )}
+  <section class="section">
+    <div class="shell"><a href="/publications/" class="link-arrow"><ArrowLeft /> All publications</a></div>
+  </section>
+</Base>
+
+<style>
+  .paper-title { font-size: clamp(26px, 3.2vw, 44px); line-height: 1.12; font-weight: 400; letter-spacing: -0.022em; max-width: 30ch; }
+  .paper-authors { font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-mute); }
+  .au--member { color: var(--ink); font-weight: 600; }
+  .paper-venue { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 14px; color: var(--ink-mute); }
+  .paper-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+  @media (min-width: 1000px) { .paper-grid { grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr); gap: 72px; } }
+  .tldr { padding: 18px 20px; border-left: 2px solid var(--accent); background: var(--accent-tint); border-radius: 0 8px 8px 0; }
+  .tldr-text { margin-top: 8px; font-size: 16.5px; line-height: 1.5; color: var(--accent-deep); }
+  .bib { position: relative; }
+  .bib pre { margin: 0; padding: 14px 16px; background: var(--bg-soft); border: var(--hair) solid var(--line-soft); border-radius: 8px; font-size: 12.5px; line-height: 1.55; overflow-x: auto; color: var(--ink-mid); }
+  .bib-copy { position: absolute; top: 8px; right: 8px; display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 8px; background: #fff; border: var(--hair) solid var(--line-soft); border-radius: 4px; color: var(--ink-mute); }
+  .bib-copy:hover { color: var(--accent); border-color: var(--accent); }
+  .bib-copy :global(svg) { width: 11px; height: 11px; }
+  .news-mini { padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14px; }
+  .news-mini a { font-weight: 500; }
+</style>
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".bib-copy").forEach((btn) =>
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+        const old = btn.innerHTML;
+        btn.textContent = "Copied";
+        setTimeout(() => (btn.innerHTML = old), 1400);
+      } catch {}
+    })
+  );
+</script>

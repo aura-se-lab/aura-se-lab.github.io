@@ -1,0 +1,110 @@
+---
+/**
+ * One publication in a list. Venue column + content column.
+ * `compact` hides the meta line (used on the homepage / profile pages).
+ */
+import type { Publication } from "@/lib/pubs";
+import { pubLinks, venueLabel, displayName, shortName, bucketOf, pubDateLabel } from "@/lib/pubs";
+import { Award, ExternalLink, FileText, CodeXml, Database, Presentation, Video, Quote, Copy } from "@lucide/astro";
+
+interface Props {
+  pub: Publication;
+  compact?: boolean;
+  /** highlight this member slug (bold) */
+  highlight?: string;
+  showYear?: boolean;
+  /** render the author list with full names instead of initials */
+  fullNames?: boolean;
+}
+const { pub: p, compact = false, highlight, showYear = true, fullNames = false } = Astro.props;
+const links = pubLinks(p);
+const bucket = bucketOf(p);
+const badgeClass = bucket === "preprint" ? "venue-badge venue-badge--preprint" : bucket === "magazine" ? "venue-badge venue-badge--muted" : "venue-badge";
+const icon: Record<string, any> = { doi: ExternalLink, arxiv: FileText, pdf: FileText, code: CodeXml, data: Database, slides: Presentation, video: Video, url: ExternalLink };
+const cites = p.citations?.count ?? 0;
+const memberAuthors = p.authors.filter((a) => a.member).length;
+---
+
+<article class="pub" data-key={p.key} data-year={p.year} data-bucket={bucket} data-type={p.type} data-threads={(p.threads ?? []).join(" ")} data-members={p.authors.map((a) => a.member).filter(Boolean).join(" ")}>
+  <div class="pub-venue">
+    <a class={badgeClass} href={p.venue_info?.url ?? undefined} title={p.venue_info?.name} target={p.venue_info?.url ? "_blank" : undefined} rel="noopener">{venueLabel(p)}</a>
+    {showYear && <span class="pub-year mono">{p.year}</span>}
+    {p.award && <span class="pub-award" title={p.award}><Award /></span>}
+  </div>
+  <div class="pub-body">
+    <h3 class="pub-title"><a href={`/publications/${p.key}/`}>{p.title}</a></h3>
+    <p class="pub-authors">
+      {p.authors.map((a, i) => {
+        const name = fullNames ? displayName(a.name) : shortName(a.name);
+        const isHl = a.member && (highlight ? a.member === highlight : true);
+        return (
+          <>
+            {a.member ? <a href={`/people/${a.member}/`} class:list={["author", { "author--member": isHl }]}>{name}</a> : <span class="author">{name}</span>}
+            {i < p.authors.length - 1 ? ", " : ""}
+          </>
+        );
+      })}
+    </p>
+    {!compact && (
+      <div class="pub-meta">
+        <span class="pub-venue-name" title={p.venue_raw}>
+          {p.venue_info?.name ?? p.venue_raw}
+          {p.venue_info?.rank && <span class="rank" title={`Ranking: ${p.venue_info.rank}`}> · {p.venue_info.rank}</span>}
+          {p.type !== "preprint" && p.status === "accepted" && <span class="tag tag--accent" style="margin-left:8px">to appear</span>}
+          {p.type === "preprint" && <span class="tag" style="margin-left:8px">preprint</span>}
+          {p.award && <span class="tag tag--accent" style="margin-left:8px">{p.award}</span>}
+        </span>
+        <span class="pub-links">
+          {links.map((l) => {
+            const I = icon[l.kind] ?? ExternalLink;
+            return (
+              <a href={l.href} target="_blank" rel="noopener">
+                <I />
+                {l.label}
+              </a>
+            );
+          })}
+          <button type="button" class="bib-toggle" data-bib-for={p.key} aria-expanded="false" title="Show BibTeX"><Quote />BibTeX</button>
+          {cites > 0 && <span class="cites" title={`${cites} citations (Semantic Scholar / OpenAlex)`}>{cites} cit.</span>}
+        </span>
+      </div>
+    )}
+    {!compact && (
+      <div class="bib-panel" id={`bib-${p.key}`} hidden>
+        <pre class="mono"><code>{p.bibtex}</code></pre>
+        <button type="button" class="bib-copy" data-copy={p.bibtex}><Copy />Copy</button>
+      </div>
+    )}
+  </div>
+</article>
+
+<style>
+  .pub { display: grid; grid-template-columns: 86px 1fr; column-gap: 18px; padding: 18px 0; border-bottom: var(--hair) solid var(--line-soft); }
+  .pub:hover { background: linear-gradient(90deg, var(--bg-soft), transparent 60%); }
+  .pub-venue { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; padding-top: 2px; }
+  .pub-year { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; }
+  .pub-award { color: var(--gold); }
+  .pub-award :global(svg) { width: 14px; height: 14px; }
+  .pub-title { font-size: 17px; line-height: 1.35; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
+  .pub-title a:hover { color: var(--accent); }
+  .pub-authors { margin-top: 5px; font-size: 14px; color: var(--ink-mute); line-height: 1.5; }
+  .author--member { color: var(--ink); font-weight: 600; }
+  a.author:hover { color: var(--accent); }
+  .pub-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px; margin-top: 8px; font-size: 12.5px; color: var(--ink-mute); align-items: center; }
+  .pub-venue-name { max-width: 60ch; }
+  .rank { color: var(--ink-faint); }
+  .pub-links { display: inline-flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; }
+  .pub-links a, .pub-links button { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-mute); }
+  .pub-links a:hover, .pub-links button:hover { color: var(--accent); }
+  .pub-links :global(svg) { width: 12px; height: 12px; }
+  .cites { font-family: var(--font-mono); font-size: 11px; color: var(--accent-deep); background: var(--accent-tint); padding: 2px 6px; border-radius: 3px; }
+  .bib-panel { position: relative; margin-top: 10px; }
+  .bib-panel pre { margin: 0; padding: 12px 14px; background: var(--bg-soft); border: var(--hair) solid var(--line-soft); border-radius: 6px; font-size: 12px; line-height: 1.5; overflow-x: auto; color: var(--ink-mid); }
+  .bib-copy { position: absolute; top: 8px; right: 8px; display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 8px; background: #fff; border: var(--hair) solid var(--line-soft); border-radius: 4px; color: var(--ink-mute); }
+  .bib-copy:hover { color: var(--accent); border-color: var(--accent); }
+  .bib-copy :global(svg) { width: 11px; height: 11px; }
+  @media (max-width: 640px) {
+    .pub { grid-template-columns: 1fr; row-gap: 6px; }
+    .pub-venue { flex-direction: row; align-items: center; gap: 10px; }
+  }
+</style>

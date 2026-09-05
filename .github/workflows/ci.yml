@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, astro-rebuild]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build & check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Astro type check
+        run: npx astro check
+        continue-on-error: true # informative for now; flip to hard-fail once the codebase settles
+
+      - name: Build
+        run: npm run build
+
+      - name: Internal link check (lychee, offline)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --offline --no-progress --include-fragments
+            --root-dir ${{ github.workspace }}/dist
+            --exclude-path dist/og
+            "dist/**/*.html"
+          fail: true
+
+      - name: Pipeline smoke test (local sources only, no network)
+        run: |
+          pip install -q -r scripts/pubs/requirements.txt
+          python3 scripts/pubs/sync.py --sources local --dry-run --no-news
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7

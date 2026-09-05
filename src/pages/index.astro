@@ -1,0 +1,220 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Base from "@/layouts/Base.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import ThreadTile from "@/components/ThreadTile.astro";
+import PubRow from "@/components/PubRow.astro";
+import PersonCard from "@/components/PersonCard.astro";
+import { lab, foundedLabel } from "@/lib/lab";
+import { publications, metrics, selectedPubs, pubsByThread } from "@/lib/pubs";
+import { fmtDate } from "@/lib/dates";
+import { ArrowRight, ArrowUpRight, MapPin, Sparkles, GraduationCap, Landmark, BookOpen, Users } from "@lucide/astro";
+
+const threads = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
+const people = (await getCollection("people")).filter((p) => p.data.status === "current").sort((a, b) => a.data.order - b.data.order);
+const director = people.find((p) => p.data.role === "director") ?? (await getEntry("people", lab.director.slug))!;
+const roster = people.filter((p) => p.data.role !== "director");
+const news = (await getCollection("news", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+const selected = selectedPubs(6);
+const phd = people.filter((p) => p.data.role === "phd").length;
+const ug = people.filter((p) => p.data.role === "undergrad").length;
+const venues = metrics.venues.filter((v) => v !== "arXiv");
+const activeFunding = lab.funding.filter((f) => f.status === "active");
+const words = lab.acronym.words;
+---
+
+<Base>
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="shell">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <p class="caption hero-eyebrow"><span class="caption-num">AURA LAB</span> · {lab.institution.name} · Founded {foundedLabel}</p>
+          <h1 class="h1">
+            Trustworthy, resource&#8209;efficient <b>AI</b> for the next generation of <span class="acc">software</span>.
+          </h1>
+          <p class="hero-acro" aria-label={lab.acronym.expansion}>
+            <span class="acro-word"><b>{words[0][0]}</b>{words[0].slice(1)}</span>{" for "}
+            <span class="acro-word"><b>{words[1][0]}</b>{words[1].slice(1)}</span>{" and "}
+            <span class="acro-word"><b>{words[2][0]}</b>{words[2].slice(1)}</span>{" "}
+            <span class="acro-word"><b>{words[3][0]}</b>{words[3].slice(1)}</span>{" "}
+            <span class="acro-tail">in Software Engineering</span>
+          </p>
+          <p class="lead hero-statement">{lab.statement}</p>
+          <div class="btn-row hero-cta">
+            <a class="btn btn--accent" href="/publications/">Publications <ArrowRight /></a>
+            <a class="btn" href="/research/">Research threads</a>
+            <a class="btn btn--ghost" href="/join/">Join the lab</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <dl class="essentials" aria-label="At a glance">
+            <div class="es-row">
+              <dt class="es-k"><Sparkles />Director</dt>
+              <dd class="es-v"><a href={`/people/${director.id}/`}><b>{director.data.name}</b></a> <span class="es-faint">· Assistant Professor</span></dd>
+            </div>
+            <div class="es-row">
+              <dt class="es-k"><Users />People</dt>
+              <dd class="es-v"><b>{phd}</b> Ph.D. students · <b>{ug}</b> undergraduate researchers</dd>
+            </div>
+            <div class="es-row">
+              <dt class="es-k"><BookOpen />Output</dt>
+              <dd class="es-v"><b>{metrics.reviewed}</b> peer-reviewed papers since {foundedLabel} <span class="es-faint">· {metrics.total} items incl. preprints & columns</span></dd>
+            </div>
+            <div class="es-row">
+              <dt class="es-k"><GraduationCap />Venues</dt>
+              <dd class="es-v venue-strip">{venues.map((v) => <span class="venue-badge">{v}</span>)}</dd>
+            </div>
+            {activeFunding.map((f) => (
+              <div class="es-row">
+                <dt class="es-k"><Landmark />Funding</dt>
+                <dd class="es-v"><a href={f.url} target="_blank" rel="noopener"><b>{f.program.replace("NSF CISE Research Initiation Initiative (CRII)", "NSF CRII")}</b></a> <span class="es-faint">· award #{f.award} · {f.period}</span></dd>
+              </div>
+            ))}
+            <div class="es-row">
+              <dt class="es-k"><MapPin />Where</dt>
+              <dd class="es-v">{lab.institution.address.building} · {lab.institution.address.city}, {lab.institution.address.region}</dd>
+            </div>
+          </dl>
+          <a class="hero-director" href={`/people/${director.id}/`}>
+            {director.data.photo && <Image src={director.data.photo} alt={director.data.name} width={160} height={160} class="hd-photo" />}
+            <span class="hd-text">
+              <span class="caption">// Lab director</span>
+              <span class="hd-name">{director.data.name}</span>
+              <span class="hd-role">Assistant Professor of Computer Science, {lab.institution.short}</span>
+            </span>
+            <ArrowUpRight class="hd-arrow" />
+          </a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Research threads ─────────────────────────────────────────────────── -->
+  <section class="section" id="research">
+    <div class="shell">
+      <SectionHead num="01" cap="Research" sub="Four threads, one aura. Efficiency feeds reliability, neurosymbolic reasoning feeds interpretability, and agents inherit all of it.">
+        What we <b>work on</b>.
+        <a slot="aside" class="link-arrow" href="/research/">All threads <ArrowRight /></a>
+      </SectionHead>
+      <div class="grid-4">
+        {threads.map((t, i) => <ThreadTile thread={t} index={i + 1} total={threads.length} count={pubsByThread(t.id).length} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Selected publications ────────────────────────────────────────────── -->
+  <section class="section" id="publications">
+    <div class="shell">
+      <SectionHead num="02" cap="Publications" sub={`${metrics.reviewed} peer-reviewed papers, ${metrics.by_type.preprint ?? 0} preprints and ${metrics.by_type.magazine ?? 0} magazine columns — refreshed automatically from DBLP, Crossref, Semantic Scholar and arXiv.`}>
+        Selected <b>papers</b>.
+        <a slot="aside" class="link-arrow" href="/publications/">All {publications.length} <ArrowRight /></a>
+      </SectionHead>
+      <div class="sel-list">
+        {selected.map((p) => <PubRow pub={p} compact />)}
+      </div>
+      <div class="btn-row mt-3">
+        <a class="btn" href="/publications/">Browse all publications <ArrowRight /></a>
+        <a class="btn btn--ghost" href="/aura.bib" download>Download BibTeX</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── News ─────────────────────────────────────────────────────────────── -->
+  <section class="section" id="news">
+    <div class="shell">
+      <div class="news-grid">
+        <div>
+          <SectionHead num="03" cap="News">
+            Recent <b>news</b>.
+          </SectionHead>
+        </div>
+        <ol class="news-list">
+          {news.map((n) => (
+            <li>
+              <a href={`/news/${n.id}/`} class="news-row">
+                <time class="mono" datetime={n.data.date.toISOString()}>{fmtDate(n.data.date, { month: "short", year: "numeric", day: "numeric" })}</time>
+                <span class="news-title">{n.data.title}</span>
+                <ArrowUpRight class="news-arrow" />
+              </a>
+            </li>
+          ))}
+          <li class="news-more"><a class="link-arrow" href="/news/">News archive <ArrowRight /></a> <a class="link-arrow" href="/rss.xml">RSS</a></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── People ───────────────────────────────────────────────────────────── -->
+  <section class="section" id="people">
+    <div class="shell">
+      <SectionHead num="04" cap="People" sub="A growing group of Ph.D. students and undergraduates working at the intersection of AI and software engineering.">
+        The <b>lab</b>.
+        <a slot="aside" class="link-arrow" href="/people/">Everyone <ArrowRight /></a>
+      </SectionHead>
+      <div class="grid-4">
+        {roster.map((p, i) => <PersonCard person={p} idx={`${p.data.role === "phd" ? "PHD" : p.data.role.toUpperCase()}-${String(i + 1).padStart(2, "0")}`} size="sm" />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Join ─────────────────────────────────────────────────────────────── -->
+  <section class="section section--ink" id="join">
+    <div class="shell">
+      <div class="join-grid">
+        <div>
+          <p class="caption" style="color:rgba(255,255,255,.6)"><span class="caption-num" style="color:var(--accent-bright)">05</span> · Join</p>
+          <h2 class="h2 mt-2" style="color:#fff">Work with <b>us</b>.</h2>
+        </div>
+        <div>
+          <p class="lead" style="color:rgba(255,255,255,.85)">We are looking for Ph.D. students and W&M undergraduates who want to make AI for software engineering cheaper to run, easier to inspect, and honest about what it gets wrong.</p>
+          <div class="btn-row mt-3">
+            <a class="btn btn--accent" href="/join/">How to join <ArrowRight /></a>
+            <a class="btn join-btn-ghost" href={`mailto:${lab.contact.email}`}>{lab.contact.email}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: clamp(48px, 7vw, 96px) 0 clamp(40px, 6vw, 80px); border-bottom: var(--hair) solid var(--line); }
+  .hero-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+  @media (min-width: 1000px) { .hero-grid { grid-template-columns: 1.35fr 1fr; gap: 64px; align-items: start; } }
+  .hero-eyebrow { margin-bottom: 26px; }
+  .hero-main .h1 { max-width: 14ch; }
+  .hero-acro { margin-top: 26px; font-size: clamp(17px, 1.6vw, 21px); font-weight: 300; letter-spacing: -0.005em; color: var(--ink-soft); }
+  .hero-acro b { font-weight: 700; color: var(--accent); }
+  .acro-tail { color: var(--ink-faint); }
+  .hero-statement { margin-top: 22px; max-width: 62ch; font-size: clamp(16px, 1.3vw, 18px); color: var(--ink-mute); }
+  .hero-cta { margin-top: 32px; }
+  .hero-side { border: var(--hair) solid var(--line-soft); border-radius: 12px; padding: 18px 22px 22px; background: linear-gradient(180deg, #fff, var(--bg-soft)); }
+  .hero-side .essentials { border-top: 0; }
+  .venue-strip { display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-director { display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center; margin-top: 18px; padding-top: 18px; border-top: var(--hair) solid var(--line); color: inherit; }
+  .hero-director :global(.hd-photo) { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+  .hd-text { display: flex; flex-direction: column; gap: 2px; }
+  .hd-name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  .hd-role { font-size: 12.5px; color: var(--ink-mute); }
+  .hero-director :global(.hd-arrow) { width: 18px; height: 18px; color: var(--ink-faint); transition: transform 0.15s; }
+  .hero-director:hover :global(.hd-arrow) { transform: translate(2px, -2px); color: var(--accent); }
+  .sel-list { border-top: var(--hair) solid var(--line); }
+  .news-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 900px) { .news-grid { grid-template-columns: 1fr 2fr; gap: 48px; } }
+  .news-list { border-top: var(--hair) solid var(--line); }
+  .news-row { display: grid; grid-template-columns: 120px 1fr 18px; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: var(--hair) solid var(--line-soft); }
+  .news-row time { font-size: 11.5px; color: var(--ink-faint); letter-spacing: 0.04em; }
+  .news-title { font-size: 16.5px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); line-height: 1.4; }
+  .news-row:hover .news-title { color: var(--accent); }
+  .news-row :global(.news-arrow) { width: 16px; height: 16px; color: var(--ink-faint); align-self: center; }
+  .news-more { display: flex; gap: 24px; padding-top: 18px; font-size: 14px; }
+  .join-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 900px) { .join-grid { grid-template-columns: 1fr 2fr; gap: 48px; align-items: start; } }
+  .join-btn-ghost { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.3); }
+  .join-btn-ghost:hover { background: #fff; color: var(--ink); }
+  @media (max-width: 640px) { .news-row { grid-template-columns: 1fr 18px; } .news-row time { grid-column: 1 / -1; } }
+</style>

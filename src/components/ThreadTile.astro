@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { ArrowRight } from "@lucide/astro";
+
+interface Props {
+  thread: CollectionEntry<"research">;
+  index: number; // 1-based
+  total: number;
+  count?: number; // number of publications
+}
+const { thread, index, total, count } = Astro.props;
+const d = thread.data;
+---
+
+<a class="card tile" href={`/research/${thread.id}/`}>
+  <div class="card-strip">
+    <span>Thread {String(index).padStart(2, "0")}/{String(total).padStart(2, "0")}</span>
+    {typeof count === "number" && <span>{count} {count === 1 ? "paper" : "papers"}</span>}
+  </div>
+  <div class="tile-body">
+    <div class="tile-letter" aria-hidden="true">{d.letter}</div>
+    <h3 class="tile-h">{d.title}</h3>
+    <p class="tile-d">{d.short}</p>
+    <div class="tag-row tile-tags">
+      {d.tags.slice(0, 5).map((t) => <span class="tag">{t}</span>)}
+    </div>
+    <span class="tile-more link-arrow">Explore <ArrowRight /></span>
+  </div>
+</a>
+
+<style>
+  .tile { display: flex; flex-direction: column; }
+  .tile-body { padding: 22px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .tile-letter { font-size: 56px; font-weight: 200; letter-spacing: -0.04em; line-height: 0.9; color: var(--accent); font-family: var(--font-sans); }
+  .tile-h { margin-top: 14px; font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; color: var(--ink); }
+  .tile-d { margin-top: 10px; font-size: 14.5px; line-height: 1.55; color: var(--ink-mute); flex: 1; }
+  .tile-tags { margin-top: 16px; }
+  .tile-more { margin-top: 18px; font-size: 13.5px; align-self: flex-start; }
+</style>

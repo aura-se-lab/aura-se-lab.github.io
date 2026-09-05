@@ -1,0 +1,74 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import PubRow from "@/components/PubRow.astro";
+import { pubByKey } from "@/lib/pubs";
+import { fmtDate } from "@/lib/dates";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "@lucide/astro";
+
+export async function getStaticPaths() {
+  const items = (await getCollection("news", ({ data }) => !data.draft)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  return items.map((item, i) => ({ params: { slug: item.id }, props: { item, newer: items[i - 1], older: items[i + 1] } }));
+}
+const { item, newer, older } = Astro.props;
+const { Content } = await render(item);
+const d = item.data;
+const pub = d.publication ? pubByKey(d.publication) : undefined;
+const people = (await getCollection("people")).filter((p) => d.people.includes(p.id));
+const site = (Astro.site ?? new URL("https://auralab.sh")).origin;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  headline: d.title,
+  datePublished: d.date.toISOString(),
+  author: { "@id": `${site}/#org` },
+  publisher: { "@id": `${site}/#org` },
+  url: `${site}/news/${item.id}/`,
+  ...(pub ? { about: { "@type": "ScholarlyArticle", name: pub.title, url: `${site}/publications/${pub.key}/` } } : {}),
+};
+const plain = item.body?.replace(/[#*_>`]/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\s+/g, " ").trim().slice(0, 240) ?? d.title;
+---
+
+<Base title={d.title} description={plain} image={`/og/news-${item.id}.png`} type="article" jsonLd={jsonLd} publishedTime={d.date.toISOString()}>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="caption"><a href="/news/">News</a> · <span class="caption-num">{d.kind}</span> · <time datetime={d.date.toISOString()}>{fmtDate(d.date, { year: "numeric", month: "long", day: "numeric" })}</time></p>
+      <h1 class="h1 mt-2" style="font-size:clamp(30px,3.8vw,54px);max-width:26ch">{d.title}</h1>
+    </div>
+  </section>
+  <section class="section section--flush">
+    <div class="shell news-grid">
+      <div class="prose" style="font-size:18px"><Content /></div>
+      <aside>
+        {pub && (
+          <>
+            <p class="caption">// Paper</p>
+            <div class="mt-2" style="border-top: var(--hair) solid var(--line)"><PubRow pub={pub} compact /></div>
+            <a class="link-arrow mt-2" href={`/publications/${pub.key}/`}>Paper page <ArrowUpRight /></a>
+          </>
+        )}
+        {people.length > 0 && (
+          <>
+            <p class="caption mt-4">// People</p>
+            <ul class="mt-2">{people.map((p) => <li class="mini"><a href={`/people/${p.id}/`}>{p.data.name}</a> <span class="faint">· {p.data.title ?? p.data.role}</span></li>)}</ul>
+          </>
+        )}
+        {d.link && <p class="mt-4"><a class="link-arrow" href={d.link} target="_blank" rel="noopener">External link <ArrowUpRight /></a></p>}
+      </aside>
+    </div>
+  </section>
+  <section class="section">
+    <div class="shell nav-row">
+      {newer ? <a class="link-arrow" href={`/news/${newer.id}/`}><ArrowLeft /> {newer.data.title}</a> : <a class="link-arrow" href="/news/"><ArrowLeft /> All news</a>}
+      {older && <a class="link-arrow" href={`/news/${older.id}/`}>{older.data.title} <ArrowRight /></a>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .news-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 1000px) { .news-grid { grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 72px; } }
+  .mini { padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14.5px; }
+  .mini a { font-weight: 600; }
+  .nav-row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+</style>

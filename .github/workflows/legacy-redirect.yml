@@ -1,0 +1,29 @@
+name: Legacy redirect (GitHub Pages)
+
+# aura-se-lab.github.io used to be the lab site. Keep old links alive by
+# publishing a tiny path-preserving redirect to auralab.sh on the gh-pages branch.
+# Repository → Settings → Pages must point at branch `gh-pages` (root).
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/legacy-redirect.yml"
+      - "scripts/legacy-redirect/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish redirect page to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: scripts/legacy-redirect
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: "redirect: aura-se-lab.github.io → auralab.sh"

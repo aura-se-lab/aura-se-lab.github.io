@@ -1,0 +1,32 @@
+{
+  "updated": "2026-09-05T09:57+00:00",
+  "total": 52,
+  "reviewed": 19,
+  "by_year": {
+    "2024": 3,
+    "2025": 18,
+    "2026": 30,
+    "2027": 1
+  },
+  "by_type": {
+    "journal": 9,
+    "magazine": 21,
+    "preprint": 12,
+    "conference": 9,
+    "workshop": 1
+  },
+  "citations": 157,
+  "venues": [
+    "AI-SDLC",
+    "EMSE",
+    "FORGE",
+    "ICPC",
+    "ICSME",
+    "JSS",
+    "TOSEM",
+    "TSE"
+  ],
+  "members_current": 9,
+  "phd_current": 6,
+  "scholar": null
+}

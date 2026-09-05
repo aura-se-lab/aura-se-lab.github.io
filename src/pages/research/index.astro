@@ -1,0 +1,120 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import ThreadTile from "@/components/ThreadTile.astro";
+import { lab } from "@/lib/lab";
+import { pubsByThread } from "@/lib/pubs";
+import { ArrowUpRight } from "@lucide/astro";
+
+const threads = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
+const objectives = [
+  { h: "Resource-efficient AI for code", d: "Shrink foundation models through quantization, distillation, and parameter-efficient fine-tuning so they run inside developer tools — without a data-center bill." },
+  { h: "Trustworthy by construction", d: "Rigorous reliability evaluation, neurosymbolic reasoning, and causal analysis to tell when a model is actually right versus merely fluent." },
+  { h: "Open by default", d: "Papers, datasets, and replication packages shipped publicly. Reproducibility is a baseline, not a feature." },
+];
+---
+
+<Base title="Research" description={`Research threads of the AURA Lab: ${threads.map((t) => t.data.title).join("; ")}.`} image="/og/research.png">
+  <section class="page-hero">
+    <div class="shell">
+      <p class="caption"><span class="caption-num">Research</span> · {lab.short_name}</p>
+      <h1 class="h1 mt-2">Building <b>trustworthy</b>, resource-efficient AI for the next generation of <span class="acc">software</span>.</h1>
+      <p class="lead mt-3" style="max-width:70ch">
+        The AURA Lab investigates how foundation models can be made measurably more <b>efficient</b>, <b>interpretable</b>, and <b>trustworthy</b> for software engineering — from quantization and parameter-efficient fine-tuning to neurosymbolic reasoning, honest evaluation, and agents that act across the software lifecycle.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHead num="01" cap="Mission">Our <b>mission</b>.</SectionHead>
+      <div class="brief">
+        <div>
+          <p class="caption">// Abstract</p>
+          <p class="brief-quote">{lab.brief[0]}</p>
+          <div class="prose mt-3">
+            <p>{lab.statement}</p>
+          </div>
+        </div>
+        <div>
+          <p class="caption">// Objectives · {String(objectives.length).padStart(2, "0")}</p>
+          <ul class="ledger mt-2">
+            {objectives.map((o, i) => (
+              <li class="ledger-row">
+                <span class="ledger-idx">O.{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <div class="ledger-h">{o.h}</div>
+                  <div class="ledger-d">{o.d}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="threads">
+    <div class="shell">
+      <SectionHead num="02" cap="Threads" sub="A·U·R·A — AI for code · Understanding what models do · Reliable evaluation of their behavior · Automation practitioners can trust. The threads cross-pollinate.">
+        Research <b>threads</b>.
+      </SectionHead>
+      <div class="grid-2">
+        {threads.map((t, i) => <ThreadTile thread={t} index={i + 1} total={threads.length} count={pubsByThread(t.id).length} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="funding">
+    <div class="shell">
+      <SectionHead num="03" cap="Funding" sub="Funded research lines and the programs that support our students.">
+        Projects & <b>funding</b>.
+      </SectionHead>
+      <div class="fund-table">
+        <div class="fund-head caption"><span>Program</span><span>Title & description</span><span>Metadata</span></div>
+        {lab.funding.map((f) => (
+          <article class="fund-row">
+            <div class="fund-side">
+              {f.amount && <div class="fund-amount">{f.amount}</div>}
+              <div class="fund-program">{f.program}</div>
+            </div>
+            <div class="fund-mid">
+              <div class="fund-status"><span class:list={["status-dot", { "status-dot--mute": f.status !== "active" }]}></span><span class="caption" style="display:inline">{f.status}</span>{f.role && <span class="muted"> · {f.role}</span>}</div>
+              <h3 class="h4 mt-1">{f.url ? <a href={f.url} target="_blank" rel="noopener">{f.title} <ArrowUpRight style="display:inline;width:14px;height:14px;vertical-align:-2px" /></a> : f.title}</h3>
+              {f.summary && <p class="small mt-1" style="max-width:70ch">{f.summary}</p>}
+            </div>
+            <dl class="fund-meta">
+              {f.award && <div><dt>Award #</dt><dd>{f.award}</dd></div>}
+              <div><dt>Agency</dt><dd>{f.agency}</dd></div>
+              {f.period && <div><dt>Period</dt><dd>{f.period}</dd></div>}
+            </dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .page-hero { padding: clamp(44px, 6vw, 88px) 0 clamp(36px, 5vw, 64px); border-bottom: var(--hair) solid var(--line); }
+  .page-hero .h1 { max-width: 22ch; }
+</style>
+<style>
+  .brief { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 900px) { .brief { grid-template-columns: 1.1fr 1fr; gap: 64px; } }
+  .brief-quote { margin-top: 12px; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.25; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); }
+  .fund-table { border-top: var(--hair) solid var(--line); }
+  .fund-head { display: none; grid-template-columns: 200px 1fr 220px; gap: 24px; padding: 10px 0; border-bottom: var(--hair) solid var(--line-soft); }
+  @media (min-width: 900px) { .fund-head { display: grid; } }
+  .fund-row { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 22px 0; border-bottom: var(--hair) solid var(--line-soft); }
+  @media (min-width: 900px) { .fund-row { grid-template-columns: 200px 1fr 220px; gap: 24px; } }
+  .fund-amount { font-size: 30px; font-weight: 300; letter-spacing: -0.03em; color: var(--ink); line-height: 1; }
+  .fund-program { font-size: 12.5px; color: var(--ink-mute); margin-top: 6px; line-height: 1.4; }
+  .fund-status { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .status-dot--mute { background: var(--ink-faint); box-shadow: 0 0 0 3px var(--line-soft); }
+  .fund-meta { margin: 0; display: grid; grid-template-columns: repeat(3, auto); gap: 8px 18px; align-content: start; }
+  @media (min-width: 900px) { .fund-meta { grid-template-columns: 1fr; } }
+  .fund-meta dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+  .fund-meta dd { margin: 2px 0 0; font-size: 13.5px; color: var(--ink); }
+</style>

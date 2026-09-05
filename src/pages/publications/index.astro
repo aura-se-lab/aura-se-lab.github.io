@@ -1,0 +1,187 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import PubList from "@/components/PubList.astro";
+import { publications, metrics, bucketOf, isReviewed } from "@/lib/pubs";
+import { fmtDate } from "@/lib/dates";
+import { Rss, Download, Activity, Award } from "@lucide/astro";
+
+const threads = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
+const members = (await getCollection("people")).sort((a, b) => a.data.order - b.data.order);
+const memberPubCount = (slug: string) => publications.filter((p) => p.authors.some((a) => a.member === slug)).length;
+const membersWithPubs = members.filter((m) => memberPubCount(m.id) > 0);
+
+const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
+const countBy = (f: (p: (typeof publications)[number]) => boolean) => publications.filter(f).length;
+const reviewed = publications.filter(isReviewed);
+const magazine = publications.filter((p) => bucketOf(p) === "magazine");
+const preprints = publications.filter((p) => bucketOf(p) === "preprint");
+const other = publications.filter((p) => bucketOf(p) === "other");
+const awards = publications.filter((p) => p.award).length;
+const updated = fmtDate(metrics.updated);
+---
+
+<Base title="Publications" description={`${metrics.reviewed} peer-reviewed papers, ${preprints.length} preprints and ${magazine.length} magazine columns from the AURA Lab at William & Mary.`} image="/og/publications.png">
+  <section class="page-hero">
+    <div class="shell">
+      <p class="caption"><span class="caption-num">Publications</span> · index</p>
+      <h1 class="h1 mt-2">Publication <b>index</b>.</h1>
+      <p class="lead mt-3" style="max-width:70ch">Peer-reviewed papers first; magazine columns and preprints have their own tabs. Filter by year, thread or author. Citation counts and links are refreshed automatically from DBLP, Crossref, Semantic Scholar and arXiv.</p>
+      <div class="meta-row mt-3">
+        <span class="stamp"><Activity />{metrics.citations} citations tracked · synced {updated}</span>
+        <a href="/publications.xml" class="stamp-link"><Rss />Subscribe (RSS)</a>
+        <a href="/aura.bib" class="stamp-link" download><Download />BibTeX (all)</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--flush" style="padding-top:28px">
+    <div class="shell">
+      <div class="filters" role="toolbar" aria-label="Publication filters" id="pubfilters">
+        <div class="f-group">
+          <span class="f-label">Kind</span>
+          <button class="f-btn active" data-f="bucket" data-v="reviewed">Peer-reviewed <span class="f-n">{reviewed.length}</span></button>
+          <button class="f-btn f-btn--secondary" data-f="bucket" data-v="preprint">Preprints <span class="f-n">{preprints.length}</span></button>
+          <button class="f-btn f-btn--secondary" data-f="bucket" data-v="magazine">Magazine <span class="f-n">{magazine.length}</span></button>
+          {other.length > 0 && <button class="f-btn f-btn--secondary" data-f="bucket" data-v="other">Other <span class="f-n">{other.length}</span></button>}
+          <button class="f-btn f-btn--secondary" data-f="bucket" data-v="all">All <span class="f-n">{publications.length}</span></button>
+          {awards > 0 && <button class="f-btn f-btn--award" data-f="award" data-v="1"><Award /> Awards <span class="f-n">{awards}</span></button>}
+        </div>
+        <span class="f-div" aria-hidden="true"></span>
+        <div class="f-group">
+          <span class="f-label">Year</span>
+          <button class="f-btn active" data-f="year" data-v="all">All</button>
+          {years.map((y) => <button class="f-btn" data-f="year" data-v={String(y)}>{y} <span class="f-n">{countBy((p) => p.year === y)}</span></button>)}
+        </div>
+        <span class="f-div" aria-hidden="true"></span>
+        <div class="f-group">
+          <span class="f-label">Thread</span>
+          <button class="f-btn active" data-f="thread" data-v="all">All</button>
+          {threads.map((t) => <button class="f-btn" data-f="thread" data-v={t.id} title={t.data.title}>{t.data.letter} · {t.data.title.split(/[ &,]/)[0]}</button>)}
+        </div>
+        <span class="f-div" aria-hidden="true"></span>
+        <div class="f-group">
+          <label class="f-label" for="f-member">Author</label>
+          <select id="f-member" class="f-select" data-f="member">
+            <option value="all">Everyone</option>
+            {membersWithPubs.map((m) => <option value={m.id}>{m.data.name} ({memberPubCount(m.id)})</option>)}
+          </select>
+          <label class="f-label" for="f-q" style="margin-left:8px">Search</label>
+          <input id="f-q" class="f-input" type="search" placeholder="title, author, venue…" autocomplete="off" />
+        </div>
+      </div>
+      <p class="small mt-2" id="pubcount" aria-live="polite">Showing <b>{reviewed.length}</b> peer-reviewed publications.</p>
+
+      <div class="mt-3">
+        <PubList pubs={publications} />
+      </div>
+      <p class="empty small" id="pubempty" hidden>No publications match these filters.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .meta-row { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 13px; color: var(--ink-mute); align-items: center; }
+  .stamp, .stamp-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .stamp :global(svg), .stamp-link :global(svg) { width: 13px; height: 13px; color: var(--accent); }
+  .stamp-link { color: var(--ink); border-bottom: var(--hair) solid var(--line); }
+  .stamp-link:hover { color: var(--accent); border-color: var(--accent); }
+  .filters { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 14px 16px; border: var(--hair) solid var(--line-soft); border-radius: 10px; background: var(--bg-soft); }
+  .f-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .f-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-right: 4px; }
+  .f-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 500; padding: 5px 10px; border: var(--hair) solid var(--line-soft); border-radius: 999px; background: #fff; color: var(--ink-mute); transition: all 0.12s; }
+  .f-btn:hover { border-color: var(--line-mid); color: var(--ink); }
+  .f-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .f-btn--secondary { color: var(--ink-faint); }
+  .f-btn--award :global(svg) { width: 12px; height: 12px; color: var(--gold); }
+  .f-btn.active :global(svg) { color: #fff; }
+  .f-n { font-family: var(--font-mono); font-size: 10px; opacity: 0.7; }
+  .f-div { width: var(--hair); height: 22px; background: var(--line-soft); }
+  .f-select, .f-input { font: inherit; font-size: 12.5px; padding: 5px 10px; border: var(--hair) solid var(--line-soft); border-radius: 999px; background: #fff; color: var(--ink); }
+  .f-input { min-width: 180px; }
+  .empty { padding: 32px 0; }
+  @media (max-width: 720px) { .f-div { display: none; } .filters { padding: 12px; } }
+</style>
+
+<script>
+  const state: Record<string, string> = { bucket: "reviewed", year: "all", thread: "all", member: "all", award: "0", q: "" };
+  const rows = [...document.querySelectorAll<HTMLElement>(".pub")];
+  const groups = [...document.querySelectorAll<HTMLElement>(".pub-year-group")];
+  const countEl = document.getElementById("pubcount")!;
+  const emptyEl = document.getElementById("pubempty")!;
+  const labels: Record<string, string> = { reviewed: "peer-reviewed publications", preprint: "preprints", magazine: "magazine columns", other: "other items", all: "publications" };
+
+  // restore from URL (?kind=all&year=2025&thread=...&author=...&q=...)
+  const sp = new URLSearchParams(location.search);
+  if (sp.get("kind")) state.bucket = sp.get("kind")!;
+  if (sp.get("year")) state.year = sp.get("year")!;
+  if (sp.get("thread")) state.thread = sp.get("thread")!;
+  if (sp.get("author")) state.member = sp.get("author")!;
+  if (sp.get("award")) state.award = "1";
+  if (sp.get("q")) state.q = sp.get("q")!;
+
+  function apply() {
+    let n = 0;
+    const q = state.q.trim().toLowerCase();
+    for (const r of rows) {
+      const okBucket = state.bucket === "all" || r.dataset.bucket === state.bucket;
+      const okYear = state.year === "all" || r.dataset.year === state.year;
+      const okThread = state.thread === "all" || (r.dataset.threads ?? "").split(" ").includes(state.thread);
+      const okMember = state.member === "all" || (r.dataset.members ?? "").split(" ").includes(state.member);
+      const okAward = state.award !== "1" || !!r.querySelector(".pub-award");
+      const okQ = !q || (r.textContent ?? "").toLowerCase().includes(q);
+      const show = okBucket && okYear && okThread && okMember && okAward && okQ;
+      r.hidden = !show;
+      if (show) n++;
+    }
+    for (const g of groups) {
+      const vis = [...g.querySelectorAll<HTMLElement>(".pub")].filter((r) => !r.hidden).length;
+      g.hidden = vis === 0;
+      const c = g.querySelector(".pyh-count");
+      if (c) c.textContent = `${vis} ${vis === 1 ? "paper" : "papers"}`;
+    }
+    const parts = [`Showing <b>${n}</b> ${labels[state.bucket] ?? "publications"}`];
+    if (state.year !== "all") parts.push(`from ${state.year}`);
+    if (state.thread !== "all") parts.push(`on the “${document.querySelector(`[data-f=thread][data-v="${state.thread}"]`)?.getAttribute("title")}” thread`);
+    if (state.member !== "all") parts.push(`by ${(document.querySelector(`#f-member option[value="${state.member}"]`) as HTMLOptionElement)?.text.replace(/\s\(\d+\)$/, "")}`);
+    if (state.award === "1") parts.push("with awards");
+    if (q) parts.push(`matching “${q}”`);
+    countEl.innerHTML = parts.join(" ") + ".";
+    emptyEl.hidden = n > 0;
+    // reflect in URL (no history spam)
+    const u = new URL(location.href);
+    u.search = "";
+    if (state.bucket !== "reviewed") u.searchParams.set("kind", state.bucket);
+    if (state.year !== "all") u.searchParams.set("year", state.year);
+    if (state.thread !== "all") u.searchParams.set("thread", state.thread);
+    if (state.member !== "all") u.searchParams.set("author", state.member);
+    if (state.award === "1") u.searchParams.set("award", "1");
+    if (q) u.searchParams.set("q", q);
+    history.replaceState(null, "", u);
+    // sync button states
+    document.querySelectorAll<HTMLButtonElement>(".f-btn").forEach((b) => {
+      const f = b.dataset.f!;
+      b.classList.toggle("active", f === "award" ? state.award === "1" : state[f] === b.dataset.v);
+    });
+    (document.getElementById("f-member") as HTMLSelectElement).value = state.member;
+  }
+  document.querySelectorAll<HTMLButtonElement>(".f-btn").forEach((b) =>
+    b.addEventListener("click", () => {
+      const f = b.dataset.f!;
+      if (f === "award") state.award = state.award === "1" ? "0" : "1";
+      else state[f] = b.dataset.v!;
+      apply();
+    })
+  );
+  document.getElementById("f-member")!.addEventListener("change", (e) => {
+    state.member = (e.target as HTMLSelectElement).value;
+    apply();
+  });
+  const qEl = document.getElementById("f-q") as HTMLInputElement;
+  qEl.value = state.q;
+  qEl.addEventListener("input", () => {
+    state.q = qEl.value;
+    apply();
+  });
+  apply();
+</script>

@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+  person: CollectionEntry<"people">;
+  idx?: string; // "PHD-01"
+  size?: "md" | "sm";
+}
+const { person, idx, size = "md" } = Astro.props;
+const d = person.data;
+const initials = d.name
+  .replace(/\([^)]*\)/g, "")
+  .split(/\s+/)
+  .filter(Boolean)
+  .map((s) => s[0])
+  .slice(0, 2)
+  .join("");
+---
+
+<a class:list={["card person-card", `person-card--${size}`]} href={`/people/${person.id}/`}>
+  <div class="card-strip">
+    <span>{idx ?? d.role}</span>
+    {d.joined && <span>since {d.joined.slice(0, 4)}</span>}
+  </div>
+  <div class="pc-photo">
+    {d.photo ? <Image src={d.photo} alt={d.name} width={480} height={480} class="avatar" loading="lazy" /> : <div class="avatar-placeholder" aria-hidden="true">{initials}</div>}
+  </div>
+  <div class="pc-body">
+    <div class="pc-name">{d.name}</div>
+    <div class="pc-role">{d.title ?? d.role}</div>
+    {d.interests.length > 0 && <div class="pc-int">{d.interests.slice(0, 3).join(" · ")}</div>}
+    {d.coadvised && <div class="pc-note mono">// co-advised w/ {d.coadvised}</div>}
+  </div>
+</a>
+
+<style>
+  .person-card { display: flex; flex-direction: column; overflow: hidden; }
+  .pc-photo { padding: 14px 14px 0; }
+  .pc-body { padding: 12px 16px 16px; }
+  .pc-name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .pc-role { font-size: 12.5px; color: var(--ink-mute); margin-top: 2px; }
+  .pc-int { font-size: 12.5px; color: var(--accent-deep); margin-top: 8px; line-height: 1.4; }
+  .pc-note { font-size: 10.5px; color: var(--ink-faint); margin-top: 8px; }
+  .person-card--sm .pc-photo { padding: 10px 10px 0; }
+  .person-card--sm .pc-body { padding: 10px 12px 12px; }
+  .person-card--sm .pc-name { font-size: 14px; }
+</style>

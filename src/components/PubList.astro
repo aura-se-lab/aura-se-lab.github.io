@@ -1,0 +1,70 @@
+---
+/** Publications grouped by year with the shared BibTeX toggle/copy script. */
+import type { Publication } from "@/lib/pubs";
+import { groupByYear } from "@/lib/pubs";
+import PubRow from "./PubRow.astro";
+
+interface Props {
+  pubs: Publication[];
+  highlight?: string;
+  yearHeads?: boolean;
+  compact?: boolean;
+}
+const { pubs, highlight, yearHeads = true, compact = false } = Astro.props;
+const groups = yearHeads ? groupByYear(pubs) : [[0, pubs] as [number, Publication[]]];
+---
+
+<div class="publist">
+  {groups.map(([year, list]) => (
+    <section class="pub-year-group" data-year={year}>
+      {yearHeads && (
+        <div class="pub-year-head">
+          <span class="pyh-num">{year}</span>
+          <span class="pyh-rule" aria-hidden="true"></span>
+          <span class="pyh-count mono">{list.length} {list.length === 1 ? "paper" : "papers"}</span>
+        </div>
+      )}
+      {list.map((p) => <PubRow pub={p} highlight={highlight} compact={compact} showYear={!yearHeads} />)}
+    </section>
+  ))}
+</div>
+
+<style>
+  .pub-year-head { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 18px; padding: 36px 0 10px; border-bottom: var(--hair) solid var(--line); }
+  .pub-year-group:first-child .pub-year-head { padding-top: 6px; }
+  .pyh-num { font-size: clamp(36px, 4vw, 52px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; color: var(--ink); }
+  .pyh-rule { height: var(--hair); background: var(--line-soft); align-self: center; }
+  .pyh-count { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+</style>
+
+<script>
+  function init() {
+    document.querySelectorAll<HTMLButtonElement>(".bib-toggle").forEach((btn) => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = "1";
+      btn.addEventListener("click", () => {
+        const panel = document.getElementById("bib-" + btn.dataset.bibFor);
+        if (!panel) return;
+        const open = !panel.hidden;
+        panel.hidden = open;
+        btn.setAttribute("aria-expanded", String(!open));
+      });
+    });
+    document.querySelectorAll<HTMLButtonElement>(".bib-copy").forEach((btn) => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = "1";
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+          const old = btn.innerHTML;
+          btn.textContent = "Copied";
+          setTimeout(() => (btn.innerHTML = old), 1400);
+        } catch {
+          /* clipboard unavailable — the text is selectable */
+        }
+      });
+    });
+  }
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>

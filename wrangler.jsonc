@@ -1,0 +1,22 @@
+{
+  // Cloudflare Workers (static assets) — serves ./dist at auralab.sh.
+  // Deploy:  npm run deploy   (needs CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID, see DEPLOY.md)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "auralab-site",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  // Custom domains: Cloudflare creates the DNS records and certificates on deploy.
+  // Both hostnames must be free of conflicting DNS records in the auralab.sh zone.
+  "routes": [
+    { "pattern": "auralab.sh", "custom_domain": true },
+    { "pattern": "www.auralab.sh", "custom_domain": true }
+  ],
+  // Preview URLs for `wrangler versions upload` (used by the PR preview job).
+  "preview_urls": true,
+  "workers_dev": true,
+  "observability": { "enabled": true }
+}

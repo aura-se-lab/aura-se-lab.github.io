@@ -1,0 +1,13 @@
+# Workers static-assets redirects (https://developers.cloudflare.com/workers/static-assets/redirects/)
+# www → apex
+https://www.auralab.sh/* https://auralab.sh/:splat 301
+
+# legacy al-folio routes from aura-se-lab.github.io
+/projects/ /research/ 301
+/projects /research/ 301
+/repositories/ /people/ 301
+/repositories /people/ 301
+/cv/ /people/antonio-mastropaolo/ 301
+/blog/ /news/ 301
+/feed.xml /rss.xml 301
+/assets/pdf/* https://antoniomastropaolo.io/assets/pdf/:splat 302

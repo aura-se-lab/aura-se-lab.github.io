@@ -1,0 +1,25 @@
+---
+interface Props {
+  num?: string; // "01"
+  cap?: string; // "Research"
+  sub?: string;
+  id?: string;
+}
+const { num, cap, sub, id } = Astro.props;
+---
+
+<div class="sec-head" id={id}>
+  {(num || cap) && (
+    <div class="sh-label">
+      {num && <span class="sh-num">{num}</span>}
+      {cap && <span class="sh-cap">{cap}</span>}
+    </div>
+  )}
+  <h2 class="h2 sh-h"><slot /></h2>
+  {sub && <p class="lead sh-sub">{sub}</p>}
+  {Astro.slots.has("aside") && (
+    <div class="sh-aside">
+      <slot name="aside" />
+    </div>
+  )}
+</div>

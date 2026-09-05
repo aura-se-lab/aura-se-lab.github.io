@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://auralab.sh/sitemap-index.xml

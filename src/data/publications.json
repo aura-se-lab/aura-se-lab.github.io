@@ -1,0 +1,2853 @@
+[
+  {
+    "title": "Revisiting code readability improvement with LLMs: A critical assessment of fine-tuned models",
+    "authors": [
+      {
+        "name": "Antonio Vitale"
+      },
+      {
+        "name": "Emanuela Guglielmi"
+      },
+      {
+        "name": "Valentina Piantadosi"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Gabriele Bavota"
+      },
+      {
+        "name": "Rocco Oliveto"
+      },
+      {
+        "name": "Simone Scalabrino"
+      }
+    ],
+    "year": 2027,
+    "month": 2,
+    "date": "2027-02",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "Empirical Software Engineering",
+    "venue": "EMSE",
+    "volume": "32",
+    "number": "1",
+    "pages": "9",
+    "publisher": "Springer Science and Business Media LLC",
+    "doi": "10.1007/s10664-026-10933-0",
+    "url": "https://doi.org/10.1007/s10664-026-10933-0",
+    "pdf": "https://link.springer.com/content/pdf/10.1007/s10664-026-10933-0.pdf",
+    "abstract": "Code comprehension is vital for software development. Still, unreadable code remains a significant issue, costing substantial time and money losses. While tools to identify code exhibiting a low readability exist, take actions to improve such a quality aspect is far from trivial. To support developers in such a task, Vitale et al. introduced at ASE’23 an approach using a transformer model (T5) fine-tuned on code commits in which developers explicitly stated their goal to improve code readability. The authors reported that their model is able to generate readability-improving changes being identical to those implemented by developers (exact matches) in 21% of cases and that, even when they differ, they still improve readability in the vast majority of cases (\n                    \n                      $$\\sim $$\n                    \n                    80%). Given the major advances in AI made in the last few years, we questioned whether a fine-tuning for such a task was still needed in the era of Large Language Models (LLMs), thus revisiting the work by Vitale et al. with state-of-the-art models. In doing so, we found out one major issue with the original study design: The training-test splitting was performed randomly (\n                    i.e.,\n                    readability-improving commits mined from open source projects were randomly split between training and test) rather than by project, significantly inflating the reported performance due to repeating readability-improving commits done within the same project. Indeed, as we will show, even newer and more powerful LLMs fine-tuned for this task can only achieve a\n                    \n                      $$\\sim $$\n                    \n                    1% of exact matches. Once fixed this issue, we shifted our attention on assessing whether fine-tuning on available developer readability improvements is actually needed given the recent advances in general-purpose LLMs. We compare the performance of fine-tuned state-of-the-art LLMs with what they achieve in zero-shot setting, also including in our study commercial LLMs (GPT-4.1). As we will show, quantitative metrics (\n                    e.g.,\n                    exact matches, CrystalBLEU) tell very little about the readability-improving capabilities of LLMs and, thus, our study is mainly qualitative in nature, with a total of\n                    \n                      $$\\sim $$\n                    \n                    9,500 inspected LLMs’ change recommendations. While all models do improve code readability, our results clearly show that fine-tuning using mined readability-improving commits does not help and, instead, results in sensibly poorer readability recommendations as compared to LLMs used in a zero-shot setting, with GPT-4.1 being the one achieving the best results.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1007/s10664-026-10933-0",
+      "dblp": "journals/ese/VitaleGPMBOS27",
+      "s2": "badf5c47a88ba17477dfdd614aca48d55a5550bc",
+      "tldr": "Assessing whether fine-tuning on available developer readability improvements is actually needed given the recent advances in general-purpose LLMs results in sensibly poorer readability recommendations as compared to LLMs used in a zero-shot setting, with GPT-4.1 being the one achieving the best results."
+    },
+    "key": "vitale2027revisiting",
+    "venue_info": {
+      "key": "EMSE",
+      "name": "Empirical Software Engineering",
+      "type": "journal",
+      "url": "https://www.springer.com/journal/10664",
+      "rank": "CORE A"
+    },
+    "bibtex": "@article{vitale2027revisiting,\n  title     = {Revisiting code readability improvement with {LLMs:} A critical assessment of fine-tuned models},\n  author    = {Vitale, Antonio and Guglielmi, Emanuela and Piantadosi, Valentina and Mastropaolo, Antonio and Bavota, Gabriele and Oliveto, Rocco and Scalabrino, Simone},\n  journal   = {Empirical Software Engineering},\n  year      = {2027},\n  month     = feb,\n  volume    = {32},\n  number    = {1},\n  pages     = {9},\n  publisher = {Springer Science and Business Media LLC},\n  doi       = {10.1007/s10664-026-10933-0},\n  url       = {https://doi.org/10.1007/s10664-026-10933-0}\n}"
+  },
+  {
+    "title": "The Score Is Not the Skill: The Scoreboard Problem",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 9,
+    "date": "2026-09",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "9",
+    "pages": "7-9",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3714118",
+    "url": "https://doi.org/10.1109/mc.2026.3714118",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2026.3714118",
+      "dblp": "journals/computer/Mastropaolo26f",
+      "s2": "19fb1501a5ff6dd0d06c6c2a1d72970f922e3d91"
+    },
+    "key": "mastropaolo2026score",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026score,\n  title     = {The Score Is Not the Skill: The Scoreboard Problem},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = sep,\n  volume    = {59},\n  number    = {9},\n  pages     = {7-9},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3714118},\n  url       = {https://doi.org/10.1109/mc.2026.3714118}\n}"
+  },
+  {
+    "title": "Toward Explaining Large Language Models in Software Engineering Tasks",
+    "authors": [
+      {
+        "name": "Antonio Vitale"
+      },
+      {
+        "name": "Khai-Nguyen Nguyen",
+        "member": "khai-nguyen-nguyen"
+      },
+      {
+        "name": "Denys Poshyvanyk"
+      },
+      {
+        "name": "Rocco Oliveto"
+      },
+      {
+        "name": "Simone Scalabrino"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 8,
+    "date": "2026-08-22",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "ACM Transactions on Software Engineering and Methodology",
+    "venue": "TOSEM",
+    "publisher": "Association for Computing Machinery (ACM)",
+    "doi": "10.1145/3837084",
+    "arxiv": "2512.20328",
+    "url": "https://doi.org/10.1145/3837084",
+    "pdf": "https://doi.org/10.48550/arxiv.2512.20328",
+    "abstract": "Recent progress in Large Language Models (LLMs) has substantially advanced the automation of software engineering (SE) tasks, enabling complex activities such as code generation and code summarization. However, the black-box nature of LLMs remains a major barrier to their adoption in high-stakes and safety-critical domains, where explainability and transparency are vital for trust, accountability, and effective human supervision. Despite increasing interest in explainable AI for software engineering, existing methods lack domain-specific explanations aligned with how practitioners reason about SE artifacts. To address this gap, we introduce FeatureSHAP, the first fully automated, model-agnostic explainability framework tailored to software engineering tasks. Based on Shapley values, FeatureSHAP attributes model outputs to high-level input features through systematic input perturbation and task-specific similarity comparisons, while remaining compatible with both opensource and proprietary LLMs. We evaluate FeatureSHAP on two bi-modal SE tasks: code generation and code summarization. The results show that FeatureSHAP assigns less importance to irrelevant input features and produces explanations with higher fidelity than baseline methods, at a substantially lower computational cost than token-level alternatives. A practitioner survey involving 37 participants shows that FeatureSHAP helps practitioners better interpret model outputs and make more informed decisions. Collectively, FeatureSHAP represents a meaningful step toward practical explainable AI in software engineering. FeatureSHAP is available at https://github.com/deviserlab/FeatureSHAP.",
+    "threads": [
+      "neurosymbolic-interpretability"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1145/3837084",
+      "dblp": "journals/corr/abs-2512-20328",
+      "s2": "10b7c5656f642cb5a3df236ab7a302433dc36198",
+      "tldr": "This work introduces FeatureSHAP, the first fully automated, model-agnostic explainability framework tailored to software engineering tasks that assigns less importance to irrelevant input features and produces explanations with higher fidelity than baseline methods, at a substantially lower computational cost than token-level alternatives.",
+      "arxiv": "2512.20328"
+    },
+    "key": "vitale2026explaining",
+    "venue_info": {
+      "key": "TOSEM",
+      "name": "ACM Transactions on Software Engineering and Methodology",
+      "type": "journal",
+      "url": "https://dl.acm.org/journal/tosem",
+      "rank": "CORE A*"
+    },
+    "bibtex": "@article{vitale2026explaining,\n  title     = {Toward Explaining Large Language Models in Software Engineering Tasks},\n  author    = {Vitale, Antonio and Nguyen, Khai-Nguyen and Poshyvanyk, Denys and Oliveto, Rocco and Scalabrino, Simone and Mastropaolo, Antonio},\n  journal   = {ACM Transactions on Software Engineering and Methodology},\n  year      = {2026},\n  month     = aug,\n  publisher = {Association for Computing Machinery (ACM)},\n  doi       = {10.1145/3837084},\n  url       = {https://doi.org/10.1145/3837084}\n}"
+  },
+  {
+    "title": "Pattern over Pixels: Measuring Pattern Completion Bias in Multimodal Code Generation",
+    "authors": [
+      {
+        "name": "Khai-Nguyen Nguyen",
+        "member": "khai-nguyen-nguyen"
+      },
+      {
+        "name": "Oscar Chaparro"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 8,
+    "date": "2026-08-04",
+    "type": "preprint",
+    "status": "preprint",
+    "doi": "10.1145/3832783.3834443",
+    "arxiv": "2608.03691",
+    "url": "https://arxiv.org/abs/2608.03691",
+    "pdf": "https://arxiv.org/pdf/2608.03691",
+    "abstract": "Multimodal large language models (MLLMs) are increasingly used to translate webpage screenshots into front-end code, but repeated UI patterns may sway them toward visually incorrect yet pattern-consistent outputs. In this work, we test how repeated webpage patterns hurt MLLM accuracy on an objective screenshot-to-code fill-in-the-blank task. We introduce the first benchmark for visual pattern-completion bias, where one localized element in a repeated UI pattern is perturbed and the model must recover the masked width or font-size value from the screenshot and HTML context. Starting from 30 webpages curated from the Design2Code dataset, we build 1,440 evaluated screenshots spanning structural card and text-style patterns under standard and noise-overlaid conditions. We evaluate five frontier MLLMs and find that all are strongly biased toward the repeated baseline. Mean bias rate reaches 69.78% on card-width perturbations and 80.22% on text font-size perturbations, while mean accuracy is only 21.17% and 7.89%, respectively. Codex-5.3 performs best but still drops from 68.61% accuracy on cards to 13.89% on text, while Flash-3.0 reaches 96.11% bias on text. Noise, subtler perturbations, and boundary positions further increase bias rate. Reasoning analysis further shows that greater reasoning effort correlates with lower bias, yet qualitative evidence reveals that models can identify the anomalous element and still override it with the pattern-consistent answer. Our results identify a concrete failure mode in multimodal code generation and show that its severity is strongly associated with visual saliency",
+    "threads": [
+      "efficient-models",
+      "neurosymbolic-interpretability"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2608-03691",
+      "s2": "f7bab48f7f6ad6556574887bb639e829bcbadfcf",
+      "tldr": "This work introduces the first benchmark for visual pattern-completion bias, where one localized element in a repeated UI pattern is perturbed and the model must recover the masked width or font-size value from the screenshot and HTML context, and identifies a concrete failure mode in multimodal code generation.",
+      "arxiv": "2608.03691"
+    },
+    "key": "nguyen2026pattern",
+    "venue_info": {
+      "key": "",
+      "name": "",
+      "type": "preprint"
+    },
+    "bibtex": "@misc{nguyen2026pattern,\n  title         = {Pattern over Pixels: Measuring Pattern Completion Bias in Multimodal Code Generation},\n  author        = {Nguyen, Khai-Nguyen and Chaparro, Oscar and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2608.03691},\n  eprint        = {2608.03691},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = aug,\n  doi           = {10.1145/3832783.3834443},\n  url           = {https://doi.org/10.1145/3832783.3834443}\n}"
+  },
+  {
+    "title": "Intent-Invariant Mutation Testing: A Coverage Criterion for Large Language Model Safety Contracts",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Saima Afrin",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Sophia Shahnami"
+      },
+      {
+        "name": "D. Richard Kuhn"
+      },
+      {
+        "name": "Jeffrey Voas"
+      },
+      {
+        "name": "Benoit Baudry"
+      }
+    ],
+    "year": 2026,
+    "month": 8,
+    "date": "2026-08",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "8",
+    "pages": "98-106",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3696017",
+    "url": "https://doi.org/10.1109/mc.2026.3696017",
+    "abstract": "We propose intent-invariant mutation testing, a coverage-driven framework that treats safety policy as a behavioral contract and tests whether a large language model enforces it consistently across semantically equivalent reframings.",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2026.3696017",
+      "dblp": "journals/computer/MastropaoloASKV26",
+      "s2": "167867aec3c59fabf25e191fd288b8df0f4c02d7"
+    },
+    "key": "mastropaolo2026intent",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026intent,\n  title     = {{Intent-Invariant} Mutation Testing: A Coverage Criterion for Large Language Model Safety Contracts},\n  author    = {Mastropaolo, Antonio and Afrin, Saima and Shahnami, Sophia and Kuhn, D. Richard and Voas, Jeffrey and Baudry, Benoit},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = aug,\n  volume    = {59},\n  number    = {8},\n  pages     = {98-106},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3696017},\n  url       = {https://doi.org/10.1109/mc.2026.3696017}\n}"
+  },
+  {
+    "title": "Closing the Loop: Program-Interoperable Large Language Models Fuzzing for JavaScript Engines",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Zaiyu Cheng",
+        "member": "zaiyu-cheng"
+      }
+    ],
+    "year": 2026,
+    "month": 8,
+    "date": "2026-08",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "8",
+    "pages": "9-12",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3701431",
+    "url": "https://doi.org/10.1109/mc.2026.3701431",
+    "selected": false,
+    "sources": {
+      "crossref": "10.1109/mc.2026.3701431",
+      "dblp": "journals/computer/MastropaoloC26"
+    },
+    "key": "mastropaolo2026closing",
+    "citations": {},
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026closing,\n  title     = {Closing the Loop: {Program-Interoperable} Large Language Models Fuzzing for {JavaScript} Engines},\n  author    = {Mastropaolo, Antonio and Cheng, Zaiyu},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = aug,\n  volume    = {59},\n  number    = {8},\n  pages     = {9-12},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3701431},\n  url       = {https://doi.org/10.1109/mc.2026.3701431}\n}"
+  },
+  {
+    "title": "Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality",
+    "authors": [
+      {
+        "name": "Saima Afrin",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Alessandro Midolo"
+      },
+      {
+        "name": "Camilo Escobar-Velásquez"
+      },
+      {
+        "name": "Mario Linares-Vásquez"
+      },
+      {
+        "name": "Weiyuan Ding"
+      },
+      {
+        "name": "Bowen Xu"
+      },
+      {
+        "name": "Massimiliano Di Penta"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 7,
+    "date": "2026-07-16",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2607.14816",
+    "url": "https://arxiv.org/abs/2607.14816",
+    "pdf": "https://arxiv.org/pdf/2607.14816",
+    "abstract": "Large Language Models (LLMs) perform differently on identical programming tasks when prompted in different natural languages, a phenomenon known as language bias. While this behavior has been widely studied for general text generation, its impact on code generation quality and programming conventions remains largely unexplored. We investigate how the language used to describe programming tasks affects the source code generated by GPT-4o mini, DeepSeek, and Claude. Our study comprises 460 coding tasks spanning Python (230) and Java (230). We translate and manually curate the original English prompts into Chinese, Hindi, Spanish, and Italian while preserving their technical meaning. We evaluate the generated code using multiple dimensions, including functional correctness through test pass rates, structural quality using established code metrics, issues detected by static analysis tools, and lexical characteristics such as the language used in identifiers and comments. Our results show that (i) English prompts do not consistently produce the best functional correctness or code quality, (ii) the impact of prompt language depends on both the programming language and the LLM, and (iii) generated code frequently mixes English with the prompt language in comments and string literals. These findings provide the first curated multilingual benchmark for studying language bias in code generation and offer insights for developing more robust multilingual code generation systems.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2607-14816",
+      "s2": "2f7a75152c2e530cd415c97bbf3aa641e3ba97a1",
+      "tldr": "The results show that English prompts do not consistently produce the best functional correctness or code quality, the impact of prompt language depends on both the programming language and the LLM, and generated code frequently mixes English with the prompt language in comments and string literals.",
+      "arxiv": "2607.14816"
+    },
+    "key": "afrin2026large",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{afrin2026large,\n  title         = {Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality},\n  author        = {Afrin, Saima and Midolo, Alessandro and Escobar-Velásquez, Camilo and Linares-Vásquez, Mario and Ding, Weiyuan and Xu, Bowen and Di Penta, Massimiliano and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2607.14816},\n  eprint        = {2607.14816},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jul,\n  url           = {https://arxiv.org/abs/2607.14816}\n}"
+  },
+  {
+    "title": "Quantize with Confidence? An Empirical Study of Quantization for Code Generation",
+    "authors": [
+      {
+        "name": "Saima Afrin",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Md Zahidul Haque",
+        "member": "md-zahidul-haque-alvi"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 7,
+    "date": "2026-07-15",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2607.14181",
+    "url": "https://arxiv.org/abs/2607.14181",
+    "pdf": "https://arxiv.org/pdf/2607.14181",
+    "abstract": "The growing adoption of local inference frameworks such as Ollama has made it increasingly common for developers to run large code models on laptops and other resource-constrained hardware. In these settings, post-training quantization is essential for reducing memory footprint and enabling practical deployment, yet its impact on generated code remains insufficiently understood. We empirically evaluate six state-of-the-art quantization methods (GPTQ, AWQ, QuIP#, AQLM, BitsAndBytes, and GGUF) on two representative large code model families, Qwen2.5-Coder and CodeLlama, using the multilingual McEval and CoderEval benchmarks for Python and Java. We assess functional correctness (pass@1) together with maintainability, reliability, security, and structural complexity. We also introduce a novel analysis of robustness under varying prompt complexity, characterized by Shannon entropy and token length. Our results show that quantization techniques differ meaningfully in their impact on correctness and code quality. AQLM consistently matches or exceeds the full-precision baseline, whereas QuIP# exhibits the largest correctness degradation, particularly on complex prompts. Security attributes remain stable across models, benchmarks, and programming languages, while robustness to prompt complexity varies across techniques. These findings provide practical guidance for selecting quantization strategies for deploying large code models on resource-constrained hardware and highlight the importance of evaluating quantized models beyond functional correctness.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2607-14181",
+      "s2": "3c3e30776ccc3e701173731248bdd3508f659c15",
+      "tldr": "Six state-of-the-art quantization methods are evaluated on two representative large code model families using the multilingual McEval and CoderEval benchmarks for Python and Java to provide practical guidance for selecting quantization strategies for deploying large code models on resource-constrained hardware.",
+      "arxiv": "2607.14181"
+    },
+    "key": "afrin2026quantize",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{afrin2026quantize,\n  title         = {Quantize with Confidence? An Empirical Study of Quantization for Code Generation},\n  author        = {Afrin, Saima and Haque, Md Zahidul and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2607.14181},\n  eprint        = {2607.14181},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jul,\n  url           = {https://arxiv.org/abs/2607.14181}\n}"
+  },
+  {
+    "title": "Prior Bias in Vision Language Models on UML Diagram Interpretation",
+    "authors": [
+      {
+        "name": "Zaiyu Cheng",
+        "member": "zaiyu-cheng"
+      },
+      {
+        "name": "Khai-Nguyen Nguyen",
+        "member": "khai-nguyen-nguyen"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 7,
+    "date": "2026-07-03",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2607.02853",
+    "url": "https://arxiv.org/abs/2607.02853",
+    "pdf": "https://arxiv.org/pdf/2607.02853",
+    "abstract": "Vision Language Models (VLMs) are increasingly applied to software engineering artifacts, especially UML class diagrams whose meaning depends on visual notation. Yet, it is unclear whether VLMs actually read such diagrams or instead answer from pretrained priors about how classes typically relate. We introduce a controlled UML benchmark in which each prior-conforming diagram is paired with its prior-conflicting counterpart that (1) preserves the same class names and layout while (2) reverses only the relation arrow. We evaluate eight open-source VLMs from two model families, InternVL3.5 and Qwen3, alongside two closed-source frontier models GPT-5.4 and GPT-5.4 Mini. Across the eight open-source models, reversing the arrow reduces relation-direction accuracy by 33.48% on average, while GPT-5.4 Mini retains a 10% gap. In the harder three-class condition, accuracy drops sharply by 45.28% for open-source models, and even 18.62% for the GPT-5.4 family on average. Scaling provides only limited improvements and is family-dependent. Our benchmark presents a diagnostic prior-driven failure in diagram-grounded software understanding. Our artifact is available at https://anonymous.4open.science/r/UMLKnowledgeConflict-8461.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2607-02853",
+      "s2": "83100ba37373d5bf48991d46d99ba8fc744de701",
+      "tldr": "A controlled UML benchmark is introduced in which each prior-conforming diagram is paired with its prior-conflicting counterpart that preserves the same class names and layout while (2) reverses only the relation arrow, presenting a diagnostic prior-driven failure in diagram-grounded software understanding.",
+      "arxiv": "2607.02853"
+    },
+    "key": "cheng2026prior",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{cheng2026prior,\n  title         = {Prior Bias in Vision Language Models on {UML} Diagram Interpretation},\n  author        = {Cheng, Zaiyu and Nguyen, Khai-Nguyen and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2607.02853},\n  eprint        = {2607.02853},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jul,\n  url           = {https://arxiv.org/abs/2607.02853}\n}"
+  },
+  {
+    "title": "Polyglot but Perilous: A Multi-Model, Multi-Language Audit of LLM-Generated Code",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Saima Afrin",
+        "member": "saima-afrin"
+      }
+    ],
+    "year": 2026,
+    "month": 7,
+    "date": "2026-07",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "7",
+    "pages": "7-10",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3696004",
+    "url": "https://doi.org/10.1109/mc.2026.3696004",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2026.3696004",
+      "dblp": "journals/computer/MastropaoloA26",
+      "s2": "f878fce852af054d473ac74f2c6317e02ac26e92"
+    },
+    "key": "mastropaolo2026polyglot",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026polyglot,\n  title     = {Polyglot but Perilous: A {Multi-Model,} {Multi-Language} Audit of {LLM-Generated} Code},\n  author    = {Mastropaolo, Antonio and Afrin, Saima},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = jul,\n  volume    = {59},\n  number    = {7},\n  pages     = {7-10},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3696004},\n  url       = {https://doi.org/10.1109/mc.2026.3696004}\n}"
+  },
+  {
+    "title": "Developers and generative AI: A study of self-admitted usage in open source projects",
+    "authors": [
+      {
+        "name": "Rosalia Tufano"
+      },
+      {
+        "name": "Federica Pepe"
+      },
+      {
+        "name": "Fiorella Zampetti"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Ozren Dabić"
+      },
+      {
+        "name": "Massimiliano Di Penta"
+      },
+      {
+        "name": "Gabriele Bavota"
+      }
+    ],
+    "year": 2026,
+    "month": 7,
+    "date": "2026-07",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "Empirical Software Engineering",
+    "venue": "EMSE",
+    "volume": "31",
+    "number": "4",
+    "pages": "108",
+    "publisher": "Springer Science and Business Media LLC",
+    "doi": "10.1007/s10664-026-10848-w",
+    "arxiv": "2603.26277",
+    "url": "https://doi.org/10.1007/s10664-026-10848-w",
+    "pdf": "https://arxiv.org/pdf/2603.26277",
+    "abstract": "The availability of generative Artificial Intelligence (AI) tools such as ChatGPT or GitHub Copilot is reshaping the way in which software is developed, evolved, and maintained. Oftentimes, developers leave traces of such an usage in software artifacts. This allows not only to understand how AI is used in software development, but also to let others be aware how such software artifacts were created, e.g., for licensing or trustworthiness purposes. This paper—building upon our preliminary work presented at MSR 2024—aims at qualitatively investigating on the self-admitted use of two very popular generative AI tools—ChatGPT and GitHub Copilot—in software development. To this aim, we mined GitHub for such traces, by looking at commits, issues and pull requests (PRs). Then, through a manual coding, we create a taxonomy of 64 different ChatGPT and GitHub Copilot usage tasks, grouped into 7 categories. By repeating our previous analysis two years after and by extending it to GitHub Copilot, we show how the usage avenues have been expanded, the extent to which developers perceived such a generative AI usage useful, and whether some concerns occurring more than one year ago are no longer present. The taxonomy of tasks we derived from such a qualitative study provided (i) developers with valuable insights into how generative AI can be integrated into their workflows, and (ii) researchers with a clear overview of tasks that developers perceive as well-suited for automation.",
+    "threads": [
+      "agents-lifecycle"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 2,
+      "by_source": {
+        "s2": 2
+      }
+    },
+    "sources": {
+      "crossref": "10.1007/s10664-026-10848-w",
+      "dblp": "journals/corr/abs-2603-26277",
+      "s2": "62cfc95bc250b73d2e90eadbf34297f1e46c43bb",
+      "tldr": "The taxonomy of tasks the authors derived from such a qualitative study provided developers with valuable insights into how generative AI can be integrated into their workflows, and researchers with a clear overview of tasks that developers perceive as well-suited for automation.",
+      "arxiv": "2603.26277"
+    },
+    "key": "tufano2026developers",
+    "venue_info": {
+      "key": "EMSE",
+      "name": "Empirical Software Engineering",
+      "type": "journal",
+      "url": "https://www.springer.com/journal/10664",
+      "rank": "CORE A"
+    },
+    "bibtex": "@article{tufano2026developers,\n  title     = {Developers and generative {AI:} A study of self-admitted usage in open source projects},\n  author    = {Tufano, Rosalia and Pepe, Federica and Zampetti, Fiorella and Mastropaolo, Antonio and Dabić, Ozren and Di Penta, Massimiliano and Bavota, Gabriele},\n  journal   = {Empirical Software Engineering},\n  year      = {2026},\n  month     = jul,\n  volume    = {31},\n  number    = {4},\n  pages     = {108},\n  publisher = {Springer Science and Business Media LLC},\n  doi       = {10.1007/s10664-026-10848-w},\n  url       = {https://doi.org/10.1007/s10664-026-10848-w}\n}"
+  },
+  {
+    "title": "Datasets, bias, licenses, and terms of use: A large and longitudinal study on the documentation of hugging face machine learning models",
+    "authors": [
+      {
+        "name": "Federica Pepe"
+      },
+      {
+        "name": "Vittoria Nardone"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Gerardo Canfora"
+      },
+      {
+        "name": "Gabriele Bavota"
+      },
+      {
+        "name": "Massimiliano Di Penta"
+      }
+    ],
+    "year": 2026,
+    "month": 7,
+    "date": "2026-07",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "Empirical Software Engineering",
+    "venue": "EMSE",
+    "volume": "31",
+    "number": "4",
+    "pages": "95",
+    "publisher": "Springer Science and Business Media LLC",
+    "doi": "10.1007/s10664-026-10843-1",
+    "url": "https://doi.org/10.1007/s10664-026-10843-1",
+    "threads": [
+      "efficient-models",
+      "agents-lifecycle"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "crossref": "10.1007/s10664-026-10843-1",
+      "dblp": "journals/ese/PepeNMCBP26",
+      "s2": "3e684a885d9e708032115296dd68038d6e477a77",
+      "tldr": "Results indicate that, even after over one year of observation, pre-trained models still have limited exposure to their training datasets, possible biases, and adopted licenses, and several instances of potential licensing violations by client projects are identified."
+    },
+    "key": "pepe2026datasets",
+    "venue_info": {
+      "key": "EMSE",
+      "name": "Empirical Software Engineering",
+      "type": "journal",
+      "url": "https://www.springer.com/journal/10664",
+      "rank": "CORE A"
+    },
+    "bibtex": "@article{pepe2026datasets,\n  title     = {Datasets, bias, licenses, and terms of use: A large and longitudinal study on the documentation of hugging face machine learning models},\n  author    = {Pepe, Federica and Nardone, Vittoria and Mastropaolo, Antonio and Canfora, Gerardo and Bavota, Gabriele and Di Penta, Massimiliano},\n  journal   = {Empirical Software Engineering},\n  year      = {2026},\n  month     = jul,\n  volume    = {31},\n  number    = {4},\n  pages     = {95},\n  publisher = {Springer Science and Business Media LLC},\n  doi       = {10.1007/s10664-026-10843-1},\n  url       = {https://doi.org/10.1007/s10664-026-10843-1}\n}"
+  },
+  {
+    "title": "The Open Source Bug Hunter: When Smaller Models Outperform the Giants at Finding Faults",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 6,
+    "date": "2026-06",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "6",
+    "pages": "9-11",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3682055",
+    "url": "https://doi.org/10.1109/mc.2026.3682055",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2026.3682055",
+      "dblp": "journals/computer/Mastropaolo26e",
+      "s2": "cf23473c09cb3f2eae44fed1fa8047cb48b16da1"
+    },
+    "key": "mastropaolo2026open",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026open,\n  title     = {The Open Source Bug Hunter: When Smaller Models Outperform the Giants at Finding Faults},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = jun,\n  volume    = {59},\n  number    = {6},\n  pages     = {9-11},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3682055},\n  url       = {https://doi.org/10.1109/mc.2026.3682055}\n}"
+  },
+  {
+    "title": "An Empirical Study on Language Models for Generating Log Statements in Test Code",
+    "authors": [
+      {
+        "name": "Honglin Shu"
+      },
+      {
+        "name": "Dong Wang"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Gabriele Bavota"
+      },
+      {
+        "name": "Yasutaka Kamei"
+      }
+    ],
+    "year": 2026,
+    "month": 5,
+    "date": "2026-05-31",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "ACM Transactions on Software Engineering and Methodology",
+    "venue": "TOSEM",
+    "volume": "35",
+    "number": "5",
+    "pages": "1-33",
+    "publisher": "Association for Computing Machinery (ACM)",
+    "doi": "10.1145/3759915",
+    "url": "https://doi.org/10.1145/3759915",
+    "abstract": "Log statements play a critical role in modern software development, capturing essential run-time information necessary for software maintenance. Recently, new techniques have been developed to automate logging activities, allowing log statements to be injected into code by identifying specific code locations, selecting the appropriate log level, and generating meaningful log messages that describe the behavior being logged. Although automated logging in production code has attracted significant attention, little focus has been given to the injection of logs in test code. To fill this gap, we conduct an empirical study on 5,206,759 Java test methods collected from 6,405 GitHub projects to explore and disclose the effectiveness and limitations of Pre-Trained Language Models (PLMs) and Large Language Models (LLMs) for generating and injecting test log statements. Our findings demonstrate that general-purpose LLMs like GPT-3.5-Turbo, when properly instructed to inject logging statements in test methods, performs comparably to the best-performing PLMs on predicting log level. Additionally, GPT-3.5-Turbo substantially outperforms the best in PLMs on predicting log position, with a 33.97% improvement while also achieving superior performance in predicting log messages in terms of\n                    BLEU\n                    and\n                    ROUGE\n                    . This work takes the first step toward evaluating the capability of PLMs and LLMs to generate test log statement. To facilitate future research, we have open sourced all data and source code used in this work.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 4,
+      "by_source": {
+        "s2": 4
+      }
+    },
+    "sources": {
+      "crossref": "10.1145/3759915",
+      "dblp": "journals/tosem/ShuWMBK26",
+      "s2": "9b5281075d812bd39887c18a50ddcb1a77f3b1f0",
+      "tldr": "These findings demonstrate that general-purpose LLMs like GPT-3.5-Turbo, when properly instructed to inject logging statements in test methods, performs comparably to the best-performing PLMs on predicting log level and substantially outperforms the best in PLMs on predicting log position."
+    },
+    "key": "shu2026empirical",
+    "venue_info": {
+      "key": "TOSEM",
+      "name": "ACM Transactions on Software Engineering and Methodology",
+      "type": "journal",
+      "url": "https://dl.acm.org/journal/tosem",
+      "rank": "CORE A*"
+    },
+    "bibtex": "@article{shu2026empirical,\n  title     = {An Empirical Study on Language Models for Generating Log Statements in Test Code},\n  author    = {Shu, Honglin and Wang, Dong and Mastropaolo, Antonio and Bavota, Gabriele and Kamei, Yasutaka},\n  journal   = {ACM Transactions on Software Engineering and Methodology},\n  year      = {2026},\n  month     = may,\n  volume    = {35},\n  number    = {5},\n  pages     = {1-33},\n  publisher = {Association for Computing Machinery (ACM)},\n  doi       = {10.1145/3759915},\n  url       = {https://doi.org/10.1145/3759915}\n}"
+  },
+  {
+    "title": "Rethinking Software Empirical Studies with Structural Causal Models",
+    "authors": [
+      {
+        "name": "Daniel Rodríguez-Cárdenas"
+      },
+      {
+        "name": "Aya Garryyeva",
+        "member": "aya-garryyeva"
+      },
+      {
+        "name": "David Nader-Palacio"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Denys Poshyvanyk"
+      }
+    ],
+    "year": 2026,
+    "month": 5,
+    "date": "2026-05-27",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2605.28482",
+    "url": "https://arxiv.org/abs/2605.28482",
+    "pdf": "https://arxiv.org/pdf/2605.28482",
+    "abstract": "Causal Inference offers a fundamental approach for advancing empirical software engineering (ESE) beyond traditional statistical association, enabling researchers to rigorously identify and quantify causal relationships in software experiments. This paper introduces CausalSE, a framework that operationalizes Judea Pearl's causal inference paradigm in ESE context. The paper focuses on Structural Causal Models (SCMs) to address the limitations of classical statistical methods in mitigating confounding bias. Through a case study using the Galeras dataset and propensity score matching, we demonstrate how CausalSE disentangles the effect of prompt engineering strategies on code generation outcomes in a popular LLM (i.e., GPT-3). The results reveal that while associational analyses can suggest improvements in certain interventions (e.g., more complex prompts), causal analysis often does not find a significant treatment effect, highlighting the risk of false positives when confounding is not addressed. By providing a tutorial-based methodology and a real-world case study, this work equips software researchers with practical tools to design, analyze, and interpret software experiments with methodological rigor, ultimately enabling more informed and actionable conclusions in both research and practice.",
+    "threads": [
+      "neurosymbolic-interpretability",
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2605-28482",
+      "s2": "5e19ce22e85f2ddf2c845dd3907216e695abcdcf",
+      "tldr": "This paper introduces CausalSE, a framework that operationalizes Judea Pearl's causal inference paradigm in ESE context and focuses on Structural Causal Models (SCMs) to address the limitations of classical statistical methods in mitigating confounding bias.",
+      "arxiv": "2605.28482"
+    },
+    "key": "rodriguezcardenas2026rethinking",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{rodriguezcardenas2026rethinking,\n  title         = {Rethinking Software Empirical Studies with Structural Causal Models},\n  author        = {Rodríguez-Cárdenas, Daniel and Garryyeva, Aya and Nader-Palacio, David and Mastropaolo, Antonio and Poshyvanyk, Denys},\n  howpublished  = {arXiv preprint arXiv:2605.28482},\n  eprint        = {2605.28482},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = may,\n  url           = {https://arxiv.org/abs/2605.28482}\n}"
+  },
+  {
+    "title": "The Price of Intelligence: Can AI Afford to Be Sustainable?",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 5,
+    "date": "2026-05",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "5",
+    "pages": "9-11",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3670645",
+    "url": "https://doi.org/10.1109/mc.2026.3670645",
+    "threads": [
+      "efficient-models"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2026.3670645",
+      "dblp": "journals/computer/Mastropaolo26d",
+      "s2": "798c2bdaa70a577869fc600038991902a02b45cc"
+    },
+    "key": "mastropaolo2026price",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026price,\n  title     = {The Price of Intelligence: Can {AI} Afford to Be Sustainable?},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = may,\n  volume    = {59},\n  number    = {5},\n  pages     = {9-11},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3670645},\n  url       = {https://doi.org/10.1109/mc.2026.3670645}\n}"
+  },
+  {
+    "title": "Orchestrated Entropy: Foundation Model Nondeterminism for SOC",
+    "authors": [
+      {
+        "name": "Sophia Shahnami"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Jeffrey Voas"
+      }
+    ],
+    "year": 2026,
+    "month": 5,
+    "date": "2026-05",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "5",
+    "pages": "102-107",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3658243",
+    "url": "https://doi.org/10.1109/mc.2026.3658243",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2026.3658243",
+      "dblp": "journals/computer/ShahnamiMV26a",
+      "s2": "dc1880ff13cdac9d0a481b95e971f8d0cf4d20b5"
+    },
+    "key": "shahnami2026orchestrated",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{shahnami2026orchestrated,\n  title     = {Orchestrated Entropy: Foundation Model Nondeterminism for {SOC}},\n  author    = {Shahnami, Sophia and Mastropaolo, Antonio and Voas, Jeffrey},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = may,\n  volume    = {59},\n  number    = {5},\n  pages     = {102-107},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3658243},\n  url       = {https://doi.org/10.1109/mc.2026.3658243}\n}"
+  },
+  {
+    "title": "Prompt-Driven Code Summarization: A Systematic Literature Review",
+    "authors": [
+      {
+        "name": "Afia Farjana",
+        "member": "afia-farjana"
+      },
+      {
+        "name": "Zaiyu Cheng",
+        "member": "zaiyu-cheng"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 4,
+    "date": "2026-04-16",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2604.15385",
+    "url": "https://arxiv.org/abs/2604.15385",
+    "pdf": "https://arxiv.org/pdf/2604.15385",
+    "abstract": "Software documentation is essential for program comprehension, developer onboarding, code review, and long-term maintenance. Yet producing quality documentation manually is time-consuming and frequently yields incomplete or inconsistent results. Large language models (LLMs) offer a promising solution by automatically generating natural language descriptions from source code, helping developers understand code more efficiently, facilitating maintenance, and supporting downstream activities such as defect localization and commit message generation. However, the effectiveness of LLMs in documentation tasks critically depends on how they are prompted. Properly structured instructions can substantially improve model performance, making prompt engineering-the design of input prompts to guide model behavior-a foundational technique in LLM-based software engineering. Approaches such as few-shot prompting, chain-of-thought reasoning, retrieval-augmented generation, and zero-shot learning show promise for code summarization, yet current research remains fragmented. There is limited understanding of which prompting strategies work best, for which models, and under what conditions. Moreover, evaluation practices vary widely, with most studies relying on overlap-based metrics that may not capture semantic quality. This systematic literature review consolidates existing evidence, categorizes prompting paradigms, examines their effectiveness, and identifies gaps to guide future research and practical adoption.",
+    "threads": [
+      "agents-lifecycle"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2604-15385",
+      "s2": "c78c5e8c240c326885c8c48cb1edd9abfb1d7f05",
+      "tldr": "This systematic literature review consolidates existing evidence, categorizes prompting paradigms, examines their effectiveness, and identifies gaps to guide future research and practical adoption.",
+      "arxiv": "2604.15385"
+    },
+    "key": "farjana2026prompt",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{farjana2026prompt,\n  title         = {{Prompt-Driven} Code Summarization: A Systematic Literature Review},\n  author        = {Farjana, Afia and Cheng, Zaiyu and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2604.15385},\n  eprint        = {2604.15385},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = apr,\n  url           = {https://arxiv.org/abs/2604.15385}\n}"
+  },
+  {
+    "title": "Towards Comprehensive Benchmarking Infrastructure for LLMs In Software Engineering",
+    "authors": [
+      {
+        "name": "Daniel Rodriguez-Cardenas"
+      },
+      {
+        "name": "Xiaochang Li"
+      },
+      {
+        "name": "Marcos Macedo"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Dipin Khati"
+      },
+      {
+        "name": "Yuan Tian"
+      },
+      {
+        "name": "Huajie Shao"
+      },
+      {
+        "name": "Denys Poshyvanyk"
+      }
+    ],
+    "year": 2026,
+    "month": 4,
+    "date": "2026-04-12",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "Proceedings of the 2026 IEEE/ACM Third International Conference on AI Foundation Models and Software Engineering",
+    "venue": "FORGE",
+    "pages": "243-248",
+    "publisher": "ACM",
+    "doi": "10.1145/3793655.3793716",
+    "arxiv": "2601.21070",
+    "url": "https://doi.org/10.1145/3793655.3793716",
+    "pdf": "https://doi.org/10.1145/3793655.3793716",
+    "abstract": "Large language models for code are advancing fast, yet our ability to evaluate them lags behind. Current benchmarks focus on narrow tasks and single metrics, which hide critical gaps in robustness, interpretability, fairness, efficiency, and real-world usability. They also suffer from inconsistent data engineering practices, limited software engineering context, and widespread contamination issues. To understand these problems and chart a path forward, we combined an in-depth survey of existing benchmarks with insights gathered from a dedicated community workshop. We identified three core barriers to reliable evaluation: the absence of software-engineering-rich datasets, overreliance on ML-centric metrics, and the lack of standardized, reproducible data pipelines. Building on these findings, we introduce BEHELM, a holistic benchmarking infrastructure that unifies software-scenario specification with multi-metric evaluation. BEHELM provides a structured way to assess models across tasks, languages, input and output granularities, and key quality dimensions. Our goal is to reduce the overhead currently required to construct benchmarks while enabling a fair, realistic, and future-proof assessment of LLMs in software engineering.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1145/3793655.3793716",
+      "dblp": "journals/corr/abs-2601-21070",
+      "s2": "e65b3c10820e697f0d02824347e2ec91c0193460",
+      "tldr": "BEHELM is introduced, a holistic benchmarking infrastructure that unifies software-scenario specification with multi-metric evaluation and provides a structured way to assess models across tasks, languages, input and output granularities, and key quality dimensions.",
+      "arxiv": "2601.21070"
+    },
+    "key": "rodriguezcardenas2026comprehensive",
+    "venue_info": {
+      "key": "FORGE",
+      "name": "ACM International Conference on AI Foundation Models and Software Engineering",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/forge",
+      "rank": null
+    },
+    "bibtex": "@inproceedings{rodriguezcardenas2026comprehensive,\n  title     = {Towards Comprehensive Benchmarking Infrastructure for {LLMs} In Software Engineering},\n  author    = {Rodriguez-Cardenas, Daniel and Li, Xiaochang and Macedo, Marcos and Mastropaolo, Antonio and Khati, Dipin and Tian, Yuan and Shao, Huajie and Poshyvanyk, Denys},\n  booktitle = {Proceedings of the 2026 IEEE/ACM Third International Conference on AI Foundation Models and Software Engineering},\n  year      = {2026},\n  month     = apr,\n  pages     = {243-248},\n  publisher = {ACM},\n  doi       = {10.1145/3793655.3793716},\n  url       = {https://doi.org/10.1145/3793655.3793716}\n}"
+  },
+  {
+    "title": "Evaluating the Impact of Post-Training Quantization on Large Language Models for Code Generation",
+    "authors": [
+      {
+        "name": "Alessandro Giagnorio"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Saima Afrin",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Massimiliano Di Penta"
+      },
+      {
+        "name": "Gabriele Bavota"
+      }
+    ],
+    "year": 2026,
+    "month": 4,
+    "date": "2026-04-12",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "Proceedings of the 2026 34th IEEE/ACM International Conference on Program Comprehension",
+    "venue": "ICPC",
+    "pages": "195-206",
+    "publisher": "ACM",
+    "doi": "10.1145/3794763.3794810",
+    "arxiv": "2503.07103",
+    "url": "https://doi.org/10.1145/3794763.3794810",
+    "pdf": "https://doi.org/10.1145/3794763.3794810",
+    "abstract": "Large Language Models (LLMs) have shown an impressive capability in code generation. The LLM effectiveness generally increases with its size: The higher the number of LLM’s trainable parameters the better its ability to implement code. However, when it comes to deploying LLM-based code generators, larger LLMs pose significant challenges related to their memory (and, consequently, carbon) footprint. A previous work by Wei et al. proposed to leverage quantization techniques to reduce the memory footprint of LLM-based code generators without substantially degrading their effectiveness. In short, they studied LLMs featuring up to 16B parameters, quantizing their precision from floating point 32 bits down to int 8 bits and showing their limited impact on code generation performance. Given the fast pace at which LLM capabilities and quantization techniques are evolving, in this work we present a differentiated replication of the work by Wei et al. in which we consider (i) on the one side, more recent and larger code-related LLMs, of up to 34B parameters; (ii) the latest advancements in model quantization techniques, which allow pushing the compression to the extreme quantization level of 2 bits per model parameter and; (iii) different types of calibration datasets to guide the quantization process, including code-specific ones. Our empirical evaluation reveals that the new frontier for LLM quantization is 4-bit precision, resulting in an average memory footprint reduction of 70% compared to the original model without observing any significant decrease in performance. Additionally, when the quantization becomes even more extreme (3 and 2 bits), a code-specific calibration dataset helps to limit the loss of performance.",
+    "threads": [
+      "efficient-models"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 5,
+      "by_source": {
+        "s2": 5
+      }
+    },
+    "sources": {
+      "crossref": "10.1145/3794763.3794810",
+      "dblp": "journals/corr/abs-2503-07103",
+      "s2": "da4fbdab0325b48eb43f40f8192deeb8a92f6583",
+      "tldr": "Empirical evaluation reveals that the new frontier for LLM quantization is 4-bit precision, resulting in an average memory footprint reduction of 70% compared to the original model without observing any significant decrease in performance.",
+      "arxiv": "2503.07103"
+    },
+    "key": "giagnorio2026evaluating",
+    "venue_info": {
+      "key": "ICPC",
+      "name": "IEEE/ACM International Conference on Program Comprehension",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/icpc",
+      "rank": "CORE A"
+    },
+    "bibtex": "@inproceedings{giagnorio2026evaluating,\n  title     = {Evaluating the Impact of {Post-Training} Quantization on Large Language Models for Code Generation},\n  author    = {Giagnorio, Alessandro and Mastropaolo, Antonio and Afrin, Saima and Di Penta, Massimiliano and Bavota, Gabriele},\n  booktitle = {Proceedings of the 2026 34th IEEE/ACM International Conference on Program Comprehension},\n  year      = {2026},\n  month     = apr,\n  pages     = {195-206},\n  publisher = {ACM},\n  doi       = {10.1145/3794763.3794810},\n  url       = {https://doi.org/10.1145/3794763.3794810}\n}"
+  },
+  {
+    "title": "Fine-grained Multi-Document Extraction and Generation of Code Change Rationale",
+    "authors": [
+      {
+        "name": "Mehedi Sun"
+      },
+      {
+        "name": "Antu Saha"
+      },
+      {
+        "name": "Nadeeshan De Silva"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Oscar Chaparro"
+      }
+    ],
+    "year": 2026,
+    "month": 4,
+    "date": "2026-04-11",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2604.10345",
+    "url": "https://arxiv.org/abs/2604.10345",
+    "pdf": "https://arxiv.org/pdf/2604.10345",
+    "abstract": "Understanding the reasons behind past code changes is critical for refactoring, code review, and debugging. However, code change rationale is often fragmented, inconsistently documented, and scattered across heterogeneous artifacts. We address this challenge with two contributions. First, we conduct an empirical study of nine rationale components from an established taxonomy and trace where they are documented across artifacts associated with 63 commits from five widely used open-source Java projects. Seven components appear in practice, and rationale is highly fragmented: commit messages and pull requests primarily capture GOAL, while NEED and ALTERNATIVE are more often found in issues and pull requests. No single artifact type consistently captures all components, which presents the need for cross-document reasoning. Second, we introduce ARGUS, an LLM-based approach that identifies sentences expressing GOAL, NEED, and ALTERNATIVE across a commit's artifacts and synthesizes them into concise rationale summaries. ARGUS achieved 51.4% overall precision and 93.2% recall for rationale identification and generated summaries rated as accurate relative to reference summaries. Experiments across different LLMs showed varying identification performance but consistently accurate summaries. A user study with 12 Java programmers found these summaries useful for understanding unfamiliar code changes and supporting code review, documentation, debugging, and maintenance.",
+    "threads": [
+      "neurosymbolic-interpretability",
+      "agents-lifecycle"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2604-10345",
+      "s2": "cf9b498128dc44fd1e0181237689ae0b216db76f",
+      "tldr": "ARGUS is introduced, an LLM-based approach that identifies sentences expressing GOAL, NEED, and ALTERNATIVE across a commit's artifacts and synthesizes them into concise rationale summaries, useful for understanding unfamiliar code changes and supporting code review, documentation, debugging, and maintenance.",
+      "arxiv": "2604.10345"
+    },
+    "key": "sun2026fine",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{sun2026fine,\n  title         = {Fine-grained {Multi-Document} Extraction and Generation of Code Change Rationale},\n  author        = {Sun, Mehedi and Saha, Antu and De Silva, Nadeeshan and Mastropaolo, Antonio and Chaparro, Oscar},\n  howpublished  = {arXiv preprint arXiv:2604.10345},\n  eprint        = {2604.10345},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = apr,\n  url           = {https://arxiv.org/abs/2604.10345}\n}"
+  },
+  {
+    "title": "Toward Reliable Security Operations Center Testing With Foundation Models",
+    "authors": [
+      {
+        "name": "Sophia Shahnami"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Jeffrey Voas"
+      }
+    ],
+    "year": 2026,
+    "month": 4,
+    "date": "2026-04",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "4",
+    "pages": "111-114",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2025.3638508",
+    "url": "https://doi.org/10.1109/mc.2025.3638508",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2025.3638508",
+      "dblp": "journals/computer/ShahnamiMV26",
+      "s2": "59f371e58415d7b1f70e22c55bc263d4d7128e0e"
+    },
+    "key": "shahnami2026reliable",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{shahnami2026reliable,\n  title     = {Toward Reliable Security Operations Center Testing With Foundation Models},\n  author    = {Shahnami, Sophia and Mastropaolo, Antonio and Voas, Jeffrey},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = apr,\n  volume    = {59},\n  number    = {4},\n  pages     = {111-114},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2025.3638508},\n  url       = {https://doi.org/10.1109/mc.2025.3638508}\n}"
+  },
+  {
+    "title": "The Virtue of Hallucination: When AI Mistakes Make Software Safer",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 4,
+    "date": "2026-04",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "4",
+    "pages": "9-11",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3659286",
+    "url": "https://doi.org/10.1109/mc.2026.3659286",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2026.3659286",
+      "dblp": "journals/computer/Mastropaolo26c",
+      "s2": "c2d21b08004978bbef87deababf35a06f9c2bcdd"
+    },
+    "key": "mastropaolo2026virtue",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026virtue,\n  title     = {The Virtue of Hallucination: When {AI} Mistakes Make Software Safer},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = apr,\n  volume    = {59},\n  number    = {4},\n  pages     = {9-11},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3659286},\n  url       = {https://doi.org/10.1109/mc.2026.3659286}\n}"
+  },
+  {
+    "title": "Secrets in the Synapses: When Steganography Meets Large Language Models",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 3,
+    "date": "2026-03",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "3",
+    "pages": "9-11",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2026.3652075",
+    "url": "https://doi.org/10.1109/mc.2026.3652075",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2026.3652075",
+      "dblp": "journals/computer/Mastropaolo26b",
+      "s2": "6b2c0148ab7b74a213401325daf3bec732db965d"
+    },
+    "key": "mastropaolo2026secrets",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026secrets,\n  title     = {Secrets in the Synapses: When Steganography Meets Large Language Models},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = mar,\n  volume    = {59},\n  number    = {3},\n  pages     = {9-11},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3652075},\n  url       = {https://doi.org/10.1109/mc.2026.3652075}\n}"
+  },
+  {
+    "title": "Editorial of the special issue in the journal of systems and software on reliable and secure large language models for software engineering",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Pietro Liguori"
+      },
+      {
+        "name": "Gabriele Bavota"
+      }
+    ],
+    "year": 2026,
+    "month": 3,
+    "date": "2026-03",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "Journal of Systems and Software",
+    "venue": "JSS",
+    "volume": "233",
+    "pages": "112683",
+    "publisher": "Elsevier BV",
+    "doi": "10.1016/j.jss.2025.112683",
+    "url": "https://doi.org/10.1016/j.jss.2025.112683",
+    "pdf": "https://doi.org/10.1016/j.jss.2025.112683",
+    "threads": [
+      "reliable-evaluation",
+      "agents-lifecycle"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1016/j.jss.2025.112683",
+      "dblp": "journals/jss/MastropaoloLB26",
+      "s2": "4ea9ca24a0a4e6dd4c2ca1965c0b4a0ecce3490b"
+    },
+    "key": "mastropaolo2026editorial",
+    "venue_info": {
+      "key": "JSS",
+      "name": "Journal of Systems and Software",
+      "type": "journal",
+      "url": "https://www.sciencedirect.com/journal/journal-of-systems-and-software",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026editorial,\n  title     = {Editorial of the special issue in the journal of systems and software on reliable and secure large language models for software engineering},\n  author    = {Mastropaolo, Antonio and Liguori, Pietro and Bavota, Gabriele},\n  journal   = {Journal of Systems and Software},\n  year      = {2026},\n  month     = mar,\n  volume    = {233},\n  pages     = {112683},\n  publisher = {Elsevier BV},\n  doi       = {10.1016/j.jss.2025.112683},\n  url       = {https://doi.org/10.1016/j.jss.2025.112683}\n}"
+  },
+  {
+    "title": "An Empirical Study on the Effects of System Prompts in Instruction-Tuned Models for Code Generation",
+    "authors": [
+      {
+        "name": "Zaiyu Cheng",
+        "member": "zaiyu-cheng"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 2,
+    "date": "2026-02-16",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2602.15228",
+    "url": "https://arxiv.org/abs/2602.15228",
+    "pdf": "https://arxiv.org/pdf/2602.15228",
+    "abstract": "Instruction-tuned Language Models (ILMs) have become essential components of modern AI systems, demonstrating exceptional versatility across natural language and reasoning tasks. Among their most impactful applications is code generation, where ILMs -- commonly referred to as Code Language Models (CLMs) -- translate human intent into executable programs. While progress has been driven by advances in scaling and training methodologies, one critical aspect remains underexplored: the impact of system prompts on both general-purpose ILMs and specialized CLMs for code generation. We systematically evaluate how system prompts of varying instructional detail, along with model scale, prompting strategy, and programming language, affect code assistant. Our experimental setting spans 360 configurations across four models, five system prompts, three prompting strategies, two languages, and two temperature settings. We find that (1) increasing system-prompt constraint specificity does not monotonically improve correctness -- prompt effectiveness is configuration-dependent and can help or hinder based on alignment with task requirements and decoding context; (2) for larger code-specialized models, few-shot examples can degrade performance relative to zero-shot generation, contrary to conventional wisdom; and (3) programming language matters, with Java exhibiting significantly greater sensitivity to system prompt variations than Python, suggesting language-specific prompt engineering strategies may be necessary.",
+    "threads": [
+      "agents-lifecycle",
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2602-15228",
+      "s2": "60bb149019091a057bace97c97dff418479a77a7",
+      "tldr": "This work systematically evaluates how system prompts of varying instructional detail, along with model scale, prompting strategy, and programming language, affect code assistant and finds that increasing system-prompt constraint specificity does not monotonically improve correctness.",
+      "arxiv": "2602.15228"
+    },
+    "key": "cheng2026empirical",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{cheng2026empirical,\n  title         = {An Empirical Study on the Effects of System Prompts in {Instruction-Tuned} Models for Code Generation},\n  author        = {Cheng, Zaiyu and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2602.15228},\n  eprint        = {2602.15228},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = feb,\n  url           = {https://arxiv.org/abs/2602.15228}\n}"
+  },
+  {
+    "title": "Mind the Overlap: Trustworthy Evaluation for Large Code Models",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 2,
+    "date": "2026-02",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "2",
+    "pages": "7-9",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2025.3637575",
+    "url": "https://doi.org/10.1109/mc.2025.3637575",
+    "threads": [
+      "neurosymbolic-interpretability",
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2025.3637575",
+      "dblp": "journals/computer/Mastropaolo26a",
+      "s2": "f39e3f97ec5c9fcdc784f508cf8ba6b98d80946a"
+    },
+    "key": "mastropaolo2026mind",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026mind,\n  title     = {Mind the Overlap: Trustworthy Evaluation for Large Code Models},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = feb,\n  volume    = {59},\n  number    = {2},\n  pages     = {7-9},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2025.3637575},\n  url       = {https://doi.org/10.1109/mc.2025.3637575}\n}"
+  },
+  {
+    "title": "LLM-Powered Security Test Generation: Oracles, Vulnerability Probes, and Adversarial Inputs",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Rick Kuhn"
+      },
+      {
+        "name": "Jeffrey Voas"
+      }
+    ],
+    "year": 2026,
+    "month": 2,
+    "date": "2026-02",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "2",
+    "pages": "101-107",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2025.3625694",
+    "url": "https://doi.org/10.1109/mc.2025.3625694",
+    "abstract": "Large language models (LLMs) can synthesize test oracles from invariants where ground truth is unavailable, translate vulnerability catalogs such as CWE, OWASP, and CVE into executable probes, and generate adversarial inputs that stress both traditional software and LLM-based systems.",
+    "threads": [
+      "agents-lifecycle"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 2,
+      "by_source": {
+        "s2": 2
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2025.3625694",
+      "dblp": "journals/computer/MastropaoloKV26",
+      "s2": "53b92229eedc151a6de0c89e9de57e8bed56fb11"
+    },
+    "key": "mastropaolo2026llm",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026llm,\n  title     = {{LLM-Powered} Security Test Generation: Oracles, Vulnerability Probes, and Adversarial Inputs},\n  author    = {Mastropaolo, Antonio and Kuhn, Rick and Voas, Jeffrey},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = feb,\n  volume    = {59},\n  number    = {2},\n  pages     = {101-107},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2025.3625694},\n  url       = {https://doi.org/10.1109/mc.2025.3625694}\n}"
+  },
+  {
+    "title": "Not All Tokens Matter: Data-Centric Optimization for Efficient Code Summarization",
+    "authors": [
+      {
+        "name": "Saima Afrin",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Zaiyu Cheng",
+        "member": "zaiyu-cheng"
+      },
+      {
+        "name": "Tushar Sharma"
+      },
+      {
+        "name": "Alexander Serebrenik"
+      },
+      {
+        "name": "Massimiliano Di Penta"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 1,
+    "date": "2026-01-28",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2601.20147",
+    "url": "https://arxiv.org/abs/2601.20147",
+    "pdf": "https://arxiv.org/pdf/2601.20147",
+    "abstract": "The rapid advancement of Large Language Models (LLMs) has revolutionized software engineering automation, particularly in automated code summarization, which enhances program comprehension and supports development activities. However, training LLMs for code summarization remains computationally expensive, with performance deteriorating on longer inputs-challenges that intensify when handling millions of code-comment pairs. We investigate strategic data optimization through targeted token reduction to minimize computational overhead while maintaining summary quality. We compare three token-level reduction techniques-(i) Abstract Syntax Tree (AST) representations, (ii) Function Signatures, and (iii) CrystalBLEU-guided pruning-combined with semantic filtering, evaluating them on Java and Python in standalone and cascaded reduction settings. Our findings reveal highly language-dependent optimal strategies: AST-based optimization achieves 37% performance improvements in Java with 56-73% token reduction but shows up to 49% degradation in Python. Conversely, Function Signatures perform poorly in Java but optimally in Python, achieving 83% token reduction while maintaining quality. CrystalBLEU demonstrates cross-language robustness with 60-72% reduction. These results challenge assumptions about cross-language transferability, demonstrating that which tokens are kept matters more than how many are removed, making language-aware token curation essential for efficient code summarization.",
+    "threads": [
+      "efficient-models",
+      "agents-lifecycle"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2601-20147",
+      "s2": "98fc3a0c169e8d9580a2fafdcb45296a8a45a73b",
+      "tldr": "It is shown that which tokens are kept matters more than how many are removed, making language-aware token curation essential for efficient code summarization, making language-aware token curation essential for efficient code summarization.",
+      "arxiv": "2601.20147"
+    },
+    "key": "afrin2026not",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{afrin2026not,\n  title         = {Not All Tokens Matter: {Data-Centric} Optimization for Efficient Code Summarization},\n  author        = {Afrin, Saima and Cheng, Zaiyu and Sharma, Tushar and Serebrenik, Alexander and Di Penta, Massimiliano and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2601.20147},\n  eprint        = {2601.20147},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jan,\n  url           = {https://arxiv.org/abs/2601.20147}\n}"
+  },
+  {
+    "title": "Parameter-Efficient Multi-Task Fine-Tuning in Code-Related Tasks",
+    "authors": [
+      {
+        "name": "Md Zahidul Haque",
+        "member": "md-zahidul-haque-alvi"
+      },
+      {
+        "name": "Saima Afrin",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 1,
+    "date": "2026-01-21",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2601.15094",
+    "url": "https://arxiv.org/abs/2601.15094",
+    "pdf": "https://arxiv.org/pdf/2601.15094",
+    "abstract": "Large Language Models (LLMs) have proven highly effective in automating software engineering tasks, bridging natural language and code semantics to achieve notable results in code generation and summarization. However, their scale incurs substantial computational costs, making full fine-tuning impractical. Parameter-Efficient Fine-Tuning (PEFT) methods like QLoRA enable efficient specialization with lower resource demands. Recent studies show QLoRA-optimized Large Code Models (LCMs) perform strongly across diverse tasks, yet it remains unclear whether this effectiveness persists when a single model is QLoRA fine-tuned for multiple code-related tasks. The interaction between Multi-task fine-tuning and QLoRA optimization, and how transfer learning affects correctness and quality of generated artifacts, remains largely unexplored. We investigate Multi-task QLoRA fine-tuning across three representative tasks: code generation, translation, and summarization. We evaluate functional correctness through execution-based and similarity-based metrics, complemented by comprehensive code quality analysis--an aspect largely overlooked in prior work. Our findings show that Multi-task QLoRA effectively leverages transfer learning, achieving competitive or superior performance at the 1.5B, 3B, and 7B configurations relative to both Single-task QLoRA and Multi-task full fine-tuning. Larger models demonstrate more consistent balance between correctness and quality, whereas smaller models preserve functionality but exhibit a higher incidence of quality-related issues.",
+    "threads": [
+      "efficient-models"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2601-15094",
+      "s2": "c897c8ac9de1327316d74772ef5a9044c75bf1fa",
+      "tldr": "This work investigates Multi-task QLoRA fine-tuning across three representative tasks: code generation, translation, and summarization and shows that Multi-task QLoRA effectively leverages transfer learning, achieving competitive or superior performance at the 1.5B, 3B, and 7B configurations relative to both Single-task QLoRA and Multi-task full fine-tuning.",
+      "arxiv": "2601.15094"
+    },
+    "key": "haque2026parameter",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{haque2026parameter,\n  title         = {{Parameter-Efficient} {Multi-Task} {Fine-Tuning} in {Code-Related} Tasks},\n  author        = {Haque, Md Zahidul and Afrin, Saima and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2601.15094},\n  eprint        = {2601.15094},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jan,\n  url           = {https://arxiv.org/abs/2601.15094}\n}"
+  },
+  {
+    "title": "Human or Machine? Rebuilding Trust in the Age of AI-Based Text Generation",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2026,
+    "month": 1,
+    "date": "2026-01",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "59",
+    "number": "1",
+    "pages": "10-12",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2025.3627314",
+    "url": "https://doi.org/10.1109/mc.2025.3627314",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2025.3627314",
+      "dblp": "journals/computer/Mastropaolo26",
+      "s2": "829577f95f5190e65336daeae9f3eb17d660f648"
+    },
+    "key": "mastropaolo2026human",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2026human,\n  title     = {Human or Machine? Rebuilding Trust in the Age of {AI-Based} Text Generation},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = jan,\n  volume    = {59},\n  number    = {1},\n  pages     = {10-12},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2025.3627314},\n  url       = {https://doi.org/10.1109/mc.2025.3627314}\n}"
+  },
+  {
+    "title": "Prompt Alchemy: Engineering the Magic of Code",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 12,
+    "date": "2025-12",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "58",
+    "number": "12",
+    "pages": "18-20",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2025.3615835",
+    "url": "https://doi.org/10.1109/mc.2025.3615835",
+    "threads": [
+      "agents-lifecycle"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2025.3615835",
+      "dblp": "journals/computer/Mastropaolo25f",
+      "s2": "521c135715e7eeb0fc4967d198f78916094d79cb"
+    },
+    "key": "mastropaolo2025prompt",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2025prompt,\n  title     = {Prompt Alchemy: Engineering the Magic of Code},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2025},\n  month     = dec,\n  volume    = {58},\n  number    = {12},\n  pages     = {18-20},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2025.3615835},\n  url       = {https://doi.org/10.1109/mc.2025.3615835}\n}"
+  },
+  {
+    "title": "From Heuristics to Intelligence: Large Language Model-Driven Test Case Generation",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Rick Kuhn"
+      },
+      {
+        "name": "Jeffrey Voas"
+      }
+    ],
+    "year": 2025,
+    "month": 12,
+    "date": "2025-12",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "58",
+    "number": "12",
+    "pages": "130-136",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2025.3609478",
+    "url": "https://doi.org/10.1109/mc.2025.3609478",
+    "abstract": "Large language models (LLMs) open new opportunities for software testing and assurance, but it is still unclear how they can be most effectively used. This article examines recent research on LLMs, along with current challenges.",
+    "selected": false,
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2025.3609478",
+      "dblp": "journals/computer/MastropaoloKV25",
+      "s2": "3d154f2104992a13864bd8cfd4667ead24af13a9"
+    },
+    "key": "mastropaolo2025heuristics",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2025heuristics,\n  title     = {From Heuristics to Intelligence: Large Language {Model-Driven} Test Case Generation},\n  author    = {Mastropaolo, Antonio and Kuhn, Rick and Voas, Jeffrey},\n  journal   = {IEEE Computer},\n  year      = {2025},\n  month     = dec,\n  volume    = {58},\n  number    = {12},\n  pages     = {130-136},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2025.3609478},\n  url       = {https://doi.org/10.1109/mc.2025.3609478}\n}"
+  },
+  {
+    "title": "Smart but Costly? Benchmarking LLMs on Functional Accuracy and Energy Efficiency",
+    "authors": [
+      {
+        "name": "Mohammad Javad Mehditabar"
+      },
+      {
+        "name": "Saurabhsingh Rajput"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Tushar Sharma"
+      }
+    ],
+    "year": 2025,
+    "month": 11,
+    "date": "2025-11-10",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2511.07698",
+    "url": "https://arxiv.org/abs/2511.07698",
+    "pdf": "https://arxiv.org/pdf/2511.07698",
+    "abstract": "The rapid advancement of AI technologies and their accelerated adoption in software development necessitates a systematic evaluation of their environmental impact alongside functional correctness. While prior studies have examined sustainability in large language models, existing approaches lack systematic frameworks for evaluating accuracy-energy trade-offs in Code Language Models (CLMs). In this paper, we present a framework, BRACE, to benchmark CLMs on a unified scale of energy efficiency and functional correctness (referred to as accuracy). We benchmark 22 state-of-the-art models on code generation and summarization tasks, proposing two rating methods: Concentric Incremental Rating Circles (CIRC) and Observation to Expectation Rating (OTER). CIRC provides deterministic Euclidean-based rankings with static trade-offs that are robust to outliers, and OTER offers trend-aware evaluation with dynamic trade-offs that capture the complex correlation between energy and accuracy, each offering a distinct perspective and addressing the problem in a unique way. These rating methods enable us to rate LLMs on a 1-5 scale reflecting their combined capabilities in terms of energy efficiency and functional correctness. Our analysis reveals models generally perform better in the code summarization tasks as they are not enforced to generate a grammar-based and syntactically correct output. Also, we find that models'size does not have a significant impact on their ratings, indicating that if models utilize their parameters efficiently, they can be ranked higher on these scales. The proposed BRACE framework empowers practitioners to make evidence-based model selections that balance sustainability with task requirements, guiding rating choice -- CIRC for deterministic comparisons or OTER for trend-aware evaluation -- based on deployment priorities.",
+    "threads": [
+      "efficient-models",
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 4,
+      "by_source": {
+        "s2": 4
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2511-07698",
+      "s2": "f3ef07307007e4fa72df14b1605005fb627da784",
+      "tldr": "A framework to benchmark CLMs on a unified scale of energy efficiency and functional correctness (referred to as accuracy), and proposes two rating methods: Concentric Incremental Rating Circles (CIRC) and Observation to Expectation Rating (OTER).",
+      "arxiv": "2511.07698"
+    },
+    "key": "mehditabar2025smart",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{mehditabar2025smart,\n  title         = {Smart but Costly? Benchmarking {LLMs} on Functional Accuracy and Energy Efficiency},\n  author        = {Mehditabar, Mohammad Javad and Rajput, Saurabhsingh and Mastropaolo, Antonio and Sharma, Tushar},\n  howpublished  = {arXiv preprint arXiv:2511.07698},\n  eprint        = {2511.07698},\n  archivePrefix = {arXiv},\n  year          = {2025},\n  month         = nov,\n  url           = {https://arxiv.org/abs/2511.07698}\n}"
+  },
+  {
+    "title": "Breaking Bottlenecks in Large Language Model Inference With Adaptive Cache Management",
+    "authors": [
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 11,
+    "date": "2025-11",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "58",
+    "number": "11",
+    "pages": "4-6",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/mc.2025.3604189",
+    "url": "https://doi.org/10.1109/mc.2025.3604189",
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/mc.2025.3604189",
+      "dblp": "journals/computer/Mastropaolo25e",
+      "s2": "1a5616b96d39bd768d0ba8e3aa9e7934ae48a9f8"
+    },
+    "key": "mastropaolo2025breaking",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2025breaking,\n  title     = {Breaking Bottlenecks in Large Language Model Inference With Adaptive Cache Management},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2025},\n  month     = nov,\n  volume    = {58},\n  number    = {11},\n  pages     = {4-6},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2025.3604189},\n  url       = {https://doi.org/10.1109/mc.2025.3604189}\n}"
+  },
+  {
+    "title": "Code, Chaos, and Clarity: Neurosymbolic Approaches to Trustworthy Software Automation",
+    "authors": [
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 10,
+    "date": "2025-10",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "58",
+    "number": "10",
+    "pages": "146–151",
+    "publisher": "IEEE",
+    "doi": "10.1109/mc.2025.3579912",
+    "url": "https://www.computer.org/csdl/magazine/co/2025/10/11178159/2ah7yhnpi92",
+    "abstract": "As large code models become increasingly central to software development, concerns about their opacity, reliability, and resource-intensive nature are mounting. This article introduces neurosymbolic software engineering, an innovative paradigm that blends neural learning, symbolic reasoning, and controlled stochasticity.",
+    "threads": [
+      "neurosymbolic-interpretability"
+    ],
+    "selected": false,
+    "note": "Software Engineering Column",
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "local": "mastropaolo2025code",
+      "crossref": "10.1109/mc.2025.3579912",
+      "dblp": "journals/computer/Mastropaolo25d",
+      "s2": "6c502dffbf0d3a191a543517691ff57873e5fc20"
+    },
+    "key": "mastropaolo2025code",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2025code,\n  title     = {Code, Chaos, and Clarity: Neurosymbolic Approaches to Trustworthy Software Automation},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2025},\n  month     = oct,\n  volume    = {58},\n  number    = {10},\n  pages     = {146--151},\n  publisher = {IEEE},\n  doi       = {10.1109/mc.2025.3579912},\n  url       = {https://doi.org/10.1109/mc.2025.3579912},\n  note      = {Software Engineering Column}\n}"
+  },
+  {
+    "title": "Is Quantization a Deal-breaker? Empirical Insights from Large Code Models",
+    "authors": [
+      {
+        "name": "Afrin, Saima",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Xu, Bowen"
+      },
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 9,
+    "date": "2025-09-07",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "Proceedings of the 41st IEEE International Conference on Software Maintainance and Evolution (ICSME 2025)",
+    "venue": "ICSME",
+    "pages": "1-13",
+    "publisher": "IEEE",
+    "doi": "10.1109/icsme64153.2025.00049",
+    "arxiv": "2507.09665",
+    "url": "https://arxiv.org/abs/2507.09665",
+    "pdf": "https://arxiv.org/pdf/2507.09665",
+    "abstract": "The growing scale of large language models (LLMs) not only demands extensive computational resources but also raises environmental concerns due to their increasing carbon footprint. Model quantization emerges as an effective approach that can reduce the resource demands of LLMs by decreasing parameter precision without substantially affecting performance (e.g., 16 bit to 4 bit). While recent studies have established quantization as a promising approach for optimizing large code models (LCMs), a specialized subset of LLMs tailored for automated software engineering, their findings offer only limited insights into its practical implications. Specifically, current investigations focus only on the functional correctness of the code generated by quantized models, neglecting how quantization impacts critical aspects of code quality such as reliability, maintainability, and security. To bridge this gap, our study investigates the effects of quantization on the qualitative aspects of automatically generated code. We apply Activation-aware Weight Quantization (AWQ) to two widely used code models, CodeLlama and DeepSeekCoder, to generate Java and Python code. Using state-of-the-art static analysis tools, we evaluate software quality metrics and static features including cyclomatic complexity, cognitive complexity, and lines of code. Our findings reveal that quantization is a robust technique that not only preserves functional correctness, but also retains key qualitative code attributes sought after by developers, such as maintainability and structural simplicity.",
+    "keywords": [
+      "Software engineering",
+      "Quantization",
+      "Efficient Software Engineering",
+      "Code Quality"
+    ],
+    "threads": [
+      "efficient-models",
+      "reliable-evaluation"
+    ],
+    "selected": true,
+    "citations": {
+      "count": 13,
+      "by_source": {
+        "s2": 13
+      }
+    },
+    "sources": {
+      "local": "afrin2025quantization",
+      "crossref": "10.1109/icsme64153.2025.00049",
+      "dblp": "journals/corr/abs-2507-09665",
+      "s2": "83030e1c02c2f206f868f155663473cfb0215a5c",
+      "tldr": "The effects of quantization on the qualitative aspects of automatically generated code are investigated, revealing that quantization not only establishes itself as a robust technique capable of withstanding functional challenges-producing code that passes test cases at rates comparable to non-quantized models-but also preserves key qualitative attributes and static features often sought after by developers, such as maintainability and structural complexity.",
+      "arxiv": "2507.09665"
+    },
+    "key": "afrin2025quantization",
+    "venue_info": {
+      "key": "ICSME",
+      "name": "IEEE International Conference on Software Maintenance and Evolution",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/icsme",
+      "rank": "CORE A"
+    },
+    "bibtex": "@inproceedings{afrin2025quantization,\n  title     = {Is Quantization a Deal-breaker? Empirical Insights from Large Code Models},\n  author    = {Afrin, Saima and Xu, Bowen and Mastropaolo, Antonio},\n  booktitle = {Proceedings of the 41st IEEE International Conference on Software Maintainance and Evolution (ICSME 2025)},\n  year      = {2025},\n  month     = sep,\n  pages     = {1-13},\n  publisher = {IEEE},\n  doi       = {10.1109/icsme64153.2025.00049},\n  url       = {https://doi.org/10.1109/icsme64153.2025.00049}\n}"
+  },
+  {
+    "title": "When Databases Age: How SQL Server and MySQL Handle the Test of Time",
+    "authors": [
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 9,
+    "date": "2025-09",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "58",
+    "number": "9",
+    "pages": "4–6",
+    "publisher": "IEEE",
+    "doi": "10.1109/mc.2025.3590160",
+    "url": "https://www.computer.org/csdl/magazine/co/2025/09/11134657/29olVWDfAFa",
+    "abstract": "Recent research explores how sustained operation impacts the performance of relational database systems through the lens of software aging and the critical role of proactive monitoring and rejuvenation strategies in maintaining long-term system reliability.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "note": "Spotlight on Transaction",
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "local": "mastropaolo2025databases",
+      "crossref": "10.1109/mc.2025.3590160",
+      "dblp": "journals/computer/Mastropaolo25c",
+      "s2": "8e302d552794d2bc37e87696e94acca14a62a647"
+    },
+    "key": "mastropaolo2025databases",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2025databases,\n  title     = {When Databases Age: How {SQL} Server and {MySQL} Handle the Test of Time},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2025},\n  month     = sep,\n  volume    = {58},\n  number    = {9},\n  pages     = {4--6},\n  publisher = {IEEE},\n  doi       = {10.1109/mc.2025.3590160},\n  url       = {https://doi.org/10.1109/mc.2025.3590160},\n  note      = {Spotlight on Transaction}\n}"
+  },
+  {
+    "title": "Smarter, Not Harder: Efficient Artificial Intelligence Training With Selective Data",
+    "authors": [
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 8,
+    "date": "2025-08",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "58",
+    "number": "8",
+    "pages": "4–6",
+    "publisher": "IEEE",
+    "doi": "10.1109/mc.2025.3576374",
+    "url": "https://www.computer.org/csdl/magazine/co/2025/08/11104070/28MaWQ2WciA",
+    "abstract": "The article reviews \"Training Green AI Models Using Elite Samples,\" a study that proposes a resource-efficient training strategy by leveraging evolutionary algorithms to identify a small but highly informative subset of training data.",
+    "threads": [
+      "efficient-models"
+    ],
+    "selected": false,
+    "note": "Spotlight on Transaction",
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "local": "mastropaolo2025smarter",
+      "crossref": "10.1109/mc.2025.3576374",
+      "dblp": "journals/computer/Mastropaolo25b",
+      "s2": "bc96e4244125013c457092fa887480ccddf946cb"
+    },
+    "key": "mastropaolo2025smarter",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2025smarter,\n  title     = {Smarter, Not Harder: Efficient Artificial Intelligence Training With Selective Data},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2025},\n  month     = aug,\n  volume    = {58},\n  number    = {8},\n  pages     = {4--6},\n  publisher = {IEEE},\n  doi       = {10.1109/mc.2025.3576374},\n  url       = {https://doi.org/10.1109/mc.2025.3576374},\n  note      = {Spotlight on Transaction}\n}"
+  },
+  {
+    "title": "On the Effectiveness of LLM-as-a-Judge for Code Generation and Summarization",
+    "authors": [
+      {
+        "name": "Giuseppe Crupi"
+      },
+      {
+        "name": "Rosalia Tufano"
+      },
+      {
+        "name": "Alejandro Velasco"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Denys Poshyvanyk"
+      },
+      {
+        "name": "Gabriele Bavota"
+      }
+    ],
+    "year": 2025,
+    "month": 8,
+    "date": "2025-08",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "IEEE Transactions on Software Engineering",
+    "venue": "TSE",
+    "volume": "51",
+    "number": "8",
+    "pages": "2329-2345",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "doi": "10.1109/tse.2025.3586082",
+    "arxiv": "2507.16587",
+    "url": "https://doi.org/10.1109/tse.2025.3586082",
+    "pdf": "https://arxiv.org/pdf/2507.16587",
+    "abstract": "Large Language Models (LLMs) have been recently exploited as judges for complex natural language processing tasks, such as Q&A (Question & Answer). The basic idea is to delegate to an LLM the assessment of the “quality” of the output provided by an automated technique (often another LLM) for tasks for which: (i) quantitative metrics would only tell part of the story, and; (ii) a large-scale human-based evaluation would be too expensive. LLMs-as-a-judge, if proven effective for a specific task, can also unlock new possibilities for automation, with several LLMs proposing a solution for a given instance of the task (<italic>e.g.,</italic> an answer to a question) and others judging and deciding what is the best output to show the user. We study the effectiveness of LLMs-as-a-judge for two code-related tasks, namely <italic>code generation</italic> and <italic>code summarization</italic>. The rationale for choosing these tasks is two-fold. First, quantitative metrics are usually not enough for the assessment of code summarizers/generators. For example, it is well documented that metrics such as BLEU are quite weak proxies for the quality of the generated summaries. Second, even state-of-the-art techniques still struggle with handling complex instances of these tasks (<italic>e.g.,</italic> summarizing a quite long / complex function), making them good candidates for benefiting from more advanced solutions envisioning collaboration among LLMs. For <italic>code generation</italic>, we check whether eight LLMs are able to judge the correctness of 1,405 Java methods and 1,281 Python functions generated by the same LLMs or implemented by humans. For <italic>code summarization</italic>, we compare the judgment of five LLMs to those provided by ninehumans for <inline-formula><tex-math notation=\"LaTeX\">$\\sim$</tex-math><alternatives><mml:math><mml:mo>∼</mml:mo></mml:math><graphic position=\"float\" orientation=\"portrait\" xlink:href=\"bavota-ieq1-3586082.gif\"/></alternatives></inline-formula> 1.2k summaries, related to both Java and Python functions. Our findings show that GPT-4-turbo is the best LLM in terms of judging capabilities for both tasks, with “smaller” LLMs featuring tens of billions parameters not being able to cope with judging tasks. However, even the best-performing LLM frequently misjudges the correctness of the code and summary quality.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 53,
+      "by_source": {
+        "s2": 53
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/tse.2025.3586082",
+      "dblp": "journals/corr/abs-2507-16587",
+      "s2": "b581baf7bc890d42e7fe06d3a93644e7d3188c3f",
+      "tldr": "The effectiveness of LLMs-as-a-judge for two code-related tasks, namely code generation and code summarization, is studied and GPT-4-turbo is the best LLM in terms of judging capabilities for both tasks.",
+      "arxiv": "2507.16587"
+    },
+    "key": "crupi2025effectiveness",
+    "venue_info": {
+      "key": "TSE",
+      "name": "IEEE Transactions on Software Engineering",
+      "type": "journal",
+      "url": "https://www.computer.org/csdl/journal/ts",
+      "rank": "CORE A*"
+    },
+    "bibtex": "@article{crupi2025effectiveness,\n  title     = {On the Effectiveness of {LLM-as-a-Judge} for Code Generation and Summarization},\n  author    = {Crupi, Giuseppe and Tufano, Rosalia and Velasco, Alejandro and Mastropaolo, Antonio and Poshyvanyk, Denys and Bavota, Gabriele},\n  journal   = {IEEE Transactions on Software Engineering},\n  year      = {2025},\n  month     = aug,\n  volume    = {51},\n  number    = {8},\n  pages     = {2329-2345},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/tse.2025.3586082},\n  url       = {https://doi.org/10.1109/tse.2025.3586082}\n}"
+  },
+  {
+    "title": "Pixels of Deception: How Evolutionary Algorithms Break AI Reliability",
+    "authors": [
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 7,
+    "date": "2025-07",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "58",
+    "number": "07",
+    "pages": "4–6",
+    "publisher": "IEEE",
+    "doi": "10.1109/mc.2025.3566179",
+    "url": "https://www.computer.org/csdl/magazine/co/2025/07/11052610/27RKcJrj5D2",
+    "abstract": "The article reviews the evolutionary universal perturbation attack, a technique that uses genetic algorithms to craft tiny, invisible noise patterns that can mislead deep neural networks without needing internal model access.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "note": "Spotlight on Transaction",
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "local": "mastropaolo2025pixels",
+      "crossref": "10.1109/mc.2025.3566179",
+      "dblp": "journals/computer/Mastropaolo25a",
+      "s2": "54a9f79164f12c75a498e4b132e618d637350c4e"
+    },
+    "key": "mastropaolo2025pixels",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2025pixels,\n  title     = {Pixels of Deception: How Evolutionary Algorithms Break {AI} Reliability},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2025},\n  month     = jul,\n  volume    = {58},\n  number    = {07},\n  pages     = {4--6},\n  publisher = {IEEE},\n  doi       = {10.1109/mc.2025.3566179},\n  url       = {https://doi.org/10.1109/mc.2025.3566179},\n  note      = {Spotlight on Transaction}\n}"
+  },
+  {
+    "title": "Smaller = Weaker? Benchmarking Robustness of Quantized LLMs in Code Generation",
+    "authors": [
+      {
+        "name": "Sen Fang"
+      },
+      {
+        "name": "Weiyuan Ding"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Bowen Xu"
+      }
+    ],
+    "year": 2025,
+    "month": 6,
+    "date": "2025-06-27",
+    "type": "preprint",
+    "status": "preprint",
+    "venue_raw": "CoRR",
+    "venue": "arXiv",
+    "arxiv": "2506.22776",
+    "url": "https://arxiv.org/abs/2506.22776",
+    "pdf": "https://arxiv.org/pdf/2506.22776",
+    "abstract": "Quantization has emerged as a mainstream method for compressing Large Language Models (LLMs), reducing memory requirements and accelerating inference without architectural modifications. While existing research primarily focuses on evaluating the effectiveness of quantized LLMs compared to their original counterparts, the impact on robustness remains largely unexplored.In this paper, we present the first systematic investigation of how quantization affects the robustness of LLMs in code generation tasks. Through extensive experiments across four prominent LLM families (LLaMA, DeepSeek, CodeGen, and StarCoder) with parameter scales ranging from 350M to 33B, we evaluate robustness from dual perspectives: adversarial attacks on input prompts and noise perturbations on model architecture. Our findings challenge conventional wisdom by demonstrating that quantized LLMs often exhibit superior robustness compared to their full-precision counterparts, with 51.59% versus 42.86% of our adversarial experiments showing better resilience in quantized LLMs. Similarly, our noise perturbation experiments also confirm that LLMs after quantitation generally withstand higher levels of weight disturbances. These results suggest that quantization not only reduces computational requirements but can actually enhance LLMs'reliability in code generation tasks, providing valuable insights for developing more robust and efficient LLM deployment strategies.",
+    "threads": [
+      "reliable-evaluation"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 7,
+      "by_source": {
+        "s2": 7
+      }
+    },
+    "sources": {
+      "dblp": "journals/corr/abs-2506-22776",
+      "s2": "c8be582f05c20c7f7909cbbba10d0a8db5f5eac2",
+      "tldr": "It is suggested that quantization not only reduces computational requirements but can actually enhance LLMs'reliability in code generation tasks, providing valuable insights for developing more robust and efficient LLM deployment strategies.",
+      "arxiv": "2506.22776"
+    },
+    "key": "fang2025smaller",
+    "venue_info": {
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
+    },
+    "bibtex": "@misc{fang2025smaller,\n  title         = {Smaller = Weaker? Benchmarking Robustness of Quantized {LLMs} in Code Generation},\n  author        = {Fang, Sen and Ding, Weiyuan and Mastropaolo, Antonio and Xu, Bowen},\n  howpublished  = {arXiv preprint arXiv:2506.22776},\n  eprint        = {2506.22776},\n  archivePrefix = {arXiv},\n  year          = {2025},\n  month         = jun,\n  url           = {https://arxiv.org/abs/2506.22776}\n}"
+  },
+  {
+    "title": "A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm",
+    "authors": [
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Poshyvanyk, Denys"
+      }
+    ],
+    "year": 2025,
+    "month": 6,
+    "date": "2025-06-23",
+    "type": "workshop",
+    "status": "published",
+    "venue_raw": "Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering",
+    "venue": "AI-SDLC",
+    "pages": "1358–1362",
+    "publisher": "ACM",
+    "doi": "10.1145/3696630.3728720",
+    "arxiv": "2505.02275",
+    "url": "https://antoniomastropaolo.com/assets/pdf/AI_SDLC_Position.pdf",
+    "pdf": "https://dl.acm.org/doi/pdf/10.1145/3696630.3728720",
+    "abstract": "The emergence of Large Code Models (LCMs) has transformed software engineering (SE) automation, driving significant advancements in tasks such as code generation, source code documentation, code review, and bug fixing. However, these advancements come with trade-offs: achieving high performance often entails exponential computational costs, reduced interpretability, and an increasing dependence on data-intensive models with hundreds of billions of parameters. In this paper, we propose Neurosymbolic Software Engineering, in short NSE, as a promising paradigm combining neural learning with symbolic (rule-based) reasoning, while strategically introducing a controlled source of chaos to simulate the complex dynamics of real-world software systems. This hybrid methodology aims to enhance efficiency, reliability, and transparency in AI-driven software engineering, while introducing controlled randomness to adapt to evolving requirements, unpredictable system behaviors, and non-deterministic execution environments. By redefining the core principles of AI-driven software engineering automation, NSE lays the groundwork for solutions that are more adaptable, transparent, and closely aligned with the evolving demands of modern software development practices.",
+    "keywords": [
+      "Software engineering",
+      "Neurosymbolic",
+      "Position Paper",
+      "AI4SE",
+      "LLM4Code"
+    ],
+    "threads": [
+      "neurosymbolic-interpretability"
+    ],
+    "selected": true,
+    "citations": {
+      "count": 2,
+      "by_source": {
+        "s2": 2
+      }
+    },
+    "sources": {
+      "local": "mastropaolo2025path",
+      "crossref": "10.1145/3696630.3728720",
+      "dblp": "journals/corr/abs-2505-02275",
+      "s2": "41fdd127e8be3e8d612dc3d9f72b4092c88b2151",
+      "tldr": "This paper proposes Neurosymbolic Software Engineering, in short NSE, as a promising paradigm combining neural learning with symbolic (rule-based) reasoning, while strategically introducing a controlled source of chaos to simulate the complex dynamics of real-world software systems.",
+      "arxiv": "2505.02275"
+    },
+    "key": "mastropaolo2025path",
+    "venue_info": {
+      "key": "AI-SDLC",
+      "name": "International Workshop on AI for Software Development Lifecycle",
+      "type": "workshop",
+      "url": "https://conf.researchr.org/home/fse-2025/ai-sdlc-2025",
+      "rank": null
+    },
+    "bibtex": "@inproceedings{mastropaolo2025path,\n  title     = {A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm},\n  author    = {Mastropaolo, Antonio and Poshyvanyk, Denys},\n  booktitle = {Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering},\n  year      = {2025},\n  month     = jun,\n  pages     = {1358--1362},\n  publisher = {ACM},\n  doi       = {10.1145/3696630.3728720},\n  url       = {https://doi.org/10.1145/3696630.3728720}\n}"
+  },
+  {
+    "title": "How Artificial Intelligence Is Reshaping Our Lives: A Framework to Unravel Its Complexities",
+    "authors": [
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 6,
+    "date": "2025-06",
+    "type": "magazine",
+    "status": "published",
+    "venue_raw": "Computer",
+    "venue": "Computer",
+    "volume": "58",
+    "number": "6",
+    "pages": "4–5",
+    "publisher": "IEEE",
+    "doi": "10.1109/mc.2025.3549482",
+    "url": "https://dl.acm.org/doi/abs/10.1109/MC.2025.3549482",
+    "abstract": "This article from IEEE Transactions on Software Engineering introduces LUNA, a universal analysis framework designed to enhance the interpretability, reliability, and trustworthiness of large language models by addressing key challenges such as hallucinations, biases, and inconsistencies.",
+    "threads": [
+      "neurosymbolic-interpretability"
+    ],
+    "selected": false,
+    "note": "Spotlight on Transaction",
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "local": "mastropaolo2025artificial",
+      "crossref": "10.1109/mc.2025.3549482",
+      "dblp": "journals/computer/Mastropaolo25",
+      "s2": "58c17b1b394bbda08032a374e8cfbe9a6e684765"
+    },
+    "key": "mastropaolo2025artificial",
+    "venue_info": {
+      "key": "Computer",
+      "name": "IEEE Computer",
+      "type": "magazine",
+      "url": "https://www.computer.org/csdl/magazine/co",
+      "rank": null
+    },
+    "bibtex": "@article{mastropaolo2025artificial,\n  title     = {How Artificial Intelligence Is Reshaping Our Lives: A Framework to Unravel Its Complexities},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2025},\n  month     = jun,\n  volume    = {58},\n  number    = {6},\n  pages     = {4--5},\n  publisher = {IEEE},\n  doi       = {10.1109/mc.2025.3549482},\n  url       = {https://doi.org/10.1109/mc.2025.3549482},\n  note      = {Spotlight on Transaction}\n}"
+  },
+  {
+    "title": "Towards Generating the Rationale for Code Changes",
+    "authors": [
+      {
+        "name": "Francesco Casillo"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Gabriele Bavota"
+      },
+      {
+        "name": "Vincenzo Deufemia"
+      },
+      {
+        "name": "Carmine Gravino"
+      }
+    ],
+    "year": 2025,
+    "month": 4,
+    "date": "2025-04-27",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "2025 IEEE/ACM 33rd International Conference on Program Comprehension (ICPC)",
+    "venue": "ICPC",
+    "pages": "327-338",
+    "publisher": "IEEE",
+    "doi": "10.1109/icpc66645.2025.00041",
+    "url": "https://doi.org/10.1109/icpc66645.2025.00041",
+    "abstract": "Commit messages are essential to understand changes in software projects, providing a way for developers to communicate code evolution. Generating effective commit messages that explain the rationale behind changes is a challenging and timeconsuming task. While previous research has shown success in automating straightforward commit messages (e.g., “add README”), our study explores a more complex task: generating rationale explanations for code changes. We developed a method to identify rationale sentences in commit messages and compiled a dataset of 45,945 commits with their corresponding rationales. A pre-trained model was trained on this dataset to generate rationale explanations. While the approach we engineered for the extraction of rationale from commit messages exhibited a 75 % precision, the model trained to generate the rationale only worked in a minority of cases. Our findings highlight the difficulty of the tackled task and the need for additional research in the area. We release our dataset and code to foster the investigation of this problem.",
+    "threads": [
+      "neurosymbolic-interpretability"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 1,
+      "by_source": {
+        "s2": 1
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/icpc66645.2025.00041",
+      "dblp": "conf/iwpc/CasilloMBDG25",
+      "s2": "fc8e7270c0a4d57853f243b128bdc0a029cf380d"
+    },
+    "key": "casillo2025generating",
+    "venue_info": {
+      "key": "ICPC",
+      "name": "IEEE/ACM International Conference on Program Comprehension",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/icpc",
+      "rank": "CORE A"
+    },
+    "bibtex": "@inproceedings{casillo2025generating,\n  title     = {Towards Generating the Rationale for Code Changes},\n  author    = {Casillo, Francesco and Mastropaolo, Antonio and Bavota, Gabriele and Deufemia, Vincenzo and Gravino, Carmine},\n  booktitle = {2025 IEEE/ACM 33rd International Conference on Program Comprehension (ICPC)},\n  year      = {2025},\n  month     = apr,\n  pages     = {327-338},\n  publisher = {IEEE},\n  doi       = {10.1109/icpc66645.2025.00041},\n  url       = {https://doi.org/10.1109/icpc66645.2025.00041}\n}"
+  },
+  {
+    "title": "Toward Neurosymbolic Program Comprehension",
+    "authors": [
+      {
+        "name": "Velasco, Alejandro"
+      },
+      {
+        "name": "Garryyeva, Aya",
+        "member": "aya-garryyeva"
+      },
+      {
+        "name": "Palacio, David N"
+      },
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Poshyvanyk, Denys"
+      }
+    ],
+    "year": 2025,
+    "month": 4,
+    "date": "2025-04-27",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "Proceedings of the 33rd IEEE/ACM International Conference on Program Comprehension (ICPC-ERA 2025)",
+    "venue": "ICPC",
+    "pages": "377-381",
+    "publisher": "IEEE",
+    "doi": "10.1109/icpc66645.2025.00047",
+    "arxiv": "2502.01806",
+    "url": "https://arxiv.org/abs/2502.01806",
+    "pdf": "https://arxiv.org/pdf/2502.01806",
+    "abstract": "Recent advancements in Large Language Models (LLMs) have paved the way for Large Code Models (LCMs), enabling automation in complex software engineering tasks, such as code generation, software testing, and program comprehension, among others. Tools like GitHub Copilot and ChatGPT have shown substantial benefits in supporting developers across various practices. However, the ambition to scale these models to trillion-parameter sizes, exemplified by GPT-4, poses significant challenges that limit the usage of Artificial Intelligence (AI)-based systems powered by large Deep Learning (DL) models. These include rising computational demands for training and deployment and issues related to trustworthiness, bias, and interpretability. Such factors can make managing these models impractical for many organizations, while their \"black-box'' nature undermines key aspects, including transparency and accountability. In this paper, we question the prevailing assumption that increasing model parameters is always the optimal path forward, provided there is sufficient new data to learn additional patterns. In particular, we advocate for a Neurosymbolic research direction that combines the strengths of existing DL techniques (e.g., LLMs) with traditional symbolic methods–renowned for their reliability, speed, and determinism. To this end, we outline the core features and present preliminary results for our envisioned approach, aimed at establishing the first Neurosymbolic Program Comprehension (NsPC) framework to aid in identifying defective code components.",
+    "keywords": [
+      "Software engineering",
+      "Intelligence",
+      "Program Comprehension",
+      "Neurosymbolic"
+    ],
+    "threads": [
+      "neurosymbolic-interpretability"
+    ],
+    "selected": false,
+    "citations": {
+      "count": 0,
+      "by_source": {
+        "s2": 0
+      }
+    },
+    "sources": {
+      "local": "velasco2025toward",
+      "crossref": "10.1109/icpc66645.2025.00047",
+      "dblp": "journals/corr/abs-2502-01806",
+      "s2": "e4f13cb5ebf8eccd68d4166e928d113a8c5db536",
+      "tldr": "A Neurosymbolic research direction is advocated that combines the strengths of existing DL techniques with traditional symbolic methods-renowned for their reliability, speed, and determinism, aimed at establishing the first Neurosymbolic Program Comprehension (NsPC) framework to aid in identifying defective code components.",
+      "arxiv": "2502.01806"
+    },
+    "key": "velasco2025toward",
+    "venue_info": {
+      "key": "ICPC",
+      "name": "IEEE/ACM International Conference on Program Comprehension",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/icpc",
+      "rank": "CORE A"
+    },
+    "bibtex": "@inproceedings{velasco2025toward,\n  title     = {Toward Neurosymbolic Program Comprehension},\n  author    = {Velasco, Alejandro and Garryyeva, Aya and Palacio, David N and Mastropaolo, Antonio and Poshyvanyk, Denys},\n  booktitle = {Proceedings of the 33rd IEEE/ACM International Conference on Program Comprehension (ICPC-ERA 2025)},\n  year      = {2025},\n  month     = apr,\n  pages     = {377-381},\n  publisher = {IEEE},\n  doi       = {10.1109/icpc66645.2025.00047},\n  url       = {https://doi.org/10.1109/icpc66645.2025.00047}\n}"
+  },
+  {
+    "title": "Resource-Efficient & Effective Code Summarization",
+    "authors": [
+      {
+        "name": "Afrin, Saima",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Call, Joseph",
+        "member": "joseph-call"
+      },
+      {
+        "name": "Nguyen, Khai-Nguyen",
+        "member": "khai-nguyen-nguyen"
+      },
+      {
+        "name": "Chaparro, Oscar"
+      },
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 4,
+    "date": "2025-04-27",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "Proceedings of the 2nd ACM international conference on AI Foundation Models and Software Engineering (FORGE 2025)",
+    "venue": "FORGE",
+    "pages": "224-235",
+    "publisher": "IEEE",
+    "doi": "10.1109/forge66646.2025.00032",
+    "arxiv": "2502.03617",
+    "url": "https://arxiv.org/abs/2502.03617",
+    "pdf": "https://arxiv.org/pdf/2502.03617",
+    "abstract": "Code Language Models (CLMs) have demonstrated high effectiveness in automating software engineering tasks such as bug fixing, code generation, and code documentation. This progress has been driven by the scaling of large models, ranging from millions to trillions of parameters (e.g., GPT-4). However, as models grow in scale, sustainability concerns emerge, as they are extremely resource-intensive, highlighting the need for efficient, environmentally conscious solutions. GreenAI techniques, such as QLoRA (Quantized Low-Rank Adaptation), offer a promising path for dealing with large models' sustainability as they enable resource-efficient model fine-tuning. Previous research has shown the effectiveness of QLoRA in code-related tasks, particularly those involving natural language inputs and code as the target output (NL-to-Code), such as code generation. However, no studies have explored its application to tasks that are fundamentally similar to NL-to-Code (natural language to code) but operate in the opposite direction, such as code summarization. This leaves a gap in understanding how well QLoRA can generalize to Code-to-NL tasks, which are equally important for supporting developers in understanding and maintaining code. To address this gap, we investigate the extent to which QLoRA's capabilities in NL-to-Code tasks can be leveraged and transferred to code summarization, one representative Code-to-NL task. Our study evaluates two state-of-the-art CLMs (CodeLlama and DeepSeek-Coder) across two programming languages: Python and Java. Our research tasked models with generating descriptions for Python and Java code methods. The results align with prior findings on QLoRA for source code generation, showing that QLoRA enables efficient fine-tuning of CLMs for code summarization.",
+    "keywords": [
+      "Software engineering",
+      "Artificial Intelligence",
+      "Code Summarization",
+      "Optimization",
+      "Datasets",
+      "LLMs"
+    ],
+    "threads": [
+      "agents-lifecycle",
+      "efficient-models"
+    ],
+    "selected": true,
+    "citations": {
+      "count": 10,
+      "by_source": {
+        "s2": 10
+      }
+    },
+    "sources": {
+      "local": "afrin2025resource",
+      "crossref": "10.1109/forge66646.2025.00032",
+      "dblp": "journals/corr/abs-2502-03617",
+      "s2": "63742ec7dd2e95235c0b35bf8b95e6d8a2dc35a4",
+      "tldr": "This study evaluates two state-of-the-art CLMs across two programming languages: Python and Java and observes that QLoRA not only allows efficient fine-tuning of CLMs for code summarization but also achieves the best results with minimal parameter adjustment compared to full model fine-tuning, which requires expensive recalibration of all model parameters in the traditional fine-tuning process.",
+      "arxiv": "2502.03617"
+    },
+    "key": "afrin2025resource",
+    "venue_info": {
+      "key": "FORGE",
+      "name": "ACM International Conference on AI Foundation Models and Software Engineering",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/forge",
+      "rank": null
+    },
+    "bibtex": "@inproceedings{afrin2025resource,\n  title     = {{Resource-Efficient} \\& Effective Code Summarization},\n  author    = {Afrin, Saima and Call, Joseph and Nguyen, Khai-Nguyen and Chaparro, Oscar and Mastropaolo, Antonio},\n  booktitle = {Proceedings of the 2nd ACM international conference on AI Foundation Models and Software Engineering (FORGE 2025)},\n  year      = {2025},\n  month     = apr,\n  pages     = {224-235},\n  publisher = {IEEE},\n  doi       = {10.1109/forge66646.2025.00032},\n  url       = {https://doi.org/10.1109/forge66646.2025.00032}\n}"
+  },
+  {
+    "title": "Optimizing Datasets for Code Summarization: Is Code-Comment Coherence Enough?",
+    "authors": [
+      {
+        "name": "Vitale, Antonio"
+      },
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Oliveto, Rocco"
+      },
+      {
+        "name": "Di Penta, Massimiliano"
+      },
+      {
+        "name": "Scalabrino, Simone"
+      }
+    ],
+    "year": 2025,
+    "month": 4,
+    "date": "2025-04-27",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "Proceedings of the 33rd IEEE/ACM International Conference on Program Comprehension (ICPC 2025)",
+    "venue": "ICPC",
+    "pages": "237-249",
+    "publisher": "IEEE",
+    "doi": "10.1109/icpc66645.2025.00033",
+    "arxiv": "2502.07611",
+    "url": "https://arxiv.org/abs/2502.07611",
+    "pdf": "https://arxiv.org/pdf/2502.07611",
+    "abstract": "Automated code summarization is a long-standing goal for code comprehension. This task automatically generates documentation using a given method. Deep Learning (DL)-based approaches have been proven beneficial for various software engineering (SE) tasks, including this one. Most state-of-the-art datasets for code summarization are automatically mined from GitHub and, thus, might contain erroneous or sub-optimal examples. Previous work showed that using a simple rule-based approach for removing noisy instances allows for a tangible reduction of the training set size while not reducing the effectiveness of the trained models. Motivated by this finding, we conjecture that it is possible to further reduce the dataset size by removing instances that contain different issues. In this paper, we explore the extent to which code-comment coherence, a specific quality attribute of code summaries, can be used to optimize code summarization datasets. Specifically, we hypothesize that removing incoherent code-comment pairs might positively impact the effectiveness of the models. To do this, we rely on SIDE, a recently introduced metric for code-summary coherence. We examine multiple selectivity levels of training instances from two state-of-the-art datasets (TL-CodeSum and Funcom) and evaluate the resulting models on three manually curated test sets. The results show that even halving the training set sizes does not significantly affect the model's ability to generate summaries. However, when comparing the most restrictive selection strategy with a simpler one that randomly selects the training instances, we observe that the resulting accuracy of the model also does not change. This result suggests that (i) current datasets contain many irrelevant examples, and (ii) different quality attributes should be explored for optimizing code summarization datasets.",
+    "keywords": [
+      "Software engineering",
+      "Artificial Intelligence",
+      "Code Summarization",
+      "Optimization",
+      "Datasets",
+      "LLMs"
+    ],
+    "threads": [
+      "reliable-evaluation",
+      "agents-lifecycle"
+    ],
+    "selected": true,
+    "citations": {
+      "count": 9,
+      "by_source": {
+        "s2": 9
+      }
+    },
+    "sources": {
+      "local": "vitale2025optimizing",
+      "crossref": "10.1109/icpc66645.2025.00033",
+      "dblp": "journals/corr/abs-2502-07611",
+      "s2": "43a547439b9b5dbec0a3d7afb528f4adbc6798bb",
+      "tldr": "The extent to which code-comment coherence, a specific quality attribute of code summaries, can be used to optimize code summarization datasets is explored, and it is hypothesized that removing incoherent code-comment pairs might positively impact the effectiveness of the models.",
+      "arxiv": "2502.07611"
+    },
+    "key": "vitale2025optimizing",
+    "venue_info": {
+      "key": "ICPC",
+      "name": "IEEE/ACM International Conference on Program Comprehension",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/icpc",
+      "rank": "CORE A"
+    },
+    "bibtex": "@inproceedings{vitale2025optimizing,\n  title     = {Optimizing Datasets for Code Summarization: Is {Code-Comment} Coherence Enough?},\n  author    = {Vitale, Antonio and Mastropaolo, Antonio and Oliveto, Rocco and Di Penta, Massimiliano and Scalabrino, Simone},\n  booktitle = {Proceedings of the 33rd IEEE/ACM International Conference on Program Comprehension (ICPC 2025)},\n  year      = {2025},\n  month     = apr,\n  pages     = {237-249},\n  publisher = {IEEE},\n  doi       = {10.1109/icpc66645.2025.00033},\n  url       = {https://doi.org/10.1109/icpc66645.2025.00033}\n}"
+  },
+  {
+    "title": "A systematic literature review of parameter-efficient fine-tuning for large code models",
+    "authors": [
+      {
+        "name": "Afrin, Saima",
+        "member": "saima-afrin"
+      },
+      {
+        "name": "Haque, Md Zahidul",
+        "member": "md-zahidul-haque-alvi"
+      },
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      }
+    ],
+    "year": 2025,
+    "month": 2,
+    "date": "2026-02-10",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "ACM Trans. Softw. Eng. Methodol.",
+    "venue": "TOSEM",
+    "publisher": "Association for Computing Machinery",
+    "doi": "10.1145/3796522",
+    "arxiv": "2504.21569",
+    "url": "https://arxiv.org/abs/2504.21569",
+    "pdf": "https://arxiv.org/pdf/2504.21569",
+    "abstract": "\"The rise of Artificial Intelligence (AI)-and particularly Large Language Models (LLMs) for code-has reshaped Software Engineering (SE) by enabling the automation of tasks such as code generation, bug detection, and repair. However, these models require significant computational resources for training and fine-tuning, posing challenges for real-world adoption in resource-constrained environments. To address this, the research community has increasingly turned to Parameter-Efficient Fine-Tuning (PEFT)-a class of techniques that enables the adaptation of large models by updating only a small subset of parameters, rather than the entire model. In this Systematic Literature Review (SLR), we examine the growing application of PEFT techniques-across a wide range of software engineering tasks. We analyze how these methods are used to optimize various deep learning (DL) architectures, focusing on their impact on both performance and efficiency. Our study synthesizes findings from 28 peer-reviewed papers, identifying patterns in configuration strategies and adaptation trade-offs. The outcome of this review is a comprehensive taxonomy that categorizes PEFT usage by task type, distinguishing between generative (e.g., Code Summarization) and non-generative (e.g., Code Clone Detection) scenarios. Our findings aim to inform future research and guide the practical deployment of PEFT in sustainable, AI-powered software development. Our artifacts are publicly available at this https URL\"",
+    "threads": [
+      "efficient-models"
+    ],
+    "selected": true,
+    "citations": {
+      "count": 14,
+      "by_source": {
+        "s2": 14
+      }
+    },
+    "sources": {
+      "local": "afrin2025systematic",
+      "crossref": "10.1145/3796522",
+      "dblp": "journals/corr/abs-2504-21569",
+      "s2": "a2cb3425c98f33d8dcb992c23b9e08773f20f2a7",
+      "tldr": "A comprehensive taxonomy is presented that categorizes PEFT usage by task type, distinguishing between generative and non-generative scenarios, and aims to inform future research and guide the practical deployment of PEFT in sustainable, AI-powered software development.",
+      "arxiv": "2504.21569"
+    },
+    "key": "afrin2025systematic",
+    "venue_info": {
+      "key": "TOSEM",
+      "name": "ACM Transactions on Software Engineering and Methodology",
+      "type": "journal",
+      "url": "https://dl.acm.org/journal/tosem",
+      "rank": "CORE A*"
+    },
+    "bibtex": "@article{afrin2025systematic,\n  title     = {A systematic literature review of parameter-efficient fine-tuning for large code models},\n  author    = {Afrin, Saima and Haque, Md Zahidul and Mastropaolo, Antonio},\n  journal   = {ACM Transactions on Software Engineering and Methodology},\n  year      = {2025},\n  month     = feb,\n  publisher = {Association for Computing Machinery},\n  doi       = {10.1145/3796522},\n  url       = {https://doi.org/10.1145/3796522}\n}"
+  },
+  {
+    "title": "A Taxonomy of Self-Admitted Technical Debt in Deep Learning Systems",
+    "authors": [
+      {
+        "name": "Federica Pepe"
+      },
+      {
+        "name": "Fiorella Zampetti"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Gabriele Bavota"
+      },
+      {
+        "name": "Massimiliano Di Penta"
+      }
+    ],
+    "year": 2024,
+    "month": 10,
+    "date": "2024-10-06",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "2024 IEEE International Conference on Software Maintenance and Evolution (ICSME)",
+    "venue": "ICSME",
+    "pages": "388-399",
+    "publisher": "IEEE",
+    "doi": "10.1109/icsme58944.2024.00043",
+    "arxiv": "2409.11826",
+    "url": "https://doi.org/10.1109/icsme58944.2024.00043",
+    "pdf": "http://arxiv.org/pdf/2409.11826",
+    "abstract": "The development of Machine Learning (ML)- and, more recently, of Deep Learning (DL)-intensive systems requires suitable choices, e.g., in terms of technology, algorithms, and hyper-parameters. Such choices depend on developers' experience, as well as on proper experimentation. Due to limited time availability, developers may adopt suboptimal, sometimes temporary choices, leading to a technical debt (TD) specifically related to the ML code. This paper empirically analyzes the presence of Self-Admitted Technical Debt (SATD) in DL systems. After selecting 100 open-source Python projects using popular DL frameworks, we identified SATD from their source comments and created a stratified sample of 443 SATD to analyze manually. We derived a taxonomy of DL-specific SATD through open coding, featuring seven categories and 41 leaves. The identified SATD categories pertain to different aspects of DL models, some of which are technological (e.g., due to hardware or libraries) and some related to suboptimal choices in the DL process, model usage, or configuration. Our findings indicate that DL-specific SATD differs from DL bugs found in previous studies, as it typically pertains to suboptimal solutions rather than functional (e.g., blocking) problems. Last but not least, we found that state-of-the-art static analysis tools do not help developers avoid such problems, and therefore, specific support is needed to cope with DL-specific SATD.",
+    "selected": false,
+    "citations": {
+      "count": 11,
+      "by_source": {
+        "s2": 11
+      }
+    },
+    "sources": {
+      "crossref": "10.1109/icsme58944.2024.00043",
+      "dblp": "journals/corr/abs-2409-11826",
+      "s2": "2c2aec170844db350515781811134f1c8b83bc23",
+      "tldr": "The findings indicate that DL-specific SATD differs from DL bugs found in previous studies, as it typically pertains to suboptimal solutions rather than functional problems, and therefore, specific support is needed to cope with DL-specific SATD.",
+      "arxiv": "2409.11826"
+    },
+    "key": "pepe2024taxonomy",
+    "venue_info": {
+      "key": "ICSME",
+      "name": "IEEE International Conference on Software Maintenance and Evolution",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/icsme",
+      "rank": "CORE A"
+    },
+    "bibtex": "@inproceedings{pepe2024taxonomy,\n  title     = {A Taxonomy of {Self-Admitted} Technical Debt in Deep Learning Systems},\n  author    = {Pepe, Federica and Zampetti, Fiorella and Mastropaolo, Antonio and Bavota, Gabriele and Di Penta, Massimiliano},\n  booktitle = {2024 IEEE International Conference on Software Maintenance and Evolution (ICSME)},\n  year      = {2024},\n  month     = oct,\n  pages     = {388-399},\n  publisher = {IEEE},\n  doi       = {10.1109/icsme58944.2024.00043},\n  url       = {https://doi.org/10.1109/icsme58944.2024.00043}\n}"
+  },
+  {
+    "title": "From Triumph to Uncertainty: The Journey of Software Engineering in the AI Era",
+    "authors": [
+      {
+        "name": "Mastropaolo, Antonio",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Escobar-Velasquez, Camilo"
+      },
+      {
+        "name": "Linares-Vasquez, Mario"
+      }
+    ],
+    "year": 2024,
+    "month": 6,
+    "date": "2025-06-30",
+    "type": "journal",
+    "status": "published",
+    "venue_raw": "ACM Trans. Softw. Eng. Methodol.",
+    "venue": "TOSEM",
+    "volume": "34",
+    "number": "5",
+    "pages": "1-34",
+    "publisher": "Association for Computing Machinery",
+    "doi": "10.1145/3709360",
+    "url": "https://doi.org/10.1145/3709360",
+    "pdf": "https://doi.org/10.1145/3709360",
+    "abstract": "Over the last ten years, the realm of Artificial Intelligence (AI) has experienced an explosion of revolutionary breakthroughs, transforming what seemed like a far-off dream into a reality that is now deeply embedded in our everyday lives. AI’s widespread impact is revolutionizing virtually all aspects of human life, and software engineering (SE) is no exception. As we explore this changing landscape, we are faced with questions about what the future holds for SE and how AI will reshape the roles, duties, and methodologies within the field. The introduction of these groundbreaking technologies highlights the inevitable shift towards a new paradigm, suggesting a future where AI’s capabilities may redefine the boundaries of SE, potentially even more than human input.In this paper, we aim at outlining the key elements that, based on our expertise, are vital for the smooth integration of AI into SE, all while preserving the intrinsic human creativity that has been the driving force behind the field. First, we provide a brief description of SE and AI evolution. Afterward, we delve into the intricate interplay between AI-driven automation and human innovation, exploring how these two components can work together to advance SE practices to new methods and standards.",
+    "keywords": [
+      "Software engineering",
+      "Artificial Intelligence",
+      "History",
+      "AI4SE",
+      "LLM4Code"
+    ],
+    "threads": [
+      "agents-lifecycle"
+    ],
+    "selected": true,
+    "citations": {
+      "count": 12,
+      "by_source": {
+        "s2": 12
+      }
+    },
+    "sources": {
+      "local": "10.1145/3709360",
+      "crossref": "10.1145/3709360",
+      "dblp": "journals/tosem/MastropaoloEL25",
+      "s2": "76a7fa5d74e99b50dabd3f29c0c8d35b5f268193",
+      "tldr": "The key elements that, based on expertise, are vital for the smooth integration of AI into SE, all while preserving the intrinsic human creativity that has been the driving force behind the field are outlined."
+    },
+    "key": "mastropaolo2024triumph",
+    "venue_info": {
+      "key": "TOSEM",
+      "name": "ACM Transactions on Software Engineering and Methodology",
+      "type": "journal",
+      "url": "https://dl.acm.org/journal/tosem",
+      "rank": "CORE A*"
+    },
+    "bibtex": "@article{mastropaolo2024triumph,\n  title     = {From Triumph to Uncertainty: The Journey of Software Engineering in the {AI} Era},\n  author    = {Mastropaolo, Antonio and Escobar-Velasquez, Camilo and Linares-Vasquez, Mario},\n  journal   = {ACM Transactions on Software Engineering and Methodology},\n  year      = {2024},\n  month     = jun,\n  volume    = {34},\n  number    = {5},\n  pages     = {1-34},\n  publisher = {Association for Computing Machinery},\n  doi       = {10.1145/3709360},\n  url       = {https://doi.org/10.1145/3709360}\n}"
+  },
+  {
+    "title": "On the Reform of the Italian Constitution: an Interdisciplinary Text Readability Analysis",
+    "authors": [
+      {
+        "name": "Calogero Jerik Scozzaro"
+      },
+      {
+        "name": "Matteo Delsanto"
+      },
+      {
+        "name": "Antonio Mastropaolo",
+        "member": "antonio-mastropaolo"
+      },
+      {
+        "name": "Enrico Mensa"
+      },
+      {
+        "name": "Luisa Revelli"
+      },
+      {
+        "name": "Daniele Paolo Radicioni"
+      }
+    ],
+    "year": 2024,
+    "date": "2024",
+    "type": "conference",
+    "status": "published",
+    "venue_raw": "NL4AI@AI*IA",
+    "url": "https://ceur-ws.org/Vol-3877/paper14.pdf",
+    "selected": false,
+    "sources": {
+      "dblp": "conf/nl4ai/ScozzaroDMMRR24"
+    },
+    "key": "scozzaro2024reform",
+    "citations": {},
+    "venue_info": {
+      "key": "NAAI",
+      "name": "NL4AI@AI*IA",
+      "type": "conference"
+    },
+    "bibtex": "@inproceedings{scozzaro2024reform,\n  title     = {On the Reform of the Italian Constitution: an Interdisciplinary Text Readability Analysis},\n  author    = {Scozzaro, Calogero Jerik and Delsanto, Matteo and Mastropaolo, Antonio and Mensa, Enrico and Revelli, Luisa and Radicioni, Daniele Paolo},\n  booktitle = {NL4AI@AI*IA},\n  year      = {2024},\n  url       = {https://ceur-ws.org/Vol-3877/paper14.pdf}\n}"
+  }
+]

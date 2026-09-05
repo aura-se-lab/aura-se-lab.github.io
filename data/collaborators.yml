@@ -1,0 +1,33 @@
+# Frequent external co-authors shown on the People page.
+# (Members and alumni live in src/content/people/ — not here.)
+- name: Denys Poshyvanyk
+  affiliation: William & Mary
+  url: https://www.cs.wm.edu/~denys/
+  note: Co-advises Aya Garryyeva
+- name: Oscar Chaparro
+  affiliation: William & Mary
+  url: https://ojcchar.github.io/
+- name: David Nader Palacio
+  affiliation: William & Mary
+  url: https://danaderp.github.io/danaderp/
+- name: Alejandro Velasco
+  affiliation: William & Mary
+  url: https://svelascodimate.github.io
+- name: Bowen Xu
+  affiliation: North Carolina State University
+  url: https://bowenxu.me
+- name: Rocco Oliveto
+  affiliation: University of Molise
+  url: https://rocoli.github.io
+- name: Simone Scalabrino
+  affiliation: University of Molise
+  url: https://dibt.unimol.it/staff/sscalabrino/
+- name: Massimiliano Di Penta
+  affiliation: University of Sannio
+  url: https://mdipenta.github.io
+- name: Gabriele Bavota
+  affiliation: Università della Svizzera italiana
+  url: https://www.inf.usi.ch/faculty/bavota/
+- name: Mario Linares-Vásquez
+  affiliation: Universidad de los Andes
+  url: https://profesores.virtual.uniandes.edu.co/mlinares/

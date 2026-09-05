@@ -1,0 +1,4 @@
+requests>=2.32
+PyYAML>=6.0
+# Optional — only needed with --scholar (Google Scholar enrichment). Fragile by nature.
+# scholarly>=1.7

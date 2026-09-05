@@ -1,0 +1,91 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import { lab } from "@/lib/lab";
+import { ArrowUpRight, Mail } from "@lucide/astro";
+
+const threads = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
+const email = lab.contact.email;
+const subject = encodeURIComponent("[AURA Lab] Prospective student");
+---
+
+<Base title="Join the lab" description="How to join the AURA Lab at William & Mary as a Ph.D. student, undergraduate researcher, or visiting collaborator." image="/og/join.png">
+  <section class="page-hero">
+    <div class="shell">
+      <p class="caption"><span class="caption-num">Join</span> · {lab.short_name}</p>
+      <h1 class="h1 mt-2">Work with <b>us</b>.</h1>
+      <p class="lead mt-3" style="max-width:66ch">We are looking for people who want to make AI for software engineering <b>cheaper to run</b>, <b>easier to inspect</b>, and <b>honest about what it gets wrong</b> — and who enjoy doing careful empirical work in the open.</p>
+    </div>
+  </section>
+
+  <section class="section section--flush">
+    <div class="shell">
+      <SectionHead num="01" cap="Ph.D.">Prospective <b>Ph.D. students</b>.</SectionHead>
+      <div class="two">
+        <div class="prose">
+          <p>Ph.D. students in the lab are enrolled in the <a href={lab.institution.url} target="_blank" rel="noopener">Computer Science Ph.D. program at William & Mary</a>. Admission goes through the department, not through the lab — but we read applications that mention the AURA Lab closely, so make your interest explicit in your statement of purpose.</p>
+          <h3>What we look for</h3>
+          <ul>
+            <li>Solid software engineering or machine-learning foundations, and the curiosity to cross between the two.</li>
+            <li>Evidence that you can finish things: a thesis, an open-source contribution, a paper, a product, a replication.</li>
+            <li>Comfort with empirical work — designing experiments, measuring carefully, and writing up what you found (including what did not work).</li>
+            <li>Interest in at least one of our four threads: {threads.map((t, i) => <><a href={`/research/${t.id}/`}>{t.data.title}</a>{i < threads.length - 1 ? ", " : "."}</>)}</li>
+          </ul>
+          <h3>How to reach out</h3>
+          <p>Send a short email to <a href={`mailto:${email}?subject=${subject}`}>{email}</a> with the subject <code>[AURA Lab] Prospective student</code>, your CV, a transcript, and two or three sentences about which of our papers you found interesting and why. Concrete beats generic: a paragraph that engages with one of our results tells us far more than a long list of skills. We reply to every message that shows familiarity with the lab's work.</p>
+        </div>
+        <aside>
+          <dl class="essentials">
+            <div class="es-row"><dt class="es-k">Program</dt><dd class="es-v"><a href={lab.institution.url} target="_blank" rel="noopener">W&M Computer Science ↗</a></dd></div>
+            <div class="es-row"><dt class="es-k">Advisor</dt><dd class="es-v"><a href={`/people/${lab.director.slug}/`}>{lab.director.name}</a></dd></div>
+            <div class="es-row"><dt class="es-k">Funding</dt><dd class="es-v">Research and teaching assistantships through the department; lab research supported by NSF</dd></div>
+            <div class="es-row"><dt class="es-k">Where</dt><dd class="es-v">{lab.institution.address.city}, {lab.institution.address.region} — between Richmond and Norfolk, VA</dd></div>
+            <div class="es-row"><dt class="es-k">Contact</dt><dd class="es-v"><a href={`mailto:${email}?subject=${subject}`}>{email}</a></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHead num="02" cap="Undergraduates">W&M <b>undergraduates</b>.</SectionHead>
+      <div class="two">
+        <div class="prose">
+          <p>Undergraduate researchers are a real part of the lab — they co-author papers and have won <a href="https://www.wm.edu/as/charlescenter/" target="_blank" rel="noopener">Charles Center Summer Research Grants</a> two years running. Typical entry points are independent study or research credit, a summer research grant, or simply showing up to a reading-group discussion.</p>
+          <p>If you have taken a course with Prof. Mastropaolo, the easiest route is to talk after class. Otherwise email <a href={`mailto:${email}?subject=${encodeURIComponent("[AURA Lab] Undergraduate research")}`}>{email}</a> with your year, the courses you have taken, and what you would like to build or measure. A small self-directed project (even a weekend one) that touches code models is a great conversation starter.</p>
+        </div>
+        <aside class="prose">
+          <p class="caption">// Good first projects</p>
+          <ul>
+            <li>Reproduce a result from one of our papers on a smaller model.</li>
+            <li>Measure the energy or latency cost of a quantized code model on a laptop.</li>
+            <li>Build an evaluation harness for a code-generation benchmark and find its blind spots.</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHead num="03" cap="Collaboration">Visitors & <b>collaborators</b>.</SectionHead>
+      <div class="two">
+        <div class="prose">
+          <p>We collaborate widely — with colleagues at William & Mary, across the US, and in Europe. If you work on AI for software engineering and see an overlap with one of our threads, we are happy to talk about joint studies, shared benchmarks, replication efforts, or hosting visiting researchers and students.</p>
+          <p>For industry partners: our results are designed to transfer. If you run code assistants in production and want to understand their cost, reliability, or failure modes, get in touch.</p>
+        </div>
+        <aside>
+          <a class="btn btn--accent" href={`mailto:${email}?subject=${encodeURIComponent("[AURA Lab] Collaboration")}`}><Mail />Start a conversation</a>
+          <p class="small mt-3">Or find the director at <a href={lab.director.site} target="_blank" rel="noopener" class="link-arrow">antoniomastropaolo.io <ArrowUpRight /></a></p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .two { display: grid; grid-template-columns: 1fr; gap: 32px; }
+  @media (min-width: 1000px) { .two { grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr); gap: 72px; } }
+</style>

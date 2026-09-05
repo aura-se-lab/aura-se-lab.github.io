@@ -1,0 +1,101 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import PubList from "@/components/PubList.astro";
+import { pubsByThread, isReviewed } from "@/lib/pubs";
+import { ArrowLeft, ArrowRight } from "@lucide/astro";
+
+export async function getStaticPaths() {
+  const threads = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
+  return threads.map((t, i) => ({ params: { slug: t.id }, props: { thread: t, index: i, all: threads } }));
+}
+const { thread, index, all } = Astro.props;
+const { Content } = await render(thread);
+const d = thread.data;
+const pubs = pubsByThread(thread.id);
+const featured = d.featured.map((k) => pubs.find((p) => p.key === k)).filter(Boolean);
+const rest = pubs.filter((p) => !d.featured.includes(p.key));
+const ordered = [...featured, ...rest] as typeof pubs;
+const people = (await getCollection("people"))
+  .filter((p) => p.data.status === "current" && p.data.threads.includes(thread.id))
+  .sort((a, b) => a.data.order - b.data.order);
+const prev = all[(index - 1 + all.length) % all.length];
+const next = all[(index + 1) % all.length];
+---
+
+<Base title={d.title} description={d.short} image={`/og/research-${thread.id}.png`}>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="caption"><a href="/research/">Research</a> · <span class="caption-num">Thread {String(index + 1).padStart(2, "0")}/{String(all.length).padStart(2, "0")}</span> · {d.letter}</p>
+      <div class="th-head">
+        <div class="th-letter" aria-hidden="true">{d.letter}</div>
+        <div>
+          <h1 class="h1">{d.title}</h1>
+          <p class="lead mt-3" style="max-width:66ch">{d.short}</p>
+          <div class="tag-row mt-3">{d.tags.map((t) => <span class="tag">{t}</span>)}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--flush">
+    <div class="shell">
+      <div class="th-grid">
+        <div class="prose">
+          <Content />
+        </div>
+        <aside class="th-aside">
+          {people.length > 0 && (
+            <>
+              <p class="caption">// People on this thread</p>
+              <ul class="th-people mt-2">
+                {people.map((p) => (
+                  <li>
+                    <a href={`/people/${p.id}/`}>{p.data.name}</a> <span class="faint">· {p.data.title ?? p.data.role}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          <p class="caption mt-4">// In numbers</p>
+          <dl class="essentials mt-2">
+            <div class="es-row"><dt class="es-k">Papers</dt><dd class="es-v"><b>{pubs.length}</b> total</dd></div>
+            <div class="es-row"><dt class="es-k">Reviewed</dt><dd class="es-v"><b>{pubs.filter(isReviewed).length}</b> journal / conference</dd></div>
+            <div class="es-row"><dt class="es-k">Preprints</dt><dd class="es-v"><b>{pubs.filter((p) => p.type === "preprint").length}</b></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  {ordered.length > 0 && (
+    <section class="section" id="papers">
+      <div class="shell">
+        <h2 class="h2">Publications in this <b>thread</b>.</h2>
+        <p class="small mt-2">Assigned automatically from titles, abstracts and keywords; featured papers first. <a href="/publications/" class="link-arrow">All publications <ArrowRight /></a></p>
+        <div class="mt-4">
+          <PubList pubs={ordered} yearHeads={false} />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="shell th-nav">
+      <a href={`/research/${prev.id}/`} class="link-arrow"><ArrowLeft /> {prev.data.letter} · {prev.data.title}</a>
+      <a href={`/research/${next.id}/`} class="link-arrow">{next.data.letter} · {next.data.title} <ArrowRight /></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .th-head { display: grid; grid-template-columns: auto 1fr; gap: 24px 40px; align-items: start; margin-top: 16px; }
+  .th-letter { font-size: clamp(96px, 14vw, 180px); font-weight: 200; line-height: 0.8; letter-spacing: -0.05em; color: var(--accent); }
+  .th-head .h1 { max-width: 18ch; font-size: clamp(32px, 4vw, 56px); }
+  @media (max-width: 720px) { .th-head { grid-template-columns: 1fr; } .th-letter { font-size: 80px; } }
+  .th-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+  @media (min-width: 1000px) { .th-grid { grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr); gap: 72px; } }
+  .th-people li { padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14.5px; }
+  .th-people a { font-weight: 600; }
+  .th-nav { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+</style>

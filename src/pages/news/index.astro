@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import NewsItem from "@/components/NewsItem.astro";
+import { lab } from "@/lib/lab";
+import { Rss } from "@lucide/astro";
+
+const items = (await getCollection("news", ({ data }) => !data.draft)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const byYear = new Map<number, typeof items>();
+for (const i of items) {
+  const y = i.data.date.getUTCFullYear();
+  if (!byYear.has(y)) byYear.set(y, []);
+  byYear.get(y)!.push(i);
+}
+---
+
+<Base title="News" description={`News from the AURA Lab at William & Mary: paper acceptances, awards, funding and new members.`} image="/og/news.png">
+  <section class="page-hero">
+    <div class="shell">
+      <p class="caption"><span class="caption-num">News</span> · {items.length} items</p>
+      <h1 class="h1 mt-2">Lab <b>news</b>.</h1>
+      <p class="lead mt-3" style="max-width:66ch">Acceptances, awards, funding and people. New papers are drafted here automatically when they appear in the bibliographic sources, then reviewed by a human before publishing.</p>
+      <p class="mt-3"><a href="/rss.xml" class="link-arrow"><Rss /> Subscribe via RSS</a></p>
+    </div>
+  </section>
+
+  <section class="section section--flush">
+    <div class="shell">
+      {[...byYear.entries()].map(([year, list]) => (
+        <section class="year">
+          <div class="year-head">
+            <span class="year-num">{year}</span>
+            <span class="year-rule" aria-hidden="true"></span>
+            <span class="caption">{list.length} {list.length === 1 ? "item" : "items"}</span>
+          </div>
+          {list.map((n) => <NewsItem item={n} mode="full" />)}
+        </section>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .year-head { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 18px; padding: 40px 0 8px; border-bottom: var(--hair) solid var(--line); }
+  .year:first-child .year-head { padding-top: 0; }
+  .year-num { font-size: clamp(36px, 4vw, 52px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
+  .year-rule { height: var(--hair); background: var(--line-soft); align-self: center; }
+</style>

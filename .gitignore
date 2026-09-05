@@ -1,13 +1,16 @@
-_site
-.bundle
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-.DS_store
-.ruby-version
-.tweet-cache
-Gemfile.lock
-assets/libs/
+# build
+dist/
+.astro/
 node_modules/
-vendor
-.idea
+.wrangler/
+# pipeline cache (restored by actions/cache in CI)
+data/cache/
+# local env
+.env
+.env.*
+.DS_Store
+# python
+__pycache__/
+*.pyc
+# screenshots from local verification
+.screens/

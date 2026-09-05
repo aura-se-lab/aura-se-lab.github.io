@@ -1,0 +1,67 @@
+---
+import { lab } from "@/lib/lab";
+import { metrics } from "@/lib/pubs";
+import { fmtDate } from "@/lib/dates";
+import wmLogo from "@/assets/img/wm-logo.svg?raw";
+const year = new Date().getFullYear();
+const updated = fmtDate(metrics.updated);
+---
+
+<footer class="coda">
+  <div class="shell">
+    <div class="coda-grid">
+      <div class="c-brand">
+        <div class="c-name">{lab.name}</div>
+        <div class="c-sub">{lab.acronym.expansion}</div>
+        <div class="c-wm" set:html={wmLogo} />
+      </div>
+      <div class="c-col">
+        <h4>Lab</h4>
+        {lab.nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </div>
+      <div class="c-col">
+        <h4>Reach</h4>
+        <a href={`mailto:${lab.contact.email}`}>{lab.contact.email}</a>
+        {lab.social.github && <a href={lab.social.github} target="_blank" rel="noopener">GitHub</a>}
+        {lab.social.x && <a href={lab.social.x} target="_blank" rel="noopener">X · Twitter</a>}
+        {lab.social.bluesky && <a href={lab.social.bluesky} target="_blank" rel="noopener">Bluesky</a>}
+        {lab.social.scholar && <a href={lab.social.scholar} target="_blank" rel="noopener">Google Scholar</a>}
+      </div>
+      <div class="c-col">
+        <h4>Data</h4>
+        <a href="/aura.bib">BibTeX (all papers)</a>
+        <a href="/publications.xml">Publications feed</a>
+        <a href="/rss.xml">News feed</a>
+        <a href="https://github.com/aura-se-lab/aura-se-lab.github.io" target="_blank" rel="noopener">Site source</a>
+      </div>
+      <div class="c-col">
+        <h4>Where</h4>
+        <span>{lab.institution.department}</span>
+        <span>{lab.institution.name}</span>
+        <span>{lab.institution.address.building}</span>
+        <span>{lab.institution.address.city}, {lab.institution.address.region} {lab.institution.address.postal}</span>
+      </div>
+    </div>
+    <div class="c-bot">
+      <span>© {year} {lab.name} · {lab.institution.name} · Set in Inter Tight</span>
+      <span class="c-bot-r"><span class="dot" aria-hidden="true"></span>Publications synced {updated}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .coda { background: var(--bg-ink); color: rgba(255,255,255,0.78); margin-top: clamp(56px, 8vw, 104px); padding: clamp(40px, 5vw, 64px) 0 28px; font-size: 13.5px; line-height: 1.6; }
+  .coda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px var(--gutter); }
+  @media (min-width: 900px) { .coda-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr; } }
+  .c-name { font-size: 18px; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
+  .c-sub { font-size: 12.5px; color: rgba(255,255,255,0.55); margin-top: 4px; max-width: 32ch; }
+  .c-wm { margin-top: 18px; width: 150px; opacity: 0.85; }
+  .c-wm :global(svg) { width: 100%; height: auto; }
+  .c-col { display: flex; flex-direction: column; gap: 5px; }
+  .c-col h4 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-bright); margin-bottom: 6px; font-weight: 600; }
+  .c-col a { color: rgba(255,255,255,0.78); }
+  .c-col a:hover { color: #fff; }
+  .c-bot { margin-top: 44px; padding-top: 18px; border-top: var(--hair) solid rgba(255,255,255,0.14); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 12px; color: rgba(255,255,255,0.5); }
+  .c-bot-r { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; display: inline-flex; align-items: center; }
+  .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-bright); margin-right: 8px; box-shadow: 0 0 0 3px rgba(22,163,74,0.2); }
+</style>

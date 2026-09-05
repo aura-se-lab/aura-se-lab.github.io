@@ -1,0 +1,133 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Venue normalisation table.
+#   key        → short badge shown on the site (case-sensitive)
+#   name       → full venue name
+#   type       → journal | conference | workshop | magazine | preprint
+#   match      → lower-cased substrings; a raw journal/booktitle containing any
+#                of them maps to this venue (first match wins, top to bottom)
+#   url        → venue homepage
+#   rank       → free text (e.g. CORE A*) shown as a tooltip only; optional
+# Unknown venues are still imported — they are listed in the sync report so you
+# can add a row here.
+# ─────────────────────────────────────────────────────────────────────────────
+TOSEM:
+  name: ACM Transactions on Software Engineering and Methodology
+  type: journal
+  match: ["trans. softw. eng. methodol", "transactions on software engineering and methodology", "tosem"]
+  url: https://dl.acm.org/journal/tosem
+  rank: CORE A*
+TSE:
+  name: IEEE Transactions on Software Engineering
+  type: journal
+  match: ["ieee trans. software eng", "transactions on software engineering", "ieee tse"]
+  url: https://www.computer.org/csdl/journal/ts
+  rank: CORE A*
+EMSE:
+  name: Empirical Software Engineering
+  type: journal
+  match: ["empir. softw. eng", "empirical software engineering", "emse"]
+  url: https://www.springer.com/journal/10664
+  rank: CORE A
+JSS:
+  name: Journal of Systems and Software
+  type: journal
+  match: ["j. syst. softw", "journal of systems and software"]
+  url: https://www.sciencedirect.com/journal/journal-of-systems-and-software
+IST:
+  name: Information and Software Technology
+  type: journal
+  match: ["inf. softw. technol", "information and software technology"]
+  url: https://www.sciencedirect.com/journal/information-and-software-technology
+Computer:
+  name: IEEE Computer
+  type: magazine
+  match: ["computer, vol", "ieee computer", "^computer$", "computer (ieee)"]
+  url: https://www.computer.org/csdl/magazine/co
+IEEE Software:
+  name: IEEE Software
+  type: magazine
+  match: ["ieee softw", "ieee software"]
+  url: https://www.computer.org/csdl/magazine/so
+ICSE:
+  name: IEEE/ACM International Conference on Software Engineering
+  type: conference
+  match: ["international conference on software engineering", "icse"]
+  url: https://conf.researchr.org/home/icse
+  rank: CORE A*
+FSE:
+  name: ACM International Conference on the Foundations of Software Engineering
+  type: conference
+  match: ["foundations of software engineering", "esec/fse", "fse"]
+  url: https://conf.researchr.org/home/fse
+  rank: CORE A*
+ASE:
+  name: IEEE/ACM International Conference on Automated Software Engineering
+  type: conference
+  match: ["automated software engineering", "ase 20"]
+  url: https://conf.researchr.org/home/ase
+  rank: CORE A*
+ICSME:
+  name: IEEE International Conference on Software Maintenance and Evolution
+  type: conference
+  match: ["software maintenance and evolution", "icsme"]
+  url: https://conf.researchr.org/home/icsme
+  rank: CORE A
+ICPC:
+  name: IEEE/ACM International Conference on Program Comprehension
+  type: conference
+  match: ["program comprehension", "icpc"]
+  url: https://conf.researchr.org/home/icpc
+  rank: CORE A
+MSR:
+  name: International Conference on Mining Software Repositories
+  type: conference
+  match: ["mining software repositories", "msr 20"]
+  url: https://conf.researchr.org/home/msr
+  rank: CORE A
+SANER:
+  name: IEEE International Conference on Software Analysis, Evolution and Reengineering
+  type: conference
+  match: ["software analysis, evolution and reengineering", "saner"]
+  url: https://conf.researchr.org/home/saner
+  rank: CORE A
+ISSTA:
+  name: ACM SIGSOFT International Symposium on Software Testing and Analysis
+  type: conference
+  match: ["software testing and analysis", "issta"]
+  url: https://conf.researchr.org/home/issta
+  rank: CORE A
+FORGE:
+  name: ACM International Conference on AI Foundation Models and Software Engineering
+  type: conference
+  match: ["ai foundation models and software engineering", "forge"]
+  url: https://conf.researchr.org/home/forge
+EASE:
+  name: International Conference on Evaluation and Assessment in Software Engineering
+  type: conference
+  match: ["evaluation and assessment in software engineering", "evaluation & assessment in software engineering", "ease 20"]
+  url: https://conf.researchr.org/home/ease
+ESEM:
+  name: ACM/IEEE International Symposium on Empirical Software Engineering and Measurement
+  type: conference
+  match: ["empirical software engineering and measurement", "esem"]
+  url: https://conf.researchr.org/home/esem
+ICSE-NIER:
+  name: ICSE New Ideas and Emerging Results
+  type: conference
+  match: ["new ideas and emerging results"]
+  url: https://conf.researchr.org/home/icse
+AI-SDLC:
+  name: International Workshop on AI for Software Development Lifecycle
+  type: workshop
+  match: ["ai for software development lifecycle", "ai-sdlc"]
+  url: https://conf.researchr.org/home/fse-2025/ai-sdlc-2025
+LLM4Code:
+  name: International Workshop on Large Language Models for Code
+  type: workshop
+  match: ["large language models for code", "llm4code"]
+  url: https://llm4code.github.io/
+arXiv:
+  name: arXiv preprint
+  type: preprint
+  match: ["arxiv", "corr"]
+  url: https://arxiv.org
