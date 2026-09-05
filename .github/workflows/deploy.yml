@@ -21,6 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     # forks have no secrets; skip quietly
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    # Cloudflare credentials are optional: until CLOUDFLARE_API_TOKEN and
+    # CLOUDFLARE_ACCOUNT_ID exist, the site still builds here and is shipped
+    # with `npx wrangler deploy` from a workstation. Adding the secrets turns
+    # the deploy steps on with no further edits.
+    env:
+      HAS_CF: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -35,10 +41,10 @@ jobs:
 
       - name: Build (preview URL)
         if: github.event_name == 'pull_request'
-        run: SITE_URL=https://auralab-site.${{ secrets.CLOUDFLARE_WORKERS_SUBDOMAIN }}.workers.dev npm run build
+        run: SITE_URL=https://auralab-site.${{ secrets.CLOUDFLARE_WORKERS_SUBDOMAIN || 'antoniomastropaolo1' }}.workers.dev npm run build
 
       - name: Deploy to production
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && env.HAS_CF == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -46,7 +52,7 @@ jobs:
           command: deploy
 
       - name: Upload preview version
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && env.HAS_CF == 'true'
         id: preview
         uses: cloudflare/wrangler-action@v3
         with:
@@ -55,7 +61,7 @@ jobs:
           command: versions upload --preview-alias pr-${{ github.event.number }}
 
       - name: Comment preview URL
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && env.HAS_CF == 'true'
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: preview
@@ -63,3 +69,8 @@ jobs:
             🔍 **Preview deployed** for ${{ github.event.pull_request.head.sha }}
 
             ${{ steps.preview.outputs.deployment-url || 'See the wrangler step output for the preview URL.' }}
+
+      - name: Note when credentials are missing
+        if: env.HAS_CF != 'true'
+        run: |
+          echo "::notice title=Cloudflare deploy skipped::Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repository secrets to deploy from CI. The site was built successfully."

@@ -2,20 +2,55 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The AURA Lab has moved to auralab.sh</title>
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://auralab.sh/">
 <meta http-equiv="refresh" content="0; url=https://auralab.sh/">
 <script>
-  // preserve deep links: /publications/ → https://auralab.sh/publications/ etc.
-  var map = { "/projects/": "/research/", "/repositories/": "/people/", "/cv/": "/people/antonio-mastropaolo/", "/blog/": "/news/" };
+  // Preserve deep links: /publications/ → https://auralab.sh/publications/,
+  // and carry the old al-folio routes to where that content lives now.
+  var map = {
+    "/projects/": "/research/",
+    "/repositories/": "/people/",
+    "/cv/": "/people/antonio-mastropaolo/",
+    "/blog/": "/news/",
+    "/feed.xml/": "/rss.xml"
+  };
   var p = location.pathname.replace(/\/?$/, "/");
   location.replace("https://auralab.sh" + (map[p] || p) + location.search + location.hash);
 </script>
-<style>body{font-family:system-ui,sans-serif;margin:4rem auto;max-width:36rem;padding:0 1rem;color:#050505}a{color:#15803d}</style>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px;
+    background: #ffffff; color: #0b0f0d;
+    font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .card { max-width: 34rem; text-align: left; }
+  .bar { background: #050505; color: #fff; padding: 14px 18px; font-weight: 800; letter-spacing: -0.01em; font-size: 19px; }
+  .bar span { font-weight: 400; color: #b6bdb8; margin-left: 3px; }
+  .body { border: 1px solid rgba(11,15,13,.14); border-top: 0; padding: 26px 18px 24px; }
+  h1 { margin: 0; font-size: clamp(24px, 4vw, 34px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+  p { margin: 14px 0 0; font-size: 15.5px; line-height: 1.6; color: #4e544f; }
+  a.go {
+    display: inline-flex; align-items: center; height: 44px; padding: 0 20px; margin-top: 22px;
+    background: #0b0f0d; color: #fff; text-decoration: none; font-weight: 700; font-size: 15px;
+  }
+  a.go:hover { background: #009051; }
+  .m { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; letter-spacing: .08em; color: #9aa09a; margin-top: 20px; display: block; }
+</style>
 </head>
 <body>
-<h1>The AURA Lab has moved</h1>
-<p>Our website now lives at <a href="https://auralab.sh/">auralab.sh</a>. You will be redirected automatically.</p>
+  <div class="card">
+    <div class="bar">AURA<span>LAB</span></div>
+    <div class="body">
+      <h1>This site has moved.</h1>
+      <p>The AURA Lab now lives at <strong>auralab.sh</strong>. You are being redirected; if nothing happens, follow the link below.</p>
+      <a class="go" href="https://auralab.sh/">Go to auralab.sh →</a>
+      <span class="m">AURA-SE-LAB.GITHUB.IO · REDIRECT</span>
+    </div>
+  </div>
 </body>
 </html>
