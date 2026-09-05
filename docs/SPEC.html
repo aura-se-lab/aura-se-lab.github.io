@@ -640,20 +640,51 @@ footer.f .shell{display:flex;justify-content:space-between;gap:18px;flex-wrap:wr
         subset, not swapped for a static cut.</p>
 
       <h3>The mark</h3>
-      <p>The site uses the lab's existing logo, not a redrawn one:
-        <code>assets/img/wm/aura-logo.svg</code> (lockup) and <code>aura-glyph.svg</code> (glyph only).
-        Four arcs — A · U · R · A — each on its own gradient stepping through
-        <code>#0c5a3a → #178a5a → #1c8a5a → #5bbf91 → #B9975B</code>, a gold dotted compliance ring at
-        r&nbsp;48, and a serif <em>A</em> at the centre. The arc gradients are the origin of the thread
-        palette, which is why the hues and the mark agree.</p>
+      <p>The site uses <b>the lab's own logo</b>, exported from the masters in
+        <code>~/Documents/mastropaolo-logos/</code> (12,076&nbsp;×&nbsp;8,312, transparent) and committed
+        to <code>src/assets/brand/</code>. A circuit-tree glyph — branching nodes radiating from a centre
+        inside a mint arc ring — beside <b>AURA</b> in green over the full expansion with A·U·R·A picked
+        out. There is a second lockup carrying the William&nbsp;&amp;&nbsp;Mary wordmark.</p>
+      <div class="tw"><table>
+        <thead><tr><th>File</th><th>Size</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>aura-mark.png</code></td><td class="n">884 × 763</td><td>Header, favicon, initials tiles</td></tr>
+          <tr><td><code>aura-lockup.png</code></td><td class="n">2462 × 763</td><td>Wherever the lab speaks for itself</td></tr>
+          <tr><td><code>aura-lockup-wm.png</code></td><td class="n">2462 × 929</td><td>Footer colophon, OG cards, slides, posters</td></tr>
+        </tbody>
+      </table></div>
+
+      <h4>IT IS A LIGHT-GROUND MARK, AND THE CHROME FOLLOWS IT</h4>
+      <p>The glyph's circuit strokes are <code>#17485A</code>. Measured against the site's two grounds:</p>
+      <div class="tw"><table>
+        <thead><tr><th>Logo colour</th><th>On paper #e8ebe6</th><th>On ink #0e1512</th></tr></thead>
+        <tbody>
+          <tr><td>Teal <code>#17485A</code> — the circuits</td><td class="n">8.27 : 1</td><td class="n">1.86 : 1</td></tr>
+          <tr><td>AURA green <code>#009051</code> — the wordmark</td><td class="n">3.42 : 1</td><td class="n">4.50 : 1</td></tr>
+          <tr><td>Mint <code>#70C0B0</code> — the ring</td><td class="n">1.77 : 1</td><td class="n">8.69 : 1</td></tr>
+          <tr><td>Sage <code>#609050</code> — the branches</td><td class="n">3.12 : 1</td><td class="n">4.94 : 1</td></tr>
+        </tbody>
+      </table></div>
+      <p>At 1.86:1 the teal all but disappears on ink, so the mark cannot sit on a dark bar. Rather than
+        recolour the lab's logo or hide it behind a white plate, <b>the chrome moved to the logo</b>: the
+        utility strip, the nav bar, the mega panels, the mobile drawer and the footer colophon are all
+        light, and the ink is kept for the three places it still earns — the provenance strip, the Join
+        panel and the baseline. The page now runs light at the top and anchors dark at the bottom.</p>
       <ul class="b">
-        <li><b>Header</b> — glyph at 36 px, serif A in mint <code>#a4ecc4</code> for the dark bar. Below
-          36 px the dotted ring stops resolving, so that is the floor.</li>
-        <li><b>Footer</b> — glyph at 38 px beside “The AURA Lab”.</li>
-        <li><b>Initials tiles</b> — the four arcs alone at 16 % opacity (§ 07).</li>
-        <li>Gradient <code>id</code>s must be unique per instance (<code>hg*</code>, <code>fg*</code>) —
-          duplicated ids make the second mark inherit the first one's gradients.</li>
+        <li><b>Header</b> — glyph at 40&nbsp;px beside the AURA LAB wordmark and the expansion.</li>
+        <li><b>Footer colophon</b> — the full William&nbsp;&amp;&nbsp;Mary lockup at 420&nbsp;px, on paper,
+          replacing the drawn mark and the typed lab name.</li>
+        <li><b>Initials tiles</b> — the glyph at 16&nbsp;% opacity behind the initials (§&nbsp;07).</li>
+        <li><code>--brand: #009051</code>, sampled from the wordmark, drives the chrome only: the Join
+          button, the active nav underline, the sync dot, the drawer and footer column keys. The
+          <code>--t1…--t4</code> thread palette stays separate because it carries small text on paper and
+          needs the contrast the brand green does not have.</li>
       </ul>
+      <div class="note warn"><b>DO NOT REDRAW OR RECOLOUR IT</b>An early pass used
+        <code>aura-logo.svg</code> from the old site repo — four gradient arcs with a serif A — because it
+        was the first file found. It is not the lab's mark; it now sits in
+        <code>src/assets/brand/superseded/</code>. If the mark is ever needed on a dark ground, commission
+        a proper reversed version rather than filtering this one in CSS.</div>
 
       <h3>Motion</h3>
       <p>Motion is a load sequence plus scroll reveals, and it is skipped entirely when JavaScript is off or
