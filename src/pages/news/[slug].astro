@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
 import Base from "@/layouts/Base.astro";
 import PubRow from "@/components/PubRow.astro";
@@ -15,6 +16,7 @@ const { Content } = await render(item);
 const d = item.data;
 const pub = d.publication ? pubByKey(d.publication) : undefined;
 const people = (await getCollection("people")).filter((p) => d.people.includes(p.id));
+const hasAside = Boolean(pub || d.link);
 const site = (Astro.site ?? new URL("https://auralab.sh")).origin;
 const jsonLd = {
   "@context": "https://schema.org",
@@ -37,8 +39,20 @@ const plain = item.body?.replace(/[#*_>`]/g, "").replace(/\[([^\]]+)\]\([^)]+\)/
     </div>
   </section>
   <section class="section section--flush">
-    <div class="shell news-grid">
+    <div class:list={["shell", "news-grid", { faces: people.length > 0, aside: hasAside }]}>
+      {people.length > 0 && (
+        <aside class="faces">
+          {people.map((p) => (
+            <a class="face" href={`/people/${p.id}/`}>
+              {p.data.photo && <Image src={p.data.photo} alt={p.data.name} widths={[150, 300]} sizes="150px" loading="eager" />}
+              <span class="face-n">{p.data.name}</span>
+              <span class="face-r">{p.data.title ?? p.data.role}</span>
+            </a>
+          ))}
+        </aside>
+      )}
       <div class="prose" style="font-size:18px"><Content /></div>
+      {hasAside && (
       <aside>
         {pub && (
           <>
@@ -47,14 +61,9 @@ const plain = item.body?.replace(/[#*_>`]/g, "").replace(/\[([^\]]+)\]\([^)]+\)/
             <a class="link-arrow mt-2" href={`/publications/${pub.key}/`}>Paper page <ArrowUpRight /></a>
           </>
         )}
-        {people.length > 0 && (
-          <>
-            <p class="caption mt-4">// People</p>
-            <ul class="mt-2">{people.map((p) => <li class="mini"><a href={`/people/${p.id}/`}>{p.data.name}</a> <span class="faint">· {p.data.title ?? p.data.role}</span></li>)}</ul>
-          </>
-        )}
         {d.link && <p class="mt-4"><a class="link-arrow" href={d.link} target="_blank" rel="noopener">External link <ArrowUpRight /></a></p>}
       </aside>
+      )}
     </div>
   </section>
   <section class="section">
@@ -66,8 +75,22 @@ const plain = item.body?.replace(/[#*_>`]/g, "").replace(/\[([^\]]+)\]\([^)]+\)/
 </Base>
 
 <style>
-  .news-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
-  @media (min-width: 1000px) { .news-grid { grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 72px; } }
+  .news-grid { display: grid; grid-template-columns: 1fr; gap: 34px; }
+  @media (min-width: 1000px) {
+    .news-grid { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+    .news-grid.aside { grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr); }
+    .news-grid.faces { grid-template-columns: 150px minmax(0, 1fr); gap: 44px; }
+    .news-grid.faces.aside { grid-template-columns: 150px minmax(0, 1.4fr) minmax(250px, 0.9fr); gap: 40px; }
+  }
+  .prose { max-width: 74ch; }
+  .faces { display: grid; gap: 20px; align-content: start; }
+  @media (max-width: 999px) { .faces { grid-auto-flow: column; justify-content: start; gap: 18px; } .faces .face { width: 130px; } }
+  .face { display: block; }
+  .face :global(img) { width: 100%; height: auto; aspect-ratio: 56/73; object-fit: cover; border: 1px solid var(--rule); transition: border-color .22s ease, transform .22s cubic-bezier(.2,.8,.25,1); }
+  .face:hover :global(img) { border-color: var(--rule-3); transform: translateY(-3px); }
+  .face-n { display: block; margin-top: 9px; font-size: 13.5px; font-weight: 700; letter-spacing: -0.012em; }
+  .face:hover .face-n { color: var(--brand); }
+  .face-r { display: block; margin-top: 2px; font-size: 11.5px; color: var(--ink-4); line-height: 1.35; }
   .mini { padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14.5px; }
   .mini a { font-weight: 600; }
   .nav-row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 14px; }

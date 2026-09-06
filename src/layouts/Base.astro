@@ -16,8 +16,10 @@ interface Props {
   class?: string;
   /** Set false on the single-screen landing page, which carries its own rail. */
   footer?: boolean;
+  /** Set false for pages rendered inside the reader overlay. */
+  nav?: boolean;
 }
-const { class: cls, footer = true, ...seo } = Astro.props;
+const { class: cls, footer = true, nav = true, ...seo } = Astro.props;
 ---
 
 <!doctype html>
@@ -26,8 +28,8 @@ const { class: cls, footer = true, ...seo } = Astro.props;
     <Seo {...seo} />
   </head>
   <body class={cls}>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <Nav />
+    {nav && <a class="skip-link" href="#main">Skip to content</a>}
+    {nav && <Nav />}
     <main id="main">
       <slot />
     </main>
