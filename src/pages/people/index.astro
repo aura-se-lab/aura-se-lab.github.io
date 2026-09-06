@@ -40,10 +40,9 @@ const d = director.data;
       <header class="page-head">
         <div class="row">
           <div>
-            <p class="label">PEOPLE</p>
+            <p class="label">{current.length + 1} CURRENT · {alumni.length} ALUMNI · {collaborators.length} COLLABORATORS</p>
             <h1 class="h2" style="margin-top:8px">People</h1>
           </div>
-          <p class="head-n m">{current.length + 1} CURRENT · {alumni.length} ALUMNI · {collaborators.length} COLLABORATORS</p>
         </div>
         <p class="lead">
           Doctoral and undergraduate researchers working on the efficiency, interpretability and honest evaluation of
@@ -154,7 +153,6 @@ const d = director.data;
 </Base>
 
 <style>
-  .head-n { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); }
 
   /* ── director ──────────────────────────────────────────────────────────── */
   .dir { display: grid; gap: clamp(22px, 3vw, 46px); align-items: start; }

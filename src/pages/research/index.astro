@@ -18,7 +18,7 @@ const objectives = [
 <Base title="Research" description={`Research threads of the AURA Lab: ${threads.map((t) => t.data.title).join("; ")}.`} image="/og/research.png">
   <section class="page-hero">
     <div class="shell">
-      <p class="label">RESEARCH</p>
+      <p class="label">{threads.length} RESEARCH DIRECTIONS</p>
       <h1 class="h2 mt-2">Research</h1>
       <p class="lead mt-3" style="max-width:70ch">
         The AURA Lab investigates how foundation models can be made measurably more <b>efficient</b>, <b>interpretable</b>, and <b>trustworthy</b> for software engineering — from quantization and parameter-efficient fine-tuning to neurosymbolic reasoning, honest evaluation, and agents that act across the software lifecycle.
@@ -28,7 +28,7 @@ const objectives = [
 
   <section class="section">
     <div class="shell">
-      <SectionHead num="01" cap="Mission">Mission</SectionHead>
+      <SectionHead num="01">Mission</SectionHead>
       <div class="brief">
         <div>
           <p class="caption">// Abstract</p>
@@ -57,7 +57,7 @@ const objectives = [
 
   <section class="section" id="threads">
     <div class="shell">
-      <SectionHead num="02" cap="Threads" sub="A·U·R·A — AI for code · Understanding what models do · Reliable evaluation of their behavior · Automation practitioners can trust. The threads cross-pollinate.">
+      <SectionHead num="02" sub="A·U·R·A — AI for code · Understanding what models do · Reliable evaluation of their behavior · Automation practitioners can trust. The threads cross-pollinate.">
         Research threads
       </SectionHead>
       <div class="grid-2">
@@ -68,7 +68,7 @@ const objectives = [
 
   <section class="section" id="funding">
     <div class="shell">
-      <SectionHead num="03" cap="Funding" sub="Funded research lines and the programs that support our students.">
+      <SectionHead num="03" sub="Funded research lines and the programs that support our students.">
         Projects and funding
       </SectionHead>
       <div class="fund-table">

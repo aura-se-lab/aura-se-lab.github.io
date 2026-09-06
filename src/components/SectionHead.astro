@@ -1,20 +1,15 @@
 ---
 interface Props {
-  num?: string; // "01"
-  cap?: string; // "Research"
+  /** Section index, e.g. "01". The title says what the section is — do not repeat it here. */
+  num?: string;
   sub?: string;
   id?: string;
 }
-const { num, cap, sub, id } = Astro.props;
+const { num, sub, id } = Astro.props;
 ---
 
 <div class="sec-head" id={id}>
-  {(num || cap) && (
-    <div class="sh-label">
-      {num && <span class="sh-num">{num}</span>}
-      {cap && <span class="sh-cap">{cap}</span>}
-    </div>
-  )}
+  {num && <div class="sh-label"><span class="sh-num">{num}</span></div>}
   <h2 class="h2 sh-h"><slot /></h2>
   {sub && <p class="lead sh-sub">{sub}</p>}
   {Astro.slots.has("aside") && (
