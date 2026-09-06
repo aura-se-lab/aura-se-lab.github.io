@@ -263,9 +263,7 @@ a.card:hover, .card:hover { border-color: var(--rule-3); }
 .mt-6 { margin-top: 48px; }
 
 .sec-head { padding-bottom: 16px; margin-bottom: 26px; border-bottom: 1.5px solid var(--rule-3); }
-.sh-label { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.1em; }
-.sh-num { color: var(--live); }
-.sh-h { margin-top: 10px; font-size: clamp(24px, 2.4vw, 34px); }
+.sh-h { font-size: clamp(24px, 2.4vw, 34px); }
 .sh-sub { margin-top: 10px; font-size: 15px; }
 .sh-aside { margin-top: 12px; }
 
