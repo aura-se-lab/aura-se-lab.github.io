@@ -34,6 +34,7 @@ const tldr = pub?.sources?.tldr;
       <h1 class="e-t">{d.title}</h1>
     </header>
 
+    <div class="e-cols">
     <div class:list={["e-body", { faces: people.length > 0 }]}>
       {people.length > 0 && (
         <aside class="e-people">
@@ -72,66 +73,75 @@ const tldr = pub?.sources?.tldr;
             <p>{tldr}</p>
           </div>
         )}
-        {pub.abstract && (
-          <>
-            <p class="m e-lab e-lab-sp">ABSTRACT</p>
-            <p class="e-abs">{pub.abstract}</p>
-          </>
-        )}
+        {/* No abstract here: the TL;DR says what the paper found, and the
+            abstract is one click away on the paper page. Carrying it made a
+            news item three screens tall. */}
       </section>
     )}
+    </div>
 
     <footer class="e-foot">
-      <a class="btn" href={`/news/${item.id}/`} target="_top">Open the full item →</a>
-      {pub && <a class="btn-o" href={`/publications/${pub.key}/`} target="_top">Paper page</a>}
-      {d.link && <a class="btn-o" href={d.link} target="_blank" rel="noopener">Source ↗</a>}
+      {/* No "open the full item": this overlay is the full item. Only the
+          paper and the source live somewhere else. */}
+      {pub && <a class="btn" href={`/publications/${pub.key}/`} target="_top">Paper page →</a>}
+      {d.link && <a class:list={[pub ? "btn-o" : "btn"]} href={d.link} target="_blank" rel="noopener">Source ↗</a>}
+      {!pub && !d.link && <a class="btn" href={`/news/${item.id}/`} target="_top">Open on its own page →</a>}
     </footer>
   </article>
 </Base>
 
 <style>
-  .e { max-width: 780px; margin: 0 auto; padding: clamp(22px, 3vw, 40px) clamp(18px, 3vw, 34px) 44px; }
-  .e-head { padding-bottom: 18px; border-bottom: 1.5px solid var(--rule-3); }
+  .e { max-width: 780px; margin: 0 auto; padding: clamp(18px, 2.2vw, 28px) clamp(18px, 3vw, 32px) 26px; }
+  @media (min-width: 1000px) { .e { max-width: 1180px; } }
+  .e-head { padding-bottom: 14px; border-bottom: 1.5px solid var(--rule-3); }
   .e-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
   .e-k { font-size: 7.5px; letter-spacing: .1em; color: #fff; background: var(--ink); padding: 4px 7px; }
   .e-d { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); }
   .e-p { font-size: 7.5px; letter-spacing: .1em; color: var(--live); border: 1px solid rgba(194,65,12,.4); padding: 3px 6px; }
   .e-t {
-    margin-top: 14px; font-variation-settings: "wdth" 114; font-weight: 800;
-    font-size: clamp(24px, 3vw, 36px); line-height: 1.12; letter-spacing: -0.028em;
+    margin-top: 11px; font-variation-settings: "wdth" 114; font-weight: 800;
+    font-size: clamp(21px, 2.5vw, 29px); line-height: 1.12; letter-spacing: -0.028em;
   }
 
-  .e-body { display: grid; gap: 26px; margin-top: 24px; align-items: start; }
+  /* On a wide overlay the story and the paper stand side by side, so an item
+     fits the frame instead of running past the bottom of it. */
+  .e-cols { display: grid; gap: 26px; }
+  @media (min-width: 1000px) {
+    .e-cols { grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.9fr); gap: 36px; align-items: start; }
+  }
+  .e-body { display: grid; gap: 22px; margin-top: 18px; align-items: start; }
   /* The portrait rail only exists when there are portraits — without this
      guard the prose itself lands in the 130px column and wraps every three
      words. */
-  @media (min-width: 680px) { .e-body.faces { grid-template-columns: 130px minmax(0, 1fr); gap: 30px; } }
+  @media (min-width: 680px) { .e-body.faces { grid-template-columns: 108px minmax(0, 1fr); gap: 24px; } }
   .e-people { display: grid; gap: 16px; }
   .e-person { display: block; }
-  .e-person :global(img) { width: 100%; height: auto; aspect-ratio: 56/73; object-fit: cover; border: 1px solid var(--rule); transition: border-color .22s ease; }
+  .e-person :global(img) { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--rule); transition: border-color .22s ease; }
   .e-person:hover :global(img) { border-color: var(--rule-3); }
   .e-pn { display: block; margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: -0.012em; }
   .e-person:hover .e-pn { color: var(--brand); }
   .e-pr { display: block; margin-top: 2px; font-size: 11.5px; color: var(--ink-4); line-height: 1.35; }
-  .e-prose { font-size: 16px; }
+  .e-prose { font-size: 14px; line-height: 1.6; }
+  .e-prose :global(p + p) { margin-top: 11px; }
 
   .e-pub { margin-top: 34px; padding-top: 22px; border-top: 1.5px solid var(--rule-3); }
-  .e-h2 { font-variation-settings: "wdth" 112; font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
-  .e-pt { margin-top: 12px; font-size: 17px; font-weight: 700; line-height: 1.35; letter-spacing: -0.016em; }
+  @media (min-width: 1000px) {
+    .e-pub { margin-top: 18px; padding-top: 0; border-top: 0; border-left: 1px solid var(--rule); padding-left: 28px; }
+  }
+  .e-h2 { font-variation-settings: "wdth" 112; font-weight: 800; font-size: 17px; letter-spacing: -0.02em; }
+  .e-pt { margin-top: 9px; font-size: 15px; font-weight: 700; line-height: 1.32; letter-spacing: -0.016em; }
   .e-pa { margin-top: 5px; font-size: 14px; color: var(--ink-4); }
-  .e-facts { margin: 18px 0 0; display: grid; border-top: 1px solid var(--rule); }
-  .e-facts > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  .e-facts { margin: 13px 0 0; display: grid; border-top: 1px solid var(--rule); }
+  .e-facts > div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
   .e-facts dt { font-size: 8px; letter-spacing: .11em; color: var(--ink-5); }
-  .e-facts dd { margin: 0; font-size: 14px; color: var(--ink-2); }
+  .e-facts dd { margin: 0; font-size: 13px; color: var(--ink-2); }
   .e-facts dd a { border-bottom: 1px solid var(--rule-2); }
   .e-facts dd a:hover { color: var(--brand); border-color: var(--brand); }
 
   .e-lab { font-size: 8px; letter-spacing: .11em; color: var(--ink-5); }
-  .e-lab-sp { margin-top: 20px; }
-  .e-tldr { margin-top: 20px; padding: 14px 16px; background: var(--bg-tint); border-left: 2px solid var(--brand); }
-  .e-tldr p + p { margin-top: 7px; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
-  .e-abs { margin-top: 8px; font-size: 14px; line-height: 1.65; color: var(--ink-3); }
+  .e-tldr { margin-top: 15px; padding: 12px 14px; background: var(--bg-tint); border-left: 2px solid var(--brand); }
+  .e-tldr p + p { margin-top: 6px; font-size: 13.5px; line-height: 1.58; color: var(--ink-2); }
 
-  .e-foot { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
-  .e-foot .btn, .e-foot .btn-o { height: 40px; font-size: 14px; }
+  .e-foot { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .e-foot .btn, .e-foot .btn-o { height: 36px; font-size: 13px; }
 </style>
