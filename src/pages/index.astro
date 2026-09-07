@@ -1,9 +1,9 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Base from "@/layouts/Base.astro";
 import Reach from "@/components/Reach.astro";
-import { Image } from "astro:assets";
-import mark from "@/assets/brand/aura-mark.png";
 import { lab, foundedLabel } from "@/lib/lab";
 import { publications, metrics } from "@/lib/pubs";
 import { fmtDate } from "@/lib/dates";
@@ -18,6 +18,11 @@ const news = (await getCollection("news"))
 const recent = news.slice(0, 5);
 const [lead, ...rest] = recent;
 
+/** A news item about a paper can borrow that paper's first page. */
+const covers = import.meta.glob<{ default: ImageMetadata }>("../assets/papers/*.jpg", { eager: true });
+const coverFor = (key?: string) => (key ? covers[`../assets/papers/${key}.jpg`]?.default : undefined);
+const leadCover = coverFor(lead?.data.publication);
+
 /** First sentence of an item's body, with the markup taken out. */
 const blurb = (body: string, max = 190) => {
   const t = body
@@ -31,7 +36,6 @@ const blurb = (body: string, max = 190) => {
 };
 
 const arxivCount = publications.filter((p) => p.arxiv).length;
-const director = people.find((p) => p.data.role === "director")!;
 
 const stats = [
   { n: String(metrics.total), l: "PUBLICATIONS", href: "/publications/" },
@@ -113,45 +117,6 @@ const stats = [
     </div>
   </div>
 
-  <!-- ── about the lab ──────────────────────────────────────────────────── -->
-  <section class="about">
-    <div class="shell">
-      <article class="badge">
-        <div class="b-seal">
-          <span class="b-plate"><Image src={mark} alt="" width={180} height={155} loading="eager" /></span>
-          <span class="b-est m">EST.<br />{foundedLabel.split(" ")[0].toUpperCase()}<br />{foundedLabel.split(" ")[1]}</span>
-        </div>
-
-        <div class="b-body">
-          <p class="b-kick m">ABOUT THE LAB</p>
-          <h2 class="b-h">{lab.name}</h2>
-          <p class="b-lead">
-            Founded in {foundedLabel} by <a href={`/people/${director.id}/`}>{director.data.name}</a>, Assistant Professor
-            in the {lab.institution.department} at {lab.institution.name}. <b>AURA</b> stands for
-            <b> AI for Understandable and Responsible Automation</b> in Software Engineering — the four words are the
-            four directions the lab works in.
-          </p>
-          <p class="b-p">{lab.statement}</p>
-          <div class="b-links">
-            <a class="ulink" href="/research/">Research directions</a>
-            <a class="ulink" href="/people/">The people</a>
-            <a class="ulink" href={lab.director.site} target="_blank" rel="noopener">Director's site ↗</a>
-          </div>
-        </div>
-
-        <dl class="b-facts">
-          <div><dt class="m">FOUNDED</dt><dd>{foundedLabel}</dd></div>
-          <div><dt class="m">DIRECTOR</dt><dd><a href={`/people/${director.id}/`}>{director.data.name}</a></dd></div>
-          <div><dt class="m">DEPARTMENT</dt><dd>{lab.institution.department}</dd></div>
-          <div><dt class="m">INSTITUTION</dt><dd><a href={lab.institution.url} target="_blank" rel="noopener">{lab.institution.name} ↗</a></dd></div>
-          <div><dt class="m">LOCATION</dt><dd>{lab.institution.address.city}, {lab.institution.address.region}</dd></div>
-          <div><dt class="m">DIRECTIONS</dt><dd>{threads.length} research threads</dd></div>
-          <div><dt class="m">MEMBERS</dt><dd>{current.length} current</dd></div>
-        </dl>
-      </article>
-    </div>
-  </section>
-
   <!-- ── news ───────────────────────────────────────────────────────────── -->
   <section class="news" id="news">
     <div class="shell">
@@ -163,31 +128,41 @@ const stats = [
       <div class="nwrap">
         {lead && (
           <button class="nlead" type="button" data-embed={`/news/embed/${lead.id}/`} data-title={lead.data.title}>
-            <span class="nl-top">
-              <span class="m nl-k">{lead.data.kind.toUpperCase()}</span>
-              <span class="m nl-d">{fmtDate(lead.data.date).toUpperCase()}</span>
-              {lead.data.pinned && <span class="m nl-p">PINNED</span>}
+            {leadCover && (
+              <span class="nl-cover">
+                <Image src={leadCover} alt="" widths={[190, 380]} sizes="190px" loading="lazy" />
+              </span>
+            )}
+            <span class="nl-text">
+              <span class="nl-top">
+                <span class="m nl-k">{lead.data.kind.toUpperCase()}</span>
+                <span class="m nl-d">{fmtDate(lead.data.date).toUpperCase()}</span>
+                {lead.data.pinned && <span class="m nl-p">● LATEST</span>}
+              </span>
+              <span class="nl-t">{lead.data.title}</span>
+              <span class="nl-b">{blurb(lead.body ?? "")}</span>
+              <span class="nl-go">Read the story →</span>
             </span>
-            <h3 class="nl-t">{lead.data.title}</h3>
-            <p class="nl-b">{blurb(lead.body ?? "")}</p>
-            <span class="nl-go">Read →</span>
           </button>
         )}
 
-        <ul class="nlist">
-          {rest.map((n) => (
+        <ol class="nlist">
+          {rest.map((n, i) => (
             <li class="nitem">
               <button type="button" data-embed={`/news/embed/${n.id}/`} data-title={n.data.title}>
-                <span class="n-meta">
-                  <span class="m n-d">{fmtDate(n.data.date).toUpperCase()}</span>
-                  <span class="m n-k">{n.data.kind.toUpperCase()}</span>
+                <span class="m n-i">{String(i + 2).padStart(2, "0")}</span>
+                <span class="n-body">
+                  <span class="n-meta">
+                    <span class="m n-d">{fmtDate(n.data.date).toUpperCase()}</span>
+                    <span class="m n-k">{n.data.kind.toUpperCase()}</span>
+                  </span>
+                  <span class="n-t">{n.data.title}</span>
                 </span>
-                <span class="n-t">{n.data.title}</span>
                 <span class="n-go" aria-hidden="true">→</span>
               </button>
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
     </div>
   </section>
@@ -298,7 +273,7 @@ const stats = [
   .rail-meta { font-size: 8px; letter-spacing: .09em; color: var(--ink-5); }
 
   /* ── news ──────────────────────────────────────────────────────────────── */
-  .news { padding: 0 0 clamp(46px, 5.5vw, 88px); }
+  .news { padding: clamp(38px, 4.5vw, 72px) 0 clamp(46px, 5.5vw, 88px); }
   .news-head {
     display: flex; align-items: flex-end; justify-content: space-between; gap: 14px 26px; flex-wrap: wrap;
     padding-bottom: 18px; border-bottom: 1.5px solid var(--rule-3);
@@ -306,54 +281,69 @@ const stats = [
   .news-all { font-size: 15px; font-weight: 600; border-bottom: 1px solid var(--rule-2); padding-bottom: 2px; }
   .news-all:hover { color: var(--brand); border-color: var(--brand); }
 
-  .nwrap { margin-top: 26px; display: grid; gap: 22px; align-items: start; }
-  @media (min-width: 900px) { .nwrap { grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); gap: 30px; } }
+  .nwrap { margin-top: 26px; display: grid; gap: 24px; align-items: stretch; }
+  @media (min-width: 960px) { .nwrap { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 34px; } }
 
-  /* the lead item */
+  /* ── the lead ──────────────────────────────────────────────────────────── */
   .nlead {
-    width: 100%; text-align: left; cursor: pointer;
-    position: relative; display: flex; flex-direction: column; height: 100%;
-    padding: clamp(22px, 2.2vw, 34px); background: var(--bg-soft); border: 1px solid var(--rule);
-    overflow: hidden;
-    transition: border-color .28s ease, transform .28s cubic-bezier(.2,.8,.25,1), background .28s ease;
+    position: relative; width: 100%; text-align: left; cursor: pointer; overflow: hidden;
+    display: grid; gap: clamp(18px, 1.6vw, 26px); align-items: start;
+    padding: clamp(20px, 2vw, 30px);
+    background: var(--bg-soft); border: 1px solid var(--rule);
+    transition: border-color .3s ease, transform .3s cubic-bezier(.2,.8,.25,1), background .3s ease, box-shadow .3s ease;
   }
+  @media (min-width: 560px) { .nlead { grid-template-columns: clamp(120px, 12vw, 190px) minmax(0, 1fr); } }
   .nlead::before {
     content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--brand);
-    transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.2,.8,.25,1);
+    transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2,.8,.25,1);
   }
-  .nlead:hover { border-color: var(--rule-3); transform: translateY(-3px); background: #fff; }
+  .nlead:hover { border-color: var(--rule-3); transform: translateY(-4px); background: #fff; box-shadow: 0 26px 44px -30px rgba(11,15,13,.5); }
   .nlead:hover::before { transform: scaleX(1); }
-  .nl-top { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+  .nl-cover { display: block; }
+  .nl-cover :global(img) {
+    width: 100%; height: auto; aspect-ratio: 17/22; object-fit: cover; object-position: top center;
+    border: 1px solid var(--rule); background: #fff;
+    transition: transform .4s cubic-bezier(.2,.8,.25,1), border-color .3s ease;
+  }
+  .nlead:hover .nl-cover :global(img) { transform: translateY(-2px); border-color: var(--rule-2); }
+  .nl-text { display: flex; flex-direction: column; min-width: 0; height: 100%; }
+  .nl-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
   .nl-k { font-size: 7.5px; letter-spacing: .1em; color: #fff; background: var(--ink); padding: 4px 7px; }
   .nl-d { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); }
-  .nl-p { font-size: 7.5px; letter-spacing: .1em; color: var(--live); border: 1px solid rgba(194,65,12,.4); padding: 3px 6px; }
+  .nl-p { font-size: 7.5px; letter-spacing: .1em; color: var(--live); }
   .nl-t {
-    margin-top: 16px; font-variation-settings: "wdth" 112; font-weight: 800;
-    font-size: clamp(21px, 1.7vw, 33px); line-height: 1.14; letter-spacing: -0.026em; color: var(--ink);
+    display: block; margin-top: 14px; font-variation-settings: "wdth" 112; font-weight: 800;
+    font-size: clamp(20px, 1.62vw, 31px); line-height: 1.14; letter-spacing: -0.026em; color: var(--ink);
   }
   .nlead:hover .nl-t { color: var(--brand-dk); }
-  .nl-b { margin-top: 12px; font-size: clamp(14px, 0.88vw, 16.5px); line-height: 1.6; color: var(--ink-3); }
-  .nl-go { margin-top: auto; padding-top: 22px; font-size: 14px; font-weight: 700; color: var(--ink); }
+  .nl-b {
+    display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+    margin-top: 11px; font-size: clamp(13.5px, 0.85vw, 15.5px); line-height: 1.6; color: var(--ink-3);
+  }
+  .nl-go { margin-top: auto; padding-top: 20px; font-size: 14px; font-weight: 700; color: var(--ink); }
   .nlead:hover .nl-go { color: var(--brand); }
 
-  /* the four behind it */
-  .nlist { display: grid; align-content: start; border-top: 1px solid var(--rule-3); }
+  /* ── the stack ─────────────────────────────────────────────────────────── */
+  .nlist { display: grid; align-content: start; border-top: 1.5px solid var(--rule-3); }
   .nitem button {
     width: 100%; text-align: left; cursor: pointer;
-    display: grid; grid-template-columns: minmax(0, 1fr) 20px; align-items: baseline; gap: 7px 18px;
-    padding: 15px 2px 15px 0; border-bottom: 1px solid var(--rule);
-    transition: padding-left .28s cubic-bezier(.2,.8,.25,1), background .2s ease;
+    display: grid; grid-template-columns: 30px minmax(0, 1fr) 20px; align-items: start; gap: 4px 14px;
+    padding: 15px 2px; border-bottom: 1px solid var(--rule);
+    transition: padding-left .3s cubic-bezier(.2,.8,.25,1), background .22s ease;
   }
-  .nitem button:hover { padding-left: 10px; background: linear-gradient(90deg, var(--bg-soft), transparent 70%); }
-  .n-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 9px; }
+  .nitem button:hover { padding-left: 10px; background: linear-gradient(90deg, var(--bg-soft), transparent 72%); }
+  .n-i { font-size: 8.5px; letter-spacing: .06em; color: var(--ink-5); padding-top: 4px; }
+  .nitem button:hover .n-i { color: var(--brand); }
+  .n-body { min-width: 0; }
+  .n-meta { display: flex; align-items: center; gap: 9px; }
   .n-d { font-size: 8px; letter-spacing: .09em; color: var(--ink-5); }
   .n-k { font-size: 7.5px; letter-spacing: .09em; color: var(--brand); border: 1px solid rgba(0,144,81,.34); padding: 3px 6px; }
   .n-t {
-    grid-column: 1; font-size: clamp(15px, 0.94vw, 18px); font-weight: 700; line-height: 1.3;
-    letter-spacing: -0.016em; font-variation-settings: "wdth" 104; color: var(--ink);
+    display: block; margin-top: 6px; font-size: clamp(14.5px, 0.9vw, 17.5px); font-weight: 700;
+    line-height: 1.3; letter-spacing: -0.016em; font-variation-settings: "wdth" 104; color: var(--ink);
   }
   .nitem button:hover .n-t { color: var(--brand); }
-  .n-go { grid-column: 2; align-self: center; color: var(--ink-5); transition: transform .24s ease, color .24s ease; justify-self: end; }
+  .n-go { color: var(--ink-5); align-self: center; justify-self: end; transition: transform .24s ease, color .24s ease; }
   .nitem button:hover .n-go { color: var(--brand); transform: translateX(3px); }
 
   /* ── the reader overlay ─────────────────────────────────────────────────── */
@@ -374,44 +364,6 @@ const stats = [
   .r-load span { width: 13px; height: 13px; border: 2px solid var(--rule-2); border-top-color: var(--brand); border-radius: 50%; animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   body.lock { overflow: hidden; }
-
-  /* ── about badge ───────────────────────────────────────────────────────── */
-  .about { padding: 0 0 clamp(46px, 5.5vw, 88px); }
-  .badge {
-    display: grid; gap: clamp(24px, 3vw, 52px); align-items: start;
-    padding: clamp(26px, 3vw, 44px); border: 1.5px solid var(--rule-3); background: var(--bg-soft);
-  }
-  @media (min-width: 820px) { .badge { grid-template-columns: auto minmax(0, 1fr); } }
-  @media (min-width: 1180px) { .badge { grid-template-columns: auto minmax(0, 1fr) minmax(230px, 0.42fr); } }
-
-  .b-seal { display: flex; align-items: center; gap: 16px; }
-  @media (min-width: 820px) { .b-seal { flex-direction: column; align-items: center; gap: 14px; } }
-  .b-plate {
-    width: clamp(84px, 7vw, 128px); aspect-ratio: 1; border-radius: 50%; background: #fff;
-    display: grid; place-items: center; box-shadow: 0 0 0 1px var(--rule-2), 0 0 0 7px var(--bg-soft), 0 0 0 8px var(--rule);
-    flex-shrink: 0;
-  }
-  .b-plate :global(img) { width: 68%; height: auto; }
-  .b-est { font-size: 8px; letter-spacing: .12em; color: var(--ink-4); line-height: 1.9; text-align: center; }
-
-  .b-kick { font-size: 8.5px; letter-spacing: .11em; color: var(--live); }
-  .b-h {
-    margin-top: 10px; font-variation-settings: "wdth" 118; font-weight: 800;
-    font-size: clamp(26px, 2.4vw, 42px); letter-spacing: -0.03em; line-height: 1.05;
-  }
-  .b-lead { margin-top: 14px; font-size: clamp(15.5px, 1vw, 19px); line-height: 1.55; color: var(--ink-2); max-width: 70ch; }
-  .b-lead a { border-bottom: 1px solid var(--rule-2); padding-bottom: 1px; }
-  .b-lead a:hover { color: var(--brand); border-color: var(--brand); }
-  .b-lead b { font-weight: 700; }
-  .b-p { margin-top: 14px; font-size: 14.5px; line-height: 1.65; color: var(--ink-4); max-width: 72ch; }
-  .b-links { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 14px; font-weight: 600; }
-
-  .b-facts { margin: 0; display: grid; align-content: start; border-top: 1px solid var(--rule-3); }
-  .b-facts > div { padding: 9px 0; border-bottom: 1px solid var(--rule); }
-  .b-facts dt { font-size: 8px; letter-spacing: .11em; color: var(--ink-5); }
-  .b-facts dd { margin: 4px 0 0; font-size: 14px; color: var(--ink-2); }
-  .b-facts dd a { border-bottom: 1px solid var(--rule-2); padding-bottom: 1px; }
-  .b-facts dd a:hover { color: var(--brand); border-color: var(--brand); }
 
   /* ── entrance ──────────────────────────────────────────────────────────── */
   .rv { animation: rise .8s cubic-bezier(.19,.86,.28,1) backwards; animation-delay: calc(var(--i) * 90ms + 60ms); }

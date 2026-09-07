@@ -31,3 +31,19 @@ entries:
     venue: AI-SDLC
     type: workshop
     selected: true
+
+  # Accepted at ASE 2026; the ACM DOI is the proceedings, so the sources still
+  # carry it as the arXiv preprint.
+  nguyen2026pattern:
+    venue: ASE
+    type: conference
+    status: accepted
+    selected: true
+
+  # The multilingual prompt benchmark — Saima's, with the Molise/Andes/NC State group.
+  afrin2026large:
+    selected: true
+
+  # Multi-task QLoRA — Alvi's first as lead author.
+  haque2026parameter:
+    selected: true
