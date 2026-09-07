@@ -88,13 +88,16 @@ funding:
       neural compression, LoRA-style fine-tuning, and code-quality evaluation
       under model-topology changes.
 
+# `landing: true` marks a section the home page already carries in full. Those
+# stay out of the header — a visitor who is looking at them does not need a tab
+# pointing back at them — but they keep their place in the footer index.
 nav:
   - { label: Research, href: /research/ }
   - { label: Publications, href: /publications/ }
   - { label: Software, href: /software/ }
   - { label: People, href: /people/ }
-  - { label: News, href: /news/ }
-  - { label: Join, href: /join/ }
+  - { label: News, href: /news/, landing: true }
+  - { label: Join, href: /join/, landing: true }
 
 # Venues we highlight in the hero strip (must exist in data/venues.yml)
 flagship_venues: [ICSE, FSE, ASE, TOSEM, TSE, EMSE, ICSME, ICPC]

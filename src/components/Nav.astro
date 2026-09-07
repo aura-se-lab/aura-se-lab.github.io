@@ -22,7 +22,7 @@ const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWit
     </a>
 
     <nav class="tabs" id="tabs" aria-label="Primary">
-      {lab.nav.map((item) => (
+      {lab.nav.filter((item) => !item.landing).map((item) => (
         <a
           href={item.href}
           class:list={["tab", { on: isActive(item.href) }]}

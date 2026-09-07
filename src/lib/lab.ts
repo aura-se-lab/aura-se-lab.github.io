@@ -39,7 +39,7 @@ export interface Lab {
   statement: string;
   brief: string[];
   funding: Funding[];
-  nav: { label: string; href: string }[];
+  nav: { label: string; href: string; landing?: boolean }[];
   flagship_venues: string[];
 }
 

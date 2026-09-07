@@ -448,7 +448,18 @@ const kinds = [
     if (page > pages) page = pages;
     const start = (page - 1) * per;
     const slice = new Set(hits.slice(start, start + per));
-    for (const c of cards) c.hidden = !slice.has(c);
+    for (const c of cards) {
+      const show = slice.has(c);
+      // Filtering reflows the shelf, and a lazy image the browser once judged
+      // to be far off-screen is never re-checked when it lands in view — the
+      // scan just stays blank. Upgrading the cover of every card we show is
+      // what actually starts the fetch.
+      if (show) {
+        const img = c.querySelector<HTMLImageElement>('img[loading="lazy"]');
+        if (img) img.loading = "eager";
+      }
+      c.hidden = !show;
+    }
 
     noneEl.hidden = hits.length > 0;
     countEl.textContent = hits.length
