@@ -34,7 +34,7 @@ const tldr = pub?.sources?.tldr;
       <h1 class="e-t">{d.title}</h1>
     </header>
 
-    <div class="e-body">
+    <div class:list={["e-body", { faces: people.length > 0 }]}>
       {people.length > 0 && (
         <aside class="e-people">
           {people.map((p) => (
@@ -102,7 +102,10 @@ const tldr = pub?.sources?.tldr;
   }
 
   .e-body { display: grid; gap: 26px; margin-top: 24px; align-items: start; }
-  @media (min-width: 680px) { .e-body { grid-template-columns: 130px minmax(0, 1fr); gap: 30px; } }
+  /* The portrait rail only exists when there are portraits — without this
+     guard the prose itself lands in the 130px column and wraps every three
+     words. */
+  @media (min-width: 680px) { .e-body.faces { grid-template-columns: 130px minmax(0, 1fr); gap: 30px; } }
   .e-people { display: grid; gap: 16px; }
   .e-person { display: block; }
   .e-person :global(img) { width: 100%; height: auto; aspect-ratio: 56/73; object-fit: cover; border: 1px solid var(--rule); transition: border-color .22s ease; }
