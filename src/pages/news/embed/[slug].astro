@@ -89,23 +89,3 @@ const people = (await getCollection("people")).filter((p) => d.people.includes(p
   .e-foot { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 10px; }
   .e-foot .btn, .e-foot .btn-o { height: 36px; font-size: 13px; }
 </style>
-
-<script>
-  /* The reader box used to stand at a fixed 96vh whatever it held, so a short
-     item floated in a tall white rectangle. The item measures itself and the
-     box takes that height instead. */
-  const art = document.querySelector(".e") as HTMLElement | null;
-  function report() {
-    if (!art) return;
-    /* Measure the article, not the document: documentElement.scrollHeight is
-       clamped to the viewport once the box shrinks, so reporting it makes the
-       parent and the frame chase each other to a fixed point that has nothing
-       to do with how long the item is. */
-    const h = Math.ceil(art.getBoundingClientRect().height);
-    parent.postMessage({ type: "aura:news-height", h }, location.origin);
-  }
-  addEventListener("load", report);
-  if (document.readyState === "complete") report();
-  if (art) new ResizeObserver(report).observe(art);
-  document.fonts?.ready.then(report);
-</script>
