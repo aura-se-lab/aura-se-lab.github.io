@@ -29,13 +29,51 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 
 
+# Repositories that serve the PDF straight off the URL, with no bot wall in the
+# way. Publisher domains (link.springer.com, dl.acm.org, sciencedirect, ieee) are
+# deliberately absent: they answer a PDF request with an HTML challenge page even
+# when Unpaywall calls the record open access.
+OPEN_HOSTS = (
+    "ceur-ws.org",
+    "aclanthology.org",
+    "openreview.net",
+    "proceedings.mlr.press",
+    "proceedings.neurips.cc",
+    "www.usenix.org",
+    "usenix.org",
+    "arxiv.org",
+    "hal.science",
+    "zenodo.org",
+)
+
+
+def _open_pdf_url(p):
+    """A direct PDF link on a host that actually serves it."""
+    for cand in (p.get("pdf"), p.get("url")):
+        if not cand or not cand.lower().endswith(".pdf"):
+            continue
+        host = cand.split("/")[2].lower() if "//" in cand else ""
+        if host in OPEN_HOSTS:
+            return cand
+    return None
+
+
 def source_for(p):
-    """Local accepted manuscript first, then arXiv. None means no open full text."""
+    """Local accepted manuscript first, then arXiv, then an open repository.
+
+    None means no open full text — the site draws a typographic cover instead.
+    The durable fix for a paywalled paper is to drop the accepted manuscript at
+    public/papers/<key>.pdf, which both ACM and IEEE author agreements allow;
+    this picks it up on the next run in preference to anything else.
+    """
     local = os.path.join(LOCAL, p["key"] + ".pdf")
     if os.path.exists(local):
         return ("local", local)
     if p.get("arxiv"):
         return ("arxiv", f"https://arxiv.org/pdf/{p['arxiv']}")
+    repo = _open_pdf_url(p)
+    if repo:
+        return ("repository", repo)
     return (None, None)
 
 
@@ -88,11 +126,11 @@ def main():
             none += 1
             continue
         pdf = src if kind == "local" else os.path.join(CACHE, key + ".pdf")
-        if kind == "arxiv" and not os.path.exists(pdf):
+        if kind != "local" and not os.path.exists(pdf):
             if not fetch(src, pdf):
                 print(f"  ! {key}: could not fetch {src}", file=sys.stderr)
                 continue
-            time.sleep(0.6)                                 # be polite to arXiv
+            time.sleep(0.6)                                 # be polite to the host
         im = render(pdf, key)
         if im is None:
             print(f"  ! {key}: no page rendered", file=sys.stderr)

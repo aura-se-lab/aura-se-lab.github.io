@@ -34,6 +34,20 @@ const n = {
   all: sorted.length,
 };
 
+/** A paywalled paper gets a drawn cover; give it the same facts a first page carries. */
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function coverFacts(p: (typeof sorted)[number]) {
+  const full = p.venue_info?.name || p.venue_raw || venueLabel(p);
+  const ieee = /IEEE/i.test(p.publisher ?? "");
+  const masthead = ieee && p.venue_raw && !/^IEEE/i.test(p.venue_raw) ? `IEEE ${p.venue_raw}` : full;
+  const bits: string[] = [];
+  if (p.volume) bits.push(`VOL ${p.volume}`);
+  if (p.number) bits.push(`NO ${p.number}`);
+  if (p.pages) bits.push(`PP ${p.pages.replace(/-+/g, "–")}`);
+  const dateline = p.month ? `${MONTHS[p.month - 1]} ${p.year}` : String(p.year);
+  return { masthead: masthead.toUpperCase(), cite: bits.join(" · "), dateline };
+}
+
 const kinds = [
   { v: "reviewed", l: "Peer-reviewed", c: n.reviewed },
   { v: "preprint", l: "Preprints", c: n.preprint },
@@ -122,15 +136,15 @@ const kinds = [
                   {cover ? (
                     <Image src={cover} alt="" widths={[260, 520]} sizes="(max-width: 700px) 45vw, 260px" loading="lazy" />
                   ) : (
-                    <span class="nocover">
-                      <span class="nc-head">
-                        <span class="nc-v m">{venueLabel(p)}</span>
-                        <span class="nc-y m num">{p.year}</span>
-                      </span>
+                    <span class:list={["nocover", { "nocover--mag": p.type === "magazine" }]}>
+                      <span class="nc-mast m">{coverFacts(p).masthead}</span>
+                      {coverFacts(p).cite && <span class="nc-cite m">{coverFacts(p).cite}</span>}
                       <span class="nc-rule" aria-hidden="true"></span>
                       <span class="nc-t">{p.title}</span>
-                      <span class="nc-a">{p.authors.map((a) => shortName(a.name)).join(", ")}</span>
-                      <span class="nc-foot m">{(p.venue_raw ?? p.venue_info?.name ?? p.type).toUpperCase()}</span>
+                      <span class="nc-base">
+                        <span class="nc-a">{p.authors.map((a) => shortName(a.name)).join(", ")}</span>
+                        <span class="nc-foot m">{coverFacts(p).dateline.toUpperCase()}</span>
+                      </span>
                     </span>
                   )}
                   <span class="scrim" aria-hidden="true"><span class="scrim-in">{pdf ? "Read paper" : "Open record"}</span></span>
@@ -237,18 +251,36 @@ const kinds = [
 
   .nocover {
     display: flex; flex-direction: column; height: 100%; padding: 8%; text-align: left; overflow: hidden;
-    background:
-      linear-gradient(180deg, rgba(0,144,81,.05), transparent 34%),
-      #fdfdfc;
+    background: linear-gradient(180deg, rgba(0,144,81,.05), transparent 34%), #fdfdfc;
     box-shadow: inset 0 0 0 1px rgba(11,15,13,.06);
   }
-  .nc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-  .nc-v { font-size: max(7px, 3.2cqw); letter-spacing: .09em; color: var(--brand); }
-  .nc-y { font-size: max(7px, 3.2cqw); letter-spacing: .08em; color: var(--ink-5); }
-  .nc-rule { height: 1px; background: var(--rule-3); margin: 4% 0 6%; flex: 0 0 auto; }
-  .nc-t { flex: 0 1 auto; min-height: 0; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; font-size: clamp(11px, 6.1cqw, 16px); font-weight: 700; line-height: 1.28; letter-spacing: -0.018em; color: var(--ink); font-variation-settings: "wdth" 104; }
-  .nc-a { flex: 0 0 auto; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 5%; font-size: clamp(9.5px, 4.5cqw, 12.5px); line-height: 1.4; color: var(--ink-4); }
-  .nc-foot { flex: 0 0 auto; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: auto; padding-top: 5%; border-top: 1px solid var(--rule); font-size: max(6.5px, 2.9cqw); letter-spacing: .07em; color: var(--ink-5); line-height: 1.7; }
+  /* A column in a magazine gets the masthead treatment; a paywalled paper does not. */
+  .nocover--mag {
+    background: linear-gradient(180deg, rgba(23,72,90,.07), transparent 30%), #fdfdfc;
+  }
+  .nc-mast {
+    font-size: max(7px, 3.4cqw); letter-spacing: .1em; color: var(--brand); line-height: 1.4;
+  }
+  .nocover--mag .nc-mast {
+    font-size: max(7.5px, 4cqw); letter-spacing: .06em; color: var(--teal); font-weight: 700;
+  }
+  .nc-cite { margin-top: 3%; font-size: max(6.5px, 2.9cqw); letter-spacing: .07em; color: var(--ink-5); }
+  .nc-rule { height: 1px; background: var(--rule-3); margin: 5% 0 6%; flex: 0 0 auto; }
+  .nocover--mag .nc-rule { height: 2px; background: var(--teal); }
+  .nc-t {
+    flex: 0 1 auto; min-height: 0; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical;
+    overflow: hidden; font-size: clamp(11px, 6.1cqw, 16px); font-weight: 700; line-height: 1.28;
+    letter-spacing: -0.018em; color: var(--ink); font-variation-settings: "wdth" 104;
+  }
+  .nc-base { flex: 0 0 auto; margin-top: auto; padding-top: 8%; }
+  .nc-a {
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    font-size: clamp(9.5px, 4.5cqw, 12.5px); line-height: 1.4; color: var(--ink-4);
+  }
+  .nc-foot {
+    display: block; margin-top: 5%; padding-top: 5%; border-top: 1px solid var(--rule);
+    font-size: max(6.5px, 2.9cqw); letter-spacing: .08em; color: var(--ink-5);
+  }
 
   .scrim {
     position: absolute; inset: 0; display: grid; place-items: center;
