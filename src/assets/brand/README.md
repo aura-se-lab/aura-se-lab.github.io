@@ -31,3 +31,25 @@ recolour this one in CSS.
 chrome only (CTA, active nav underline, sync dot). The `--t1…--t4` thread
 palette is separate, because it carries small text on paper and needs the
 contrast.
+
+## Vector (adopted September 2026)
+
+| file | what |
+|---|---|
+| `aura-mark.svg` | The mark, traced from `aura-mark.png`. Same figure, 9 KB. |
+| `aura-lockup.svg` | Mark + wordmark + expansion, traced from `aura-lockup.png`. 31 KB. |
+| `aura-mark-512.png`, `aura-mark-1024.png` | Raster exports for slides and posters. |
+| `aura-lockup-2048.png` | Raster export of the lockup. |
+
+Every element is filled with a CSS variable and its original colour as the
+fallback, so a dark ground can lift a layer without anything being redrawn:
+
+    --mk-arc    the mint ring behind the network      #75ccb1
+    --mk-teal   the dark traces                        #174f58
+    --mk-olive  the green traces                       #609b5d
+    --mk-brand  the AURA wordmark and accent capitals   #009051
+    --mk-ink    the tagline                             #000000
+
+On the black chrome the site sets `--mk-ink: #fff` and lifts `--mk-teal`,
+which is what removed the white plate the raster needed. The PNGs stay as
+the archival originals; nothing on the site references them.

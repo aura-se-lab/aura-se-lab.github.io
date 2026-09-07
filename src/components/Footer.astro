@@ -1,9 +1,8 @@
 ---
-import { Image } from "astro:assets";
 import { lab } from "@/lib/lab";
 import { metrics } from "@/lib/pubs";
 import { fmtDate } from "@/lib/dates";
-import lockup from "@/assets/brand/aura-lockup.png";
+import lockup from "@/assets/brand/aura-lockup.svg?raw";
 
 const year = new Date().getFullYear();
 const updated = fmtDate(metrics.updated);
@@ -14,7 +13,7 @@ const a = lab.institution.address;
   <div class="shell">
     <div class="coda-top">
       <div class="c-id">
-        <span class="c-plate"><Image src={lockup} alt={lab.name} width={420} height={130} loading="eager" /></span>
+        <span class="c-plate" role="img" aria-label={lab.name} set:html={lockup} />
         <p class="c-addr">
           {lab.institution.department} · {lab.institution.name}<br />
           {a.building}, {a.street}, {a.city}, {a.region} {a.postal}
@@ -58,8 +57,13 @@ const a = lab.institution.address;
     display: flex; flex-wrap: wrap; gap: 34px 60px; justify-content: space-between;
     padding-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,.12);
   }
-  .c-plate { display: inline-block; background: #fff; padding: 12px 16px; }
-  .c-plate :global(img) { width: 210px; height: auto; }
+  /* Vector: the tagline flips to white and the teal lifts, so the lockup
+     stands on the black band with no plate behind it. */
+  .c-plate {
+    --mk-ink: #ffffff; --mk-teal: #9cc3c9; --mk-arc: #4e937f;
+    display: block; width: 300px;
+  }
+  .c-plate :global(svg) { width: 100%; height: auto; display: block; }
   .c-addr { margin-top: 14px; font-size: 12.5px; color: var(--on-chrome-3); line-height: 1.6; }
 
   .c-cols { display: flex; flex-wrap: wrap; gap: 26px 56px; }
@@ -74,5 +78,5 @@ const a = lab.institution.address;
   }
   .c-sync { font-size: 8px; letter-spacing: .1em; display: inline-flex; align-items: center; }
   .c-sync i { width: 5px; height: 5px; border-radius: 50%; background: var(--brand); margin-right: 8px; }
-  @media (max-width: 700px) { .c-cols { gap: 22px 40px; } .c-plate :global(img) { width: 170px; } }
+  @media (max-width: 700px) { .c-cols { gap: 22px 40px; } .c-plate { width: 240px; } }
 </style>

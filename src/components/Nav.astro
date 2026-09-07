@@ -1,7 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import { lab } from "@/lib/lab";
-import mark from "@/assets/brand/aura-mark.png";
+import mark from "@/assets/brand/aura-mark.svg?raw";
 import wmLogo from "@/assets/brand/wm-logo.svg?raw";
 
 const path = Astro.url.pathname;
@@ -11,7 +10,7 @@ const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWit
 <header class="bar" id="top" data-open="false">
   <div class="shell bar-in">
     <a href="/" class="brand" aria-label={`${lab.name} — home`} aria-current={path === "/" ? "page" : undefined}>
-      <span class="plate"><Image src={mark} alt="" width={132} height={114} loading="eager" /></span>
+      <span class="plate" set:html={mark} />
       <span class="bw">
         <span class="bw-1">AURA<span class="bw-thin">LAB</span></span>
         <span class="bw-2">
@@ -50,13 +49,15 @@ const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWit
 
   /* ── brand ─────────────────────────────────────────────────────────────── */
   .brand { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
+  /* The mark is vector now, so it sits straight on the black bar: the teal
+     traces lift to a tint that reads there, and the plate goes. */
   .plate {
-    width: 60px; height: 60px; border-radius: 50%; background: #fff;
-    display: grid; place-items: center; flex-shrink: 0;
-    transition: transform .3s cubic-bezier(.2,.8,.25,1), box-shadow .3s ease;
+    --mk-teal: #7fb0b8;
+    width: 58px; height: 58px; display: grid; place-items: center; flex-shrink: 0;
+    transition: transform .3s cubic-bezier(.2,.8,.25,1);
   }
-  .plate :global(img) { width: 50px; height: auto; }
-  .brand:hover .plate { transform: rotate(-6deg) scale(1.05); box-shadow: 0 0 0 4px rgba(0,144,81,.3); }
+  .plate :global(svg) { width: 100%; height: auto; display: block; }
+  .brand:hover .plate { transform: rotate(-6deg) scale(1.06); }
   .bw { display: flex; flex-direction: column; line-height: 1; gap: 7px; }
   .bw-1 {
     font-variation-settings: "wdth" 118; font-weight: 800; font-size: 21px;
@@ -118,8 +119,7 @@ const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWit
     .tab-x { border-left: 0; padding-left: 0; margin-left: 0; font-size: 14px; border-bottom: 0; }
   }
   @media (max-width: 700px) {
-    .plate { width: 48px; height: 48px; }
-    .plate :global(img) { width: 40px; }
+    .plate { width: 46px; height: 46px; }
     .bw-1 { font-size: 18px; }
   }
   @media (max-width: 460px) { .bw-2 { display: none; } }
