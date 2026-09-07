@@ -1,0 +1,154 @@
+---
+/** STUDY 4 — Atlas. The lab's output laid out as a map: a matrix of direction
+ *  against year, venue coverage, and where the overlaps are. */
+import Base from "@/layouts/Base.astro";
+import { directions } from "@/lib/research";
+import { lab } from "@/lib/lab";
+import { publications, isReviewed, venueLabel } from "@/lib/pubs";
+
+const dirs = await directions();
+const years = [...new Set(publications.map((p) => p.year))].sort();
+const cell = (d: (typeof dirs)[number], y: number) => d.papers.filter((p) => p.year === y).length;
+const peak = Math.max(...dirs.flatMap((d) => years.map((y) => cell(d, y))));
+
+/** How often two directions appear on the same paper. */
+const overlap = dirs.flatMap((a, i) =>
+  dirs.slice(i + 1).map((b) => ({
+    a, b,
+    n: publications.filter((p) => p.threads?.includes(a.id) && p.threads?.includes(b.id)).length,
+  }))
+).filter((o) => o.n > 0).sort((x, y) => y.n - x.n);
+
+const venues = [...new Set(publications.filter(isReviewed).map((p) => venueLabel(p)))]
+  .filter((v) => v && v !== "—")
+  .map((v) => ({ v, n: publications.filter((p) => isReviewed(p) && venueLabel(p) === v).length }))
+  .sort((a, b) => b.n - a.n);
+---
+
+<Base title="Research — study 4" description="Design study" noindex>
+  <div class="page">
+    <div class="shell">
+      <header class="page-head">
+        <div class="row">
+          <div>
+            <p class="label">{publications.length} PAPERS · {dirs.length} DIRECTIONS · {years[0]}–{years.at(-1)}</p>
+            <h1 class="h2 mt-2">Research</h1>
+          </div>
+        </div>
+        <p class="lead" style="max-width:62ch">{lab.brief[0]}</p>
+      </header>
+
+      <!-- ── the matrix ───────────────────────────────────────────────── -->
+      <section class="atlas">
+        <p class="m a-lab">OUTPUT BY DIRECTION AND YEAR</p>
+        <div class="mx" style={`--yn:${years.length}`}>
+          <div class="mx-h"></div>
+          {years.map((y) => <div class="mx-h m">{y}</div>)}
+          <div class="mx-h m mx-tot">TOTAL</div>
+          {dirs.map((d, i) => (
+            <>
+              <a class="mx-r" href={`/research/${d.id}/`} style={`--c:var(--a${i + 1})`}>
+                <span class="mx-l exp">{d.letter}</span>
+                <span class="mx-t">{d.title}</span>
+              </a>
+              {years.map((y) => (
+                <div class="mx-c" style={`--c:var(--a${i + 1})`}>
+                  {cell(d, y) > 0 && (
+                    <span class="dot" style={`--o:${(0.18 + 0.82 * (cell(d, y) / peak)).toFixed(2)}`}>{cell(d, y)}</span>
+                  )}
+                </div>
+              ))}
+              <div class="mx-c mx-tot"><span class="num">{d.papers.length}</span></div>
+            </>
+          ))}
+        </div>
+      </section>
+
+      <!-- ── the directions themselves ────────────────────────────────── -->
+      <section class="cards">
+        {dirs.map((d, i) => (
+          <article class="card" style={`--c:var(--a${i + 1})`}>
+            <div class="c-top">
+              <span class="c-l exp">{d.letter}</span>
+              <span class="m c-n">{d.reviewed.length} PEER-REVIEWED / {d.papers.length}</span>
+            </div>
+            <h2 class="c-t">{d.title}</h2>
+            <p class="c-s">{d.short}</p>
+            <p class="m c-v">{d.venues.join(" · ")}</p>
+            <a class="c-go" href={`/research/${d.id}/`}>Open →</a>
+          </article>
+        ))}
+      </section>
+
+      <!-- ── where directions meet ────────────────────────────────────── -->
+      <section class="two">
+        <div>
+          <p class="m a-lab">WHERE DIRECTIONS MEET</p>
+          <ul class="ov">
+            {overlap.map((o) => (
+              <li>
+                <span class="ov-p"><b class="exp" style={`color:var(--a${o.a.order})`}>{o.a.letter}</b> × <b class="exp" style={`color:var(--a${o.b.order})`}>{o.b.letter}</b></span>
+                <span class="ov-t">{o.a.title.split(/[&—]/)[0].trim()} + {o.b.title.split(/[&—]/)[0].trim()}</span>
+                <span class="num ov-n">{o.n}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p class="m a-lab">VENUES</p>
+          <ul class="vn">
+            {venues.map((v) => (
+              <li><span class="m vn-v">{v.v}</span><span class="vn-bar" style={`--w:${(v.n / venues[0].n) * 100}%`}></span><span class="num vn-n">{v.n}</span></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .a-lab { font-size: 8px; letter-spacing: .12em; color: var(--ink-5); }
+  .atlas { margin-top: 8px; }
+
+  .mx { display: grid; grid-template-columns: minmax(200px, 1.6fr) repeat(var(--yn), minmax(44px, .5fr)) 62px; margin-top: 12px; border-top: 1.5px solid var(--rule-3); }
+  .mx-h { padding: 9px 6px; font-size: 8px; letter-spacing: .09em; color: var(--ink-5); text-align: center; border-bottom: 1px solid var(--rule); }
+  .mx-h.mx-tot { color: var(--ink-3); }
+  .mx-r { display: flex; align-items: center; gap: 10px; padding: 13px 12px 13px 0; border-bottom: 1px solid var(--rule); }
+  .mx-r:hover .mx-t { color: var(--c); }
+  .mx-l { font-size: 17px; font-weight: 800; color: var(--c); font-variation-settings: "wdth" 118; }
+  .mx-t { font-size: 13.5px; font-weight: 600; line-height: 1.3; }
+  .mx-c { display: grid; place-items: center; border-bottom: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+  .mx-c.mx-tot { border-left: 1.5px solid var(--rule-3); font-size: 15px; }
+  .dot {
+    display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+    background: color-mix(in srgb, var(--c) calc(var(--o) * 100%), #fff);
+    color: color-mix(in srgb, var(--c) 15%, #06120c); font-size: 12px; font-weight: 700;
+  }
+
+  .cards { display: grid; gap: 14px; margin-top: clamp(30px, 3.4vw, 48px); grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1200px) { .cards { grid-template-columns: repeat(4, 1fr); } }
+  .card { display: flex; flex-direction: column; padding: 18px; border: 1px solid var(--rule); border-top: 3px solid var(--c); }
+  .card:hover { border-color: var(--rule-3); border-top-color: var(--c); }
+  .c-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .c-l { font-size: 26px; font-weight: 800; color: var(--c); line-height: 1; font-variation-settings: "wdth" 118; }
+  .c-n { font-size: 7.5px; letter-spacing: .09em; color: var(--ink-5); }
+  .c-t { margin-top: 12px; font-size: 16px; font-weight: 700; line-height: 1.24; letter-spacing: -0.018em; }
+  .c-s { margin-top: 9px; flex: 1; font-size: 13px; line-height: 1.55; color: var(--ink-4); }
+  .c-v { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 7.5px; letter-spacing: .09em; color: var(--c); line-height: 1.7; }
+  .c-go { margin-top: 10px; font-size: 12.5px; font-weight: 700; }
+  .card:hover .c-go { color: var(--c); }
+
+  .two { display: grid; gap: 30px; margin-top: clamp(30px, 3.4vw, 48px); }
+  @media (min-width: 900px) { .two { grid-template-columns: 1.25fr 1fr; gap: 48px; } }
+  .ov, .vn { list-style: none; margin: 10px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+  .ov li { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .ov-p { font-size: 14px; color: var(--ink-5); }
+  .ov-t { font-size: 13.5px; color: var(--ink-3); }
+  .ov-n { font-size: 16px; font-weight: 300; }
+  .vn li { display: grid; grid-template-columns: 60px minmax(0, 1fr) 28px; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+  .vn-v { font-size: 8px; letter-spacing: .09em; color: var(--ink-3); }
+  .vn-bar { height: 6px; background: linear-gradient(to right, var(--brand) var(--w), var(--bg-tint) var(--w)); }
+  .vn-n { font-size: 13px; color: var(--ink-4); text-align: right; }
+</style>

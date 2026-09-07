@@ -1,0 +1,96 @@
+---
+/** STUDY 3 — Four questions. The page is the lab's open problems; each
+ *  direction is stated as a question with the current answer underneath. */
+import Base from "@/layouts/Base.astro";
+import { directions } from "@/lib/research";
+import { lab } from "@/lib/lab";
+import { venueLabel } from "@/lib/pubs";
+
+const dirs = await directions();
+---
+
+<Base title="Research — study 3" description="Design study" noindex>
+  <div class="page">
+    <div class="shell">
+      <header class="page-head">
+        <div class="row">
+          <div>
+            <p class="label">FOUR OPEN QUESTIONS</p>
+            <h1 class="h2 mt-2">Research</h1>
+          </div>
+        </div>
+        <p class="lead" style="max-width:62ch">{lab.brief[0]}</p>
+      </header>
+
+      <ol class="qs">
+        {dirs.map((d, i) => (
+          <li class="q" style={`--c:var(--a${i + 1})`}>
+            <div class="q-head">
+              <span class="q-n exp">{String(i + 1).padStart(2, "0")}</span>
+              <h2 class="q-t">{d.q}</h2>
+            </div>
+
+            <div class="q-body">
+              <div class="q-main">
+                <p class="q-a">{d.a}</p>
+                <p class="q-s">{d.short}</p>
+              </div>
+              <aside class="q-side">
+                <p class="m q-lab">{d.letter} · {d.title}</p>
+                <dl class="q-f">
+                  <div><dt class="m">PAPERS</dt><dd>{d.papers.length}</dd></div>
+                  <div><dt class="m">REVIEWED</dt><dd>{d.reviewed.length}</dd></div>
+                  <div><dt class="m">SINCE</dt><dd>{d.span.split("–")[0]}</dd></div>
+                </dl>
+                <p class="m q-v">{d.venues.slice(0, 6).join(" · ")}</p>
+              </aside>
+            </div>
+
+            <ul class="q-work">
+              {d.papers.slice(0, 3).map((p) => (
+                <li>
+                  <a href={`/publications/${p.key}/`}>
+                    <span class="m qw-v">{venueLabel(p)} {p.year}</span>
+                    <span class="qw-t">{p.title}</span>
+                  </a>
+                </li>
+              ))}
+              <li class="q-more"><a href={`/research/${d.id}/`}>+{Math.max(0, d.papers.length - 3)} more →</a></li>
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .qs { list-style: none; margin: 0; padding: 0; }
+  .q { padding: clamp(30px, 3.4vw, 50px) 0; border-bottom: 1px solid var(--rule); }
+  .q:first-child { padding-top: 4px; }
+  .q-head { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 18px; align-items: start; }
+  @media (min-width: 900px) { .q-head { grid-template-columns: 76px minmax(0, 1fr); gap: 26px; } }
+  .q-n { font-size: clamp(30px, 3.4vw, 46px); font-weight: 800; line-height: .82; color: var(--c); font-variation-settings: "wdth" 118; }
+  .q-t { font-size: clamp(21px, 2.6vw, 34px); font-weight: 800; line-height: 1.14; letter-spacing: -0.03em; max-width: 24ch; }
+
+  .q-body { display: grid; gap: 24px; margin-top: 20px; }
+  @media (min-width: 900px) { .q-body { grid-template-columns: 76px minmax(0, 1.5fr) minmax(210px, .8fr); gap: 26px; }
+    .q-main { grid-column: 2; } .q-side { grid-column: 3; } }
+  .q-a { font-size: clamp(15.5px, 1.55vw, 17.5px); line-height: 1.6; color: var(--ink-2); max-width: 62ch; }
+  .q-s { margin-top: 12px; font-size: 14px; line-height: 1.62; color: var(--ink-4); max-width: 66ch; }
+  .q-lab { font-size: 8px; letter-spacing: .1em; color: var(--c); line-height: 1.5; }
+  .q-f { margin: 12px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .q-f dt { font-size: 7.5px; letter-spacing: .1em; color: var(--ink-5); }
+  .q-f dd { margin: 3px 0 0; font-size: 20px; font-weight: 300; letter-spacing: -0.02em; }
+  .q-v { margin-top: 10px; font-size: 8px; letter-spacing: .09em; color: var(--ink-5); line-height: 1.7; }
+
+  .q-work { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+  @media (min-width: 900px) { .q-work { margin-left: 102px; } }
+  .q-work li { border-top: 1px solid var(--rule); }
+  .q-work a { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px; align-items: baseline; padding: 10px 0; }
+  .q-work a:hover .qw-t { color: var(--c); }
+  .qw-v { font-size: 8px; letter-spacing: .09em; color: var(--ink-5); }
+  .qw-t { font-size: 14px; font-weight: 600; line-height: 1.4; }
+  .q-more a { display: block; padding: 10px 0; font-size: 12.5px; font-weight: 700; color: var(--ink-4); }
+  .q-more a:hover { color: var(--c); }
+</style>
