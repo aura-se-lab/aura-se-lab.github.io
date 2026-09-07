@@ -17,7 +17,6 @@ const { Content } = await render(person);
 const d = person.data;
 const pubs = pubsByMember(person.id);
 const threads = (await getCollection("research")).filter((t) => d.threads.includes(t.id)).sort((a, b) => a.data.order - b.data.order);
-const news = (await getCollection("news", ({ data }) => !data.draft && data.people.includes(person.id))).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const site = (Astro.site ?? new URL("https://auralab.sh")).origin;
 const linkIcons: Record<string, any> = { website: Globe, scholar: GraduationCap, github: Code, linkedin: Briefcase, x: AtSign, bluesky: ExternalLink, orcid: ExternalLink, dblp: ExternalLink };
 const linkLabels: Record<string, string> = { website: "Website", scholar: "Google Scholar", github: "GitHub", linkedin: "LinkedIn", x: "X", bluesky: "Bluesky", orcid: "ORCID", dblp: "DBLP" };
@@ -89,16 +88,6 @@ const desc = `${d.name} — ${d.title ?? roleLabel[d.role]} at the AURA Lab, Wil
             </ul>
           </>
         )}
-        {news.length > 0 && (
-          <>
-            <p class="caption mt-4">// In the news</p>
-            <ul class="mt-2">
-              {news.map((n) => (
-                <li class="news-mini"><a href={`/news/${n.id}/`}>{n.data.title}</a><span class="faint mono"> · {fmtDate(n.data.date)}</span></li>
-              ))}
-            </ul>
-          </>
-        )}
       </aside>
     </div>
   </section>
@@ -130,6 +119,4 @@ const desc = `${d.name} — ${d.title ?? roleLabel[d.role]} at the AURA Lab, Wil
   @media (min-width: 1000px) { .person-grid { grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr); gap: 72px; } }
   .awards li { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14px; }
   .awards :global(svg) { width: 14px; height: 14px; color: var(--gold); flex-shrink: 0; margin-top: 3px; }
-  .news-mini { padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14px; }
-  .news-mini a { font-weight: 500; }
 </style>

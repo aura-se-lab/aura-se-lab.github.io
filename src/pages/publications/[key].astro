@@ -5,7 +5,6 @@ import PubList from "@/components/PubList.astro";
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 import { publications, pubLinks, displayName, isReviewed, pubDateLabel, bucketOf, venueLabel } from "@/lib/pubs";
-import { fmtDate } from "@/lib/dates";
 import { lab } from "@/lib/lab";
 import { ArrowLeft, ExternalLink, FileText, CodeXml, Database, Presentation, Video, Copy, Quote } from "@lucide/astro";
 
@@ -19,7 +18,6 @@ const readable = p.arxiv ? `https://arxiv.org/pdf/${p.arxiv}` : null;
 const links = pubLinks(p);
 const icon: Record<string, any> = { doi: ExternalLink, arxiv: FileText, pdf: FileText, code: CodeXml, data: Database, slides: Presentation, video: Video, url: ExternalLink };
 const threads = (await getCollection("research")).filter((t) => p.threads?.includes(t.id)).sort((a, b) => a.data.order - b.data.order);
-const news = (await getCollection("news", ({ data }) => !data.draft && data.publication === p.key)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const tldr = p.sources?.tldr;
 const site = (Astro.site ?? new URL("https://auralab.sh")).origin;
 
@@ -144,16 +142,6 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
           {p.keywords && p.keywords.length > 0 && <div class="es-row"><dt class="es-k">Keywords</dt><dd class="es-v"><div class="tag-row">{p.keywords.slice(0, 8).map((k) => <span class="tag">{k}</span>)}</div></dd></div>}
           <div class="es-row"><dt class="es-k">Cite as</dt><dd class="es-v" style="font-size:13px">{p.authors.map((a) => displayName(a.name)).join(", ")}. {p.title}. <i>{p.venue_info?.name ?? p.venue_raw}</i>, {p.year}.</dd></div>
         </dl>
-        {news.length > 0 && (
-          <>
-            <p class="caption mt-4">// In the news</p>
-            <ul class="mt-2">
-              {news.map((n) => (
-                <li class="news-mini"><a href={`/news/${n.id}/`}>{n.data.title}</a><span class="faint mono"> · {fmtDate(n.data.date)}</span></li>
-              ))}
-            </ul>
-          </>
-        )}
       </aside>
     </div>
   </section>
@@ -181,8 +169,6 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
   .firstpage :global(img) { width: 100%; height: auto; border: 1px solid var(--rule); background: #fff; transition: border-color .22s ease, transform .22s cubic-bezier(.2,.8,.25,1); }
   .firstpage a:hover :global(img) { border-color: var(--rule-3); transform: translateY(-3px); }
   .firstpage figcaption { margin-top: 8px; font-size: 8px; letter-spacing: .1em; color: var(--ink-5); }
-  .news-mini { padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14px; }
-  .news-mini a { font-weight: 500; }
 </style>
 <script>
   document.querySelectorAll<HTMLButtonElement>(".bib-copy").forEach((btn) =>
