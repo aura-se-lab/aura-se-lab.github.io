@@ -13,9 +13,6 @@ for (const [path, mod] of Object.entries(covers)) {
 }
 
 const threads = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
-const members = (await getCollection("people")).sort((a, b) => a.data.order - b.data.order);
-const memberCount = (slug: string) => publications.filter((p) => p.authors.some((a) => a.member === slug)).length;
-const withPubs = members.filter((m) => memberCount(m.id) > 0);
 
 const sorted = [...publications].sort((a, b) => (b.date ?? String(b.year)).localeCompare(a.date ?? String(a.year)));
 const years = [...new Set(sorted.map((p) => p.year))].sort((a, b) => b - a);
@@ -89,16 +86,24 @@ const kinds = [
             <option value="all">All venues</option>
             {venues.map(([v, c]) => <option value={v}>{v} ({c})</option>)}
           </select>
-          <select class="sel" data-f="thread" aria-label="Research direction">
-            <option value="all">All directions</option>
-            {threads.map((t) => <option value={t.id}>{t.data.letter} · {t.data.title}</option>)}
-          </select>
-          <select class="sel" data-f="member" aria-label="Author">
-            <option value="all">Everyone</option>
-            {withPubs.map((m) => <option value={m.id}>{m.data.name} ({memberCount(m.id)})</option>)}
-          </select>
           <input class="sel inp" type="search" data-f="q" placeholder="Search title, author, venue…" aria-label="Search" />
         </div>
+
+        {/* A paper can sit under more than one direction, so these are
+            checkboxes, not a picker: tick any, see everything that touches
+            them. None ticked means no filter at all. */}
+        <fieldset class="dirs">
+          <legend class="m dirs-l">DIRECTIONS</legend>
+          {threads.map((t, i) => (
+            <label class="dir" style={`--c:var(--a${i + 1})`}>
+              <input type="checkbox" data-dir={t.id} />
+              <span class="dir-b" aria-hidden="true"></span>
+              <span class="dir-k exp">{t.data.letter}</span>
+              <span class="dir-t">{t.data.title}</span>
+              <span class="m dir-n">{publications.filter((p) => p.threads?.includes(t.id)).length}</span>
+            </label>
+          ))}
+        </fieldset>
       </div>
 
       <div class="shelfwrap">
@@ -113,7 +118,6 @@ const kinds = [
                 data-kind={bucketOf(p)}
                 data-year={String(p.year)}
                 data-threads={(p.threads ?? []).join(" ")}
-                data-members={p.authors.map((a) => a.member).filter(Boolean).join(" ")}
                 data-title={p.title}
                 data-authors={p.authors.map((a) => a.name).join(", ")}
                 data-venue={`${venueLabel(p)} ${p.venue_raw ?? ""}`}
@@ -225,6 +229,40 @@ const kinds = [
     grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
   }
   .card { display: grid; grid-template-rows: auto 1fr; gap: 12px; }
+  /* ── direction checkboxes ───────────────────────────────────────────────── */
+  .dirs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; padding: 0; border: 0; }
+  .dirs-l { padding: 0 8px 0 0; font-size: 8px; letter-spacing: .12em; color: var(--ink-5); }
+  .dir {
+    display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 10px;
+    border: 1px solid var(--rule-2); cursor: pointer; user-select: none;
+    transition: border-color .18s ease, background .18s ease;
+  }
+  .dir:hover { border-color: var(--rule-3); }
+  .dir input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .dir-b {
+    flex: 0 0 auto; width: 13px; height: 13px; border: 1.5px solid var(--rule-2); position: relative;
+    transition: background .18s ease, border-color .18s ease;
+  }
+  .dir-b::after {
+    content: ""; position: absolute; inset: 0; opacity: 0;
+    background: no-repeat center/9px 9px
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.4 4.6 9 10 3' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    transition: opacity .12s ease;
+  }
+  .dir-k { font-size: 13px; font-weight: 800; color: var(--c); font-variation-settings: "wdth" 118; }
+  .dir-t { font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  .dir-n { font-size: 8px; color: var(--ink-5); }
+  .dir:has(input:checked) { border-color: var(--c); background: color-mix(in srgb, var(--c) 7%, #fff); }
+  .dir:has(input:checked) .dir-b { background: var(--c); border-color: var(--c); }
+  .dir:has(input:checked) .dir-b::after { opacity: 1; }
+  .dir:has(input:checked) .dir-t { color: var(--ink); }
+  .dir:has(input:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+  @media (max-width: 760px) {
+    .dir-t { display: none; }
+    .dir { padding: 0 10px; }
+  }
+
   .card[hidden] { display: none; }
 
   .cover {
@@ -307,7 +345,10 @@ const kinds = [
   const ixButtons = [...document.querySelectorAll<HTMLButtonElement>(".ix")];
   const syncIndex = () => ixButtons.forEach((b) => b.classList.toggle("on", b.dataset.v === state.year));
 
-  const state: Record<string, string> = { kind: "reviewed", year: "all", venue: "all", thread: "all", member: "all", q: "" };
+  const state: Record<string, string> = { kind: "reviewed", year: "all", venue: "all", q: "" };
+  /** Ticked research directions. Empty means no direction filter at all. */
+  const dirs = new Set<string>();
+  const dirBoxes = [...document.querySelectorAll<HTMLInputElement>("input[data-dir]")];
   let page = 1;
 
   // ── how many cards fit: columns from the grid, rows from the viewport ────
@@ -330,8 +371,8 @@ const kinds = [
     if (state.kind !== "all" && c.dataset.kind !== state.kind) return false;
     if (skip !== "year" && state.year !== "all" && c.dataset.year !== state.year) return false;
     if (state.venue !== "all" && c.dataset.venuekey !== state.venue) return false;
-    if (state.thread !== "all" && !(c.dataset.threads ?? "").split(" ").includes(state.thread)) return false;
-    if (state.member !== "all" && !(c.dataset.members ?? "").split(" ").includes(state.member)) return false;
+    // Ticked directions are a union: a paper matching any of them shows.
+    if (dirs.size && !(c.dataset.threads ?? "").split(" ").some((t) => dirs.has(t))) return false;
     if (q) {
       const hay = `${c.dataset.title} ${c.dataset.authors} ${c.dataset.venue} ${c.dataset.year}`.toLowerCase();
       if (!hay.includes(q)) return false;
@@ -400,9 +441,19 @@ const kinds = [
       if (!v) continue;
       if (k === "kind" ? v !== "reviewed" : v !== "all") u.searchParams.set(k, v);
     }
+    if (dirs.size) u.searchParams.set("dir", [...dirs].join(","));
     if (page > 1) u.searchParams.set("p", String(page));
     history.replaceState(null, "", u);
   }
+
+  dirBoxes.forEach((b) =>
+    b.addEventListener("change", () => {
+      if (b.checked) dirs.add(b.dataset.dir!);
+      else dirs.delete(b.dataset.dir!);
+      page = 1;
+      render();
+    })
+  );
 
   // ── filters ──────────────────────────────────────────────────────────────
   document.querySelectorAll<HTMLButtonElement>('.chip[data-f="kind"]').forEach((b) =>
@@ -437,7 +488,11 @@ const kinds = [
   });
 
   const sp = new URLSearchParams(location.search);
-  for (const k of ["kind", "year", "venue", "thread", "member", "q"]) if (sp.get(k)) state[k] = sp.get(k)!;
+  for (const k of ["kind", "year", "venue", "q"]) if (sp.get(k)) state[k] = sp.get(k)!;
+  for (const d of (sp.get("dir") ?? "").split(",").filter(Boolean)) {
+    const box = dirBoxes.find((b) => b.dataset.dir === d);
+    if (box) { box.checked = true; dirs.add(d); }
+  }
   if (sp.get("p")) page = Number(sp.get("p")) || 1;
   document.querySelectorAll<HTMLButtonElement>('.chip[data-f="kind"]').forEach((b) =>
     b.classList.toggle("on", b.dataset.v === state.kind)
