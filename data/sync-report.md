@@ -1,10 +1,10 @@
 # Publications sync — 2026-09-07
 
-**51 publications** (22 peer-reviewed) · 157 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
+**50 publications** (21 peer-reviewed) · 157 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
 
 ## ⚠️ No longer found (1) — kept out; add to `data/publications.local.bib` if they are real
 
-- `mastropaolo2026editorial`
+- `scozzaro2024reform`
 
 ## 🏷️ Venues without a row in `data/venues.yml`
 

@@ -89,6 +89,9 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2026.3714118",
     "url": "https://doi.org/10.1109/mc.2026.3714118",
+    "threads": [
+      "reliable-evaluation"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -268,6 +271,10 @@
     "doi": "10.1109/mc.2026.3696017",
     "url": "https://doi.org/10.1109/mc.2026.3696017",
     "abstract": "We propose intent-invariant mutation testing, a coverage-driven framework that treats safety policy as a behavioral contract and tests whether a large language model enforces it consistently across semantically equivalent reframings.",
+    "threads": [
+      "reliable-evaluation",
+      "agents-lifecycle"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -315,6 +322,9 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2026.3701431",
     "url": "https://doi.org/10.1109/mc.2026.3701431",
+    "threads": [
+      "agents-lifecycle"
+    ],
     "selected": false,
     "sources": {
       "crossref": "10.1109/mc.2026.3701431",
@@ -530,6 +540,9 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2026.3696004",
     "url": "https://doi.org/10.1109/mc.2026.3696004",
+    "threads": [
+      "reliable-evaluation"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -705,6 +718,10 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2026.3682055",
     "url": "https://doi.org/10.1109/mc.2026.3682055",
+    "threads": [
+      "efficient-models",
+      "reliable-evaluation"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -919,6 +936,9 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2026.3658243",
     "url": "https://doi.org/10.1109/mc.2026.3658243",
+    "threads": [
+      "reliable-evaluation"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -1257,6 +1277,9 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2026.3659286",
     "url": "https://doi.org/10.1109/mc.2026.3659286",
+    "threads": [
+      "reliable-evaluation"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -1300,6 +1323,9 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2026.3652075",
     "url": "https://doi.org/10.1109/mc.2026.3652075",
+    "threads": [
+      "neurosymbolic-interpretability"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -1610,6 +1636,9 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2025.3627314",
     "url": "https://doi.org/10.1109/mc.2025.3627314",
+    "threads": [
+      "reliable-evaluation"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -1706,6 +1735,9 @@
     "doi": "10.1109/mc.2025.3609478",
     "url": "https://doi.org/10.1109/mc.2025.3609478",
     "abstract": "Large language models (LLMs) open new opportunities for software testing and assurance, but it is still unclear how they can be most effectively used. This article examines recent research on LLMs, along with current challenges.",
+    "threads": [
+      "agents-lifecycle"
+    ],
     "selected": false,
     "citations": {
       "count": 1,
@@ -1804,6 +1836,9 @@
     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
     "doi": "10.1109/mc.2025.3604189",
     "url": "https://doi.org/10.1109/mc.2025.3604189",
+    "threads": [
+      "efficient-models"
+    ],
     "selected": false,
     "citations": {
       "count": 0,
@@ -2680,6 +2715,9 @@
     "url": "https://doi.org/10.1109/icsme58944.2024.00043",
     "pdf": "http://arxiv.org/pdf/2409.11826",
     "abstract": "The development of Machine Learning (ML)- and, more recently, of Deep Learning (DL)-intensive systems requires suitable choices, e.g., in terms of technology, algorithms, and hyper-parameters. Such choices depend on developers' experience, as well as on proper experimentation. Due to limited time availability, developers may adopt suboptimal, sometimes temporary choices, leading to a technical debt (TD) specifically related to the ML code. This paper empirically analyzes the presence of Self-Admitted Technical Debt (SATD) in DL systems. After selecting 100 open-source Python projects using popular DL frameworks, we identified SATD from their source comments and created a stratified sample of 443 SATD to analyze manually. We derived a taxonomy of DL-specific SATD through open coding, featuring seven categories and 41 leaves. The identified SATD categories pertain to different aspects of DL models, some of which are technological (e.g., due to hardware or libraries) and some related to suboptimal choices in the DL process, model usage, or configuration. Our findings indicate that DL-specific SATD differs from DL bugs found in previous studies, as it typically pertains to suboptimal solutions rather than functional (e.g., blocking) problems. Last but not least, we found that state-of-the-art static analysis tools do not help developers avoid such problems, and therefore, specific support is needed to cope with DL-specific SATD.",
+    "threads": [
+      "agents-lifecycle"
+    ],
     "selected": false,
     "citations": {
       "count": 11,
@@ -2766,47 +2804,5 @@
       "rank": "CORE A*"
     },
     "bibtex": "@article{mastropaolo2024triumph,\n  title     = {From Triumph to Uncertainty: The Journey of Software Engineering in the {AI} Era},\n  author    = {Mastropaolo, Antonio and Escobar-Velasquez, Camilo and Linares-Vasquez, Mario},\n  journal   = {ACM Transactions on Software Engineering and Methodology},\n  year      = {2024},\n  month     = jun,\n  volume    = {34},\n  number    = {5},\n  pages     = {1-34},\n  publisher = {Association for Computing Machinery},\n  doi       = {10.1145/3709360},\n  url       = {https://doi.org/10.1145/3709360}\n}"
-  },
-  {
-    "title": "On the Reform of the Italian Constitution: an Interdisciplinary Text Readability Analysis",
-    "authors": [
-      {
-        "name": "Calogero Jerik Scozzaro"
-      },
-      {
-        "name": "Matteo Delsanto"
-      },
-      {
-        "name": "Antonio Mastropaolo",
-        "member": "antonio-mastropaolo"
-      },
-      {
-        "name": "Enrico Mensa"
-      },
-      {
-        "name": "Luisa Revelli"
-      },
-      {
-        "name": "Daniele Paolo Radicioni"
-      }
-    ],
-    "year": 2024,
-    "date": "2024",
-    "type": "conference",
-    "status": "published",
-    "venue_raw": "NL4AI@AI*IA",
-    "url": "https://ceur-ws.org/Vol-3877/paper14.pdf",
-    "selected": false,
-    "sources": {
-      "dblp": "conf/nl4ai/ScozzaroDMMRR24"
-    },
-    "key": "scozzaro2024reform",
-    "citations": {},
-    "venue_info": {
-      "key": "NAAI",
-      "name": "NL4AI@AI*IA",
-      "type": "conference"
-    },
-    "bibtex": "@inproceedings{scozzaro2024reform,\n  title     = {On the Reform of the Italian Constitution: an Interdisciplinary Text Readability Analysis},\n  author    = {Scozzaro, Calogero Jerik and Delsanto, Matteo and Mastropaolo, Antonio and Mensa, Enrico and Revelli, Luisa and Radicioni, Daniele Paolo},\n  booktitle = {NL4AI@AI*IA},\n  year      = {2024},\n  url       = {https://ceur-ws.org/Vol-3877/paper14.pdf}\n}"
   }
 ]
