@@ -33,14 +33,19 @@ const people = (await getCollection("people")).filter((p) => d.people.includes(p
       <h1 class="e-t">{d.title}</h1>
     </header>
 
-    <div class:list={["e-body", { faces: people.length > 0 }]}>
+    <div class="e-body">
+      {/* A horizontal byline strip rather than a stacked rail. Three portraits
+          down the side made an item 300px taller than a one-portrait item, and
+          no single box size can serve both. */}
       {people.length > 0 && (
         <aside class="e-people">
           {people.map((p) => (
             <a class="e-person" href={`/people/${p.id}/`} target="_top">
-              {p.data.photo && <Image src={p.data.photo} alt={p.data.name} widths={[130, 260]} sizes="130px" loading="eager" />}
-              <span class="e-pn">{p.data.name}</span>
-              <span class="e-pr">{p.data.title ?? p.data.role}</span>
+              {p.data.photo && <Image src={p.data.photo} alt={p.data.name} widths={[96, 192]} sizes="48px" loading="eager" />}
+              <span class="e-pt">
+                <span class="e-pn">{p.data.name}</span>
+                <span class="e-pr">{p.data.title ?? p.data.role}</span>
+              </span>
             </a>
           ))}
         </aside>
@@ -71,19 +76,25 @@ const people = (await getCollection("people")).filter((p) => d.people.includes(p
     font-size: clamp(21px, 2.4vw, 28px); line-height: 1.12; letter-spacing: -0.028em;
   }
 
-  .e-body { display: grid; gap: 22px; margin-top: 16px; align-items: start; }
-  /* The portrait rail only exists when there are portraits — without this
-     guard the prose itself lands in the 108px column and wraps every three
-     words. */
-  @media (min-width: 680px) { .e-body.faces { grid-template-columns: 96px minmax(0, 1fr); gap: 24px; } }
-  .e-people { display: grid; gap: 13px; }
-  .e-person { display: block; }
-  .e-person :global(img) { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--rule); transition: border-color .22s ease; }
+  .e-body { margin-top: 14px; }
+  /* One row, wrapping: an item with three people is a line taller than one
+     with a single person, not three hundred pixels taller. */
+  .e-people {
+    display: flex; flex-wrap: wrap; gap: 10px 26px;
+    padding-bottom: 13px; margin-bottom: 14px; border-bottom: 1px solid var(--rule);
+  }
+  .e-person { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .e-person :global(img) {
+    flex: 0 0 auto; width: 44px; height: 44px; aspect-ratio: 1; object-fit: cover;
+    object-position: top center; border: 1px solid var(--rule); transition: border-color .22s ease;
+  }
   .e-person:hover :global(img) { border-color: var(--rule-3); }
-  .e-pn { display: block; margin-top: 7px; font-size: 12.5px; font-weight: 700; letter-spacing: -0.012em; }
+  .e-pt { min-width: 0; }
+  .e-pn { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: -0.012em; }
   .e-person:hover .e-pn { color: var(--brand); }
-  .e-pr { display: block; margin-top: 2px; font-size: 11px; color: var(--ink-4); line-height: 1.32; }
-  .e-prose { font-size: 14px; line-height: 1.58; }
+  .e-pr { display: block; margin-top: 1px; font-size: 11px; color: var(--ink-4); line-height: 1.3; }
+  /* With no rail beside it the prose would run the full 760px; cap the measure. */
+  .e-prose { font-size: 14px; line-height: 1.58; max-width: 72ch; }
   .e-prose :global(p + p) { margin-top: 9px; }
 
   .e-foot { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 10px; }
