@@ -1,8 +1,0 @@
-<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AURA">
-  <!-- Braces holding a point: the lab's two subjects in one glyph. -->
-  <g stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M23 11 C16 11 16 18 16 24 C16 29 12 32 9 32 C12 32 16 35 16 40 C16 46 16 53 23 53"/>
-    <path d="M41 11 C48 11 48 18 48 24 C48 29 52 32 55 32 C52 32 48 35 48 40 C48 46 48 53 41 53"/>
-  </g>
-  <circle cx="32" cy="32" r="6.6" fill="var(--mk-accent, #009051)"/>
-</svg>

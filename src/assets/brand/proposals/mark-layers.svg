@@ -1,8 +1,0 @@
-<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AURA">
-  <!-- Three chevrons: the apex of an A, repeated outward like a field. -->
-  <g stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M17 24 L32 10 L47 24" stroke="var(--mk-accent, #009051)"/>
-    <path d="M13 39 L32 21 L51 39" stroke="currentColor" opacity=".55"/>
-    <path d="M9 54 L32 32 L55 54" stroke="currentColor"/>
-  </g>
-</svg>

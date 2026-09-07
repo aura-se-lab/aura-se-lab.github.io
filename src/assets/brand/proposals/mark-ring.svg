@@ -1,0 +1,19 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AURA Lab">
+  <!-- A · Node ring. The network you already have, redrawn as one geometry:
+       a hub, six nodes, three axes, and the ring that holds them. -->
+  <circle cx="32" cy="32" r="23" stroke="currentColor" stroke-width="2" opacity=".38"/>
+  <g stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+    <path d="M32 11 V53"/>
+    <path d="M13.8 21.5 L50.2 42.5"/>
+    <path d="M13.8 42.5 L50.2 21.5"/>
+  </g>
+  <g fill="currentColor">
+    <circle cx="32" cy="11" r="4"/>
+    <circle cx="50.2" cy="21.5" r="4"/>
+    <circle cx="50.2" cy="42.5" r="4"/>
+    <circle cx="32" cy="53" r="4"/>
+    <circle cx="13.8" cy="42.5" r="4"/>
+    <circle cx="13.8" cy="21.5" r="4"/>
+  </g>
+  <circle cx="32" cy="32" r="7.5" fill="var(--mk-accent, #009051)"/>
+</svg>
