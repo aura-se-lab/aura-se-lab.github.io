@@ -62,9 +62,9 @@ const kinds = [...new Set(rows.map((r) => r.d.kind))]
   description="News from the AURA Lab at William & Mary: paper acceptances, awards, funding and new members."
   image="/og/news.png"
 >
-  <section class="page-hero">
+  <div class="page">
     <div class="shell">
-      <div class="page-head">
+      <header class="page-head">
         <div class="row">
           <div>
             <p class="label">{items.length} ITEMS</p>
@@ -72,15 +72,11 @@ const kinds = [...new Set(rows.map((r) => r.d.kind))]
           </div>
           <a href="/rss.xml" class="rss"><Rss /> RSS</a>
         </div>
-        <p class="lead mt-3" style="max-width:64ch">
+        <p class="lead" style="max-width:64ch">
           Acceptances, awards, funding and people. Click an item to read it here.
         </p>
-      </div>
-    </div>
-  </section>
+      </header>
 
-  <section class="page">
-    <div class="shell">
       <div class="ix">
         <span class="m ix-l">YEAR</span>
         <button class="ixb on" type="button" data-y="all">All <span class="m">{rows.length}</span></button>
@@ -128,7 +124,7 @@ const kinds = [...new Set(rows.map((r) => r.d.kind))]
       </ol>
       <p class="none" id="none" hidden>Nothing matches those filters.</p>
     </div>
-  </section>
+  </div>
 
   <div class="reader" id="nreader" hidden>
     <div class="r-back" data-close></div>
