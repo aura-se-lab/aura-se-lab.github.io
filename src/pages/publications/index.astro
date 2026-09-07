@@ -36,16 +36,27 @@ const n = {
 
 /** A paywalled paper gets a drawn cover; give it the same facts a first page carries. */
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTHS_LONG = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 function coverFacts(p: (typeof sorted)[number]) {
   const full = p.venue_info?.name || p.venue_raw || venueLabel(p);
   const ieee = /IEEE/i.test(p.publisher ?? "");
-  const masthead = ieee && p.venue_raw && !/^IEEE/i.test(p.venue_raw) ? `IEEE ${p.venue_raw}` : full;
+  // "IEEE Computer" splits into a publisher line and a masthead, the way the
+  // magazine sets its own cover; everything else keeps one line.
+  const society = ieee ? "IEEE" : (p.publisher ?? "").replace(/\s*\(.*\)\s*/, "").trim();
+  const title = (p.venue_raw || full).replace(/^IEEE\s+/i, "");
   const bits: string[] = [];
   if (p.volume) bits.push(`VOL ${p.volume}`);
   if (p.number) bits.push(`NO ${p.number}`);
   if (p.pages) bits.push(`PP ${p.pages.replace(/-+/g, "–")}`);
-  const dateline = p.month ? `${MONTHS[p.month - 1]} ${p.year}` : String(p.year);
-  return { masthead: masthead.toUpperCase(), cite: bits.join(" · "), dateline };
+  return {
+    society: society.toUpperCase(),
+    masthead: title.toUpperCase(),
+    oneLine: (ieee && !/^IEEE/i.test(p.venue_raw ?? "") ? `IEEE ${p.venue_raw}` : full).toUpperCase(),
+    cite: bits.join(" · "),
+    issue: p.month ? `${MONTHS_LONG[p.month - 1]} ${p.year}`.toUpperCase() : String(p.year),
+    dateline: p.month ? `${MONTHS[p.month - 1]} ${p.year}` : String(p.year),
+  };
 }
 
 const kinds = [
@@ -136,15 +147,33 @@ const kinds = [
                 <button class="cover" type="button" aria-label={`Read: ${p.title}`}>
                   {cover ? (
                     <Image src={cover} alt="" widths={[260, 520]} sizes="(max-width: 700px) 45vw, 260px" loading="lazy" />
+                  ) : p.type === "magazine" ? (
+                    <span class="nocover nocover--mag">
+                      <span class="nc-band">
+                        <span class="nc-soc m">{coverFacts(p).society}</span>
+                        <span class="nc-mast">{coverFacts(p).masthead}</span>
+                        <span class="nc-iss m">{coverFacts(p).issue}</span>
+                      </span>
+                      <span class="nc-body">
+                        {coverFacts(p).cite && <span class="nc-cite m">{coverFacts(p).cite}</span>}
+                        <span class="nc-t">{p.title}</span>
+                        <span class="nc-base">
+                          <span class="nc-hair" aria-hidden="true"></span>
+                          <span class="nc-a">{p.authors.map((a) => shortName(a.name)).join(", ")}</span>
+                        </span>
+                      </span>
+                    </span>
                   ) : (
-                    <span class:list={["nocover", { "nocover--mag": p.type === "magazine" }]}>
-                      <span class="nc-mast m">{coverFacts(p).masthead}</span>
-                      {coverFacts(p).cite && <span class="nc-cite m">{coverFacts(p).cite}</span>}
-                      <span class="nc-rule" aria-hidden="true"></span>
-                      <span class="nc-t">{p.title}</span>
-                      <span class="nc-base">
-                        <span class="nc-a">{p.authors.map((a) => shortName(a.name)).join(", ")}</span>
-                        <span class="nc-foot m">{coverFacts(p).dateline.toUpperCase()}</span>
+                    <span class="nocover">
+                      <span class="nc-body">
+                        <span class="nc-one m">{coverFacts(p).oneLine}</span>
+                        {coverFacts(p).cite && <span class="nc-cite m">{coverFacts(p).cite}</span>}
+                        <span class="nc-rule" aria-hidden="true"></span>
+                        <span class="nc-t">{p.title}</span>
+                        <span class="nc-base">
+                          <span class="nc-a">{p.authors.map((a) => shortName(a.name)).join(", ")}</span>
+                          <span class="nc-foot m">{coverFacts(p).dateline.toUpperCase()}</span>
+                        </span>
                       </span>
                     </span>
                   )}
@@ -258,29 +287,41 @@ const kinds = [
   .card:hover .cover { transform: translateY(-4px); border-color: var(--rule-3); box-shadow: 0 18px 32px -20px rgba(11,15,13,.5); }
 
   .nocover {
-    display: flex; flex-direction: column; height: 100%; padding: 8%; text-align: left; overflow: hidden;
-    background: linear-gradient(180deg, rgba(0,144,81,.05), transparent 34%), #fdfdfc;
-    box-shadow: inset 0 0 0 1px rgba(11,15,13,.06);
+    display: flex; flex-direction: column; height: 100%; overflow: hidden; text-align: left;
+    background: #fdfdfc; box-shadow: inset 0 0 0 1px rgba(11, 15, 13, 0.06);
   }
-  /* A column in a magazine gets the masthead treatment; a paywalled paper does not. */
-  .nocover--mag {
-    background: linear-gradient(180deg, rgba(23,72,90,.07), transparent 30%), #fdfdfc;
+  .nc-body { display: flex; flex-direction: column; flex: 1; min-height: 0; padding: 8%; }
+
+  /* ── a magazine column, set the way the magazine sets its own cover ─────── */
+  .nocover--mag { background: #fff; }
+  .nc-band {
+    flex: 0 0 auto; display: block; padding: 7% 8% 6.5%;
+    background: var(--teal); color: #fff;
   }
+  .nc-soc { display: block; font-size: max(6.5px, 2.8cqw); letter-spacing: .22em; color: rgba(255,255,255,.72); }
   .nc-mast {
-    font-size: max(7px, 3.4cqw); letter-spacing: .1em; color: var(--brand); line-height: 1.4;
+    display: block; margin-top: 2%; font-variation-settings: "wdth" 118; font-weight: 800;
+    font-size: clamp(15px, 9.4cqw, 30px); line-height: .96; letter-spacing: -0.035em; color: #fff;
   }
-  .nocover--mag .nc-mast {
-    font-size: max(7.5px, 4cqw); letter-spacing: .06em; color: var(--teal); font-weight: 700;
+  .nc-iss {
+    display: block; margin-top: 5%; padding-top: 4%; border-top: 1px solid rgba(255,255,255,.32);
+    font-size: max(6px, 2.7cqw); letter-spacing: .13em; color: rgba(255,255,255,.86);
   }
-  .nc-cite { margin-top: 3%; font-size: max(6.5px, 2.9cqw); letter-spacing: .07em; color: var(--ink-5); }
-  .nc-rule { height: 1px; background: var(--rule-3); margin: 5% 0 6%; flex: 0 0 auto; }
-  .nocover--mag .nc-rule { height: 2px; background: var(--teal); }
+
+  .nc-cite { flex: 0 0 auto; font-size: max(6.5px, 2.9cqw); letter-spacing: .08em; color: var(--ink-5); }
+  .nocover--mag .nc-cite { color: var(--teal); }
+  .nc-one { flex: 0 0 auto; font-size: max(7px, 3.2cqw); letter-spacing: .1em; color: var(--brand); line-height: 1.45; }
+  .nc-rule { flex: 0 0 auto; height: 1px; background: var(--rule-3); margin: 5% 0 6%; }
+
   .nc-t {
     flex: 0 1 auto; min-height: 0; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical;
-    overflow: hidden; font-size: clamp(11px, 6.1cqw, 16px); font-weight: 700; line-height: 1.28;
-    letter-spacing: -0.018em; color: var(--ink); font-variation-settings: "wdth" 104;
+    overflow: hidden; margin-top: 6%; font-size: clamp(11px, 6.1cqw, 16px); font-weight: 700;
+    line-height: 1.26; letter-spacing: -0.018em; color: var(--ink); font-variation-settings: "wdth" 104;
   }
+  .nocover--mag .nc-t { margin-top: 7%; }
+
   .nc-base { flex: 0 0 auto; margin-top: auto; padding-top: 8%; }
+  .nc-hair { display: block; width: 22%; height: 2px; background: var(--teal); margin-bottom: 5%; }
   .nc-a {
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
     font-size: clamp(9.5px, 4.5cqw, 12.5px); line-height: 1.4; color: var(--ink-4);
