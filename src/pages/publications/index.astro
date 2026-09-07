@@ -95,7 +95,6 @@ const kinds = [
           {sorted.map((p) => {
             const cover = coverOf[p.key];
             const reviewed = isReviewed(p);
-            const pdf = p.arxiv ? `https://arxiv.org/pdf/${p.arxiv}` : null;
             return (
               <li
                 class="card"
@@ -106,14 +105,14 @@ const kinds = [
                 data-authors={p.authors.map((a) => a.name).join(", ")}
                 data-venue={`${venueLabel(p)} ${p.venue_raw ?? ""}`}
                 data-venuekey={venueLabel(p)}
-                data-pdf={pdf ?? ""}
-                data-embed={`/publications/embed/${p.key}/`}
                 data-href={`/publications/${p.key}/`}
               >
-                <button class="cover" type="button" aria-label={`Read: ${p.title}`}>
+                {/* The cover opens the record. Reading the paper itself happens
+                    on arXiv or at the publisher, not in a frame inside this page. */}
+                <a class="cover" href={`/publications/${p.key}/`} aria-label={`Open record: ${p.title}`}>
                   <Cover pub={p} cover={cover} sizes="(max-width: 700px) 45vw, 260px" />
-                  <span class="scrim" aria-hidden="true"><span class="scrim-in">{pdf ? "Read paper" : "Open record"}</span></span>
-                </button>
+                  <span class="scrim" aria-hidden="true"><span class="scrim-in">Open record</span></span>
+                </a>
 
                 <div class="meta">
                   <p class="m-1">
@@ -125,7 +124,6 @@ const kinds = [
                   {/* A drawn cover already carries the byline; only a scan needs it repeated. */}
                   {cover && <p class="m-a">{p.authors.map((a) => shortName(a.name)).join(", ")}</p>}
                   <p class="m-l">
-                    <button class="tg" type="button" data-embed={`/publications/embed/${p.key}/`} data-title={p.title}>SUMMARY</button>
                     {p.doi && <a class="tg" href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">DOI</a>}
                     {p.arxiv && <a class="tg" href={`https://arxiv.org/abs/${p.arxiv}`} target="_blank" rel="noopener">ARXIV</a>}
                     {bucketOf(p) === "magazine" && p.doi && (
@@ -150,30 +148,6 @@ const kinds = [
     </div>
   </div>
 
-  <div class="reader" id="reader" hidden>
-    <div class="r-back" data-close></div>
-    <div class="r-box" role="dialog" aria-modal="true" aria-labelledby="r-title">
-      <header class="r-head">
-        <div class="r-h-t">
-          <p class="m r-h-v" id="r-venue"></p>
-          <h2 id="r-title"></h2>
-        </div>
-        <div class="r-h-a">
-          <button class="btn-o r-swap" id="r-swap" type="button" hidden></button>
-          <a class="btn-o r-open" id="r-open" target="_blank" rel="noopener" hidden>Open original ↗</a>
-          <button class="r-x" type="button" data-close aria-label="Close">✕</button>
-        </div>
-      </header>
-      <div class="r-body">
-        <div class="r-load" id="r-load"><span></span>Loading the PDF…</div>
-        <div class="r-fail" id="r-fail" hidden>
-          <p>This PDF will not display inside the page.</p>
-          <a class="btn" id="r-fail-open" target="_blank" rel="noopener">Open it on arXiv ↗</a>
-        </div>
-        <iframe id="r-frame" title="Paper" referrerpolicy="no-referrer"></iframe>
-      </div>
-    </div>
-  </div>
 </Base>
 
 <style>
@@ -296,36 +270,6 @@ const kinds = [
   .pb.on { background: var(--ink); border-color: var(--ink); color: #fff; }
   .pb:disabled { opacity: .3; cursor: default; }
 
-  /* ── reader ────────────────────────────────────────────────────────────── */
-  .reader { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: clamp(10px, 2.4vw, 34px); }
-  .r-back { position: absolute; inset: 0; background: rgba(11,15,13,.72); backdrop-filter: blur(3px); animation: fade .2s ease; }
-  .r-box { position: relative; width: min(1080px, 100%); height: min(94vh, 100%); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
-  @keyframes fade { from { opacity: 0; } }
-  @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.985); } }
-  .r-head { display: flex; align-items: center; gap: 20px; padding: 14px 18px; border-bottom: 1px solid var(--rule); }
-  .r-h-t { min-width: 0; }
-  .r-h-v { font-size: 8px; letter-spacing: .1em; color: var(--brand); }
-  /* The embed below already carries the title as its heading; the bar keeps it
-     only for the dialog's accessible name. */
-  .r-head h2 {
-    position: absolute; width: 1px; height: 1px; margin: -1px;
-    padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
-  }
-  .r-h-a { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-  .r-open, .r-swap { height: 34px; padding: 0 14px; font-size: 13px; }
-  .r-x { width: 34px; height: 34px; border: 1px solid var(--rule-2); font-size: 14px; color: var(--ink-3); }
-  .r-x:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
-  .r-body { position: relative; background: var(--bg-soft); }
-  .r-body iframe { width: 100%; height: 100%; border: 0; }
-  .r-load { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 13px; color: var(--ink-4); }
-  .r-fail { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 16px; text-align: center; padding: 24px; }
-  .r-fail p { font-size: 15px; color: var(--ink-3); }
-  .r-load span { width: 13px; height: 13px; border: 2px solid var(--rule-2); border-top-color: var(--brand); border-radius: 50%; animation: spin .8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  body.lock { overflow: hidden; }
-
-  @media (max-width: 900px) { .r-h-a .r-open { display: none; } }
-  @media (max-width: 760px) { .bar { gap: 10px 12px; } .grp { width: 100%; } .m-t { font-size: 13px; } }
 </style>
 
 <script>
@@ -479,96 +423,4 @@ const kinds = [
   });
   render();
 
-  // ── reader: a summary for every paper, the PDF for those with an open one ──
-  const reader = document.getElementById("reader")!;
-  const frame = document.getElementById("r-frame") as HTMLIFrameElement;
-  const load = document.getElementById("r-load")!;
-  const fail = document.getElementById("r-fail")!;
-  const failOpen = document.getElementById("r-fail-open") as HTMLAnchorElement;
-  const rTitle = document.getElementById("r-title")!;
-  const rVenue = document.getElementById("r-venue")!;
-  const rOpen = document.getElementById("r-open") as HTMLAnchorElement;
-  const rSwap = document.getElementById("r-swap") as HTMLButtonElement;
-  let failTimer = 0;
-  let loaded = false;
-  let lastFocus: HTMLElement | null = null;
-  let current: { embed: string; pdf: string; title: string; venue: string } | null = null;
-
-  function show(mode: "summary" | "pdf") {
-    if (!current) return;
-    loaded = false;
-    clearTimeout(failTimer);
-    fail.hidden = true;
-    load.hidden = false;
-    rTitle.textContent = current.title;
-    rVenue.textContent = mode === "pdf" ? "FULL TEXT" : "SUMMARY";
-    rOpen.hidden = mode !== "pdf";
-    rOpen.href = current.pdf;
-    rSwap.hidden = !current.pdf;
-    rSwap.textContent = mode === "pdf" ? "← Summary" : "Read the PDF";
-    rSwap.dataset.to = mode === "pdf" ? "summary" : "pdf";
-    frame.src = mode === "pdf" ? current.pdf + "#view=FitH" : current.embed;
-    if (mode === "pdf") {
-      failOpen.href = current.pdf;
-      failTimer = window.setTimeout(() => {
-        load.hidden = true;
-        if (!loaded) fail.hidden = false;
-      }, 8000);
-    }
-  }
-
-  function open(card: HTMLElement, mode: "summary" | "pdf") {
-    lastFocus = document.activeElement as HTMLElement;
-    current = {
-      embed: card.dataset.embed ?? "",
-      pdf: card.dataset.pdf ?? "",
-      title: card.dataset.title ?? "",
-      venue: (card.dataset.venue ?? "").trim().toUpperCase(),
-    };
-    show(mode);
-    reader.hidden = false;
-    document.body.classList.add("lock");
-    (reader.querySelector(".r-x") as HTMLElement)?.focus();
-  }
-  function close() {
-    reader.hidden = true;
-    clearTimeout(failTimer);
-    frame.src = "about:blank";
-    document.body.classList.remove("lock");
-    lastFocus?.focus();
-  }
-  frame.addEventListener("load", () => {
-    if (frame.src === "about:blank") return;
-    loaded = true;
-    load.hidden = true;
-    fail.hidden = true;
-    clearTimeout(failTimer);
-  });
-  rSwap.addEventListener("click", () => show(rSwap.dataset.to as "summary" | "pdf"));
-
-  // the cover reads the paper when there is one, and the record when there is not
-  shelf.addEventListener("click", (e) => {
-    const t = e.target as HTMLElement;
-    const summary = t.closest<HTMLElement>("[data-embed][data-title]");
-    if (summary && !t.closest(".cover")) {
-      open(summary.closest<HTMLElement>(".card")!, "summary");
-      return;
-    }
-    const btn = t.closest<HTMLElement>(".cover");
-    if (btn) {
-      const card = btn.closest<HTMLElement>(".card")!;
-      open(card, card.dataset.pdf ? "pdf" : "summary");
-    }
-  });
-  // the summary page asks for the PDF through its own button
-  window.addEventListener("message", (e) => {
-    if (e.origin !== location.origin || e.data?.type !== "aura:read-pdf") return;
-    show("pdf");
-  });
-  reader.addEventListener("click", (e) => {
-    if ((e.target as HTMLElement).closest("[data-close]")) close();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !reader.hidden) close();
-  });
 </script>

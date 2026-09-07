@@ -346,10 +346,10 @@ const stats = [
   /* ── the reader overlay ─────────────────────────────────────────────────── */
   .reader { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: clamp(10px, 2.4vw, 34px); }
   .r-back { position: absolute; inset: 0; background: rgba(11,15,13,.72); backdrop-filter: blur(3px); animation: fade .2s ease; }
-  .r-box { position: relative; width: min(900px, 100%); height: min(92vh, 100%); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
+  .r-box { position: relative; width: min(900px, 100%); height: min(96vh, 100%); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
   @keyframes fade { from { opacity: 0; } }
   @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.985); } }
-  .r-head { display: flex; align-items: flex-start; gap: 20px; padding: 15px 18px; border-bottom: 1px solid var(--rule); }
+  .r-head { display: flex; align-items: flex-start; gap: 20px; padding: 11px 18px; border-bottom: 1px solid var(--rule); }
   .r-h-t { min-width: 0; }
   .r-h-v { font-size: 8px; letter-spacing: .1em; color: var(--brand); }
   /* The item below already carries the title as its heading; the bar keeps it
@@ -365,7 +365,11 @@ const stats = [
   .r-load { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 13px; color: var(--ink-4); }
   .r-load span { width: 13px; height: 13px; border: 2px solid var(--rule-2); border-top-color: var(--brand); border-radius: 50%; animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  /* Lock the element that actually scrolls, not just the body: with a
+     visible scrollbar still reserved, a position:fixed overlay centres in
+     the content box and sits half a scrollbar left of screen centre. */
   body.lock { overflow: hidden; }
+  :global(html:has(body.lock)) { overflow: hidden; }
 
   /* ── entrance ──────────────────────────────────────────────────────────── */
   .rv { animation: rise .8s cubic-bezier(.19,.86,.28,1) backwards; animation-delay: calc(var(--i) * 90ms + 60ms); }
