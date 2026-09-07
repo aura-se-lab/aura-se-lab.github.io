@@ -40,10 +40,25 @@ entries:
     status: accepted
     selected: true
 
-  # The multilingual prompt benchmark — Saima's, with the Molise/Andes/NC State group.
+  # The multilingual prompt benchmark — Saima's, with the Molise/Andes/NC State
+  # group. Accepted at TOSEM on 16 Aug 2026 (TOSEM-2025-0896.R2); the arXiv
+  # version is still the only artifact, so the cover is the preprint's.
   afrin2026large:
+    venue: TOSEM
+    type: journal
+    status: accepted
     selected: true
 
-  # Multi-task QLoRA — Alvi's first as lead author.
+  # Multi-task QLoRA — Alvi's first as lead author. Accepted at TOSEM on
+  # 26 Aug 2026 (TOSEM-2026-0062.R2).
   haque2026parameter:
+    venue: TOSEM
+    type: journal
+    status: accepted
     selected: true
+
+  # Accepted to the ICSME 2026 research track on 28 May 2026 (paper 3663).
+  afrin2026quantize:
+    venue: ICSME
+    type: conference
+    status: accepted

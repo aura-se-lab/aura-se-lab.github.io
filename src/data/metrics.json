@@ -1,7 +1,7 @@
 {
-  "updated": "2026-09-07T12:24+00:00",
+  "updated": "2026-09-07T13:01+00:00",
   "total": 52,
-  "reviewed": 20,
+  "reviewed": 23,
   "by_year": {
     "2024": 3,
     "2025": 18,
@@ -9,10 +9,10 @@
     "2027": 1
   },
   "by_type": {
-    "journal": 9,
+    "journal": 11,
     "magazine": 21,
-    "conference": 10,
-    "preprint": 11,
+    "conference": 11,
+    "preprint": 8,
     "workshop": 1
   },
   "citations": 157,

@@ -360,10 +360,10 @@
     "year": 2026,
     "month": 7,
     "date": "2026-07-16",
-    "type": "preprint",
-    "status": "preprint",
+    "type": "journal",
+    "status": "accepted",
     "venue_raw": "CoRR",
-    "venue": "arXiv",
+    "venue": "TOSEM",
     "arxiv": "2607.14816",
     "url": "https://arxiv.org/abs/2607.14816",
     "pdf": "https://arxiv.org/pdf/2607.14816",
@@ -386,13 +386,13 @@
     },
     "key": "afrin2026large",
     "venue_info": {
-      "key": "arXiv",
-      "name": "arXiv preprint",
-      "type": "preprint",
-      "url": "https://arxiv.org",
-      "rank": null
+      "key": "TOSEM",
+      "name": "ACM Transactions on Software Engineering and Methodology",
+      "type": "journal",
+      "url": "https://dl.acm.org/journal/tosem",
+      "rank": "CORE A*"
     },
-    "bibtex": "@misc{afrin2026large,\n  title         = {Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality},\n  author        = {Afrin, Saima and Midolo, Alessandro and Escobar-Velásquez, Camilo and Linares-Vásquez, Mario and Ding, Weiyuan and Xu, Bowen and Di Penta, Massimiliano and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2607.14816},\n  eprint        = {2607.14816},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jul,\n  url           = {https://arxiv.org/abs/2607.14816}\n}"
+    "bibtex": "@article{afrin2026large,\n  title   = {Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality},\n  author  = {Afrin, Saima and Midolo, Alessandro and Escobar-Velásquez, Camilo and Linares-Vásquez, Mario and Ding, Weiyuan and Xu, Bowen and Di Penta, Massimiliano and Mastropaolo, Antonio},\n  journal = {ACM Transactions on Software Engineering and Methodology},\n  year    = {2026},\n  month   = jul,\n  url     = {https://arxiv.org/abs/2607.14816}\n}"
   },
   {
     "title": "Quantize with Confidence? An Empirical Study of Quantization for Code Generation",
@@ -413,10 +413,10 @@
     "year": 2026,
     "month": 7,
     "date": "2026-07-15",
-    "type": "preprint",
-    "status": "preprint",
+    "type": "conference",
+    "status": "accepted",
     "venue_raw": "CoRR",
-    "venue": "arXiv",
+    "venue": "ICSME",
     "arxiv": "2607.14181",
     "url": "https://arxiv.org/abs/2607.14181",
     "pdf": "https://arxiv.org/pdf/2607.14181",
@@ -439,13 +439,13 @@
     },
     "key": "afrin2026quantize",
     "venue_info": {
-      "key": "arXiv",
-      "name": "arXiv preprint",
-      "type": "preprint",
-      "url": "https://arxiv.org",
-      "rank": null
+      "key": "ICSME",
+      "name": "IEEE International Conference on Software Maintenance and Evolution",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/icsme",
+      "rank": "CORE A"
     },
-    "bibtex": "@misc{afrin2026quantize,\n  title         = {Quantize with Confidence? An Empirical Study of Quantization for Code Generation},\n  author        = {Afrin, Saima and Haque, Md Zahidul and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2607.14181},\n  eprint        = {2607.14181},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jul,\n  url           = {https://arxiv.org/abs/2607.14181}\n}"
+    "bibtex": "@inproceedings{afrin2026quantize,\n  title     = {Quantize with Confidence? An Empirical Study of Quantization for Code Generation},\n  author    = {Afrin, Saima and Haque, Md Zahidul and Mastropaolo, Antonio},\n  booktitle = {CoRR},\n  year      = {2026},\n  month     = jul,\n  url       = {https://arxiv.org/abs/2607.14181}\n}"
   },
   {
     "title": "Prior Bias in Vision Language Models on UML Diagram Interpretation",
@@ -1602,10 +1602,10 @@
     "year": 2026,
     "month": 1,
     "date": "2026-01-21",
-    "type": "preprint",
-    "status": "preprint",
+    "type": "journal",
+    "status": "accepted",
     "venue_raw": "CoRR",
-    "venue": "arXiv",
+    "venue": "TOSEM",
     "arxiv": "2601.15094",
     "url": "https://arxiv.org/abs/2601.15094",
     "pdf": "https://arxiv.org/pdf/2601.15094",
@@ -1628,13 +1628,13 @@
     },
     "key": "haque2026parameter",
     "venue_info": {
-      "key": "arXiv",
-      "name": "arXiv preprint",
-      "type": "preprint",
-      "url": "https://arxiv.org",
-      "rank": null
+      "key": "TOSEM",
+      "name": "ACM Transactions on Software Engineering and Methodology",
+      "type": "journal",
+      "url": "https://dl.acm.org/journal/tosem",
+      "rank": "CORE A*"
     },
-    "bibtex": "@misc{haque2026parameter,\n  title         = {{Parameter-Efficient} {Multi-Task} {Fine-Tuning} in {Code-Related} Tasks},\n  author        = {Haque, Md Zahidul and Afrin, Saima and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2601.15094},\n  eprint        = {2601.15094},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jan,\n  url           = {https://arxiv.org/abs/2601.15094}\n}"
+    "bibtex": "@article{haque2026parameter,\n  title   = {{Parameter-Efficient} {Multi-Task} {Fine-Tuning} in {Code-Related} Tasks},\n  author  = {Haque, Md Zahidul and Afrin, Saima and Mastropaolo, Antonio},\n  journal = {ACM Transactions on Software Engineering and Methodology},\n  year    = {2026},\n  month   = jan,\n  url     = {https://arxiv.org/abs/2601.15094}\n}"
   },
   {
     "title": "Human or Machine? Rebuilding Trust in the Age of AI-Based Text Generation",
