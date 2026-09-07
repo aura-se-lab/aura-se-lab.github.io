@@ -142,8 +142,9 @@ export function pubLinks(p: Publication): { label: string; href: string; kind: s
   const links: { label: string; href: string; kind: string }[] = [];
   if (p.doi) links.push({ label: "DOI", href: `https://doi.org/${p.doi}`, kind: "doi" });
   if (p.arxiv) links.push({ label: "arXiv", href: `https://arxiv.org/abs/${p.arxiv}`, kind: "arxiv" });
+  // A PDF button only when the PDF is not the arXiv copy the arXiv button
+  // already leads to — two buttons for one document is just noise.
   if (p.pdf && !(p.arxiv && p.pdf.includes(p.arxiv))) links.push({ label: "PDF", href: p.pdf, kind: "pdf" });
-  else if (p.arxiv) links.push({ label: "PDF", href: `https://arxiv.org/pdf/${p.arxiv}`, kind: "pdf" });
   if (p.code) links.push({ label: "Code", href: p.code, kind: "code" });
   if (p.data) links.push({ label: "Data", href: p.data, kind: "data" });
   if (p.slides) links.push({ label: "Slides", href: p.slides, kind: "slides" });
