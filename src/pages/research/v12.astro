@@ -1,0 +1,130 @@
+---
+/** STUDY 12 — Depth. Four cards that hold real depth: the motif sits behind
+ *  the glass, the type floats above it, and both move against each other as
+ *  the card tilts under the cursor. A specular sweep follows the pointer. */
+import Base from "@/layouts/Base.astro";
+import { directions } from "@/lib/research";
+import { lab } from "@/lib/lab";
+import { venueLabel } from "@/lib/pubs";
+
+const dirs = await directions();
+const motif = ["quantize", "parse", "measure", "flow"];
+---
+
+<Base title="Research — study 12" description="Design study" noindex>
+  <div class="page">
+    <div class="shell">
+      <header class="page-head">
+        <p class="label">FOUR AVENUES</p>
+        <h1 class="h2 mt-2">Research</h1>
+        <p class="lead mt-2" style="max-width:62ch">{lab.brief[0]}</p>
+      </header>
+
+      <div class="deck">
+        {dirs.map((d, i) => (
+          <article class="dk" style={`--c:var(--a${i + 1})`}>
+            <div class="dk-in">
+              <canvas class="dk-cv" data-motif={motif[i]} aria-hidden="true"></canvas>
+              <span class="dk-sheen" aria-hidden="true"></span>
+              <div class="dk-plate">
+                <p class="m dk-n">{String(i + 1).padStart(2, "0")} · {d.papers.length} PAPERS · {d.span}</p>
+                <h2 class="dk-q">{d.q}</h2>
+                <p class="dk-t">{d.title}</p>
+              </div>
+              <div class="dk-back">
+                <p class="dk-a">{d.a}</p>
+                <ul class="dk-work">
+                  {d.papers.slice(0, 3).map((p) => (
+                    <li><a href={`/publications/${p.key}/`}><span class="m">{venueLabel(p)} {p.year}</span>{p.title}</a></li>
+                  ))}
+                </ul>
+                <a class="dk-go" href={`/research/${d.id}/`}>Open →</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .deck { display: grid; gap: 20px; perspective: 1400px; }
+  @media (min-width: 900px) { .deck { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+
+  .dk { transform-style: preserve-3d; }
+  .dk-in {
+    position: relative; overflow: hidden; min-height: 400px; display: flex; flex-direction: column;
+    padding: 26px; background: var(--bg-soft); border: 1px solid var(--rule);
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform .5s cubic-bezier(.2,.8,.25,1), border-color .3s ease, box-shadow .4s ease;
+  }
+  .dk-in:hover { border-color: var(--c); box-shadow: 0 40px 70px -44px rgba(11,15,13,.6); transition: transform .08s linear, border-color .3s ease, box-shadow .4s ease; }
+
+  /* Each layer sits at its own depth, so the parallax is real rather than a
+     translate applied to a flat image. */
+  .dk-cv { position: absolute; inset: -8%; width: 116%; height: 116%; opacity: .42; transform: translateZ(-42px) scale(1.06); transition: opacity .4s ease; }
+  .dk-in:hover .dk-cv { opacity: .85; }
+  .dk-in::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; transform: translateZ(-20px);
+    background: linear-gradient(155deg, rgba(255,255,255,.2) 0%, rgba(255,255,255,.86) 58%, var(--bg) 100%);
+  }
+  .dk-sheen {
+    position: absolute; inset: -40%; pointer-events: none; opacity: 0; transform: translateZ(18px);
+    background: radial-gradient(320px 320px at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--c) 26%, transparent), transparent 62%);
+    transition: opacity .35s ease;
+  }
+  .dk-in:hover .dk-sheen { opacity: 1; }
+
+  .dk-plate { position: relative; z-index: 2; margin-top: auto; transform: translateZ(34px); }
+  .dk-n { font-size: 8px; letter-spacing: .11em; color: var(--ink-5); }
+  .dk-q {
+    margin-top: 12px; max-width: 21ch; font-size: clamp(22px, 2.3vw, 32px); font-weight: 300;
+    line-height: 1.12; letter-spacing: -0.032em;
+  }
+  .dk-t { margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--c); }
+
+  .dk-back { position: relative; z-index: 2; transform: translateZ(22px); max-height: 0; opacity: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.2,.8,.25,1), opacity .3s ease; }
+  .dk-in:hover .dk-back, .dk-in:focus-within .dk-back { max-height: 300px; opacity: 1; }
+  .dk-a { margin-top: 14px; font-size: 13.5px; line-height: 1.62; color: var(--ink-3); max-width: 56ch; }
+  .dk-work { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+  .dk-work a { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: 12.5px; font-weight: 600; }
+  .dk-work .m { font-size: 7.5px; letter-spacing: .09em; color: var(--ink-5); }
+  .dk-work a:hover { color: var(--c); }
+  .dk-go { display: inline-block; margin-top: 12px; font-size: 12.5px; font-weight: 700; color: var(--c); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dk-in { transform: none !important; transition: none; }
+  }
+</style>
+
+<script>
+  import { mountMotif, type Motif } from "@/scripts/motifs";
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const cs = getComputedStyle(document.documentElement);
+
+  document.querySelectorAll<HTMLElement>(".dk-in").forEach((card, i) => {
+    const c = cs.getPropertyValue(`--a${i + 1}`).trim() || "#009051";
+    const cv = card.querySelector("canvas") as HTMLCanvasElement;
+    const ctl = mountMotif(cv, cv.dataset.motif as Motif, c);
+    ctl.energy(0.32);
+
+    card.addEventListener("mouseenter", () => ctl.energy(1));
+    card.addEventListener("mouseleave", () => {
+      ctl.energy(0.32);
+      card.style.setProperty("--rx", "0deg");
+      card.style.setProperty("--ry", "0deg");
+    });
+    if (still) return;
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      card.style.setProperty("--ry", `${(px - 0.5) * 9}deg`);
+      card.style.setProperty("--rx", `${(0.5 - py) * 7}deg`);
+      card.style.setProperty("--mx", `${px * 100}%`);
+      card.style.setProperty("--my", `${py * 100}%`);
+    });
+  });
+</script>
