@@ -24,11 +24,25 @@ const bucket = bucketOf(p);
 const readable = p.arxiv ? `https://arxiv.org/pdf/${p.arxiv}` : null;
 const doiUrl = p.doi ? `https://doi.org/${p.doi}` : null;
 
-/** Where a reader can actually get this paper, in the order they should try. */
+/**
+ * Where a reader can actually get *this paper* — a DOI or a publisher record.
+ * A venue's homepage is not that, so an accepted paper with no proceedings
+ * entry yet sends the reader to arXiv instead of to the conference site.
+ * Long venue names are shortened to their key: "Read at ASE" beats a button
+ * that wraps onto three lines.
+ */
 const venueName = p.venue_info?.name || p.venue_raw || venueLabel(p);
-const outLabel =
-  bucket === "magazine" ? `Read in ${venueName} ↗` : bucket === "preprint" ? "Open on arXiv ↗" : `Read at ${venueName} ↗`;
-const outHref = doiUrl ?? p.url ?? p.venue_info?.url ?? undefined;
+const venueShort = venueName.length > 34 ? venueLabel(p) : venueName;
+const publisherUrl = doiUrl ?? (p.url && !p.url.includes("arxiv.org") ? p.url : null);
+const arxivAbs = p.arxiv ? `https://arxiv.org/abs/${p.arxiv}` : null;
+const outHref = publisherUrl ?? arxivAbs ?? undefined;
+const outLabel = !outHref
+  ? null
+  : !publisherUrl
+    ? "Open on arXiv ↗"
+    : bucket === "magazine"
+      ? `Read in ${venueShort} ↗`
+      : `Read at ${venueShort} ↗`;
 ---
 
 <Base title={p.title} nav={false} footer={false} noindex>
@@ -65,7 +79,7 @@ const outHref = doiUrl ?? p.url ?? p.venue_info?.url ?? undefined;
 
         <div class="e-btns">
           {readable && <button class="btn" type="button" data-read={readable}>Read the PDF</button>}
-          {outHref && <a class="btn-o" href={outHref} target="_blank" rel="noopener">{outLabel}</a>}
+          {outHref && outLabel && <a class="btn-o" href={outHref} target="_blank" rel="noopener">{outLabel}</a>}
           <a class="btn-o" href={`/publications/${p.key}/`} target="_top">Full record →</a>
         </div>
       </header>
