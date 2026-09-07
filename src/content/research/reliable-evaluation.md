@@ -1,5 +1,5 @@
 ---
-title: Reliability, Causality & Honest Evaluation
+title: Reliability, Causality & Rigorous Evaluation
 label: Reliability & Evaluation
 letter: R
 short: "Evaluation that survives someone else running it: causal and counterfactual analysis, calibrated LLM-as-a-Judge, and benchmarks built so a score reflects the model rather than the setup around it."

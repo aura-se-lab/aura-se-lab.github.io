@@ -56,7 +56,7 @@ statement: >-
 
 # The three-line "abstract" used in hero/OG cards
 brief:
-  - "AI systems that write our software should be cheap enough to deploy, honest about what they do not know, and accountable when they fail."
+  - "AI systems that write our software should be efficient to deploy, sustainable to run, and reliable enough to be accountable when they fail."
 
 funding:
   - id: nsf-crii-2451058

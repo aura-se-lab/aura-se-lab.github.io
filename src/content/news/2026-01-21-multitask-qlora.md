@@ -9,7 +9,7 @@ pinned: true
 
 *Parameter-Efficient Multi-Task Fine-Tuning in Code-Related Tasks* — by [Md Zahidul Haque](/people/md-zahidul-haque-alvi/), [Saima Afrin](/people/saima-afrin/) and Antonio Mastropaolo — is now on [arXiv](https://arxiv.org/abs/2601.15094).
 
-QLoRA already makes it cheap to specialise a large code model for **one** task. What has stayed unclear is whether that still holds when a **single** model is QLoRA fine-tuned for several code-related tasks at once, and what the interaction between multi-task training and quantised low-rank adaptation does to the code that comes out.
+QLoRA already makes it affordable to specialise a large code model for **one** task. What has stayed unclear is whether that still holds when a **single** model is QLoRA fine-tuned for several code-related tasks at once, and what the interaction between multi-task training and quantised low-rank adaptation does to the code that comes out.
 
 The paper studies three representative tasks — **code generation, code translation and code summarization** — at **1.5B, 3B and 7B** parameters, measuring functional correctness with execution-based and similarity-based metrics, and pairing that with a code-quality analysis that most prior work leaves out.
 

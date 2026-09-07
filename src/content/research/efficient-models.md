@@ -2,7 +2,7 @@
 title: Resource-Efficient Foundation Models for Code
 label: Resource-Efficient Models
 letter: A
-short: "Sustainable and efficient code intelligence: quantization, parameter-efficient fine-tuning, and training-data reduction that make foundation models cheap enough to run at developer scale — measured on energy and latency as well as on whether the code they produce is still any good."
+short: "Sustainable and efficient code intelligence: quantization, parameter-efficient fine-tuning, and training-data reduction that make foundation models efficient enough to run at developer scale — measured on energy and latency as well as on whether the code they produce is still any good."
 order: 1
 tags: [Quantization, PEFT, LoRA / QLoRA, Distillation, Pruning, Green AI]
 keywords: [quantiz, parameter-efficient, peft, lora, qlora, distill, prun, green ai, energy, resource-efficient, efficient, compression, sustainab, carbon, training data, elite samples, selective data, dataset]
