@@ -41,9 +41,7 @@
     "pdf": "https://link.springer.com/content/pdf/10.1007/s10664-026-10933-0.pdf",
     "abstract": "Code comprehension is vital for software development. Still, unreadable code remains a significant issue, costing substantial time and money losses. While tools to identify code exhibiting a low readability exist, take actions to improve such a quality aspect is far from trivial. To support developers in such a task, Vitale et al. introduced at ASE’23 an approach using a transformer model (T5) fine-tuned on code commits in which developers explicitly stated their goal to improve code readability. The authors reported that their model is able to generate readability-improving changes being identical to those implemented by developers (exact matches) in 21% of cases and that, even when they differ, they still improve readability in the vast majority of cases (\n                    \n                      $$\\sim $$\n                    \n                    80%). Given the major advances in AI made in the last few years, we questioned whether a fine-tuning for such a task was still needed in the era of Large Language Models (LLMs), thus revisiting the work by Vitale et al. with state-of-the-art models. In doing so, we found out one major issue with the original study design: The training-test splitting was performed randomly (\n                    i.e.,\n                    readability-improving commits mined from open source projects were randomly split between training and test) rather than by project, significantly inflating the reported performance due to repeating readability-improving commits done within the same project. Indeed, as we will show, even newer and more powerful LLMs fine-tuned for this task can only achieve a\n                    \n                      $$\\sim $$\n                    \n                    1% of exact matches. Once fixed this issue, we shifted our attention on assessing whether fine-tuning on available developer readability improvements is actually needed given the recent advances in general-purpose LLMs. We compare the performance of fine-tuned state-of-the-art LLMs with what they achieve in zero-shot setting, also including in our study commercial LLMs (GPT-4.1). As we will show, quantitative metrics (\n                    e.g.,\n                    exact matches, CrystalBLEU) tell very little about the readability-improving capabilities of LLMs and, thus, our study is mainly qualitative in nature, with a total of\n                    \n                      $$\\sim $$\n                    \n                    9,500 inspected LLMs’ change recommendations. While all models do improve code readability, our results clearly show that fine-tuning using mined readability-improving commits does not help and, instead, results in sensibly poorer readability recommendations as compared to LLMs used in a zero-shot setting, with GPT-4.1 being the one achieving the best results.",
     "threads": [
-      "reliable-evaluation",
-      "neurosymbolic-interpretability",
-      "agents-lifecycle"
+      "reliable-evaluation"
     ],
     "selected": false,
     "citations": {
@@ -106,8 +104,7 @@
     "pdf": "https://doi.org/10.48550/arxiv.2512.20328",
     "abstract": "Recent progress in Large Language Models (LLMs) has substantially advanced the automation of software engineering (SE) tasks, enabling complex activities such as code generation and code summarization. However, the black-box nature of LLMs remains a major barrier to their adoption in high-stakes and safety-critical domains, where explainability and transparency are vital for trust, accountability, and effective human supervision. Despite increasing interest in explainable AI for software engineering, existing methods lack domain-specific explanations aligned with how practitioners reason about SE artifacts. To address this gap, we introduce FeatureSHAP, the first fully automated, model-agnostic explainability framework tailored to software engineering tasks. Based on Shapley values, FeatureSHAP attributes model outputs to high-level input features through systematic input perturbation and task-specific similarity comparisons, while remaining compatible with both opensource and proprietary LLMs. We evaluate FeatureSHAP on two bi-modal SE tasks: code generation and code summarization. The results show that FeatureSHAP assigns less importance to irrelevant input features and produces explanations with higher fidelity than baseline methods, at a substantially lower computational cost than token-level alternatives. A practitioner survey involving 37 participants shows that FeatureSHAP helps practitioners better interpret model outputs and make more informed decisions. Collectively, FeatureSHAP represents a meaningful step toward practical explainable AI in software engineering. FeatureSHAP is available at https://github.com/deviserlab/FeatureSHAP.",
     "threads": [
-      "neurosymbolic-interpretability",
-      "agents-lifecycle"
+      "neurosymbolic-interpretability"
     ],
     "selected": false,
     "citations": {
@@ -151,20 +148,18 @@
     "year": 2026,
     "month": 8,
     "date": "2026-08-04",
-    "type": "conference",
-    "status": "accepted",
-    "venue": "ASE",
+    "type": "preprint",
+    "status": "preprint",
     "doi": "10.1145/3832783.3834443",
     "arxiv": "2608.03691",
     "url": "https://arxiv.org/abs/2608.03691",
     "pdf": "https://arxiv.org/pdf/2608.03691",
     "abstract": "Multimodal large language models (MLLMs) are increasingly used to translate webpage screenshots into front-end code, but repeated UI patterns may sway them toward visually incorrect yet pattern-consistent outputs. In this work, we test how repeated webpage patterns hurt MLLM accuracy on an objective screenshot-to-code fill-in-the-blank task. We introduce the first benchmark for visual pattern-completion bias, where one localized element in a repeated UI pattern is perturbed and the model must recover the masked width or font-size value from the screenshot and HTML context. Starting from 30 webpages curated from the Design2Code dataset, we build 1,440 evaluated screenshots spanning structural card and text-style patterns under standard and noise-overlaid conditions. We evaluate five frontier MLLMs and find that all are strongly biased toward the repeated baseline. Mean bias rate reaches 69.78% on card-width perturbations and 80.22% on text font-size perturbations, while mean accuracy is only 21.17% and 7.89%, respectively. Codex-5.3 performs best but still drops from 68.61% accuracy on cards to 13.89% on text, while Flash-3.0 reaches 96.11% bias on text. Noise, subtler perturbations, and boundary positions further increase bias rate. Reasoning analysis further shows that greater reasoning effort correlates with lower bias, yet qualitative evidence reveals that models can identify the anomalous element and still override it with the pattern-consistent answer. Our results identify a concrete failure mode in multimodal code generation and show that its severity is strongly associated with visual saliency",
     "threads": [
-      "efficient-models",
-      "neurosymbolic-interpretability",
-      "reliable-evaluation"
+      "reliable-evaluation",
+      "neurosymbolic-interpretability"
     ],
-    "selected": true,
+    "selected": false,
     "citations": {
       "count": 1,
       "by_source": {
@@ -179,13 +174,11 @@
     },
     "key": "nguyen2026pattern",
     "venue_info": {
-      "key": "ASE",
-      "name": "IEEE/ACM International Conference on Automated Software Engineering",
-      "type": "conference",
-      "url": "https://conf.researchr.org/home/ase",
-      "rank": "CORE A*"
+      "key": "",
+      "name": "",
+      "type": "preprint"
     },
-    "bibtex": "@inproceedings{nguyen2026pattern,\n  title     = {Pattern over Pixels: Measuring Pattern Completion Bias in Multimodal Code Generation},\n  author    = {Nguyen, Khai-Nguyen and Chaparro, Oscar and Mastropaolo, Antonio},\n  booktitle = {IEEE/ACM International Conference on Automated Software Engineering},\n  year      = {2026},\n  month     = aug,\n  doi       = {10.1145/3832783.3834443},\n  url       = {https://doi.org/10.1145/3832783.3834443}\n}"
+    "bibtex": "@misc{nguyen2026pattern,\n  title         = {Pattern over Pixels: Measuring Pattern Completion Bias in Multimodal Code Generation},\n  author        = {Nguyen, Khai-Nguyen and Chaparro, Oscar and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2608.03691},\n  eprint        = {2608.03691},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = aug,\n  doi           = {10.1145/3832783.3834443},\n  url           = {https://doi.org/10.1145/3832783.3834443}\n}"
   },
   {
     "title": "Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality",
@@ -220,19 +213,18 @@
     "year": 2026,
     "month": 7,
     "date": "2026-07-16",
-    "type": "journal",
-    "status": "accepted",
+    "type": "preprint",
+    "status": "preprint",
     "venue_raw": "CoRR",
-    "venue": "TOSEM",
+    "venue": "arXiv",
     "arxiv": "2607.14816",
     "url": "https://arxiv.org/abs/2607.14816",
     "pdf": "https://arxiv.org/pdf/2607.14816",
     "abstract": "Large Language Models (LLMs) perform differently on identical programming tasks when prompted in different natural languages, a phenomenon known as language bias. While this behavior has been widely studied for general text generation, its impact on code generation quality and programming conventions remains largely unexplored. We investigate how the language used to describe programming tasks affects the source code generated by GPT-4o mini, DeepSeek, and Claude. Our study comprises 460 coding tasks spanning Python (230) and Java (230). We translate and manually curate the original English prompts into Chinese, Hindi, Spanish, and Italian while preserving their technical meaning. We evaluate the generated code using multiple dimensions, including functional correctness through test pass rates, structural quality using established code metrics, issues detected by static analysis tools, and lexical characteristics such as the language used in identifiers and comments. Our results show that (i) English prompts do not consistently produce the best functional correctness or code quality, (ii) the impact of prompt language depends on both the programming language and the LLM, and (iii) generated code frequently mixes English with the prompt language in comments and string literals. These findings provide the first curated multilingual benchmark for studying language bias in code generation and offer insights for developing more robust multilingual code generation systems.",
     "threads": [
-      "reliable-evaluation",
-      "agents-lifecycle"
+      "reliable-evaluation"
     ],
-    "selected": true,
+    "selected": false,
     "citations": {
       "count": 0,
       "by_source": {
@@ -247,13 +239,13 @@
     },
     "key": "afrin2026large",
     "venue_info": {
-      "key": "TOSEM",
-      "name": "ACM Transactions on Software Engineering and Methodology",
-      "type": "journal",
-      "url": "https://dl.acm.org/journal/tosem",
-      "rank": "CORE A*"
+      "key": "arXiv",
+      "name": "arXiv preprint",
+      "type": "preprint",
+      "url": "https://arxiv.org",
+      "rank": null
     },
-    "bibtex": "@article{afrin2026large,\n  title   = {Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality},\n  author  = {Afrin, Saima and Midolo, Alessandro and Escobar-Velásquez, Camilo and Linares-Vásquez, Mario and Ding, Weiyuan and Xu, Bowen and Di Penta, Massimiliano and Mastropaolo, Antonio},\n  journal = {ACM Transactions on Software Engineering and Methodology},\n  year    = {2026},\n  month   = jul,\n  url     = {https://arxiv.org/abs/2607.14816}\n}"
+    "bibtex": "@misc{afrin2026large,\n  title         = {Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality},\n  author        = {Afrin, Saima and Midolo, Alessandro and Escobar-Velásquez, Camilo and Linares-Vásquez, Mario and Ding, Weiyuan and Xu, Bowen and Di Penta, Massimiliano and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2607.14816},\n  eprint        = {2607.14816},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jul,\n  url           = {https://arxiv.org/abs/2607.14816}\n}"
   },
   {
     "title": "Quantize with Confidence? An Empirical Study of Quantization for Code Generation",
@@ -586,8 +578,8 @@
     "pdf": "https://arxiv.org/pdf/2605.28482",
     "abstract": "Causal Inference offers a fundamental approach for advancing empirical software engineering (ESE) beyond traditional statistical association, enabling researchers to rigorously identify and quantify causal relationships in software experiments. This paper introduces CausalSE, a framework that operationalizes Judea Pearl's causal inference paradigm in ESE context. The paper focuses on Structural Causal Models (SCMs) to address the limitations of classical statistical methods in mitigating confounding bias. Through a case study using the Galeras dataset and propensity score matching, we demonstrate how CausalSE disentangles the effect of prompt engineering strategies on code generation outcomes in a popular LLM (i.e., GPT-3). The results reveal that while associational analyses can suggest improvements in certain interventions (e.g., more complex prompts), causal analysis often does not find a significant treatment effect, highlighting the risk of false positives when confounding is not addressed. By providing a tutorial-based methodology and a real-world case study, this work equips software researchers with practical tools to design, analyze, and interpret software experiments with methodological rigor, ultimately enabling more informed and actionable conclusions in both research and practice.",
     "threads": [
-      "neurosymbolic-interpretability",
-      "reliable-evaluation"
+      "reliable-evaluation",
+      "neurosymbolic-interpretability"
     ],
     "selected": false,
     "citations": {
@@ -829,8 +821,8 @@
     "pdf": "https://arxiv.org/pdf/2604.10345",
     "abstract": "Understanding the reasons behind past code changes is critical for refactoring, code review, and debugging. However, code change rationale is often fragmented, inconsistently documented, and scattered across heterogeneous artifacts. We address this challenge with two contributions. First, we conduct an empirical study of nine rationale components from an established taxonomy and trace where they are documented across artifacts associated with 63 commits from five widely used open-source Java projects. Seven components appear in practice, and rationale is highly fragmented: commit messages and pull requests primarily capture GOAL, while NEED and ALTERNATIVE are more often found in issues and pull requests. No single artifact type consistently captures all components, which presents the need for cross-document reasoning. Second, we introduce ARGUS, an LLM-based approach that identifies sentences expressing GOAL, NEED, and ALTERNATIVE across a commit's artifacts and synthesizes them into concise rationale summaries. ARGUS achieved 51.4% overall precision and 93.2% recall for rationale identification and generated summaries rated as accurate relative to reference summaries. Experiments across different LLMs showed varying identification performance but consistently accurate summaries. A user study with 12 Java programmers found these summaries useful for understanding unfamiliar code changes and supporting code review, documentation, debugging, and maintenance.",
     "threads": [
-      "neurosymbolic-interpretability",
-      "agents-lifecycle"
+      "agents-lifecycle",
+      "neurosymbolic-interpretability"
     ],
     "selected": false,
     "citations": {
@@ -879,8 +871,8 @@
     "pdf": "https://arxiv.org/pdf/2602.15228",
     "abstract": "Instruction-tuned Language Models (ILMs) have become essential components of modern AI systems, demonstrating exceptional versatility across natural language and reasoning tasks. Among their most impactful applications is code generation, where ILMs -- commonly referred to as Code Language Models (CLMs) -- translate human intent into executable programs. While progress has been driven by advances in scaling and training methodologies, one critical aspect remains underexplored: the impact of system prompts on both general-purpose ILMs and specialized CLMs for code generation. We systematically evaluate how system prompts of varying instructional detail, along with model scale, prompting strategy, and programming language, affect code assistant. Our experimental setting spans 360 configurations across four models, five system prompts, three prompting strategies, two languages, and two temperature settings. We find that (1) increasing system-prompt constraint specificity does not monotonically improve correctness -- prompt effectiveness is configuration-dependent and can help or hinder based on alignment with task requirements and decoding context; (2) for larger code-specialized models, few-shot examples can degrade performance relative to zero-shot generation, contrary to conventional wisdom; and (3) programming language matters, with Java exhibiting significantly greater sensitivity to system prompt variations than Python, suggesting language-specific prompt engineering strategies may be necessary.",
     "threads": [
-      "agents-lifecycle",
-      "reliable-evaluation"
+      "reliable-evaluation",
+      "agents-lifecycle"
     ],
     "selected": false,
     "citations": {
@@ -942,9 +934,7 @@
     "pdf": "https://arxiv.org/pdf/2601.20147",
     "abstract": "The rapid advancement of Large Language Models (LLMs) has revolutionized software engineering automation, particularly in automated code summarization, which enhances program comprehension and supports development activities. However, training LLMs for code summarization remains computationally expensive, with performance deteriorating on longer inputs-challenges that intensify when handling millions of code-comment pairs. We investigate strategic data optimization through targeted token reduction to minimize computational overhead while maintaining summary quality. We compare three token-level reduction techniques-(i) Abstract Syntax Tree (AST) representations, (ii) Function Signatures, and (iii) CrystalBLEU-guided pruning-combined with semantic filtering, evaluating them on Java and Python in standalone and cascaded reduction settings. Our findings reveal highly language-dependent optimal strategies: AST-based optimization achieves 37% performance improvements in Java with 56-73% token reduction but shows up to 49% degradation in Python. Conversely, Function Signatures perform poorly in Java but optimally in Python, achieving 83% token reduction while maintaining quality. CrystalBLEU demonstrates cross-language robustness with 60-72% reduction. These results challenge assumptions about cross-language transferability, demonstrating that which tokens are kept matters more than how many are removed, making language-aware token curation essential for efficient code summarization.",
     "threads": [
-      "efficient-models",
-      "agents-lifecycle",
-      "reliable-evaluation"
+      "efficient-models"
     ],
     "selected": false,
     "citations": {
@@ -1051,8 +1041,7 @@
     "pdf": "https://arxiv.org/pdf/2511.07698",
     "abstract": "The rapid advancement of AI technologies and their accelerated adoption in software development necessitates a systematic evaluation of their environmental impact alongside functional correctness. While prior studies have examined sustainability in large language models, existing approaches lack systematic frameworks for evaluating accuracy-energy trade-offs in Code Language Models (CLMs). In this paper, we present a framework, BRACE, to benchmark CLMs on a unified scale of energy efficiency and functional correctness (referred to as accuracy). We benchmark 22 state-of-the-art models on code generation and summarization tasks, proposing two rating methods: Concentric Incremental Rating Circles (CIRC) and Observation to Expectation Rating (OTER). CIRC provides deterministic Euclidean-based rankings with static trade-offs that are robust to outliers, and OTER offers trend-aware evaluation with dynamic trade-offs that capture the complex correlation between energy and accuracy, each offering a distinct perspective and addressing the problem in a unique way. These rating methods enable us to rate LLMs on a 1-5 scale reflecting their combined capabilities in terms of energy efficiency and functional correctness. Our analysis reveals models generally perform better in the code summarization tasks as they are not enforced to generate a grammar-based and syntactically correct output. Also, we find that models'size does not have a significant impact on their ratings, indicating that if models utilize their parameters efficiently, they can be ranked higher on these scales. The proposed BRACE framework empowers practitioners to make evidence-based model selections that balance sustainability with task requirements, guiding rating choice -- CIRC for deterministic comparisons or OTER for trend-aware evaluation -- based on deployment priorities.",
     "threads": [
-      "efficient-models",
-      "reliable-evaluation"
+      "efficient-models"
     ],
     "selected": false,
     "citations": {
@@ -1113,8 +1102,7 @@
       "Code Quality"
     ],
     "threads": [
-      "efficient-models",
-      "reliable-evaluation"
+      "efficient-models"
     ],
     "selected": true,
     "citations": {
@@ -1236,7 +1224,6 @@
     "pdf": "https://arxiv.org/pdf/2506.22776",
     "abstract": "Quantization has emerged as a mainstream method for compressing Large Language Models (LLMs), reducing memory requirements and accelerating inference without architectural modifications. While existing research primarily focuses on evaluating the effectiveness of quantized LLMs compared to their original counterparts, the impact on robustness remains largely unexplored.In this paper, we present the first systematic investigation of how quantization affects the robustness of LLMs in code generation tasks. Through extensive experiments across four prominent LLM families (LLaMA, DeepSeek, CodeGen, and StarCoder) with parameter scales ranging from 350M to 33B, we evaluate robustness from dual perspectives: adversarial attacks on input prompts and noise perturbations on model architecture. Our findings challenge conventional wisdom by demonstrating that quantized LLMs often exhibit superior robustness compared to their full-precision counterparts, with 51.59% versus 42.86% of our adversarial experiments showing better resilience in quantized LLMs. Similarly, our noise perturbation experiments also confirm that LLMs after quantitation generally withstand higher levels of weight disturbances. These results suggest that quantization not only reduces computational requirements but can actually enhance LLMs'reliability in code generation tasks, providing valuable insights for developing more robust and efficient LLM deployment strategies.",
     "threads": [
-      "reliable-evaluation",
       "efficient-models"
     ],
     "selected": false,
@@ -1276,10 +1263,10 @@
     "year": 2025,
     "month": 6,
     "date": "2025-06-23",
-    "type": "workshop",
+    "type": "conference",
     "status": "published",
     "venue_raw": "Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering",
-    "venue": "AI-SDLC",
+    "venue": "FSE",
     "pages": "1358–1362",
     "publisher": "ACM",
     "doi": "10.1145/3696630.3728720",
@@ -1295,8 +1282,7 @@
       "LLM4Code"
     ],
     "threads": [
-      "neurosymbolic-interpretability",
-      "agents-lifecycle"
+      "neurosymbolic-interpretability"
     ],
     "selected": true,
     "citations": {
@@ -1315,11 +1301,11 @@
     },
     "key": "mastropaolo2025path",
     "venue_info": {
-      "key": "AI-SDLC",
-      "name": "International Workshop on AI for Software Development Lifecycle",
-      "type": "workshop",
-      "url": "https://conf.researchr.org/home/fse-2025/ai-sdlc-2025",
-      "rank": null
+      "key": "FSE",
+      "name": "ACM International Conference on the Foundations of Software Engineering",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/fse",
+      "rank": "CORE A*"
     },
     "bibtex": "@inproceedings{mastropaolo2025path,\n  title     = {A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm},\n  author    = {Mastropaolo, Antonio and Poshyvanyk, Denys},\n  booktitle = {Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering},\n  year      = {2025},\n  month     = jun,\n  pages     = {1358--1362},\n  publisher = {ACM},\n  doi       = {10.1145/3696630.3728720},\n  url       = {https://doi.org/10.1145/3696630.3728720}\n}"
   },
@@ -1495,7 +1481,6 @@
       "LLMs"
     ],
     "threads": [
-      "agents-lifecycle",
       "efficient-models"
     ],
     "selected": true,
@@ -1566,8 +1551,7 @@
       "LLMs"
     ],
     "threads": [
-      "reliable-evaluation",
-      "agents-lifecycle"
+      "reliable-evaluation"
     ],
     "selected": true,
     "citations": {

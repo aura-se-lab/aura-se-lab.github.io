@@ -76,3 +76,23 @@ entries:
 
   # Self-admitted technical debt in deep-learning systems.
   pepe2024taxonomy:            { threads: [agents-lifecycle] }
+
+  # ── directions, decided paper by paper ────────────────────────────────────
+  # The keyword classifier over-assigned: a paper usually belongs to one
+  # avenue. These are Antonio's calls, so they override the classifier.
+
+  vitale2027revisiting:             { threads: [reliable-evaluation] }
+  vitale2026explaining:             { threads: [neurosymbolic-interpretability] }
+  nguyen2026pattern:                { threads: [reliable-evaluation, neurosymbolic-interpretability] }
+  afrin2026large:                   { threads: [reliable-evaluation] }
+  pepe2026datasets:                 { threads: [efficient-models, agents-lifecycle] }
+  rodriguezcardenas2026rethinking:  { threads: [reliable-evaluation, neurosymbolic-interpretability] }
+  sun2026fine:                      { threads: [agents-lifecycle, neurosymbolic-interpretability] }
+  cheng2026empirical:               { threads: [reliable-evaluation, agents-lifecycle] }
+  afrin2026not:                     { threads: [efficient-models] }
+  mehditabar2025smart:              { threads: [efficient-models] }
+  afrin2025quantization:            { threads: [efficient-models] }
+  fang2025smaller:                  { threads: [efficient-models] }
+  mastropaolo2025path:              { threads: [neurosymbolic-interpretability] }
+  afrin2025resource:                { threads: [efficient-models] }
+  vitale2025optimizing:             { threads: [reliable-evaluation] }

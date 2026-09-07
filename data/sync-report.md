@@ -1,30 +1,12 @@
 # Publications sync — 2026-09-07
 
-**29 publications** (21 peer-reviewed) · 151 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
+**29 publications** (19 peer-reviewed) · 151 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
 
-## ⚠️ No longer found (21) — kept out; add to `data/publications.local.bib` if they are real
+## ✏️ Changed (3)
 
-- `mastropaolo2026score`
-- `mastropaolo2026intent`
-- `mastropaolo2026closing`
-- `mastropaolo2026polyglot`
-- `mastropaolo2026open`
-- `mastropaolo2026price`
-- `shahnami2026orchestrated`
-- `shahnami2026reliable`
-- `mastropaolo2026virtue`
-- `mastropaolo2026secrets`
-- `mastropaolo2026mind`
-- `mastropaolo2026llm`
-- `mastropaolo2026human`
-- `mastropaolo2025prompt`
-- `mastropaolo2025heuristics`
-- `mastropaolo2025breaking`
-- `mastropaolo2025code`
-- `mastropaolo2025databases`
-- `mastropaolo2025smarter`
-- `mastropaolo2025pixels`
-- `mastropaolo2025artificial`
+- `nguyen2026pattern` — status: accepted → preprint; venue: ASE → None; type: conference → preprint
+- `afrin2026large` — status: accepted → preprint; venue: TOSEM → arXiv; type: journal → preprint
+- `mastropaolo2025path` — venue: AI-SDLC → FSE; type: workshop → conference
 
 ## 🏷️ Venues without a row in `data/venues.yml`
 
