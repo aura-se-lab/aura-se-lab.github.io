@@ -1,7 +1,7 @@
 {
-  "updated": "2026-09-05T09:57+00:00",
+  "updated": "2026-09-07T12:24+00:00",
   "total": 52,
-  "reviewed": 19,
+  "reviewed": 20,
   "by_year": {
     "2024": 3,
     "2025": 18,
@@ -11,13 +11,14 @@
   "by_type": {
     "journal": 9,
     "magazine": 21,
-    "preprint": 12,
-    "conference": 9,
+    "conference": 10,
+    "preprint": 11,
     "workshop": 1
   },
   "citations": 157,
   "venues": [
     "AI-SDLC",
+    "ASE",
     "EMSE",
     "FORGE",
     "ICPC",

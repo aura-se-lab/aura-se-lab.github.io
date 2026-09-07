@@ -60,7 +60,18 @@ export const publications = raw as unknown as Publication[];
 export const metrics = metricsRaw as Metrics;
 
 export const REVIEWED: PubType[] = ["journal", "conference", "workshop"];
-export const isReviewed = (p: Publication) => REVIEWED.includes(p.type);
+
+/**
+ * A paper counts as peer-reviewed once it has cleared review — `status:
+ * accepted` is enough, even while the only artifact we can show is the arXiv
+ * version. "Preprint" is reserved for work that is genuinely still under
+ * review or unsubmitted. Magazine columns are invited, so they never move.
+ */
+export const isReviewed = (p: Publication) =>
+  REVIEWED.includes(p.type) || (p.status === "accepted" && p.type !== "magazine");
+
+/** Accepted but not yet published — the grid says so rather than implying a page number. */
+export const toAppear = (p: Publication) => p.status === "accepted";
 
 /** "Reviewed" (journal/conference/workshop), "magazine", or "preprint" — the three tabs on the publications page. */
 export const bucketOf = (p: Publication): "reviewed" | "magazine" | "preprint" | "other" =>

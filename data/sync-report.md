@@ -1,10 +1,10 @@
-# Publications sync — 2026-09-05
+# Publications sync — 2026-09-07
 
-**52 publications** (19 peer-reviewed) · 157 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
+**52 publications** (20 peer-reviewed) · 157 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
 
 ## ✏️ Changed (1)
 
-- `nguyen2026pattern` — venue: arXiv → None
+- `nguyen2026pattern` — status: preprint → accepted; venue: None → ASE; type: preprint → conference
 
 ## 🏷️ Venues without a row in `data/venues.yml`
 

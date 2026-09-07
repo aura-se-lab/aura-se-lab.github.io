@@ -43,7 +43,7 @@ const outHref = doiUrl ?? p.url ?? p.venue_info?.url ?? undefined;
         <p class="e-meta">
           <span class="m e-v">{venueLabel(p)}</span>
           <span class="m e-d">{pubDateLabel(p).toUpperCase()}</span>
-          <span class="m e-s">{isReviewed(p) ? "PEER-REVIEWED" : bucket === "preprint" ? "PREPRINT" : "MAGAZINE COLUMN"}</span>
+          <span class="m e-s">{p.status === "accepted" ? "ACCEPTED — TO APPEAR" : isReviewed(p) ? "PEER-REVIEWED" : bucket === "preprint" ? "PREPRINT" : "MAGAZINE COLUMN"}</span>
         </p>
         <h1 class="e-t">{p.title}</h1>
         <p class="e-a">

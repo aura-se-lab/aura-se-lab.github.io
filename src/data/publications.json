@@ -191,8 +191,9 @@
     "year": 2026,
     "month": 8,
     "date": "2026-08-04",
-    "type": "preprint",
-    "status": "preprint",
+    "type": "conference",
+    "status": "accepted",
+    "venue": "ASE",
     "doi": "10.1145/3832783.3834443",
     "arxiv": "2608.03691",
     "url": "https://arxiv.org/abs/2608.03691",
@@ -202,7 +203,7 @@
       "efficient-models",
       "neurosymbolic-interpretability"
     ],
-    "selected": false,
+    "selected": true,
     "citations": {
       "count": 1,
       "by_source": {
@@ -217,11 +218,13 @@
     },
     "key": "nguyen2026pattern",
     "venue_info": {
-      "key": "",
-      "name": "",
-      "type": "preprint"
+      "key": "ASE",
+      "name": "IEEE/ACM International Conference on Automated Software Engineering",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/ase",
+      "rank": "CORE A*"
     },
-    "bibtex": "@misc{nguyen2026pattern,\n  title         = {Pattern over Pixels: Measuring Pattern Completion Bias in Multimodal Code Generation},\n  author        = {Nguyen, Khai-Nguyen and Chaparro, Oscar and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2608.03691},\n  eprint        = {2608.03691},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = aug,\n  doi           = {10.1145/3832783.3834443},\n  url           = {https://doi.org/10.1145/3832783.3834443}\n}"
+    "bibtex": "@inproceedings{nguyen2026pattern,\n  title     = {Pattern over Pixels: Measuring Pattern Completion Bias in Multimodal Code Generation},\n  author    = {Nguyen, Khai-Nguyen and Chaparro, Oscar and Mastropaolo, Antonio},\n  booktitle = {IEEE/ACM International Conference on Automated Software Engineering},\n  year      = {2026},\n  month     = aug,\n  doi       = {10.1145/3832783.3834443},\n  url       = {https://doi.org/10.1145/3832783.3834443}\n}"
   },
   {
     "title": "Intent-Invariant Mutation Testing: A Coverage Criterion for Large Language Model Safety Contracts",
@@ -368,7 +371,7 @@
     "threads": [
       "reliable-evaluation"
     ],
-    "selected": false,
+    "selected": true,
     "citations": {
       "count": 0,
       "by_source": {
@@ -1610,7 +1613,7 @@
     "threads": [
       "efficient-models"
     ],
-    "selected": false,
+    "selected": true,
     "citations": {
       "count": 0,
       "by_source": {
