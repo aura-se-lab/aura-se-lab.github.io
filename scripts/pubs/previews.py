@@ -21,6 +21,9 @@ from PIL import Image, ImageEnhance
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PUBS = os.path.join(ROOT, "src", "data", "publications.json")
 LOCAL = os.path.join(ROOT, "public", "papers")            # green-OA copies, preferred
+# A first page supplied as an image, for a paper whose full text we cannot post.
+# Kept out of public/ because it is a cover, not a copy of the paper.
+PAGES = os.path.join(ROOT, "data", "first-pages")
 CACHE = os.path.join(ROOT, ".cache", "pdfs")
 OUT = os.path.join(ROOT, "src", "assets", "papers")
 AR = 17 / 22
@@ -69,6 +72,10 @@ def source_for(p):
     local = os.path.join(LOCAL, p["key"] + ".pdf")
     if os.path.exists(local):
         return ("local", local)
+    for ext in (".png", ".jpg", ".jpeg", ".webp"):
+        page = os.path.join(PAGES, p["key"] + ext)
+        if os.path.exists(page):
+            return ("first-page", page)
     if p.get("arxiv"):
         return ("arxiv", f"https://arxiv.org/pdf/{p['arxiv']}")
     repo = _open_pdf_url(p)
@@ -83,6 +90,21 @@ def fetch(url, dest):
     if not ok and os.path.exists(dest):
         os.remove(dest)
     return ok
+
+
+def frame(im):
+    """Normalise to the 17:22 card frame — pad, never crop the title block."""
+    im = im.convert("RGB")
+    ar = im.width / im.height
+    if abs(ar - AR) > 0.01:
+        if ar > AR:
+            canvas = Image.new("RGB", (im.width, round(im.width / AR)), "white")
+        else:
+            canvas = Image.new("RGB", (round(im.height * AR), im.height), "white")
+        canvas.paste(im, ((canvas.width - im.width) // 2, 0))
+        im = canvas
+    im = im.resize((W, round(W / AR)), Image.LANCZOS)
+    return ImageEnhance.Contrast(im).enhance(1.03)
 
 
 def render(pdf, key):
@@ -110,7 +132,7 @@ def main():
     ap.add_argument("--force", action="store_true", help="re-render even if a preview exists")
     args = ap.parse_args()
 
-    for d in (CACHE, OUT, LOCAL):
+    for d in (CACHE, OUT, LOCAL, PAGES):
         os.makedirs(d, exist_ok=True)
     pubs = json.load(open(PUBS))
 
@@ -124,6 +146,12 @@ def main():
         kind, src = source_for(p)
         if not kind:
             none += 1
+            continue
+        if kind == "first-page":
+            im = frame(Image.open(src))
+            im.save(dest, quality=82, optimize=True, progressive=True)
+            print(f"  + {key}  ({kind})")
+            made += 1
             continue
         pdf = src if kind == "local" else os.path.join(CACHE, key + ".pdf")
         if kind != "local" and not os.path.exists(pdf):
@@ -142,7 +170,8 @@ def main():
     print(f"\n{made} rendered · {skipped} already present · {none} without an open full text "
           f"({len(pubs)} publications)")
     if none:
-        print("Post the accepted manuscript to public/papers/<key>.pdf to cover the rest.")
+        print("Post the accepted manuscript to public/papers/<key>.pdf, or drop a\n"
+              "first-page image at data/first-pages/<key>.png, to cover the rest.")
 
 
 if __name__ == "__main__":

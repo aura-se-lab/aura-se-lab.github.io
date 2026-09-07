@@ -1,0 +1,13 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AURA">
+  <!-- Halo: a field held around a single point. Broken rings so the mark keeps
+       air at small sizes and never fills in. -->
+  <g stroke="currentColor" stroke-width="3.6" stroke-linecap="round">
+    <path d="M 10.6 42.4 A 23.5 23.5 0 0 0 42.4 53.6"/>
+    <path d="M 53.4 21.6 A 23.5 23.5 0 0 0 21.6 10.4"/>
+  </g>
+  <g stroke="var(--mk-accent, #009051)" stroke-width="3.4" stroke-linecap="round">
+    <path d="M 20.2 43.8 A 14 14 0 0 0 43.8 43.8"/>
+    <path d="M 43.8 20.2 A 14 14 0 0 0 20.2 20.2"/>
+  </g>
+  <circle cx="32" cy="32" r="6.4" fill="var(--mk-accent, #009051)"/>
+</svg>

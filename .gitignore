@@ -20,3 +20,6 @@ preview/
 
 # local design preview dropped in by the cowork session
 public/v2.html
+
+# Render cache for publication previews
+.cache/

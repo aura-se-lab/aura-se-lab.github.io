@@ -1,0 +1,13 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AURA">
+  <!-- The A drawn as a graph: three nodes, three edges, one crossbar. -->
+  <g stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 13 L14 51"/>
+    <path d="M32 13 L50 51"/>
+    <path d="M22.4 33.5 L41.6 33.5"/>
+  </g>
+  <circle cx="14" cy="51" r="5" fill="currentColor"/>
+  <circle cx="50" cy="51" r="5" fill="currentColor"/>
+  <circle cx="32" cy="13" r="6" fill="var(--mk-accent, #009051)"/>
+  <circle cx="22.4" cy="33.5" r="3" fill="var(--mk-accent, #009051)"/>
+  <circle cx="41.6" cy="33.5" r="3" fill="var(--mk-accent, #009051)"/>
+</svg>
