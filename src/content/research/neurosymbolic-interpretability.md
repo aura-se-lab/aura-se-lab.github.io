@@ -5,7 +5,7 @@ short: Combining neural language models with grammars, type systems, and program
 order: 2
 tags: [Program analysis, Neurosymbolic, Constrained decoding, Feature attribution, Explainability]
 keywords: [neurosymbolic, neuro-symbolic, symbolic, interpretab, explainab, explanation, attention, rationale, probing, program comprehension, causal, transparen, trustworth, black-box, reasoning]
-featured: [mastropaolo2025path, velasco2025toward, mastropaolo2025code]
+featured: [mastropaolo2025path, velasco2025toward]
 ---
 
 Large Code Models (LCMs) have reshaped software engineering automation by leveraging two primary drivers: abundant code-rich datasets and increasingly large neural architectures. Tools such as GitHub Copilot and ChatGPT illustrate this transformation, acting as "artificial collaborators" across the lifecycle. Yet these gains come with clear trade-offs: training and maintaining larger models demands immense computational resources, while their opaque decision processes raise concerns about bias, trust, and accountability. With data availability plateauing and diminishing returns from sheer scale, continued progress requires a different path forward.

@@ -106,6 +106,14 @@ def apply_overrides(pubs: list[Pub], ov: dict, warnings: list[str]) -> None:
         for p in pubs:
             if _ref_matches(ref, p):
                 p.hidden = True
+    # A whole venue can be out of scope — an invited column is not lab output,
+    # and listing every DOI by hand would go stale the moment the next one runs.
+    drop_venues = {str(v).strip().lower() for v in (ov.get("exclude_venues") or [])}
+    if drop_venues:
+        for p in pubs:
+            names = {str(x).strip().lower() for x in (p.venue, p.venue_raw) if x}
+            if names & drop_venues:
+                p.hidden = True
 
 
 # ── main ─────────────────────────────────────────────────────────────────────

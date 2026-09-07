@@ -20,6 +20,12 @@ exclude:
   # A text-reuse study of the Italian constitutional reform — not software engineering.
   - key: scozzaro2024reform
 
+# Whole venues that are not lab output. The IEEE Computer column is invited
+# writing, not a paper, so it stays off the publication list — by venue rather
+# than by DOI, so next month's column drops out on its own.
+exclude_venues:
+  - Computer
+
 entries:
   # ── examples ──────────────────────────────────────────────────────────────
   # afrin2025quantization:
@@ -67,20 +73,6 @@ entries:
     type: conference
     status: accepted
 
-  # ── research directions for the IEEE Computer columns ─────────────────────
-  # The classifier reads titles and abstracts; a column has no abstract and a
-  # colloquial title, so it scores nothing. Filed here by hand instead.
-  mastropaolo2026score:        { threads: [reliable-evaluation] }
-  mastropaolo2026polyglot:     { threads: [reliable-evaluation] }
-  shahnami2026orchestrated:    { threads: [reliable-evaluation] }
-  mastropaolo2026virtue:       { threads: [reliable-evaluation] }
-  mastropaolo2026human:        { threads: [reliable-evaluation] }
-  mastropaolo2026intent:       { threads: [reliable-evaluation, agents-lifecycle] }
-  mastropaolo2026closing:      { threads: [agents-lifecycle] }
-  mastropaolo2025heuristics:   { threads: [agents-lifecycle] }
-  mastropaolo2025breaking:     { threads: [efficient-models] }
-  mastropaolo2026open:         { threads: [efficient-models, reliable-evaluation] }
-  mastropaolo2026secrets:      { threads: [neurosymbolic-interpretability] }
 
   # Self-admitted technical debt in deep-learning systems.
   pepe2024taxonomy:            { threads: [agents-lifecycle] }

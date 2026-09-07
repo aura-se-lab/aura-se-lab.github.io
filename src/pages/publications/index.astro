@@ -31,21 +31,18 @@ const n = {
   all: sorted.length,
 };
 
-/** A paywalled paper gets a drawn cover; give it the same facts a first page carries. */
-
-
+// A bucket with nothing in it is not a filter, it is a dead end.
 const kinds = [
   { v: "reviewed", l: "Peer-reviewed", c: n.reviewed },
   { v: "preprint", l: "Preprints", c: n.preprint },
   { v: "magazine", l: "Magazine", c: n.magazine },
-  ...(n.other ? [{ v: "other", l: "Other", c: n.other }] : []),
-  { v: "all", l: "All", c: n.all },
-];
+  { v: "other", l: "Other", c: n.other },
+].filter((k) => k.c > 0).concat([{ v: "all", l: "All", c: n.all }]);
 ---
 
 <Base
   title="Publications"
-  description={`${metrics.reviewed} peer-reviewed papers, ${n.preprint} preprints and ${n.magazine} magazine columns from the AURA Lab at William & Mary.`}
+  description={`${metrics.reviewed} peer-reviewed papers and ${n.preprint} preprints from the AURA Lab at William & Mary.`}
   image="/og/publications.png"
 >
   <div class="page">
