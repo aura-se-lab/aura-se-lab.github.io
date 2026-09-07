@@ -1323,59 +1323,6 @@
     "bibtex": "@article{mastropaolo2026secrets,\n  title     = {Secrets in the Synapses: When Steganography Meets Large Language Models},\n  author    = {Mastropaolo, Antonio},\n  journal   = {IEEE Computer},\n  year      = {2026},\n  month     = mar,\n  volume    = {59},\n  number    = {3},\n  pages     = {9-11},\n  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},\n  doi       = {10.1109/mc.2026.3652075},\n  url       = {https://doi.org/10.1109/mc.2026.3652075}\n}"
   },
   {
-    "title": "Editorial of the special issue in the journal of systems and software on reliable and secure large language models for software engineering",
-    "authors": [
-      {
-        "name": "Antonio Mastropaolo",
-        "member": "antonio-mastropaolo"
-      },
-      {
-        "name": "Pietro Liguori"
-      },
-      {
-        "name": "Gabriele Bavota"
-      }
-    ],
-    "year": 2026,
-    "month": 3,
-    "date": "2026-03",
-    "type": "journal",
-    "status": "published",
-    "venue_raw": "Journal of Systems and Software",
-    "venue": "JSS",
-    "volume": "233",
-    "pages": "112683",
-    "publisher": "Elsevier BV",
-    "doi": "10.1016/j.jss.2025.112683",
-    "url": "https://doi.org/10.1016/j.jss.2025.112683",
-    "pdf": "https://doi.org/10.1016/j.jss.2025.112683",
-    "threads": [
-      "reliable-evaluation",
-      "agents-lifecycle"
-    ],
-    "selected": false,
-    "citations": {
-      "count": 0,
-      "by_source": {
-        "s2": 0
-      }
-    },
-    "sources": {
-      "crossref": "10.1016/j.jss.2025.112683",
-      "dblp": "journals/jss/MastropaoloLB26",
-      "s2": "4ea9ca24a0a4e6dd4c2ca1965c0b4a0ecce3490b"
-    },
-    "key": "mastropaolo2026editorial",
-    "venue_info": {
-      "key": "JSS",
-      "name": "Journal of Systems and Software",
-      "type": "journal",
-      "url": "https://www.sciencedirect.com/journal/journal-of-systems-and-software",
-      "rank": null
-    },
-    "bibtex": "@article{mastropaolo2026editorial,\n  title     = {Editorial of the special issue in the journal of systems and software on reliable and secure large language models for software engineering},\n  author    = {Mastropaolo, Antonio and Liguori, Pietro and Bavota, Gabriele},\n  journal   = {Journal of Systems and Software},\n  year      = {2026},\n  month     = mar,\n  volume    = {233},\n  pages     = {112683},\n  publisher = {Elsevier BV},\n  doi       = {10.1016/j.jss.2025.112683},\n  url       = {https://doi.org/10.1016/j.jss.2025.112683}\n}"
-  },
-  {
     "title": "An Empirical Study on the Effects of System Prompts in Instruction-Tuned Models for Code Generation",
     "authors": [
       {
