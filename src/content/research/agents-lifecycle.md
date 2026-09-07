@@ -2,15 +2,15 @@
 title: AI Agents & Task-Aware Automation for the Software Lifecycle
 label: Agents & Automation
 letter: A
-short: Autonomous and multi-agent systems that plan, reason, and execute multi-step software workflows — from issue triage to documentation, code review and test generation — tailored to the task at hand and measured end-to-end.
+short: "Automation that knows which job it has been given — issue triage, review, documentation, test generation — and multi-agent systems judged end to end on whether the task was finished, not on whether a step looked right."
 order: 4
 tags: [Multi-agent, Tool use, Task-aware models, Documentation, Code review, SWE-bench]
 keywords: [agent, multi-agent, agentic, tool use, workflow, documentation, summariz, code review, test generation, issue, task-aware, prompt, prompting, copilot, github actions, github workflows, automation]
 featured: [afrin2025resource]
 ---
 
-AI copilots are increasingly valuable, but a one-size-fits-all model cannot cover the full spectrum of software engineering activities — coding, reviewing, debugging, documenting — each with its own goals and constraints. **Task-aware automation** addresses this gap by tailoring AI to the specific context of the developer's work: leveraging repository history, issue discussions, diffs, and runtime traces to make outputs more precise and actionable. An assistant that knows it is reviewing code can prioritize stylistic and correctness checks; one tasked with documentation can optimize for clarity and brevity. Our early results show that task-tuned summarization yields higher-quality results at lower compute cost.
+One assistant cannot serve every activity in the lifecycle. Reviewing, debugging, documenting and generating each carry different goals and different failure costs, and a model tuned for none of them in particular performs like it. The premise here is that the task is a first-class input: what the model knows about the job it has been given — the repository history, the issue thread, the diff, the trace — is what makes its output actionable rather than plausible.
 
-Beyond single models, we study **multi-agent LLM systems** in which specialized agents — an "architectural summarizer", an "API explainer", a "consistency verifier" — collaborate under a supervising agent to analyze code at different granularities. This division of labor lets a system move beyond snippet-level summaries to capture architectural patterns, interdependencies, and contextual nuances essential for comprehensive, always-current documentation. The open challenges are exactly the ones we work on: factual grounding and hallucination control, coherence across documentation layers, lightweight coordination protocols, and the computational cost of orchestrating several models.
+The groundwork has been empirical, and deliberately so. We have studied what developers self-admit to using generative AI for in open source, how the models and datasets this all depends on are documented, licensed and maintained, and how much the framing around a request moves the result. Each of those is a constraint on what an agent can be built to do, and each was cheaper to learn now than after building on the wrong assumption.
 
-We envision these agents operating inside real engineering workflows — version control, CI/CD, code review — with **measurable end-to-end behavior** on benchmarks such as SWE-bench, and with the efficiency and interpretability properties studied in our other threads built in from the start.
+From there the direction is **multi-agent systems working inside real workflows** — version control, CI, code review — rather than in isolation, judged end to end on whether the task was finished rather than on whether a step looked right.

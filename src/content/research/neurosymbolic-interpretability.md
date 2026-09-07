@@ -2,15 +2,15 @@
 title: Neurosymbolic Program Reasoning & Interpretability
 label: Neurosymbolic Reasoning
 letter: U
-short: Combining neural language models with grammars, type systems, and program analysis — plus feature-level explanations that move beyond opaque token-by-token predictions toward something developers can actually read.
+short: "Pairing neural code models with the symbolic machinery software engineering already has — grammars, type systems, program analysis — and recovering explanations detailed enough to check rather than merely read."
 order: 2
 tags: [Program analysis, Neurosymbolic, Constrained decoding, Feature attribution, Explainability]
 keywords: [neurosymbolic, neuro-symbolic, symbolic, interpretab, explainab, explanation, attention, rationale, probing, program comprehension, causal, transparen, trustworth, black-box, reasoning]
 featured: [mastropaolo2025path, velasco2025toward]
 ---
 
-Large Code Models (LCMs) have reshaped software engineering automation by leveraging two primary drivers: abundant code-rich datasets and increasingly large neural architectures. Tools such as GitHub Copilot and ChatGPT illustrate this transformation, acting as "artificial collaborators" across the lifecycle. Yet these gains come with clear trade-offs: training and maintaining larger models demands immense computational resources, while their opaque decision processes raise concerns about bias, trust, and accountability. With data availability plateauing and diminishing returns from sheer scale, continued progress requires a different path forward.
+A code model that is right for the wrong reason is a liability, and today we mostly cannot tell the difference. Scale has papered over this: outputs improved while the account of *why* they improved did not. Our position is that the next gain comes from the other direction — pairing the neural model with the symbolic machinery software engineering already has, rather than asking for a larger one.
 
-Our approach promotes **neurosymbolic AI for software engineering** by advancing explainability and interpretability as core enablers. Interpretability methods — attention analysis, rationale extraction, behavior probing — let us uncover patterns and decision traces from neural code models. These insights can then be elevated into symbolic representations that serve as the reasoning layer of neurosymbolic systems. In doing so, we preserve the adaptability of LLMs while adding a fast, deterministic, and verifiable component that strengthens reliability and trust.
+Two lines run in parallel. The first is **explanation**: recovering the rationale behind a change rather than restating the diff, and probing what a model actually attended to when it answered. The second is **grounding**: giving the model a structure it can be checked against — a grammar, a type system, a static constraint — so that an explanation becomes verifiable instead of merely plausible.
 
-Practically, we develop **explain-then-edit** workflows, where every automated change is accompanied by human-readable rationales, highlighted evidence (files, tests, diffs), and, when applicable, counterfactual examples. These explanations make model outputs reviewable and debuggable, and enable downstream symbolic checks (e.g., enforcing contracts or static constraints). Our position papers on *Neurosymbolic Software Engineering* lay out the paradigm; our empirical work builds the first pieces of it.
+The failure modes we find are the argument for both. A multimodal model asked to read a repeated interface completes the pattern rather than reading the pixels in front of it, and sometimes identifies the anomalous element and overrides it anyway. That behaviour is invisible to a score and obvious to a symbolic check. The programme is to lift what interpretability recovers into symbolic form, so that a claim about a model is something a checker can test rather than something a reader must trust.

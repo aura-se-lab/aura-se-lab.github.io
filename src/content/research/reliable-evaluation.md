@@ -2,15 +2,15 @@
 title: Reliability, Causality & Honest Evaluation
 label: Reliability & Evaluation
 letter: R
-short: Causal reasoning and counterfactual analysis to understand cause-and-effect in software systems — and evaluation methodologies (including LLM-as-a-Judge) that measure what matters, not what's easy.
+short: "Evaluation that survives someone else running it: causal and counterfactual analysis, calibrated LLM-as-a-Judge, and benchmarks built so a score reflects the model rather than the setup around it."
 order: 3
 tags: [Causal inference, Counterfactuals, LLM-as-Judge, Robustness, Reproducibility, Benchmarks]
 keywords: [evaluation, benchmark, llm-as-a-judge, judge, reliab, robust, counterfactual, causal, reproducib, code-comment coherence, coherence, metric, human study, empirical study, quality]
 featured: [vitale2025optimizing, 10.1145/3709360]
 ---
 
-Fluency is not correctness. As AI-generated code and documentation flood real projects, the field needs evaluation methodologies that distinguish models that are *actually right* from models that are merely *plausible*. This thread studies how we measure AI for software engineering — the datasets we train and test on, the metrics we trust, and the human and automated judges we rely on.
+Fluency is not correctness, and a benchmark number is not a finding. As generated code and documentation reach real projects, the field's measurement apparatus is carrying more weight than it was built for, and it shows.
 
-We investigate the quality of the data itself (for example, whether code–comment coherence is a useful lens for optimizing code-summarization datasets), the validity of automatic metrics against human judgment, and the emerging practice of **LLM-as-a-Judge** evaluation — where it works, where it is systematically biased, and how to calibrate it. We complement this with **causal and counterfactual analysis** to understand *why* a model behaves the way it does, rather than only *whether* it passes a test.
+We study where it gives. An LLM judge agrees with human raters in some regimes and is systematically off in others, and knowing which is which is a prerequisite for using one. A curated multilingual benchmark shows generation quality shifting with the language of the prompt alone. Quantization moves scores in ways a deployment decision needs to know about. The system prompt wrapped around a request moves them too. And dataset construction choices — code–comment coherence among them — propagate straight into the results they are supposed to be neutral about.
 
-The goal is honest evaluation as a first-class research output: reproducible artifacts, transparent protocols, and results that hold up when someone else runs them.
+Underneath is a methodological commitment: **causal and counterfactual analysis**, to ask why a model behaves as it does rather than only whether it passed. And an operational one — benchmarking infrastructure, protocols and artifacts released so that a result survives contact with someone else's machine.

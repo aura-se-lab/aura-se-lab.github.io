@@ -1,70 +1,71 @@
 ---
-import { getCollection } from "astro:content";
+/**
+ * Research. Four avenues read as four channels on an instrument sheet: the
+ * question each one is trying to answer, where the answer stands, a live
+ * motif, and the readout of what the record actually holds. The funded lines
+ * that pay for the work sit underneath.
+ */
 import Base from "@/layouts/Base.astro";
 import SectionHead from "@/components/SectionHead.astro";
-import ThreadTile from "@/components/ThreadTile.astro";
+import { directions } from "@/lib/research";
 import { lab } from "@/lib/lab";
-import { pubsByThread } from "@/lib/pubs";
+import { venueLabel } from "@/lib/pubs";
 import { ArrowUpRight } from "@lucide/astro";
 
-const threads = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
-const objectives = [
-  { h: "Resource-efficient AI for code", d: "Shrink foundation models through quantization, distillation, and parameter-efficient fine-tuning so they run inside developer tools — without a data-center bill." },
-  { h: "Trustworthy by construction", d: "Rigorous reliability evaluation, neurosymbolic reasoning, and causal analysis to tell when a model is actually right versus merely fluent." },
-  { h: "Open by default", d: "Papers, datasets, and replication packages shipped publicly. Reproducibility is a baseline, not a feature." },
-];
+const dirs = await directions();
+const motif = ["quantize", "parse", "measure", "flow"];
 ---
 
-<Base title="Research" description={`Research threads of the AURA Lab: ${threads.map((t) => t.data.title).join("; ")}.`} image="/og/research.png">
-  <section class="page-hero">
-    <div class="shell">
-      <p class="label">{threads.length} RESEARCH DIRECTIONS</p>
-      <h1 class="h2 mt-2">Research</h1>
-      <p class="lead mt-3" style="max-width:70ch">
-        The AURA Lab investigates how foundation models can be made measurably more <b>efficient</b>, <b>interpretable</b>, and <b>trustworthy</b> for software engineering — from quantization and parameter-efficient fine-tuning to neurosymbolic reasoning, honest evaluation, and agents that act across the software lifecycle.
-      </p>
-    </div>
-  </section>
 
-  <section class="section">
+<Base
+  title="Research"
+  description={`Four research avenues at the AURA Lab: ${dirs.map((d) => d.title).join("; ")}.`}
+  image="/og/research.png"
+>
+  <div class="panel">
     <div class="shell">
-      <SectionHead>Mission</SectionHead>
-      <div class="brief">
+      <header class="pn-head">
         <div>
-          <p class="caption">// Abstract</p>
-          <p class="brief-quote">{lab.brief[0]}</p>
-          <div class="prose mt-3">
-            <p>{lab.statement}</p>
-          </div>
+          <p class="m pn-k">{dirs.length} RESEARCH AVENUES</p>
+          <h1 class="pn-h">Research</h1>
         </div>
-        <div>
-          <p class="caption">// Objectives · {String(objectives.length).padStart(2, "0")}</p>
-          <ul class="ledger mt-2">
-            {objectives.map((o, i) => (
-              <li class="ledger-row">
-                <span class="ledger-idx">O.{String(i + 1).padStart(2, "0")}</span>
-                <div>
-                  <div class="ledger-h">{o.h}</div>
-                  <div class="ledger-d">{o.d}</div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+        <p class="pn-l">{lab.brief[0]}</p>
+      </header>
 
-  <section class="section" id="threads">
-    <div class="shell">
-      <SectionHead sub="A·U·R·A — AI for code · Understanding what models do · Reliable evaluation of their behavior · Automation practitioners can trust. The threads cross-pollinate.">
-        Research threads
-      </SectionHead>
-      <div class="grid-2">
-        {threads.map((t, i) => <ThreadTile thread={t} index={i + 1} total={threads.length} count={pubsByThread(t.id).length} />)}
-      </div>
+      <ol class="chans">
+        {dirs.map((d, i) => (
+          <li class="ch" style={`--c:var(--a${i + 1})`}>
+            <div class="ch-id">
+              <span class="m ch-n">CH{String(i + 1).padStart(2, "0")}</span>
+              <span class="ch-led" aria-hidden="true"></span>
+            </div>
+
+            <div class="ch-main">
+              <p class="ch-t">{d.title}</p>
+              <p class="ch-q" data-type={d.q}><span class="ch-cur" aria-hidden="true"></span></p>
+              <p class="ch-a">{d.a}</p>
+              <ul class="ch-work">
+                {d.papers.slice(0, 3).map((p) => (
+                  <li><a href={`/publications/${p.key}/`}><span class="m">{venueLabel(p)} {p.year}</span><span class="ch-wt">{p.title}</span></a></li>
+                ))}
+              </ul>
+              <a class="ch-go" href={`/research/${d.id}/`}>Open the avenue →</a>
+            </div>
+
+            <div class="ch-side">
+              <canvas class="ch-cv" data-motif={motif[i]} aria-hidden="true"></canvas>
+              <dl class="ch-read">
+                <div><dt class="m">PAPERS</dt><dd class="num" data-to={String(d.papers.length)}>0</dd></div>
+                <div><dt class="m">REVIEWED</dt><dd class="num" data-to={String(d.reviewed.length)}>0</dd></div>
+                <div><dt class="m">SPAN</dt><dd class="sp">{d.span}</dd></div>
+              </dl>
+              <p class="m ch-v">{d.venues.slice(0, 5).join(" / ")}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
-  </section>
+  </div>
 
   <section class="section" id="funding">
     <div class="shell">
@@ -97,9 +98,55 @@ const objectives = [
 </Base>
 
 <style>
-  .brief { display: grid; grid-template-columns: 1fr; gap: 40px; }
-  @media (min-width: 900px) { .brief { grid-template-columns: 1.1fr 1fr; gap: 64px; } }
-  .brief-quote { margin-top: 12px; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.25; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); }
+  .panel { background: var(--bg); color: var(--ink); padding: clamp(30px, 4vw, 60px) 0 clamp(52px, 6vw, 96px); }
+  .pn-head { display: grid; gap: 18px; padding-bottom: 26px; border-bottom: 1.5px solid var(--rule-3); }
+  @media (min-width: 900px) { .pn-head { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 48px; align-items: end; } }
+  .pn-k { font-size: 8px; letter-spacing: .16em; color: var(--ink-5); }
+  .pn-h { margin-top: 10px; font-size: clamp(30px, 4vw, 52px); font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; font-variation-settings: "wdth" 112; }
+  .pn-l { font-size: 14.5px; line-height: 1.65; color: var(--ink-3); }
+
+  .chans { list-style: none; margin: 0; padding: 0; }
+  .ch {
+    display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 0 20px;
+    padding: 28px 0; border-bottom: 1px solid var(--rule);
+    transition: background .3s ease;
+  }
+  @media (min-width: 1000px) { .ch { grid-template-columns: 54px minmax(0, 1fr) 300px; gap: 0 40px; } }
+  .ch:hover { background: var(--bg-soft); }
+
+  .ch-id { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .ch-n { font-size: 8px; letter-spacing: .14em; color: var(--ink-5); }
+  .ch-led { width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 0 var(--c); animation: pulse 2.6s ease-out infinite; }
+  .ch:nth-child(2) .ch-led { animation-delay: .5s }
+  .ch:nth-child(3) .ch-led { animation-delay: 1s }
+  .ch:nth-child(4) .ch-led { animation-delay: 1.5s }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 55%, transparent) } 70%,100% { box-shadow: 0 0 0 9px transparent } }
+
+  .ch-t { font-size: 15px; font-weight: 700; color: var(--c); letter-spacing: -0.012em; }
+  .ch-q {
+    margin-top: 8px; max-width: 30ch; font-size: clamp(20px, 2.1vw, 30px); font-weight: 300;
+    line-height: 1.16; letter-spacing: -0.03em; min-height: 1.16em;
+  }
+  .ch-cur { display: inline-block; width: 9px; height: 1.05em; margin-left: 2px; background: var(--c); vertical-align: -0.16em; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 0%,49% { opacity: 1 } 50%,100% { opacity: 0 } }
+  .ch-a { margin-top: 14px; max-width: 66ch; font-size: 14px; line-height: 1.65; color: var(--ink-3); }
+
+  .ch-work { list-style: none; margin: 16px 0 0; padding: 0; }
+  .ch-work { border-top: 1px solid var(--rule); }
+  .ch-work a { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 13px; font-weight: 600; color: var(--ink-2); }
+  .ch-work .m { font-size: 7.5px; letter-spacing: .1em; color: var(--ink-5); }
+  .ch-work a:hover .ch-wt { color: var(--c); }
+  .ch-go { display: inline-block; margin-top: 14px; font-size: 12.5px; font-weight: 700; color: var(--c); }
+
+  .ch-side { grid-column: 1 / -1; margin-top: 20px; }
+  @media (min-width: 1000px) { .ch-side { grid-column: auto; margin-top: 0; } }
+  .ch-cv { display: block; width: 100%; height: 96px; border: 1px solid var(--rule); background: var(--bg-soft); }
+  .ch-read { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin: 12px 0 0; background: var(--rule); border: 1px solid var(--rule); }
+  .ch-read > div { background: var(--bg); padding: 9px 10px; }
+  .ch-read dt { font-size: 7px; letter-spacing: .12em; color: var(--ink-5); }
+  .ch-read dd { margin: 4px 0 0; font-size: 21px; font-weight: 300; letter-spacing: -0.03em; color: var(--c); font-variant-numeric: tabular-nums; }
+  .ch-read .sp { font-size: 14px; }
+  /* ── funding ───────────────────────────────────────────────────────────── */
   .fund-table { border-top: var(--hair) solid var(--line); }
   .fund-head { display: none; grid-template-columns: 200px 1fr 220px; gap: 24px; padding: 10px 0; border-bottom: var(--hair) solid var(--line-soft); }
   @media (min-width: 900px) { .fund-head { display: grid; } }
@@ -113,4 +160,61 @@ const objectives = [
   @media (min-width: 900px) { .fund-meta { grid-template-columns: 1fr; } }
   .fund-meta dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
   .fund-meta dd { margin: 2px 0 0; font-size: 13.5px; color: var(--ink); }
+
+  .ch-v { margin-top: 10px; font-size: 7.5px; letter-spacing: .1em; color: var(--ink-5); }
 </style>
+
+<script>
+  import { mountMotif, type Motif } from "@/scripts/motifs";
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const cs = getComputedStyle(document.documentElement);
+
+  document.querySelectorAll<HTMLElement>(".ch").forEach((ch, i) => {
+    const c = cs.getPropertyValue(`--a${i + 1}`).trim() || "#009051";
+    const cv = ch.querySelector("canvas") as HTMLCanvasElement;
+    const ctl = mountMotif(cv, cv.dataset.motif as Motif, c);
+    ctl.energy(0.85);
+    ch.addEventListener("mouseenter", () => ctl.energy(1));
+    ch.addEventListener("mouseleave", () => ctl.energy(0.85));
+  });
+
+  // The question types itself, once, when the channel first comes into view.
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) {
+      if (!e.isIntersecting) continue;
+      io.unobserve(e.target);
+      const el = e.target as HTMLElement;
+      const text = el.dataset.type ?? "";
+      const cur = el.querySelector(".ch-cur")!;
+      if (still) { el.insertBefore(document.createTextNode(text), cur); continue; }
+      let n = 0;
+      const tick = () => {
+        n += 1;
+        el.textContent = text.slice(0, n);
+        el.appendChild(cur);
+        if (n < text.length) setTimeout(tick, 14 + Math.random() * 22);
+      };
+      tick();
+    }
+  }, { threshold: 0.4 });
+  document.querySelectorAll(".ch-q").forEach((q) => io.observe(q));
+
+  // Readouts count to the real figure rather than appearing at it.
+  const nio = new IntersectionObserver((es) => {
+    for (const e of es) {
+      if (!e.isIntersecting) continue;
+      nio.unobserve(e.target);
+      const el = e.target as HTMLElement;
+      const to = Number(el.dataset.to ?? 0);
+      if (still || !to) { el.textContent = String(to); continue; }
+      const t0 = performance.now();
+      const run = (ms: number) => {
+        const k = Math.min(1, (ms - t0) / 620);
+        el.textContent = String(Math.round(to * (1 - Math.pow(1 - k, 3))));
+        if (k < 1) requestAnimationFrame(run);
+      };
+      requestAnimationFrame(run);
+    }
+  }, { threshold: 0.6 });
+  document.querySelectorAll(".num").forEach((n) => nio.observe(n));
+</script>

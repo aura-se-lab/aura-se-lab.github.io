@@ -86,7 +86,9 @@ entries:
 
   vitale2027revisiting:             { threads: [reliable-evaluation] }
   vitale2026explaining:             { threads: [neurosymbolic-interpretability] }
-  pepe2026datasets:                 { threads: [efficient-models, agents-lifecycle] }
+  # The Hugging Face documentation study is about how models and datasets are
+  # documented, licensed and maintained — not about making them cheaper to run.
+  pepe2026datasets:                 { threads: [agents-lifecycle] }
   rodriguezcardenas2026rethinking:  { threads: [reliable-evaluation, neurosymbolic-interpretability] }
   sun2026fine:                      { threads: [agents-lifecycle, neurosymbolic-interpretability] }
   cheng2026empirical:               { threads: [reliable-evaluation, agents-lifecycle] }
