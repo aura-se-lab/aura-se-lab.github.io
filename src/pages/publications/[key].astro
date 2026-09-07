@@ -107,7 +107,14 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
         {p.abstract && (
           <>
             <p class="caption mt-4">// Abstract</p>
-            <div class="prose mt-2"><p>{p.abstract}</p></div>
+            {/* Abstracts run from 159 to 381 words, which made one record page
+                740px longer than another. Every one shows the same measure by
+                default; the few that exceed it get a control, so nothing is
+                cut without the reader being told. */}
+            <div class="abs">
+              <div class="prose mt-2 abs-body"><p>{p.abstract}</p></div>
+              <button class="abs-more" type="button" hidden>Show the full abstract</button>
+            </div>
           </>
         )}
         {!p.abstract && !tldr && <p class="muted">No abstract available yet — follow the links above for the full text.</p>}
@@ -169,6 +176,22 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
   .firstpage :global(img) { width: 100%; height: auto; border: 1px solid var(--rule); background: #fff; transition: border-color .22s ease, transform .22s cubic-bezier(.2,.8,.25,1); }
   .firstpage a:hover :global(img) { border-color: var(--rule-3); transform: translateY(-3px); }
   .firstpage figcaption { margin-top: 8px; font-size: 8px; letter-spacing: .1em; color: var(--ink-5); }
+
+  /* ── abstract, to one measure ──────────────────────────────────────────── */
+  .abs { position: relative; }
+  .abs-body { --lines: 15; }
+  .abs:not(.open) .abs-body {
+    display: -webkit-box; -webkit-line-clamp: var(--lines); -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .abs:not(.open).over::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 34px; height: 44px; pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+  }
+  .abs-more {
+    margin-top: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--ink-mute); border-bottom: 1px solid var(--line);
+  }
+  .abs-more:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 <script>
   document.querySelectorAll<HTMLButtonElement>(".bib-copy").forEach((btn) =>
@@ -181,4 +204,19 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
       } catch {}
     })
   );
+</script>
+
+<script>
+  /* The control appears only where the clamp actually bites. */
+  for (const box of document.querySelectorAll<HTMLElement>(".abs")) {
+    const body = box.querySelector<HTMLElement>(".abs-body")!;
+    const btn = box.querySelector<HTMLButtonElement>(".abs-more")!;
+    if (body.scrollHeight <= body.clientHeight + 2) continue;
+    box.classList.add("over");
+    btn.hidden = false;
+    btn.addEventListener("click", () => {
+      const open = box.classList.toggle("open");
+      btn.textContent = open ? "Show less" : "Show the full abstract";
+    });
+  }
 </script>

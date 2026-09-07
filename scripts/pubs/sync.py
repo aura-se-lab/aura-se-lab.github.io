@@ -52,6 +52,7 @@ from pubs.sources import localbib as src_local  # noqa: E402
 from pubs.sources import openalex as src_openalex  # noqa: E402
 from pubs.sources import s2 as src_s2  # noqa: E402
 from pubs.sources import scholar as src_scholar  # noqa: E402
+from pubs.sources.crossref import clean_abstract
 from pubs.venues import VenueTable  # noqa: E402
 
 log = logging.getLogger("pubs")
@@ -340,6 +341,11 @@ def run(args) -> int:
             p.date = f"{p.year}-{p.month:02d}" if p.month else str(p.year)
         if p.note and p.status == "published" and re.search(r"to appear|just accepted|accepted", p.note, re.I):
             p.note = None  # stale "To Appear" notes from the local bib
+    # Publisher markup reaches us from more than one source; clean every
+    # abstract once, here, rather than in each adapter.
+    for p in pubs:
+        if p.abstract:
+            p.abstract = clean_abstract(p.abstract)
     apply_overrides(pubs, ov, warnings)
     pubs = [p for p in pubs if not p.hidden]
 

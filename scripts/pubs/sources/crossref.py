@@ -1,7 +1,32 @@
 """Crossref — per-DOI metadata (dates, pages, container title, abstract when deposited)."""
 from __future__ import annotations
 
+def clean_abstract(raw: str | None) -> str | None:
+    """Publishers deposit abstracts as JATS with inline TeX, and it reaches the
+    page as literal markup: "<italic>e.g.,</italic>" and "( $$\\sim $$ 80%)".
+    Strip the tags, unwrap the maths, and put the common symbols back as text."""
+    if not raw:
+        return None
+    t = re.sub(r"<[^>]+>", " ", raw)                       # JATS / MathML tags
+    t = re.sub(r"\$\$(.*?)\$\$", r"\1", t, flags=re.S)      # display maths
+    t = re.sub(r"\$(.*?)\$", r"\1", t, flags=re.S)           # inline maths
+    for tex, ch in (
+        (r"\\sim", "~"), (r"\\approx", "≈"), (r"\\times", "×"), (r"\\pm", "±"),
+        (r"\\leq", "≤"), (r"\\geq", "≥"), (r"\\alpha", "α"), (r"\\beta", "β"),
+        (r"\\%", "%"), (r"\\&", "&"), (r"\\_", "_"),
+    ):
+        t = re.sub(tex, ch, t)
+    t = re.sub(r"\\[a-zA-Z]+\s*", "", t)                    # anything left over
+    t = html.unescape(t)
+    t = re.sub(r"\s+([,.;:%)])", r"\1", t)                   # space before punctuation
+    t = re.sub(r"\(\s+", "(", t)
+    t = re.sub(r"\s+", " ", t).strip()
+    t = re.sub(r"^Abstract\s*", "", t)
+    return t or None
+
+
 import logging
+import html
 import re
 
 from .. import config, web
@@ -58,10 +83,7 @@ def fetch_doi(doi: str) -> Pub | None:
     y, m, iso = _date(w.get("published-print") or w.get("published-online") or w.get("issued"))
     container = (w.get("container-title") or [""])[0]
     event = (w.get("event") or {}).get("name")
-    abstract = w.get("abstract")
-    if abstract:
-        abstract = re.sub(r"<[^>]+>", "", abstract).strip()
-        abstract = re.sub(r"^\s*Abstract\s*", "", abstract)
+    abstract = clean_abstract(w.get("abstract"))
     return Pub(
         title=title,
         authors=authors,
