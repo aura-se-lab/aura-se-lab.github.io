@@ -137,7 +137,7 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
           {p.arxiv && <div class="es-row"><dt class="es-k">arXiv</dt><dd class="es-v mono" style="font-size:12.5px"><a href={`https://arxiv.org/abs/${p.arxiv}`} target="_blank" rel="noopener">{p.arxiv}</a></dd></div>}
           {(p.citations?.count ?? 0) > 0 && <div class="es-row"><dt class="es-k">Citations</dt><dd class="es-v"><b>{p.citations!.count}</b> <span class="es-faint">· {Object.keys(p.citations!.by_source ?? {}).join(" / ").replace("s2", "Semantic Scholar").replace("openalex", "OpenAlex").replace("scholar", "Google Scholar")}</span></dd></div>}
           {threads.length > 0 && (
-            <div class="es-row"><dt class="es-k">Threads</dt><dd class="es-v">{threads.map((t, i) => <><a href={`/research/${t.id}/`}>{t.data.letter} · {t.data.title}</a>{i < threads.length - 1 ? <br /> : ""}</>)}</dd></div>
+            <div class="es-row"><dt class="es-k">Threads</dt><dd class="es-v">{threads.map((t, i) => <><a href={`/research/${t.id}/`}>{t.data.title}</a>{i < threads.length - 1 ? <br /> : ""}</>)}</dd></div>
           )}
           {p.keywords && p.keywords.length > 0 && <div class="es-row"><dt class="es-k">Keywords</dt><dd class="es-v"><div class="tag-row">{p.keywords.slice(0, 8).map((k) => <span class="tag">{k}</span>)}</div></dd></div>}
           <div class="es-row"><dt class="es-k">Cite as</dt><dd class="es-v" style="font-size:13px">{p.authors.map((a) => displayName(a.name)).join(", ")}. {p.title}. <i>{p.venue_info?.name ?? p.venue_raw}</i>, {p.year}.</dd></div>

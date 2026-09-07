@@ -113,7 +113,7 @@ const outLabel = !outHref
         {threads.length > 0 && (
           <div>
             <dt class="m">DIRECTIONS</dt>
-            <dd>{threads.map((t, i) => <><a href={`/research/${t.id}/`} target="_top">{t.data.letter} · {t.data.title}</a>{i < threads.length - 1 ? <br /> : ""}</>)}</dd>
+            <dd>{threads.map((t, i) => <><a href={`/research/${t.id}/`} target="_top">{t.data.title}</a>{i < threads.length - 1 ? <br /> : ""}</>)}</dd>
           </div>
         )}
         {members.length > 0 && (

@@ -34,7 +34,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     { slug: "news", card: { kicker: "News", title: "Lab news", sub: "Acceptances, awards, funding and people" } },
     { slug: "research", card: { kicker: "Research", title: "Four threads, one aura", sub: threads.map((t) => t.data.title).join(" · ") } },
     { slug: "join", card: { kicker: "Join", title: "Work with us", sub: "Ph.D. students · undergraduate researchers · collaborators" } },
-    ...threads.map((t) => ({ slug: `research-${t.id}`, card: { kicker: `Research thread · ${t.data.letter}`, title: t.data.title, sub: t.data.short } })),
+    ...threads.map((t) => ({ slug: `research-${t.id}`, card: { kicker: "Research direction", title: t.data.title, sub: t.data.short } })),
     ...people.map((p) => ({ slug: `people-${p.id}`, card: { kicker: p.data.title ?? p.data.role, title: p.data.name, sub: p.data.interests.join(" · ") } })),
     ...publications.map((p) => ({
       slug: `publications-${p.key}`,

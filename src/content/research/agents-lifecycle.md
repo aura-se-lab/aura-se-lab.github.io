@@ -1,5 +1,6 @@
 ---
 title: AI Agents & Task-Aware Automation for the Software Lifecycle
+label: Agents & Automation
 letter: A
 short: Autonomous and multi-agent systems that plan, reason, and execute multi-step software workflows — from issue triage to documentation, code review and test generation — tailored to the task at hand and measured end-to-end.
 order: 4

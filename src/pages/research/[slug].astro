@@ -26,9 +26,8 @@ const next = all[(index + 1) % all.length];
 <Base title={d.title} description={d.short} image={`/og/research-${thread.id}.png`}>
   <section class="page-hero">
     <div class="shell">
-      <p class="caption"><a href="/research/">Research</a> · <span class="caption-num">Thread {String(index + 1).padStart(2, "0")}/{String(all.length).padStart(2, "0")}</span> · {d.letter}</p>
+      <p class="caption"><a href="/research/">Research</a> · <span class="caption-num">Thread {String(index + 1).padStart(2, "0")}/{String(all.length).padStart(2, "0")}</span></p>
       <div class="th-head">
-        <div class="th-letter" aria-hidden="true">{d.letter}</div>
         <div>
           <h1 class="h1">{d.title}</h1>
           <p class="lead mt-3" style="max-width:66ch">{d.short}</p>
@@ -82,17 +81,15 @@ const next = all[(index + 1) % all.length];
 
   <section class="section">
     <div class="shell th-nav">
-      <a href={`/research/${prev.id}/`} class="link-arrow"><ArrowLeft /> {prev.data.letter} · {prev.data.title}</a>
-      <a href={`/research/${next.id}/`} class="link-arrow">{next.data.letter} · {next.data.title} <ArrowRight /></a>
+      <a href={`/research/${prev.id}/`} class="link-arrow"><ArrowLeft /> {prev.data.title}</a>
+      <a href={`/research/${next.id}/`} class="link-arrow">{next.data.title} <ArrowRight /></a>
     </div>
   </section>
 </Base>
 
 <style>
-  .th-head { display: grid; grid-template-columns: auto 1fr; gap: 24px 40px; align-items: start; margin-top: 16px; }
-  .th-letter { font-size: clamp(96px, 14vw, 180px); font-weight: 200; line-height: 0.8; letter-spacing: -0.05em; color: var(--accent); }
+  .th-head { margin-top: 16px; }
   .th-head .h1 { max-width: 18ch; font-size: clamp(32px, 4vw, 56px); }
-  @media (max-width: 720px) { .th-head { grid-template-columns: 1fr; } .th-letter { font-size: 80px; } }
   .th-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
   @media (min-width: 1000px) { .th-grid { grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr); gap: 72px; } }
   .th-people li { padding: 8px 0; border-bottom: var(--hair) solid var(--line-soft); font-size: 14.5px; }

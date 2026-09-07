@@ -1,5 +1,6 @@
 ---
 title: Reliability, Causality & Honest Evaluation
+label: Reliability & Evaluation
 letter: R
 short: Causal reasoning and counterfactual analysis to understand cause-and-effect in software systems — and evaluation methodologies (including LLM-as-a-Judge) that measure what matters, not what's easy.
 order: 3

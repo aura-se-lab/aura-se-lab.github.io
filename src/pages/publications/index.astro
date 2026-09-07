@@ -18,10 +18,6 @@ const sorted = [...publications].sort((a, b) => (b.date ?? String(b.year)).local
 const years = [...new Set(sorted.map((p) => p.year))].sort((a, b) => b - a);
 const yearCount = (y: number) => sorted.filter((p) => p.year === y).length;
 
-/** Venues that actually appear, most-published first, for the venue filter. */
-const venueTally = new Map<string, number>();
-for (const p of sorted) venueTally.set(venueLabel(p), (venueTally.get(venueLabel(p)) ?? 0) + 1);
-const venues = [...venueTally.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
 const n = {
   reviewed: sorted.filter(isReviewed).length,
@@ -78,14 +74,6 @@ const kinds = [
             </button>
           ))}
         </div>
-        <div class="grp">
-          <select class="sel" data-f="venue" aria-label="Venue">
-            <option value="all">All venues</option>
-            {venues.map(([v, c]) => <option value={v}>{v} ({c})</option>)}
-          </select>
-          <input class="sel inp" type="search" data-f="q" placeholder="Search title, author, venue…" aria-label="Search" />
-        </div>
-
         {/* A paper can sit under more than one direction, so these are
             checkboxes, not a picker: tick any, see everything that touches
             them. None ticked means no filter at all. */}
@@ -95,7 +83,7 @@ const kinds = [
             <label class="dir" style={`--c:var(--a${i + 1})`}>
               <input type="checkbox" data-dir={t.id} />
               <span class="dir-b" aria-hidden="true"></span>
-              <span class="dir-t">{t.data.title}</span>
+              <span class="dir-t">{t.data.label ?? t.data.title}</span>
               <span class="m dir-n">{publications.filter((p) => p.threads?.includes(t.id)).length}</span>
             </label>
           ))}
@@ -215,8 +203,6 @@ const kinds = [
     background: #fff; border: 1px solid var(--rule-2); border-radius: 0;
     max-width: 100%; min-width: 0; flex-shrink: 1;
   }
-  .inp { min-width: 210px; }
-  .sel:hover { border-color: var(--rule-3); }
 
   /* ── shelf ─────────────────────────────────────────────────────────────── */
   .shelfwrap { min-height: 40vh; }
@@ -226,11 +212,16 @@ const kinds = [
   }
   .card { display: grid; grid-template-rows: auto 1fr; gap: 12px; }
   /* ── direction checkboxes ───────────────────────────────────────────────── */
-  .dirs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; padding: 0; border: 0; }
+  .dirs {
+    display: flex; align-items: center; gap: 6px; margin-top: 10px; padding: 0; border: 0;
+    width: 100%; min-width: 0;
+  }
   .dirs-l { padding: 0 8px 0 0; font-size: 8px; letter-spacing: .12em; color: var(--ink-5); }
+  /* The four share the row evenly and never wrap: one line, always. */
   .dir {
     display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 10px;
     border: 1px solid var(--rule-2); cursor: pointer; user-select: none;
+    flex: 1 1 0; min-width: 0;
     transition: border-color .18s ease, background .18s ease;
   }
   .dir:hover { border-color: var(--rule-3); }
@@ -245,7 +236,10 @@ const kinds = [
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.4 4.6 9 10 3' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     transition: opacity .12s ease;
   }
-  .dir-t { font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  .dir-t {
+    font-size: 13px; font-weight: 600; color: var(--ink-3);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+  }
   .dir-n { font-size: 8px; color: var(--ink-5); }
   .dir:has(input:checked) { border-color: var(--c); background: color-mix(in srgb, var(--c) 7%, #fff); }
   .dir:has(input:checked) .dir-b { background: var(--c); border-color: var(--c); }
@@ -253,10 +247,11 @@ const kinds = [
   .dir:has(input:checked) .dir-t { color: var(--ink); }
   .dir:has(input:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
 
-  /* The letter used to carry the chip on narrow screens while the title was
-     hidden. With the letter gone the title is the only label there is, so it
-     stays and the chips simply wrap. */
-  @media (max-width: 760px) {
+  /* Four across only holds while there is width for it. Below that the row
+     becomes a two-by-two grid rather than four slivers. */
+  @media (max-width: 900px) {
+    .dirs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .dirs-l { grid-column: 1 / -1; }
     .dir { height: 32px; padding: 0 10px 0 9px; gap: 7px; }
     .dir-t { font-size: 12px; }
   }
@@ -330,7 +325,7 @@ const kinds = [
   body.lock { overflow: hidden; }
 
   @media (max-width: 900px) { .r-h-a .r-open { display: none; } }
-  @media (max-width: 760px) { .bar { gap: 10px 12px; } .grp { width: 100%; } .sel { flex: 1 1 130px; } .inp { flex: 1 1 100%; min-width: 0; } .m-t { font-size: 13px; } }
+  @media (max-width: 760px) { .bar { gap: 10px 12px; } .grp { width: 100%; } .m-t { font-size: 13px; } }
 </style>
 
 <script>
@@ -343,7 +338,7 @@ const kinds = [
   const ixButtons = [...document.querySelectorAll<HTMLButtonElement>(".ix")];
   const syncIndex = () => ixButtons.forEach((b) => b.classList.toggle("on", b.dataset.v === state.year));
 
-  const state: Record<string, string> = { kind: "reviewed", year: "all", venue: "all", q: "" };
+  const state: Record<string, string> = { kind: "reviewed", year: "all" };
   /** Ticked research directions. Empty means no direction filter at all. */
   const dirs = new Set<string>();
   const dirBoxes = [...document.querySelectorAll<HTMLInputElement>("input[data-dir]")];
@@ -365,16 +360,10 @@ const kinds = [
   }
 
   function matches(c: HTMLElement, skip?: string) {
-    const q = state.q.trim().toLowerCase();
     if (state.kind !== "all" && c.dataset.kind !== state.kind) return false;
     if (skip !== "year" && state.year !== "all" && c.dataset.year !== state.year) return false;
-    if (state.venue !== "all" && c.dataset.venuekey !== state.venue) return false;
     // Ticked directions are a union: a paper matching any of them shows.
     if (dirs.size && !(c.dataset.threads ?? "").split(" ").some((t) => dirs.has(t))) return false;
-    if (q) {
-      const hay = `${c.dataset.title} ${c.dataset.authors} ${c.dataset.venue} ${c.dataset.year}`.toLowerCase();
-      if (!hay.includes(q)) return false;
-    }
     return true;
   }
 
@@ -471,22 +460,8 @@ const kinds = [
       render();
     })
   );
-  document.querySelectorAll<HTMLSelectElement>("select.sel").forEach((s) =>
-    s.addEventListener("change", () => {
-      state[s.dataset.f!] = s.value;
-      page = 1;
-      render();
-    })
-  );
-  const qEl = document.querySelector<HTMLInputElement>('input[data-f="q"]')!;
-  qEl.addEventListener("input", () => {
-    state.q = qEl.value;
-    page = 1;
-    render();
-  });
-
   const sp = new URLSearchParams(location.search);
-  for (const k of ["kind", "year", "venue", "q"]) if (sp.get(k)) state[k] = sp.get(k)!;
+  for (const k of ["kind", "year"]) if (sp.get(k)) state[k] = sp.get(k)!;
   for (const d of (sp.get("dir") ?? "").split(",").filter(Boolean)) {
     const box = dirBoxes.find((b) => b.dataset.dir === d);
     if (box) { box.checked = true; dirs.add(d); }
@@ -495,9 +470,7 @@ const kinds = [
   document.querySelectorAll<HTMLButtonElement>('.chip[data-f="kind"]').forEach((b) =>
     b.classList.toggle("on", b.dataset.v === state.kind)
   );
-  document.querySelectorAll<HTMLSelectElement>("select.sel").forEach((s) => (s.value = state[s.dataset.f!] ?? "all"));
   syncIndex();
-  qEl.value = state.q;
 
   let t: number;
   addEventListener("resize", () => {

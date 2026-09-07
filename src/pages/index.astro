@@ -90,7 +90,6 @@ const stats = [
           {threads.map((t, i) => (
             <li class="rv" style={`--i:${3 + i}`}>
               <a class="area" href={`/research/${t.id}/`} data-l={String(i)} style={`--c:var(--a${i + 1})`}>
-                <span class="area-l exp">{t.data.letter}</span>
                 <span class="area-t">
                   <span class="area-h">{t.data.title}</span>
                   <span class="area-s">{t.data.short.split(/[—.]/)[0].trim()}</span>
@@ -246,16 +245,12 @@ const stats = [
   .right .label { font-size: max(8.5px, 0.42vw); }
   .areas { margin-top: 12px; display: grid; gap: clamp(8px, 0.5vw, 14px); }
   .area {
-    display: grid; grid-template-columns: clamp(44px, 2.3vw, 66px) minmax(0, 1fr) 20px; align-items: center; gap: clamp(14px, 0.9vw, 22px);
+    display: grid; grid-template-columns: minmax(0, 1fr) 20px; align-items: center; gap: clamp(14px, 0.9vw, 22px);
     padding: clamp(13px, 1vw, 24px) clamp(15px, 1.1vw, 26px); background: rgba(255,255,255,.72); border: 1px solid var(--rule);
     backdrop-filter: blur(6px);
     transition: border-color .24s ease, transform .24s cubic-bezier(.2,.8,.25,1), background .24s ease;
   }
   .area:hover { border-color: var(--c); transform: translateX(5px); background: #fff; }
-  .area-l {
-    font-weight: 800; font-size: clamp(27px, 1.55vw, 42px); line-height: 1; letter-spacing: -0.03em; color: var(--c);
-    text-align: center; font-variation-settings: "wdth" 118;
-  }
   .area-t { min-width: 0; }
   .area-h { display: block; font-weight: 700; font-size: clamp(14px, 0.72vw, 20px); line-height: 1.25; letter-spacing: -0.012em; font-variation-settings: "wdth" 106; }
   .area-s { display: block; margin-top: 4px; font-size: clamp(12.2px, 0.6vw, 16.5px); line-height: 1.35; color: var(--ink-4); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }

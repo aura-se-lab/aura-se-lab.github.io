@@ -99,7 +99,9 @@ const research = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      letter: z.string().max(2), // "A", "U", "R", "A"
+      /** Short form for filter chips and other tight rows */
+      label: z.string().optional(),
+      letter: z.string().max(2), // kept for data, no longer rendered
       short: z.string(), // one-line summary
       order: z.number(),
       tags: z.array(z.string()).default([]),

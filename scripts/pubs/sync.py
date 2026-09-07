@@ -59,10 +59,32 @@ ALL_SOURCES = ["dblp", "crossref", "s2", "openalex", "arxiv", "local"]
 
 
 # ── overrides ────────────────────────────────────────────────────────────────
+class _DupKeyLoader(yaml.SafeLoader):
+    """YAML lets a later key silently replace an earlier one. In this file that
+    is never intended — it once cost three papers their acceptance details,
+    because a threads-only entry further down the file overwrote the entry that
+    carried their venue and status. Refuse to load a file with a repeated key."""
+
+
+def _no_duplicates(loader, node, deep=False):
+    seen: set = set()
+    for k, _ in node.value:
+        key = loader.construct_object(k, deep=deep)
+        if key in seen:
+            raise yaml.constructor.ConstructorError(
+                None, None, f"duplicate key {key!r} in {config.OVERRIDES_YML.name}", k.start_mark
+            )
+        seen.add(key)
+    return yaml.SafeLoader.construct_mapping(loader, node, deep)
+
+
+_DupKeyLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, _no_duplicates)
+
+
 def load_overrides() -> dict:
     if not config.OVERRIDES_YML.exists():
         return {}
-    return yaml.safe_load(config.OVERRIDES_YML.read_text(encoding="utf-8")) or {}
+    return yaml.load(config.OVERRIDES_YML.read_text(encoding="utf-8"), Loader=_DupKeyLoader) or {}
 
 
 def _ref_matches(ref: dict, pub: Pub) -> bool:

@@ -75,7 +75,7 @@ const desc = `${d.name} — ${d.title ?? roleLabel[d.role]} at the AURA Lab, Wil
           {d.joined && <div class="es-row"><dt class="es-k">Joined</dt><dd class="es-v">{fmtYm(d.joined)}</dd></div>}
           {d.left && <div class="es-row"><dt class="es-k">Left</dt><dd class="es-v">{fmtYm(d.left)}{d.next && ` → ${d.next}`}</dd></div>}
           {d.coadvised && <div class="es-row"><dt class="es-k">Co-advised</dt><dd class="es-v">with {d.coadvised}</dd></div>}
-          {threads.length > 0 && <div class="es-row"><dt class="es-k">Threads</dt><dd class="es-v">{threads.map((t, i) => <><a href={`/research/${t.id}/`}>{t.data.letter} · {t.data.title}</a>{i < threads.length - 1 ? <br /> : ""}</>)}</dd></div>}
+          {threads.length > 0 && <div class="es-row"><dt class="es-k">Threads</dt><dd class="es-v">{threads.map((t, i) => <><a href={`/research/${t.id}/`}>{t.data.title}</a>{i < threads.length - 1 ? <br /> : ""}</>)}</dd></div>}
           {pubs.length > 0 && <div class="es-row"><dt class="es-k">Papers</dt><dd class="es-v"><b>{pubs.length}</b> with the lab <span class="es-faint">· {pubs.filter(isReviewed).length} peer-reviewed</span></dd></div>}
         </dl>
         {d.awards.length > 0 && (

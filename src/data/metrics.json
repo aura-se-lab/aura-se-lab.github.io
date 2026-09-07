@@ -1,7 +1,7 @@
 {
-  "updated": "2026-09-07T15:33+00:00",
+  "updated": "2026-09-07T16:36+00:00",
   "total": 29,
-  "reviewed": 19,
+  "reviewed": 21,
   "by_year": {
     "2024": 2,
     "2025": 10,
@@ -9,15 +9,17 @@
     "2027": 1
   },
   "by_type": {
-    "journal": 9,
-    "preprint": 10,
-    "conference": 10
+    "journal": 10,
+    "conference": 10,
+    "preprint": 8,
+    "workshop": 1
   },
   "citations": 151,
   "venues": [
+    "AI-SDLC",
+    "ASE",
     "EMSE",
     "FORGE",
-    "FSE",
     "ICPC",
     "ICSME",
     "TOSEM",

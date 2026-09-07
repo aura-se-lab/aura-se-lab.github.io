@@ -41,6 +41,7 @@ entries:
     venue: AI-SDLC
     type: workshop
     selected: true
+    threads: [neurosymbolic-interpretability]
 
   # Accepted at ASE 2026; the ACM DOI is the proceedings, so the sources still
   # carry it as the arXiv preprint.
@@ -49,6 +50,7 @@ entries:
     type: conference
     status: accepted
     selected: true
+    threads: [reliable-evaluation, neurosymbolic-interpretability]
 
   # The multilingual prompt benchmark — Saima's, with the Molise/Andes/NC State
   # group. Accepted at TOSEM on 16 Aug 2026 (TOSEM-2025-0896.R2); the arXiv
@@ -58,6 +60,7 @@ entries:
     type: journal
     status: accepted
     selected: true
+    threads: [reliable-evaluation]
 
   # Multi-task QLoRA — Alvi's first as lead author. Accepted at TOSEM on
   # 26 Aug 2026 (TOSEM-2026-0062.R2).
@@ -83,8 +86,6 @@ entries:
 
   vitale2027revisiting:             { threads: [reliable-evaluation] }
   vitale2026explaining:             { threads: [neurosymbolic-interpretability] }
-  nguyen2026pattern:                { threads: [reliable-evaluation, neurosymbolic-interpretability] }
-  afrin2026large:                   { threads: [reliable-evaluation] }
   pepe2026datasets:                 { threads: [efficient-models, agents-lifecycle] }
   rodriguezcardenas2026rethinking:  { threads: [reliable-evaluation, neurosymbolic-interpretability] }
   sun2026fine:                      { threads: [agents-lifecycle, neurosymbolic-interpretability] }
@@ -93,6 +94,5 @@ entries:
   mehditabar2025smart:              { threads: [efficient-models] }
   afrin2025quantization:            { threads: [efficient-models] }
   fang2025smaller:                  { threads: [efficient-models] }
-  mastropaolo2025path:              { threads: [neurosymbolic-interpretability] }
   afrin2025resource:                { threads: [efficient-models] }
   vitale2025optimizing:             { threads: [reliable-evaluation] }

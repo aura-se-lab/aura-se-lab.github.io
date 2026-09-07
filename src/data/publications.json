@@ -148,8 +148,9 @@
     "year": 2026,
     "month": 8,
     "date": "2026-08-04",
-    "type": "preprint",
-    "status": "preprint",
+    "type": "conference",
+    "status": "accepted",
+    "venue": "ASE",
     "doi": "10.1145/3832783.3834443",
     "arxiv": "2608.03691",
     "url": "https://arxiv.org/abs/2608.03691",
@@ -159,7 +160,7 @@
       "reliable-evaluation",
       "neurosymbolic-interpretability"
     ],
-    "selected": false,
+    "selected": true,
     "citations": {
       "count": 1,
       "by_source": {
@@ -174,11 +175,13 @@
     },
     "key": "nguyen2026pattern",
     "venue_info": {
-      "key": "",
-      "name": "",
-      "type": "preprint"
+      "key": "ASE",
+      "name": "IEEE/ACM International Conference on Automated Software Engineering",
+      "type": "conference",
+      "url": "https://conf.researchr.org/home/ase",
+      "rank": "CORE A*"
     },
-    "bibtex": "@misc{nguyen2026pattern,\n  title         = {Pattern over Pixels: Measuring Pattern Completion Bias in Multimodal Code Generation},\n  author        = {Nguyen, Khai-Nguyen and Chaparro, Oscar and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2608.03691},\n  eprint        = {2608.03691},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = aug,\n  doi           = {10.1145/3832783.3834443},\n  url           = {https://doi.org/10.1145/3832783.3834443}\n}"
+    "bibtex": "@inproceedings{nguyen2026pattern,\n  title     = {Pattern over Pixels: Measuring Pattern Completion Bias in Multimodal Code Generation},\n  author    = {Nguyen, Khai-Nguyen and Chaparro, Oscar and Mastropaolo, Antonio},\n  booktitle = {IEEE/ACM International Conference on Automated Software Engineering},\n  year      = {2026},\n  month     = aug,\n  doi       = {10.1145/3832783.3834443},\n  url       = {https://doi.org/10.1145/3832783.3834443}\n}"
   },
   {
     "title": "Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality",
@@ -213,10 +216,10 @@
     "year": 2026,
     "month": 7,
     "date": "2026-07-16",
-    "type": "preprint",
-    "status": "preprint",
+    "type": "journal",
+    "status": "accepted",
     "venue_raw": "CoRR",
-    "venue": "arXiv",
+    "venue": "TOSEM",
     "arxiv": "2607.14816",
     "url": "https://arxiv.org/abs/2607.14816",
     "pdf": "https://arxiv.org/pdf/2607.14816",
@@ -224,7 +227,7 @@
     "threads": [
       "reliable-evaluation"
     ],
-    "selected": false,
+    "selected": true,
     "citations": {
       "count": 0,
       "by_source": {
@@ -239,13 +242,13 @@
     },
     "key": "afrin2026large",
     "venue_info": {
-      "key": "arXiv",
-      "name": "arXiv preprint",
-      "type": "preprint",
-      "url": "https://arxiv.org",
-      "rank": null
+      "key": "TOSEM",
+      "name": "ACM Transactions on Software Engineering and Methodology",
+      "type": "journal",
+      "url": "https://dl.acm.org/journal/tosem",
+      "rank": "CORE A*"
     },
-    "bibtex": "@misc{afrin2026large,\n  title         = {Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality},\n  author        = {Afrin, Saima and Midolo, Alessandro and Escobar-Velásquez, Camilo and Linares-Vásquez, Mario and Ding, Weiyuan and Xu, Bowen and Di Penta, Massimiliano and Mastropaolo, Antonio},\n  howpublished  = {arXiv preprint arXiv:2607.14816},\n  eprint        = {2607.14816},\n  archivePrefix = {arXiv},\n  year          = {2026},\n  month         = jul,\n  url           = {https://arxiv.org/abs/2607.14816}\n}"
+    "bibtex": "@article{afrin2026large,\n  title   = {Large Language Models for Code Generation from Multilingual Prompts: A Curated Benchmark and a Study on Code Quality},\n  author  = {Afrin, Saima and Midolo, Alessandro and Escobar-Velásquez, Camilo and Linares-Vásquez, Mario and Ding, Weiyuan and Xu, Bowen and Di Penta, Massimiliano and Mastropaolo, Antonio},\n  journal = {ACM Transactions on Software Engineering and Methodology},\n  year    = {2026},\n  month   = jul,\n  url     = {https://arxiv.org/abs/2607.14816}\n}"
   },
   {
     "title": "Quantize with Confidence? An Empirical Study of Quantization for Code Generation",
@@ -1263,10 +1266,10 @@
     "year": 2025,
     "month": 6,
     "date": "2025-06-23",
-    "type": "conference",
+    "type": "workshop",
     "status": "published",
     "venue_raw": "Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering",
-    "venue": "FSE",
+    "venue": "AI-SDLC",
     "pages": "1358–1362",
     "publisher": "ACM",
     "doi": "10.1145/3696630.3728720",
@@ -1301,11 +1304,11 @@
     },
     "key": "mastropaolo2025path",
     "venue_info": {
-      "key": "FSE",
-      "name": "ACM International Conference on the Foundations of Software Engineering",
-      "type": "conference",
-      "url": "https://conf.researchr.org/home/fse",
-      "rank": "CORE A*"
+      "key": "AI-SDLC",
+      "name": "International Workshop on AI for Software Development Lifecycle",
+      "type": "workshop",
+      "url": "https://conf.researchr.org/home/fse-2025/ai-sdlc-2025",
+      "rank": null
     },
     "bibtex": "@inproceedings{mastropaolo2025path,\n  title     = {A Path Less Traveled: Reimagining Software Engineering Automation via a Neurosymbolic Paradigm},\n  author    = {Mastropaolo, Antonio and Poshyvanyk, Denys},\n  booktitle = {Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering},\n  year      = {2025},\n  month     = jun,\n  pages     = {1358--1362},\n  publisher = {ACM},\n  doi       = {10.1145/3696630.3728720},\n  url       = {https://doi.org/10.1145/3696630.3728720}\n}"
   },

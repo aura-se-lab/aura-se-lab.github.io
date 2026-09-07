@@ -1,5 +1,6 @@
 ---
 title: Neurosymbolic Program Reasoning & Interpretability
+label: Neurosymbolic Reasoning
 letter: U
 short: Combining neural language models with grammars, type systems, and program analysis — plus feature-level explanations that move beyond opaque token-by-token predictions toward something developers can actually read.
 order: 2

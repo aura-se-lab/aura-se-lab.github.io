@@ -1,12 +1,12 @@
 # Publications sync — 2026-09-07
 
-**29 publications** (19 peer-reviewed) · 151 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
+**29 publications** (21 peer-reviewed) · 151 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
 
 ## ✏️ Changed (3)
 
-- `nguyen2026pattern` — status: accepted → preprint; venue: ASE → None; type: conference → preprint
-- `afrin2026large` — status: accepted → preprint; venue: TOSEM → arXiv; type: journal → preprint
-- `mastropaolo2025path` — venue: AI-SDLC → FSE; type: workshop → conference
+- `nguyen2026pattern` — status: preprint → accepted; venue: None → ASE; type: preprint → conference
+- `afrin2026large` — status: preprint → accepted; venue: arXiv → TOSEM; type: preprint → journal
+- `mastropaolo2025path` — venue: FSE → AI-SDLC; type: conference → workshop
 
 ## 🏷️ Venues without a row in `data/venues.yml`
 

@@ -1,5 +1,6 @@
 ---
 title: Resource-Efficient Foundation Models for Code
+label: Resource-Efficient Models
 letter: A
 short: Quantization, parameter-efficient fine-tuning, and distillation that make code-intelligence models cheap enough to deploy at developer scale — without sacrificing functional or non-functional code quality.
 order: 1
