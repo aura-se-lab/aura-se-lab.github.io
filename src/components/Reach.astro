@@ -15,7 +15,7 @@ const subject = encodeURIComponent("[AURA Lab] Hello");
 
 const channels = [
   { k: "EMAIL", v: lab.contact.email, href: `mailto:${lab.contact.email}?subject=${subject}` },
-  ...(lab.social.github ? [{ k: "GITHUB", v: "aura-se-lab", href: lab.social.github }] : []),
+  ...(lab.social.github ? [{ k: "GITHUB", v: lab.social.github.replace(/^https:\/\/github\.com\//, ""), href: lab.social.github }] : []),
   ...(lab.social.x ? [{ k: "X", v: "@" + lab.social.x.split("/").pop(), href: lab.social.x }] : []),
   ...(lab.social.scholar ? [{ k: "SCHOLAR", v: "Publication record", href: lab.social.scholar }] : []),
 ];
