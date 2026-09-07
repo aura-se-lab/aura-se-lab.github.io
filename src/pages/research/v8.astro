@@ -1,0 +1,144 @@
+---
+/** STUDY 8 — Stage. A sticky canvas that holds the screen while the four
+ *  avenues advance through it on scroll, each with its own motif. */
+import Base from "@/layouts/Base.astro";
+import { directions } from "@/lib/research";
+import { lab } from "@/lib/lab";
+import { venueLabel } from "@/lib/pubs";
+
+const dirs = await directions();
+const motif = ["quantize", "parse", "measure", "flow"];
+---
+
+<Base title="Research — study 8" description="Design study" noindex>
+  <div class="page">
+    <div class="shell">
+      <header class="page-head">
+        <div class="row">
+          <div>
+            <p class="label">FOUR AVENUES · SCROLL</p>
+            <h1 class="h2 mt-2">Research</h1>
+          </div>
+        </div>
+        <p class="lead" style="max-width:60ch">{lab.brief[0]}</p>
+      </header>
+    </div>
+  </div>
+
+  <div class="stage-wrap" id="wrap">
+    <div class="stage">
+      <div class="s-bg">
+        {dirs.map((d, i) => (
+          <canvas class="s-cv" data-motif={motif[i]} data-i={String(i)} aria-hidden="true"></canvas>
+        ))}
+      </div>
+      <div class="shell s-in">
+        <nav class="s-rail" aria-hidden="true">
+          {dirs.map((d, i) => (
+            <span class="s-dot" data-i={String(i)} style={`--c:var(--a${i + 1})`}>
+              <b class="m">{String(i + 1).padStart(2, "0")}</b>
+            </span>
+          ))}
+        </nav>
+        <div class="s-slides">
+          {dirs.map((d, i) => (
+            <article class="s-slide" data-i={String(i)} style={`--c:var(--a${i + 1})`}>
+              <p class="m s-k">AVENUE {String(i + 1).padStart(2, "0")} · {d.papers.length} PAPERS · {d.span}</p>
+              <h2 class="s-q">{d.q}</h2>
+              <p class="s-t">{d.title}</p>
+              <p class="s-a">{d.a}</p>
+              <ul class="s-work">
+                {d.papers.slice(0, 3).map((p) => (
+                  <li><a href={`/publications/${p.key}/`}><span class="m">{venueLabel(p)} {p.year}</span>{p.title}</a></li>
+                ))}
+              </ul>
+              <a class="s-go" href={`/research/${d.id}/`}>Open the avenue →</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .stage-wrap { height: 420vh; }
+  .stage { position: sticky; top: var(--nav-h); height: calc(100dvh - var(--nav-h)); overflow: hidden; background: var(--chrome); }
+  .s-bg { position: absolute; inset: 0; }
+  /* The motif runs the full stage; the reading column keeps its own ground. */
+  .s-bg::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to right, var(--chrome) 22%, rgba(5,5,5,.86) 46%, rgba(5,5,5,.1) 78%);
+  }
+  .s-cv { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .55s ease; }
+  .s-cv.on { opacity: 1; }
+
+  .s-in { position: relative; height: 100%; display: grid; grid-template-columns: 44px minmax(0, 1fr); align-items: center; gap: 20px; }
+  .s-rail { display: grid; gap: 12px; justify-items: center; }
+  .s-dot { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.4); transition: all .35s ease; }
+  .s-dot b { font-size: 8px; letter-spacing: .08em; }
+  .s-dot.on { background: var(--c); border-color: var(--c); color: #fff; }
+
+  .s-slides { position: relative; height: 100%; }
+  .s-slide {
+    position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+    max-width: 62ch; opacity: 0; transform: translateY(26px); pointer-events: none;
+    transition: opacity .5s ease, transform .6s cubic-bezier(.2,.8,.25,1);
+  }
+  .s-slide.on { opacity: 1; transform: none; pointer-events: auto; }
+  .s-k { font-size: 8.5px; letter-spacing: .13em; color: var(--c); }
+  .s-q {
+    margin-top: 16px; font-size: clamp(28px, 4.4vw, 58px); font-weight: 300; line-height: 1.06;
+    letter-spacing: -0.035em; color: #fff;
+  }
+  .s-t { margin-top: 16px; font-size: 14px; font-weight: 700; color: var(--c); }
+  .s-a { margin-top: 10px; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.65; color: rgba(255,255,255,.68); }
+  .s-work { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1px solid rgba(255,255,255,.16); max-width: 66ch; }
+  .s-work a { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 13px; font-weight: 600; color: rgba(255,255,255,.9); }
+  .s-work .m { font-size: 8px; letter-spacing: .09em; color: rgba(255,255,255,.42); }
+  .s-work a:hover { color: var(--c); }
+  .s-go { display: inline-block; margin-top: 18px; font-size: 13px; font-weight: 700; color: var(--c); border-bottom: 1px solid currentColor; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage-wrap { height: auto; }
+    .stage { position: static; height: auto; padding: 40px 0; }
+    .s-slides { height: auto; display: grid; gap: 48px; }
+    .s-slide { position: static; opacity: 1; transform: none; pointer-events: auto; }
+    .s-cv { display: none; }
+  }
+</style>
+
+<script>
+  import { mountMotif, type Motif } from "@/scripts/motifs";
+
+  const wrap = document.getElementById("wrap") as HTMLElement;
+  const cvs = [...document.querySelectorAll<HTMLCanvasElement>(".s-cv")];
+  const slides = [...document.querySelectorAll<HTMLElement>(".s-slide")];
+  const dots = [...document.querySelectorAll<HTMLElement>(".s-dot")];
+  const cs = getComputedStyle(document.documentElement);
+
+  const ctls = cvs.map((cv, i) => {
+    const c = cs.getPropertyValue(`--a${i + 1}`).trim() || "#009051";
+    return mountMotif(cv, cv.dataset.motif as Motif, c);
+  });
+
+  let cur = -1;
+  const show = (i: number) => {
+    if (i === cur) return;
+    cur = i;
+    cvs.forEach((c, j) => c.classList.toggle("on", j === i));
+    slides.forEach((s, j) => s.classList.toggle("on", j === i));
+    dots.forEach((d, j) => d.classList.toggle("on", j === i));
+    ctls.forEach((c, j) => c.energy(j === i ? 1 : 0.2));
+  };
+  show(0);
+
+  const onScroll = () => {
+    const r = wrap.getBoundingClientRect();
+    const total = r.height - window.innerHeight;
+    const p = Math.min(0.999, Math.max(0, -r.top / total));
+    show(Math.floor(p * slides.length));
+  };
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+</script>

@@ -1,0 +1,108 @@
+---
+/** STUDY 9 — Plates. Four large tiles, each running its own motif behind the
+ *  text. Quiet at rest, alive under the cursor; nothing moves that the reader
+ *  has to read through. */
+import Base from "@/layouts/Base.astro";
+import { directions } from "@/lib/research";
+import { lab } from "@/lib/lab";
+import { venueLabel } from "@/lib/pubs";
+
+const dirs = await directions();
+const motif = ["quantize", "parse", "measure", "flow"];
+---
+
+<Base title="Research — study 9" description="Design study" noindex>
+  <div class="page">
+    <div class="shell">
+      <header class="page-head">
+        <div class="row">
+          <div>
+            <p class="label">FOUR AVENUES</p>
+            <h1 class="h2 mt-2">Research</h1>
+          </div>
+        </div>
+        <p class="lead" style="max-width:60ch">{lab.brief[0]}</p>
+      </header>
+
+      <div class="plates">
+        {dirs.map((d, i) => (
+          <article class="pl" style={`--c:var(--a${i + 1})`}>
+            <canvas class="p-cv" data-motif={motif[i]} aria-hidden="true"></canvas>
+            <div class="p-in">
+              <div class="p-top">
+                <span class="m p-n">{String(i + 1).padStart(2, "0")}</span>
+                <span class="m p-c">{d.papers.length} PAPERS · {d.reviewed.length} PEER-REVIEWED</span>
+              </div>
+              <h2 class="p-q">{d.q}</h2>
+              <p class="p-t">{d.title}</p>
+              <div class="p-more">
+                <p class="p-a">{d.a}</p>
+                <ul class="p-work">
+                  {d.papers.slice(0, 3).map((p) => (
+                    <li><a href={`/publications/${p.key}/`}><span class="m">{venueLabel(p)} {p.year}</span>{p.title}</a></li>
+                  ))}
+                </ul>
+              </div>
+              <p class="m p-v">{d.venues.slice(0, 6).join(" · ")}</p>
+              <a class="p-go" href={`/research/${d.id}/`}>Open →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .plates { display: grid; gap: 16px; }
+  @media (min-width: 900px) { .plates { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
+
+  .pl {
+    position: relative; overflow: hidden; min-height: 340px;
+    border: 1px solid var(--rule); background: var(--bg-soft);
+    transition: border-color .3s ease, transform .35s cubic-bezier(.2,.8,.25,1), box-shadow .35s ease;
+  }
+  .pl:hover { border-color: var(--c); transform: translateY(-5px); box-shadow: 0 26px 48px -30px rgba(11,15,13,.55); }
+  .p-cv { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; transition: opacity .4s ease; }
+  .pl:hover .p-cv { opacity: 1; }
+  .pl::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, var(--bg) 12%, rgba(255,255,255,.72) 46%, rgba(255,255,255,.1) 100%);
+  }
+
+  .p-in { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; padding: 22px; }
+  .p-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .p-n { font-size: 9px; letter-spacing: .12em; color: var(--c); }
+  .p-c { font-size: 7.5px; letter-spacing: .09em; color: var(--ink-5); }
+  .p-q {
+    margin-top: auto; padding-top: 60px; max-width: 22ch;
+    font-size: clamp(21px, 2.2vw, 30px); font-weight: 300; line-height: 1.14; letter-spacing: -0.03em;
+  }
+  .p-t { margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--c); }
+
+  /* The detail is there but folded away until the plate is engaged. */
+  .p-more { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.2,.8,.25,1), opacity .3s ease; }
+  .pl:hover .p-more, .pl:focus-within .p-more { max-height: 320px; opacity: 1; }
+  .p-a { margin-top: 12px; font-size: 13.5px; line-height: 1.6; color: var(--ink-3); max-width: 58ch; }
+  .p-work { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+  .p-work a { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: 12.5px; font-weight: 600; }
+  .p-work .m { font-size: 7.5px; letter-spacing: .09em; color: var(--ink-5); }
+  .p-work a:hover { color: var(--c); }
+
+  .p-v { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 7.5px; letter-spacing: .09em; color: var(--c); }
+  .p-go { margin-top: 10px; font-size: 12.5px; font-weight: 700; }
+  .pl:hover .p-go { color: var(--c); }
+</style>
+
+<script>
+  import { mountMotif, type Motif } from "@/scripts/motifs";
+  const cs = getComputedStyle(document.documentElement);
+  document.querySelectorAll<HTMLElement>(".pl").forEach((pl, i) => {
+    const cv = pl.querySelector("canvas") as HTMLCanvasElement;
+    const c = cs.getPropertyValue(`--a${i + 1}`).trim() || "#009051";
+    const ctl = mountMotif(cv, cv.dataset.motif as Motif, c);
+    ctl.energy(0.3);
+    pl.addEventListener("mouseenter", () => ctl.energy(1));
+    pl.addEventListener("mouseleave", () => ctl.energy(0.3));
+  });
+</script>
