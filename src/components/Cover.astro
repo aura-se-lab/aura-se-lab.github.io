@@ -1,0 +1,128 @@
+---
+/**
+ * A publication's first page. A scan when we have one; otherwise a page drawn
+ * from the record itself — a magazine masthead for a column, a title page for
+ * everything else. Every paper gets one, so the grid never has a hole in it
+ * and neither does the summary overlay.
+ */
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { venueLabel, shortName, MONTHS, type Publication } from "@/lib/pubs";
+
+const MONTHS_LONG = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+
+interface Props {
+  pub: Publication;
+  cover?: ImageMetadata;
+  widths?: number[];
+  sizes?: string;
+  eager?: boolean;
+}
+const { pub: p, cover, widths = [260, 520], sizes = "260px", eager = false } = Astro.props;
+
+function facts() {
+  const full = p.venue_info?.name || p.venue_raw || venueLabel(p);
+  const ieee = /IEEE/i.test(p.publisher ?? "");
+  // "IEEE Computer" splits into a publisher line and a masthead, the way the
+  // magazine sets its own cover; everything else keeps one line.
+  const society = ieee ? "IEEE" : (p.publisher ?? "").replace(/\s*\(.*\)\s*/, "").trim();
+  const title = (p.venue_raw || full).replace(/^IEEE\s+/i, "");
+  const bits: string[] = [];
+  if (p.volume) bits.push(`VOL ${p.volume}`);
+  if (p.number) bits.push(`NO ${p.number}`);
+  if (p.pages) bits.push(`PP ${p.pages.replace(/-+/g, "–")}`);
+  return {
+    society: society.toUpperCase(),
+    masthead: title.toUpperCase(),
+    oneLine: (ieee && !/^IEEE/i.test(p.venue_raw ?? "") ? `IEEE ${p.venue_raw}` : full).toUpperCase(),
+    cite: bits.join(" · "),
+    issue: p.month ? `${MONTHS_LONG[p.month - 1]} ${p.year}`.toUpperCase() : String(p.year),
+    dateline: p.month ? `${MONTHS[p.month - 1]} ${p.year}` : String(p.year),
+  };
+}
+const f = facts();
+const byline = p.authors.map((a) => shortName(a.name)).join(", ");
+---
+
+{cover ? (
+  <Image src={cover} alt={`First page of “${p.title}”`} widths={widths} sizes={sizes} loading={eager ? "eager" : "lazy"} />
+) : p.type === "magazine" ? (
+  <span class="nocover nocover--mag">
+    <span class="nc-band">
+      <span class="nc-soc m">{f.society}</span>
+      <span class="nc-mast">{f.masthead}</span>
+      <span class="nc-iss m">{f.issue}</span>
+    </span>
+    <span class="nc-body">
+      {f.cite && <span class="nc-cite m">{f.cite}</span>}
+      <span class="nc-t">{p.title}</span>
+      <span class="nc-base">
+        <span class="nc-hair" aria-hidden="true"></span>
+        <span class="nc-a">{byline}</span>
+      </span>
+    </span>
+  </span>
+) : (
+  <span class="nocover">
+    <span class="nc-body">
+      <span class="nc-one m">{f.oneLine}</span>
+      {f.cite && <span class="nc-cite m">{f.cite}</span>}
+      <span class="nc-rule" aria-hidden="true"></span>
+      <span class="nc-t">{p.title}</span>
+      <span class="nc-base">
+        <span class="nc-a">{byline}</span>
+        <span class="nc-foot m">{f.dateline.toUpperCase()}</span>
+      </span>
+    </span>
+  </span>
+)}
+
+<style>
+  :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+  .nocover {
+    display: flex; flex-direction: column; height: 100%; overflow: hidden; text-align: left;
+    background: #fdfdfc; box-shadow: inset 0 0 0 1px rgba(11, 15, 13, 0.06);
+  }
+  .nc-body { display: flex; flex-direction: column; flex: 1; min-height: 0; padding: 8%; }
+
+  /* ── a magazine column, set the way the magazine sets its own cover ─────── */
+  .nocover--mag { background: #fff; }
+  .nc-band {
+    flex: 0 0 auto; display: block; padding: 7% 8% 6.5%;
+    background: var(--teal); color: #fff;
+  }
+  .nc-soc { display: block; font-size: max(6.5px, 2.8cqw); letter-spacing: .22em; color: rgba(255,255,255,.72); }
+  .nc-mast {
+    display: block; margin-top: 2%; font-variation-settings: "wdth" 118; font-weight: 800;
+    font-size: clamp(15px, 9.4cqw, 30px); line-height: .96; letter-spacing: -0.035em; color: #fff;
+  }
+  .nc-iss {
+    display: block; margin-top: 5%; padding-top: 4%; border-top: 1px solid rgba(255,255,255,.32);
+    font-size: max(6px, 2.7cqw); letter-spacing: .13em; color: rgba(255,255,255,.86);
+  }
+
+  .nc-cite { flex: 0 0 auto; font-size: max(6.5px, 2.9cqw); letter-spacing: .08em; color: var(--ink-5); }
+  .nocover--mag .nc-cite { color: var(--teal); }
+  .nc-one { flex: 0 0 auto; font-size: max(7px, 3.2cqw); letter-spacing: .1em; color: var(--brand); line-height: 1.45; }
+  .nc-rule { flex: 0 0 auto; height: 1px; background: var(--rule-3); margin: 5% 0 6%; }
+
+  .nc-t {
+    flex: 0 1 auto; min-height: 0; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical;
+    overflow: hidden; margin-top: 6%; font-size: clamp(11px, 6.1cqw, 16px); font-weight: 700;
+    line-height: 1.26; letter-spacing: -0.018em; color: var(--ink); font-variation-settings: "wdth" 104;
+  }
+  .nocover--mag .nc-t { margin-top: 7%; }
+
+  .nc-base { flex: 0 0 auto; margin-top: auto; padding-top: 8%; }
+  .nc-hair { display: block; width: 22%; height: 2px; background: var(--teal); margin-bottom: 5%; }
+  .nc-a {
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    font-size: clamp(9.5px, 4.5cqw, 12.5px); line-height: 1.4; color: var(--ink-4);
+  }
+  .nc-foot {
+    display: block; margin-top: 5%; padding-top: 5%; border-top: 1px solid var(--rule);
+    font-size: max(6.5px, 2.9cqw); letter-spacing: .08em; color: var(--ink-5);
+  }
+</style>
