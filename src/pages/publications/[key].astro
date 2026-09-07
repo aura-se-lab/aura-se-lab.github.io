@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "@/layouts/Base.astro";
-import PubRow from "@/components/PubRow.astro";
 import PubList from "@/components/PubList.astro";
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
@@ -21,10 +20,6 @@ const links = pubLinks(p);
 const icon: Record<string, any> = { doi: ExternalLink, arxiv: FileText, pdf: FileText, code: CodeXml, data: Database, slides: Presentation, video: Video, url: ExternalLink };
 const threads = (await getCollection("research")).filter((t) => p.threads?.includes(t.id)).sort((a, b) => a.data.order - b.data.order);
 const news = (await getCollection("news", ({ data }) => !data.draft && data.publication === p.key)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const related = publications
-  .filter((q) => q.key !== p.key && q.threads?.some((t) => p.threads?.includes(t)))
-  .sort((a, b) => (b.citations?.count ?? 0) - (a.citations?.count ?? 0))
-  .slice(0, 4);
 const tldr = p.sources?.tldr;
 const site = (Astro.site ?? new URL("https://auralab.sh")).origin;
 
@@ -163,16 +158,6 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
     </div>
   </section>
 
-  {related.length > 0 && (
-    <section class="section">
-      <div class="shell">
-        <h2 class="h2">Related work</h2>
-        <div class="mt-3" style="border-top: var(--hair) solid var(--line)">
-          {related.map((r) => <PubRow pub={r} compact />)}
-        </div>
-      </div>
-    </section>
-  )}
   <section class="section">
     <div class="shell"><a href="/publications/" class="link-arrow"><ArrowLeft /> All publications</a></div>
   </section>
