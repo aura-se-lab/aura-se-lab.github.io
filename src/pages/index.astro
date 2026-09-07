@@ -346,7 +346,7 @@ const stats = [
   /* ── the reader overlay ─────────────────────────────────────────────────── */
   .reader { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: clamp(10px, 2.4vw, 34px); }
   .r-back { position: absolute; inset: 0; background: rgba(11,15,13,.72); backdrop-filter: blur(3px); animation: fade .2s ease; }
-  .r-box { position: relative; width: min(900px, 100%); height: min(96vh, 100%); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
+  .r-box { position: relative; width: min(900px, 100%); height: 62vh; max-height: min(96vh, 100%); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
   @keyframes fade { from { opacity: 0; } }
   @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.985); } }
   .r-head { display: flex; align-items: flex-start; gap: 20px; padding: 11px 18px; border-bottom: 1px solid var(--rule); }
@@ -395,6 +395,7 @@ const stats = [
 <script>
   // ── news reader: the item opens over the page rather than navigating away
   const nreader = document.getElementById("nreader")!;
+  const nbox = nreader.querySelector(".r-box") as HTMLElement;
   const nframe = document.getElementById("nr-frame") as HTMLIFrameElement;
   const nload = document.getElementById("nr-load")!;
   const ntitle = document.getElementById("nr-title")!;
@@ -439,4 +440,18 @@ const stats = [
     a.addEventListener("mouseleave", off);
     a.addEventListener("blur", off);
   });
+
+  /* The box is only as tall as the item inside it, up to the screen. The embed
+     measures itself and posts the number; until it arrives the box holds a
+     modest default rather than the full height of the screen. */
+  const HMAX = () => Math.round(innerHeight * 0.96);
+  function fitBox(h) {
+    const head = (nbox.querySelector(".r-head") as HTMLElement)?.offsetHeight ?? 0;
+    nbox.style.height = Math.min(head + h, HMAX()) + "px";
+  }
+  addEventListener("message", (e) => {
+    if (e.origin !== location.origin || (e.data as any)?.type !== "aura:news-height") return;
+    fitBox((e.data as any).h);
+  });
+  addEventListener("resize", () => { nbox.style.height = ""; });
 </script>
