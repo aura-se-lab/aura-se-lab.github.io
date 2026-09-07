@@ -35,6 +35,8 @@ const blurb = (body: string, max = 190) => {
   return cut.slice(0, cut.lastIndexOf(" ")) + "…";
 };
 
+// Papers with an arXiv copy — not the same set as the preprint bucket, which
+// now means work that has not been accepted anywhere yet.
 const arxivCount = publications.filter((p) => p.arxiv).length;
 
 const stats = [
@@ -110,7 +112,7 @@ const stats = [
         </a>
         <div class="rail-r">
           <span class="rail-meta m">
-            {metrics.total} PUBLICATIONS · {arxivCount} PREPRINTS ON ARXIV · SYNCED {fmtDate(metrics.updated).toUpperCase()}
+            {metrics.total} PUBLICATIONS · {arxivCount} PAPERS ON ARXIV · SYNCED {fmtDate(metrics.updated).toUpperCase()}
           </span>
         </div>
       </div>
