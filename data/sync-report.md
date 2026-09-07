@@ -2,12 +2,6 @@
 
 **52 publications** (23 peer-reviewed) · 157 citations tracked · sources: arxiv, crossref, dblp, local, openalex, s2
 
-## ✏️ Changed (3)
-
-- `afrin2026large` — status: preprint → accepted; venue: arXiv → TOSEM; type: preprint → journal
-- `afrin2026quantize` — status: preprint → accepted; venue: arXiv → ICSME; type: preprint → conference
-- `haque2026parameter` — status: preprint → accepted; venue: arXiv → TOSEM; type: preprint → journal
-
 ## 🏷️ Venues without a row in `data/venues.yml`
 
 - NL4AI@AI*IA (1)
@@ -23,3 +17,4 @@
 - Saima Afrin — seen on DBLP as **Saima Afrin**, add `dblp: "367/9210"` under `ids:` in `src/content/people/saima-afrin.md`
 - Zaiyu (Chris) Cheng — seen on DBLP as **Zaiyu Cheng**, add `dblp: "386/5272"` under `ids:` in `src/content/people/zaiyu-cheng.md`
 
+_No changes to the publication list._

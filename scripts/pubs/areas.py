@@ -37,5 +37,7 @@ def classify(pub: Pub, threads: dict[str, dict], min_score: int = 1) -> list[str
     if not scores:
         return []
     top = scores[0][0]
-    # keep every thread within 60% of the best score (papers legitimately span threads), max 2
-    return [slug for s, _, slug in scores if s >= max(1, top * 0.6)][:2]
+    # A paper genuinely spans directions — an efficiency study of a code model
+    # that also asks how you evaluate it belongs under both. Keep every thread
+    # within half the best score, up to three: all four would say nothing.
+    return [slug for s, _, slug in scores if s >= max(1, top * 0.5)][:3]
