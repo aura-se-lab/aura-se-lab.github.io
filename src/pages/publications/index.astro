@@ -95,7 +95,6 @@ const kinds = [
             <label class="dir" style={`--c:var(--a${i + 1})`}>
               <input type="checkbox" data-dir={t.id} />
               <span class="dir-b" aria-hidden="true"></span>
-              <span class="dir-k exp">{t.data.letter}</span>
               <span class="dir-t">{t.data.title}</span>
               <span class="m dir-n">{publications.filter((p) => p.threads?.includes(t.id)).length}</span>
             </label>
@@ -246,7 +245,6 @@ const kinds = [
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.4 4.6 9 10 3' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     transition: opacity .12s ease;
   }
-  .dir-k { font-size: 13px; font-weight: 800; color: var(--c); font-variation-settings: "wdth" 118; }
   .dir-t { font-size: 13px; font-weight: 600; color: var(--ink-3); }
   .dir-n { font-size: 8px; color: var(--ink-5); }
   .dir:has(input:checked) { border-color: var(--c); background: color-mix(in srgb, var(--c) 7%, #fff); }
@@ -255,9 +253,12 @@ const kinds = [
   .dir:has(input:checked) .dir-t { color: var(--ink); }
   .dir:has(input:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
 
+  /* The letter used to carry the chip on narrow screens while the title was
+     hidden. With the letter gone the title is the only label there is, so it
+     stays and the chips simply wrap. */
   @media (max-width: 760px) {
-    .dir-t { display: none; }
-    .dir { padding: 0 10px; }
+    .dir { height: 32px; padding: 0 10px 0 9px; gap: 7px; }
+    .dir-t { font-size: 12px; }
   }
 
   .card[hidden] { display: none; }
