@@ -27,9 +27,9 @@ const subject = encodeURIComponent("[AURA Lab] Prospective student");
           <p>Ph.D. students in the lab are enrolled in the <a href={lab.institution.url} target="_blank" rel="noopener">Computer Science Ph.D. program at William & Mary</a>. Admission goes through the department, not through the lab — but we read applications that mention the AURA Lab closely, so make your interest explicit in your statement of purpose.</p>
           <h3>What we look for</h3>
           <ul>
-            <li>Solid software engineering or machine-learning foundations, and the curiosity to cross between the two.</li>
-            <li>Evidence that you can finish things: a thesis, an open-source contribution, a paper, a product, a replication.</li>
-            <li>Comfort with empirical work — designing experiments, measuring carefully, and writing up what you found (including what did not work).</li>
+            <li>Solid foundations in both software engineering and machine learning, and the appetite to work in the space between them. Depth in one and working knowledge of the other is a fine starting point, as long as you are curious enough to close the gap, since most of what we do sits at that intersection.</li>
+            <li>Evidence that you finish things: a thesis, an open-source contribution, a paper, a shipped product, a replication.</li>
+            <li>A willingness to learn how empirical research actually works: framing a question, designing an experiment that can answer it, measuring carefully, and writing up what you found, including what did not work. Almost nobody arrives knowing how to do this well. Learning it is part of the job here.</li>
             <li>Interest in at least one of our four threads: {threads.map((t, i) => <><a href={`/research/${t.id}/`}>{t.data.title}</a>{i < threads.length - 1 ? ", " : "."}</>)}</li>
           </ul>
           <h3>How to reach out</h3>
