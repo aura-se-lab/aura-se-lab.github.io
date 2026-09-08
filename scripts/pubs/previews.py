@@ -153,7 +153,7 @@ def main():
             continue
         if kind == "first-page":
             im = frame(Image.open(src))
-            im.save(dest, quality=82, optimize=True, progressive=True)
+            im.save(dest, quality=90, optimize=True, progressive=True)
             print(f"  + {key}  ({kind})")
             made += 1
             continue
@@ -167,12 +167,25 @@ def main():
         if im is None:
             print(f"  ! {key}: no page rendered", file=sys.stderr)
             continue
-        im.save(dest, quality=82, optimize=True, progressive=True)
+        im.save(dest, quality=90, optimize=True, progressive=True)
         print(f"  + {key}  ({kind})")
         made += 1
 
+    # A paper that leaves the list — a namesake the sources got wrong, a
+    # duplicate, an entry excluded by hand — leaves its cover behind. Drop it,
+    # so src/assets/papers holds exactly the covers the site can use.
+    live = {p["key"] for p in pubs}
+    pruned = 0
+    for f in sorted(os.listdir(OUT)):
+        if not f.endswith(".jpg"):
+            continue
+        if f[:-4] not in live:
+            os.remove(os.path.join(OUT, f))
+            print(f"  - {f[:-4]}  (no longer in the publication list)")
+            pruned += 1
+
     print(f"\n{made} rendered · {skipped} already present · {none} without an open full text "
-          f"({len(pubs)} publications)")
+          f"· {pruned} pruned ({len(pubs)} publications)")
     if none:
         print("Post the accepted manuscript to public/papers/<key>.pdf, or drop a\n"
               "first-page image at data/first-pages/<key>.png, to cover the rest.")
