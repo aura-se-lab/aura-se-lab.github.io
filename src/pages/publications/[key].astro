@@ -128,10 +128,10 @@ const desc = (p.abstract ?? tldr ?? `${p.title} — ${p.venue_info?.name ?? p.ve
           <figure class="firstpage">
             {readable ? (
               <a href={readable} target="_blank" rel="noopener" aria-label="Open the PDF">
-                <Image src={cover} alt={`First page of “${p.title}”`} widths={[320, 640]} sizes="320px" loading="eager" />
+                <Image src={cover} alt={`First page of “${p.title}”`} widths={[320, 640, 960]} sizes="320px" quality={86} loading="eager" />
               </a>
             ) : (
-              <Image src={cover} alt={`First page of “${p.title}”`} widths={[320, 640]} sizes="320px" loading="eager" />
+              <Image src={cover} alt={`First page of “${p.title}”`} widths={[320, 640, 960]} sizes="320px" quality={86} loading="eager" />
             )}
             <figcaption class="m">FIRST PAGE</figcaption>
           </figure>

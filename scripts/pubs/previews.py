@@ -27,7 +27,11 @@ PAGES = os.path.join(ROOT, "data", "first-pages")
 CACHE = os.path.join(ROOT, ".cache", "pdfs")
 OUT = os.path.join(ROOT, "src", "assets", "papers")
 AR = 17 / 22
-W = 520                                                    # 2x of the 260px card
+W = 1040                                                   # 4x the 260px card: the
+                                                           # record page shows it at
+                                                           # 320 and the news lead
+                                                           # larger still, so 520 was
+                                                           # soft on any modern screen
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 
@@ -109,8 +113,8 @@ def frame(im):
 
 def render(pdf, key):
     stem = os.path.join(CACHE, key)
-    subprocess.run(["pdftoppm", "-f", "1", "-l", "1", "-r", "150", "-jpeg",
-                    "-jpegopt", "quality=92", pdf, stem], check=True, capture_output=True)
+    subprocess.run(["pdftoppm", "-f", "1", "-l", "1", "-r", "300", "-jpeg",
+                    "-jpegopt", "quality=95", pdf, stem], check=True, capture_output=True)
     page = next((f for f in sorted(os.listdir(CACHE)) if f.startswith(key + "-")), None)
     if not page:
         return None

@@ -17,9 +17,10 @@ interface Props {
   cover?: ImageMetadata;
   widths?: number[];
   sizes?: string;
+  quality?: number;
   eager?: boolean;
 }
-const { pub: p, cover, widths = [260, 520], sizes = "260px", eager = false } = Astro.props;
+const { pub: p, cover, widths = [260, 520, 780], sizes = "260px", quality = 84, eager = false } = Astro.props;
 
 function facts() {
   const full = p.venue_info?.name || p.venue_raw || venueLabel(p);
@@ -49,7 +50,7 @@ const longVenue = f.oneLine.length > 30;
 ---
 
 {cover ? (
-  <Image src={cover} alt={`First page of “${p.title}”`} widths={widths} sizes={sizes} loading={eager ? "eager" : "lazy"} />
+  <Image src={cover} alt={`First page of “${p.title}”`} widths={widths} sizes={sizes} quality={quality} loading={eager ? "eager" : "lazy"} />
 ) : p.type === "magazine" ? (
   <span class="nocover nocover--mag">
     <span class="nc-band">
