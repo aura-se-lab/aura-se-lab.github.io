@@ -18,8 +18,11 @@ __pycache__/
 # single-file preview bundles
 preview/
 
-# local design preview dropped in by the cowork session
-public/v2.html
+# QA output from `npm run audit`
+.audit/
+
+# the superseded single-file mockup: kept locally for reference, 3.5MB
+docs/design-variants/v2-standalone.html
 
 # Render cache for publication previews
 .cache/

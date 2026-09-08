@@ -15,8 +15,8 @@
   --ink:       #0b0f0d;
   --ink-2:     #333935;
   --ink-3:     #4e544f;
-  --ink-4:     #6f756f;
-  --ink-5:     #9aa09a;
+  --ink-4:     #666d66;   /* muted text — AA on white and on the accent tint */
+  --ink-5:     #676e67;   /* smallest labels — 4.7:1 even on the tinted grounds */
 
   /* rules */
   --rule:      rgba(11, 15, 13, 0.11);
@@ -24,8 +24,9 @@
   --rule-3:    #0b0f0d;
 
   /* brand — sampled from the AURA wordmark and the mark's own strokes */
-  --brand:     #009051;
+  --brand:     #009051;   /* fills, rules, large type */
   --brand-dk:  #00713f;
+  --brand-ink: #00713f;   /* brand green as small text on white — 6.1:1 */
   --teal:      #17485a;
   --mint:      #70c0b0;
   --sage:      #609050;
@@ -37,6 +38,12 @@
   --a2: #009051;
   --a3: #46a97c;
   --a4: #17485a;
+  /* the same four as *text* on white — AA at small sizes (--a2/--a3 are
+     fills, and neither clears 4.5:1 as type) */
+  --a1t: #0c5a3a;
+  --a2t: #00713f;
+  --a3t: #1f7a55;
+  --a4t: #17485a;
 
   /* dark chrome */
   --chrome:    #050505;
@@ -82,6 +89,11 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--live); outline-offset: 3px; }
 ::selection { background: #cfeadd; color: var(--ink); }
+
+.vh {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
 
 .skip-link { position: absolute; left: 12px; top: -60px; z-index: 1000;
   background: var(--brand); color: #fff; padding: 9px 14px; }
@@ -130,7 +142,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   transition: transform .25s cubic-bezier(.2,.8,.25,1), background .2s ease, color .2s ease, border-color .2s ease;
 }
 .btn   { background: var(--ink); color: #fff; }
-.btn:hover  { transform: translateY(-2px); background: var(--brand); }
+.btn:hover  { transform: translateY(-2px); background: var(--brand-dk); }
 .btn-o { border: 1px solid var(--rule-2); color: var(--ink); }
 .btn-o:hover { transform: translateY(-2px); border-color: var(--rule-3); }
 
@@ -149,7 +161,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   border: 1px solid var(--rule); padding: 3px 6px; transition: border-color .2s ease, color .2s ease;
 }
 a.tg:hover, button.tg:hover { border-color: var(--rule-3); color: var(--ink); }
-.tg-a { color: var(--brand); border-color: rgba(0,144,81,.4); }
+.tg-a { color: var(--brand-ink); border-color: rgba(0,144,81,.4); }
 
 .ulink { border-bottom: 1px solid var(--rule-2); padding-bottom: 2px; }
 .ulink:hover { border-color: var(--rule-3); }
@@ -229,7 +241,7 @@ html.mo [data-rv].in {
   letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-4);
   border: 1px solid var(--rule); padding: 3px 7px;
 }
-.tag--accent { color: var(--brand); border-color: rgba(0, 144, 81, 0.42); }
+.tag--accent { color: var(--brand-ink); border-color: rgba(0, 144, 81, 0.42); }
 .tag-row, .btn-row { display: flex; flex-wrap: wrap; gap: 7px; }
 .btn-row { gap: 10px; }
 .btn--ghost { background: none; color: var(--ink); border: 1px solid var(--rule-2); }
@@ -278,8 +290,8 @@ a.card:hover, .card:hover { border-color: var(--rule-3); }
 .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--brand); margin-right: 8px; vertical-align: 1px; }
 .status-dot--mute { background: var(--ink-5); }
 
-.btn--accent { background: var(--brand); color: #fff; }
-.btn--accent:hover { background: var(--brand-dk); }
+.btn--accent { background: var(--brand-dk); color: #fff; }
+.btn--accent:hover { background: #00693b; }
 
 .card-strip {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;

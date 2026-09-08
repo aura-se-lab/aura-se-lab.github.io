@@ -334,7 +334,7 @@ const stats = [
   .n-body { min-width: 0; }
   .n-meta { display: flex; align-items: center; gap: 9px; }
   .n-d { font-size: 8px; letter-spacing: .09em; color: var(--ink-5); }
-  .n-k { font-size: 7.5px; letter-spacing: .09em; color: var(--brand); border: 1px solid rgba(0,144,81,.34); padding: 3px 6px; }
+  .n-k { font-size: 7.5px; letter-spacing: .09em; color: var(--brand-ink); border: 1px solid rgba(0,144,81,.34); padding: 3px 6px; }
   .n-t {
     display: block; margin-top: 6px; font-size: clamp(14.5px, 0.9vw, 17.5px); font-weight: 700;
     line-height: 1.3; letter-spacing: -0.016em; font-variation-settings: "wdth" 104; color: var(--ink);
@@ -346,7 +346,7 @@ const stats = [
   /* ── the reader overlay ─────────────────────────────────────────────────── */
   .reader { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: clamp(10px, 2.4vw, 34px); }
   .r-back { position: absolute; inset: 0; background: rgba(11,15,13,.72); backdrop-filter: blur(3px); animation: fade .2s ease; }
-  .r-box { position: relative; width: min(900px, 100%); height: min(745px, 92vh); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
+  .r-box { position: relative; width: min(1040px, 100%); height: min(880px, 92vh); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
   @keyframes fade { from { opacity: 0; } }
   @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.985); } }
   .r-head { display: flex; align-items: flex-start; gap: 20px; padding: 11px 18px; border-bottom: 1px solid var(--rule); }

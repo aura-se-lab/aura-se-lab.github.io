@@ -22,18 +22,18 @@ const a = lab.institution.address;
 
       <nav class="c-cols" aria-label="Footer">
         <div class="c-col">
-          <h4 class="m">PAGES</h4>
+          <p class="m c-h">PAGES</p>
           {lab.nav.map((n) => <a href={n.href}>{n.label}</a>)}
         </div>
         <div class="c-col">
-          <h4 class="m">CONTACT</h4>
+          <p class="m c-h">CONTACT</p>
           <a href={`mailto:${lab.contact.email}`}>{lab.contact.email}</a>
           {lab.social.github && <a href={lab.social.github} target="_blank" rel="noopener">GitHub</a>}
           {lab.social.x && <a href={lab.social.x} target="_blank" rel="noopener">X</a>}
           {lab.social.scholar && <a href={lab.social.scholar} target="_blank" rel="noopener">Scholar</a>}
         </div>
         <div class="c-col">
-          <h4 class="m">DATA</h4>
+          <p class="m c-h">DATA</p>
           <a href="/aura.bib">BibTeX, all papers</a>
           <a href="/publications.xml">Publications feed</a>
           <a href="/rss.xml">News feed</a>
@@ -68,7 +68,7 @@ const a = lab.institution.address;
 
   .c-cols { display: flex; flex-wrap: wrap; gap: 26px 56px; }
   .c-col { display: flex; flex-direction: column; gap: 6px; min-width: 130px; }
-  .c-col h4 { font-size: 8px; letter-spacing: .12em; color: var(--brand); margin-bottom: 5px; font-weight: 600; }
+  .c-col .c-h { font-size: 8px; letter-spacing: .12em; color: var(--brand); margin-bottom: 5px; font-weight: 600; }
   .c-col a { color: var(--on-chrome-2); width: fit-content; border-bottom: 1px solid transparent; }
   .c-col a:hover { color: #fff; border-color: var(--brand); }
 

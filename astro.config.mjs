@@ -15,7 +15,10 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("/og/") && !page.includes("/drafts/"),
+      filter: (page) =>
+        !page.includes("/og/") &&
+        !page.includes("/drafts/") &&
+        !page.includes("/news/embed/"),
       changefreq: "weekly",
     }),
   ],

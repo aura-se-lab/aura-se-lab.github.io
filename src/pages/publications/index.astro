@@ -91,6 +91,7 @@ const kinds = [
       </div>
 
       <div class="shelfwrap">
+        <h2 class="vh">Publications</h2>
         <ul class="shelf" id="shelf">
           {sorted.map((p) => {
             const cover = coverOf[p.key];
@@ -253,7 +254,7 @@ const kinds = [
   .v-pre { background: #fff; color: var(--ink-4); border: 1px solid var(--rule-2); }
   .yr { font-size: 8px; color: var(--ink-5); }
   /* Accepted, not yet in an issue — the card should not imply page numbers. */
-  .soon { font-size: 8px; letter-spacing: .07em; color: var(--brand); border: 1px solid var(--brand); padding: 2px 5px; }
+  .soon { font-size: 8px; letter-spacing: .07em; color: var(--brand-ink); border: 1px solid var(--brand); padding: 2px 5px; }
   .m-t { font-size: 14px; font-weight: 700; line-height: 1.3; letter-spacing: -0.014em; font-variation-settings: "wdth" 104; }
   .m-t a:hover { color: var(--brand); }
   .m-a { font-size: 12px; color: var(--ink-4); line-height: 1.4; }
@@ -265,10 +266,12 @@ const kinds = [
   .pager { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--rule); }
   .count { font-size: 8.5px; letter-spacing: .09em; color: var(--ink-5); }
   .pbtns { display: flex; flex-wrap: wrap; gap: 5px; }
-  .pb { min-width: 32px; height: 32px; padding: 0 9px; border: 1px solid var(--rule-2); font-size: 13px; font-weight: 600; color: var(--ink-3); }
-  .pb:hover { border-color: var(--rule-3); color: var(--ink); }
-  .pb.on { background: var(--ink); border-color: var(--ink); color: #fff; }
-  .pb:disabled { opacity: .3; cursor: default; }
+  /* The pager buttons are built by the script below, so they carry no
+     scope attribute — these rules have to reach out of the scope to land. */
+  .pbtns :global(.pb) { min-width: 36px; height: 36px; padding: 0 10px; border: 1px solid var(--rule-2); font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  .pbtns :global(.pb:hover) { border-color: var(--rule-3); color: var(--ink); }
+  .pbtns :global(.pb.on) { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .pbtns :global(.pb:disabled) { opacity: .3; cursor: default; }
 
 </style>
 

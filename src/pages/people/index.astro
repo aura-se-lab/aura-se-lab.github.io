@@ -86,7 +86,7 @@ const d = director.data;
               const np = pubsByMember(p.id).length;
               return (
                 <li class="pc">
-                  <a class="pc-shot" href={`/people/${p.id}/`}>
+                  <a class="pc-shot" href={`/people/${p.id}/`} tabindex="-1" aria-hidden="true">
                     {shot ? (
                       <Image src={shot} alt={p.data.name} widths={[240, 480]} sizes="(max-width: 700px) 45vw, 240px" loading="lazy" />
                     ) : (

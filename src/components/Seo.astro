@@ -83,4 +83,4 @@ const ld = [org, ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [])];
 
 {meta.map((m) => <meta name={m.name} content={m.content} />)}
 
-<script type="application/ld+json" set:html={JSON.stringify(ld)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />

@@ -34,7 +34,7 @@ const motif = ["quantize", "parse", "measure", "flow"];
 
       <ol class="chans">
         {dirs.map((d, i) => (
-          <li class="ch" style={`--c:var(--a${i + 1})`}>
+          <li class="ch" style={`--c:var(--a${i + 1});--ct:var(--a${i + 1}t)`}>
             <div class="ch-id">
               <span class="m ch-n">CH{String(i + 1).padStart(2, "0")}</span>
               <span class="ch-led" aria-hidden="true"></span>
@@ -42,7 +42,7 @@ const motif = ["quantize", "parse", "measure", "flow"];
 
             <div class="ch-main">
               <p class="ch-t">{d.title}</p>
-              <p class="ch-q" data-type={d.q}><span class="ch-cur" aria-hidden="true"></span></p>
+              <p class="ch-q" data-type={d.q}>{d.q}<span class="ch-cur" aria-hidden="true"></span></p>
               <p class="ch-a">{d.a}</p>
               <ul class="ch-work">
                 {d.papers.slice(0, 3).map((p) => (
@@ -55,8 +55,8 @@ const motif = ["quantize", "parse", "measure", "flow"];
             <div class="ch-side">
               <canvas class="ch-cv" data-motif={motif[i]} aria-hidden="true"></canvas>
               <dl class="ch-read">
-                <div><dt class="m">PAPERS</dt><dd class="num" data-to={String(d.papers.length)}>0</dd></div>
-                <div><dt class="m">REVIEWED</dt><dd class="num" data-to={String(d.reviewed.length)}>0</dd></div>
+                <div><dt class="m">PAPERS</dt><dd class="num" data-to={String(d.papers.length)}>{d.papers.length}</dd></div>
+                <div><dt class="m">REVIEWED</dt><dd class="num" data-to={String(d.reviewed.length)}>{d.reviewed.length}</dd></div>
                 <div><dt class="m">SPAN</dt><dd class="sp">{d.span}</dd></div>
               </dl>
               <p class="m ch-v">{d.venues.slice(0, 5).join(" / ")}</p>
@@ -122,7 +122,7 @@ const motif = ["quantize", "parse", "measure", "flow"];
   .ch:nth-child(4) .ch-led { animation-delay: 1.5s }
   @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 55%, transparent) } 70%,100% { box-shadow: 0 0 0 9px transparent } }
 
-  .ch-t { font-size: 15px; font-weight: 700; color: var(--c); letter-spacing: -0.012em; }
+  .ch-t { font-size: 15px; font-weight: 700; color: var(--ct, var(--c)); letter-spacing: -0.012em; }
   .ch-q {
     margin-top: 8px; max-width: 30ch; font-size: clamp(20px, 2.1vw, 30px); font-weight: 300;
     line-height: 1.16; letter-spacing: -0.03em; min-height: 1.16em;
@@ -136,7 +136,7 @@ const motif = ["quantize", "parse", "measure", "flow"];
   .ch-work a { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 13px; font-weight: 600; color: var(--ink-2); }
   .ch-work .m { font-size: 7.5px; letter-spacing: .1em; color: var(--ink-5); }
   .ch-work a:hover .ch-wt { color: var(--c); }
-  .ch-go { display: inline-block; margin-top: 14px; font-size: 12.5px; font-weight: 700; color: var(--c); }
+  .ch-go { display: inline-block; margin-top: 14px; font-size: 12.5px; font-weight: 700; color: var(--ct, var(--c)); }
 
   .ch-side { grid-column: 1 / -1; margin-top: 20px; }
   @media (min-width: 1000px) { .ch-side { grid-column: auto; margin-top: 0; } }
@@ -144,7 +144,7 @@ const motif = ["quantize", "parse", "measure", "flow"];
   .ch-read { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin: 12px 0 0; background: var(--rule); border: 1px solid var(--rule); }
   .ch-read > div { background: var(--bg); padding: 9px 10px; }
   .ch-read dt { font-size: 7px; letter-spacing: .12em; color: var(--ink-5); }
-  .ch-read dd { margin: 4px 0 0; font-size: 21px; font-weight: 300; letter-spacing: -0.03em; color: var(--c); font-variant-numeric: tabular-nums; }
+  .ch-read dd { margin: 4px 0 0; font-size: 21px; font-weight: 300; letter-spacing: -0.03em; color: var(--ct, var(--c)); font-variant-numeric: tabular-nums; }
   .ch-read .sp { font-size: 14px; }
   /* ── funding ───────────────────────────────────────────────────────────── */
   .fund-table { border-top: var(--hair) solid var(--line); }
@@ -186,7 +186,9 @@ const motif = ["quantize", "parse", "measure", "flow"];
       const el = e.target as HTMLElement;
       const text = el.dataset.type ?? "";
       const cur = el.querySelector(".ch-cur")!;
-      if (still) { el.insertBefore(document.createTextNode(text), cur); continue; }
+      // The question is already in the markup — the page reads correctly with
+      // no JS and before this fires. Typing it is a re-reveal, not the source.
+      if (still) continue;
       let n = 0;
       const tick = () => {
         n += 1;
@@ -206,7 +208,9 @@ const motif = ["quantize", "parse", "measure", "flow"];
       nio.unobserve(e.target);
       const el = e.target as HTMLElement;
       const to = Number(el.dataset.to ?? 0);
-      if (still || !to) { el.textContent = String(to); continue; }
+      // Same rule as the question: the figure is rendered server-side, so a
+      // reader who never scrolls past it still sees the true number.
+      if (still || !to) continue;
       const t0 = performance.now();
       const run = (ms: number) => {
         const k = Math.min(1, (ms - t0) / 620);

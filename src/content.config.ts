@@ -1,5 +1,7 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
+// Astro 7 deprecates re-exporting `z`; take it from zod directly.
+import { z } from "zod";
 
 /**
  * People — one Markdown file per member in src/content/people/.
@@ -37,14 +39,14 @@ const people = defineCollection({
       email: z.string().optional(),
       links: z
         .object({
-          website: z.string().url().optional(),
-          scholar: z.string().url().optional(),
-          github: z.string().url().optional(),
-          linkedin: z.string().url().optional(),
-          x: z.string().url().optional(),
-          bluesky: z.string().url().optional(),
-          orcid: z.string().url().optional(),
-          dblp: z.string().url().optional(),
+          website: z.url().optional(),
+          scholar: z.url().optional(),
+          github: z.url().optional(),
+          linkedin: z.url().optional(),
+          x: z.url().optional(),
+          bluesky: z.url().optional(),
+          orcid: z.url().optional(),
+          dblp: z.url().optional(),
         })
         .default({}),
       /**
@@ -89,7 +91,7 @@ const news = defineCollection({
     /** Set true to have the social workflow post this item once it lands on main */
     social: z.boolean().default(false),
     /** External link the card points to (optional) */
-    link: z.string().url().optional(),
+    link: z.url().optional(),
   }),
 });
 

@@ -24,7 +24,9 @@ This repository is the source of the lab website, served at **https://auralab.sh
 │   ├── pubs/               publications pipeline (python)  →  docs/AUTOMATION.md
 │   ├── social/             Bluesky / X poster
 │   ├── legacy-redirect/    the stub that keeps aura-se-lab.github.io links alive
-│   └── screenshots.mjs     visual QA at 1440 / 1024 / 390 px
+│   ├── screenshots.mjs     visual QA at 1440 / 1024 / 390 px
+│   ├── check-links.mjs     every internal href/src in dist/ must resolve
+│   └── audit.mjs           every route × 4 widths: axe, console, overflow, headings
 ├── public/                 static files, _headers, _redirects, aura.bib (generated)
 ├── .github/workflows/      ci · deploy · pubs-sync · social-post · legacy-redirect
 ├── wrangler.jsonc          Cloudflare Workers static-assets config (custom domains)
@@ -51,8 +53,16 @@ npm install
 npm run dev          # live preview
 npm run build        # static build → dist/
 npm run sync:pubs    # refresh publications from the bibliographic sources
+npm run links        # internal link check over dist/
+npm run audit        # accessibility + console + layout sweep over dist/ → .audit/
 node scripts/screenshots.mjs   # full-page screenshots of the build into .screens/
 ```
+
+`npm run audit` loads every built route at 1440 / 1180 / 820 / 390 px and reports
+axe-core violations, console and network errors, horizontal overflow, heading
+order and unnamed links, writing `.audit/report.json` plus screenshots of the
+main pages. Both it and `screenshots.mjs` use Playwright's Chromium when it is
+installed and fall back to the system Chrome (`CHROME_PATH` to override).
 
 Requires Node ≥ 22 and Python ≥ 3.11.
 

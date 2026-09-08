@@ -41,7 +41,12 @@ await new Promise((r) => server.listen(0, r));
 const port = server.address().port;
 await mkdir(out, { recursive: true });
 
-const browser = await chromium.launch();
+// Playwright's own Chromium if it is installed, otherwise the system Chrome —
+// so this runs on a clean checkout without `npx playwright install`.
+const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const browser = await chromium
+  .launch()
+  .catch(() => chromium.launch({ executablePath: process.env.CHROME_PATH ?? CHROME }));
 for (const w of widths) {
   const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, deviceScaleFactor: 1 });
   const page = await ctx.newPage();

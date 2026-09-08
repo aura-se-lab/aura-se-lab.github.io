@@ -4,7 +4,7 @@
  * `compact` hides the meta line (used on the homepage / profile pages).
  */
 import type { Publication } from "@/lib/pubs";
-import { pubLinks, venueLabel, displayName, shortName, bucketOf, pubDateLabel } from "@/lib/pubs";
+import { pubLinks, venueLabel, displayName, shortName, bucketOf } from "@/lib/pubs";
 import { Award, ExternalLink, FileText, CodeXml, Database, Presentation, Video, Quote, Copy } from "@lucide/astro";
 
 interface Props {
@@ -22,7 +22,6 @@ const bucket = bucketOf(p);
 const badgeClass = bucket === "preprint" ? "venue-badge venue-badge--preprint" : bucket === "magazine" ? "venue-badge venue-badge--muted" : "venue-badge";
 const icon: Record<string, any> = { doi: ExternalLink, arxiv: FileText, pdf: FileText, code: CodeXml, data: Database, slides: Presentation, video: Video, url: ExternalLink };
 const cites = p.citations?.count ?? 0;
-const memberAuthors = p.authors.filter((a) => a.member).length;
 ---
 
 <article class="pub" data-key={p.key} data-year={p.year} data-bucket={bucket} data-type={p.type} data-threads={(p.threads ?? []).join(" ")} data-members={p.authors.map((a) => a.member).filter(Boolean).join(" ")}>
