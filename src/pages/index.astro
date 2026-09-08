@@ -14,7 +14,9 @@ const current = people.filter((p) => p.data.status === "current");
 
 const news = (await getCollection("news"))
   .filter((n) => !n.data.draft)
-  .sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned) || +b.data.date - +a.data.date);
+  // Newest first, by date alone. Pinning used to float items above the date
+  // order, which put an April 2025 grant above an October 2025 paper.
+  .sort((a, b) => +b.data.date - +a.data.date);
 const recent = news.slice(0, 5);
 const [lead, ...rest] = recent;
 
@@ -138,7 +140,7 @@ const stats = [
               <span class="nl-top">
                 <span class="m nl-k">{lead.data.kind.toUpperCase()}</span>
                 <span class="m nl-d">{fmtDate(lead.data.date).toUpperCase()}</span>
-                {lead.data.pinned && <span class="m nl-p">● LATEST</span>}
+                <span class="m nl-p">● LATEST</span>
               </span>
               <span class="nl-t">{lead.data.title}</span>
               <span class="nl-b">{blurb(lead.body ?? "")}</span>
