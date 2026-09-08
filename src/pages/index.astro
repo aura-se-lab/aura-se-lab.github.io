@@ -348,7 +348,7 @@ const stats = [
   /* ── the reader overlay ─────────────────────────────────────────────────── */
   .reader { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: clamp(10px, 2.4vw, 34px); }
   .r-back { position: absolute; inset: 0; background: rgba(11,15,13,.72); backdrop-filter: blur(3px); animation: fade .2s ease; }
-  .r-box { position: relative; width: min(728px, 100%); height: min(648px, 92vh); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
+  .r-box { position: relative; width: min(900px, 100%); height: min(760px, 92vh); background: #fff; display: grid; grid-template-rows: auto 1fr; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: pop .26s cubic-bezier(.2,.8,.25,1); }
   @keyframes fade { from { opacity: 0; } }
   @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.985); } }
   .r-head { display: flex; align-items: flex-start; gap: 20px; padding: 11px 18px; border-bottom: 1px solid var(--rule); }

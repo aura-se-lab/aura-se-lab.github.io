@@ -73,13 +73,14 @@ const people = (await getCollection("people")).filter((p) => d.people.includes(p
     /* Three scales, because the parts do not cost the same. The furniture is
        fixed height and pays for itself once; the prose is what people read;
        a portrait costs one row however big it is. Tuned so the longest of the
-       thirteen items fits the 726x589 the reader box leaves it. */
-    --k:  0.78;  /* title, byline text, footer, all the spacing */
-    --kp: 0.82;  /* the prose */
-    --kf: 1.05;  /* the byline portraits */
+       item is drawn at a readable size; anything that outruns the box scrolls
+       its prose, which is what the flex column below is for. */
+    --k:  0.95;  /* title, byline text, footer, all the spacing */
+    --kp: 1.00;  /* the prose */
+    --kf: 1.45;  /* the byline portraits */
     /* The panel takes the box's width. The measure that buys back the height
        a larger type size costs: a wider column is a shorter one. */
-    max-width: 700px; margin: 0 auto;
+    max-width: 870px; margin: 0 auto;
     padding: calc(14px * var(--k)) calc(26px * var(--k)) calc(16px * var(--k));
     /* The box is one fixed size and never resizes to the item. If an item
        ever outgrows it, the prose scrolls inside; the title, the byline and
