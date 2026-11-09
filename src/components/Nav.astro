@@ -1,6 +1,6 @@
 ---
 import { lab } from "@/lib/lab";
-import mark from "@/assets/brand/aura-mark.svg?raw";
+import mark from "@/assets/brand/aura-symbol.svg?raw";
 import wmLogo from "@/assets/brand/wm-logo.svg?raw";
 
 const path = Astro.url.pathname;
@@ -49,11 +49,11 @@ const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWit
 
   /* ── brand ─────────────────────────────────────────────────────────────── */
   .brand { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
-  /* The mark is vector now, so it sits straight on the black bar: the teal
-     traces lift to a tint that reads there, and the plate goes. */
+  /* The AURA symbol on the black bar: W&M green turns white, the gold
+     centre stays (the W&M white-and-gold reversal). */
   .plate {
-    --mk-teal: #7fb0b8;
-    width: 58px; height: 58px; display: grid; place-items: center; flex-shrink: 0;
+    --mk-green: #ffffff; --mk-gold: #b79257;
+    width: 52px; height: 52px; display: grid; place-items: center; flex-shrink: 0;
     transition: transform .3s cubic-bezier(.2,.8,.25,1);
   }
   .plate :global(svg) { width: 100%; height: auto; display: block; }

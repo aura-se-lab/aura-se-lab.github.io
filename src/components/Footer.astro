@@ -2,7 +2,7 @@
 import { lab } from "@/lib/lab";
 import { metrics } from "@/lib/pubs";
 import { fmtDate } from "@/lib/dates";
-import lockup from "@/assets/brand/aura-lockup.svg?raw";
+import lockup from "@/assets/brand/aura-logo.svg?raw";
 
 const year = new Date().getFullYear();
 const updated = fmtDate(metrics.updated);
@@ -57,10 +57,10 @@ const a = lab.institution.address;
     display: flex; flex-wrap: wrap; gap: 34px 60px; justify-content: space-between;
     padding-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,.12);
   }
-  /* Vector: the tagline flips to white and the teal lifts, so the lockup
-     stands on the black band with no plate behind it. */
+  /* The AURA logo reversed for the black band: W&M green turns white,
+     the gold accents stay. */
   .c-plate {
-    --mk-ink: #ffffff; --mk-teal: #9cc3c9; --mk-arc: #4e937f;
+    --mk-green: #ffffff; --mk-gold: #b79257;
     display: block; width: 300px;
   }
   .c-plate :global(svg) { width: 100%; height: auto; display: block; }

@@ -6,7 +6,7 @@
 import { lab } from "@/lib/lab";
 import { metrics } from "@/lib/pubs";
 import { fmtDate } from "@/lib/dates";
-import lockup from "@/assets/brand/aura-lockup.svg?raw";
+import lockup from "@/assets/brand/aura-logo.svg?raw";
 
 const year = new Date().getFullYear();
 const a = lab.institution.address;
@@ -118,8 +118,8 @@ const channels = [
     margin-top: clamp(36px, 4vw, 60px); padding-top: 26px; border-top: 1px solid rgba(255,255,255,.14);
     display: flex; flex-wrap: wrap; align-items: center; gap: 22px 44px;
   }
-  /* Same lockup as the footer, lifted for the black band, no plate. */
-  .r-plate { --mk-ink: #ffffff; --mk-teal: #9cc3c9; --mk-arc: #4e937f; display: block; width: 290px; }
+  /* Same logo as the footer, reversed for the black band. */
+  .r-plate { --mk-green: #ffffff; --mk-gold: #b79257; display: block; width: 290px; }
   .r-plate :global(svg) { width: 100%; height: auto; display: block; }
   .r-nav, .r-data { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; }
   .r-data { margin-left: auto; font-size: 13px; color: var(--on-chrome-3); }

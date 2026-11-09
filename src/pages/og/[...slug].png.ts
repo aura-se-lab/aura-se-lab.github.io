@@ -11,7 +11,7 @@ import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { publications, displayName, venueLabel } from "@/lib/pubs";
 import { lab } from "@/lib/lab";
-import glyphSvg from "@/assets/img/aura-glyph.svg?raw";
+import symbolSvg from "@/assets/brand/aura-symbol.svg?raw";
 
 const require = createRequire(import.meta.url);
 const fontPath = (w: number) => require.resolve(`@fontsource/inter-tight/files/inter-tight-latin-${w}-normal.woff`);
@@ -45,6 +45,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return cards.map(({ slug, card }) => ({ params: { slug }, props: { card } }));
 };
 
+// resvg has no CSS variables: resolve each var(--x, fallback) to its fallback colour.
+const glyphSvg = symbolSvg.replace(/var\(--[\w-]+,\s*(#[0-9a-fA-F]{3,8})\)/g, "$1");
 const glyphUri = `data:image/svg+xml;base64,${Buffer.from(glyphSvg).toString("base64")}`;
 
 const fonts = await Promise.all(
@@ -67,14 +69,14 @@ export const GET: APIRoute = async ({ props }) => {
   const tree = h(
     "div",
     { style: { width: 1200, height: 630, display: "flex", flexDirection: "column", background: "#ffffff", color: "#050505", fontFamily: "Inter Tight", position: "relative" } },
-    h("div", { style: { height: 8, background: "#15803d", width: "100%" } }),
+    h("div", { style: { height: 8, background: "#004e38", width: "100%" } }),
     h(
       "div",
       { style: { display: "flex", flexDirection: "column", flex: 1, padding: "52px 64px 44px 64px" } },
       h(
         "div",
         { style: { display: "flex", alignItems: "center", gap: 14, fontSize: 20, fontWeight: 500, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a4a4a" } },
-        h("span", { style: { color: "#15803d", fontWeight: 600 } }, "AURA Lab"),
+        h("span", { style: { color: "#004e38", fontWeight: 600 } }, "AURA Lab"),
         h("span", {}, "·"),
         h("span", {}, clamp(card.kicker, 70))
       ),
