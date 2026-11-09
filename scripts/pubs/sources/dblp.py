@@ -66,7 +66,14 @@ def fetch_author(pid: str, name_hint: str | None = None) -> list[Pub]:
         try:
             xml = web.get_text(f"{host}/pid/{pid}.xml", min_interval=1.0, retries=2)
             if xml:
-                pubs = _parse_xml(xml)
+                try:
+                    pubs = _parse_xml(xml)
+                except ET.ParseError as e:
+                    # A mirror answering with an HTML page (rate limit, maintenance)
+                    # must not take the whole sync down: try the next host.
+                    last = web.SourceUnavailable(f"{host} returned non-XML ({e}): {xml[:60]!r}")
+                    log.warning("DBLP %s (%s) returned non-XML: %s", pid, host, e)
+                    continue
                 log.info("DBLP %s (%s) → %d records", pid, host, len(pubs))
                 return pubs
         except web.SourceUnavailable as e:
